@@ -1,0 +1,6 @@
+[package]
+name = "furry-fiesta"
+version = "0.1.0"
+authors = ["Elliott Clark <eclark@apache.org>"]
+
+[dependencies]
