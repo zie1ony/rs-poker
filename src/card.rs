@@ -1,34 +1,38 @@
-#[derive(PartialEq, PartialOrd, Eq, Ord, Debug)]
+#[derive(PartialEq, PartialOrd, Eq, Ord, Debug, Clone, Hash)]
 pub enum Value {
-    Two,
-    Three,
-    Four,
-    Five,
-    Six,
-    Seven,
-    Eight,
-    Nine,
-    Ten,
-    Jack,
-    Queen,
-    King,
-    Ace,
+    Two = 0,
+    Three = 1,
+    Four = 2,
+    Five = 3,
+    Six = 4,
+    Seven = 5,
+    Eight = 6,
+    Nine = 7,
+    Ten = 8,
+    Jack = 9,
+    Queen = 10,
+    King = 11,
+    Ace = 12,
 }
-#[derive(PartialEq, PartialOrd, Eq, Ord, Debug)]
+
+#[derive(PartialEq, PartialOrd, Eq, Ord, Debug, Clone, Hash)]
 pub enum Suit {
-    Spade,
-    Club,
-    Heart,
-    Diamond,
+    Spade = 0,
+    Club = 1,
+    Heart = 2,
+    Diamond = 3,
 }
-#[derive(PartialEq, PartialOrd, Eq, Ord, Debug)]
+
+#[derive(PartialEq, PartialOrd, Eq, Ord, Debug, Clone, Hash)]
 pub struct Card {
     pub value: Value,
     pub suit: Suit,
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::mem;
 
     #[test]
     fn test_constructor() {
@@ -69,5 +73,11 @@ mod tests {
         assert!(Value::Two < Value::Ace);
         assert!(Value::King < Value::Ace);
         assert_eq!(Value::Two, Value::Two);
+    }
+
+    #[test]
+    fn test_size() {
+        // Card should be really small. Hopefully just two u8's
+        assert!(mem::size_of::<Card>() <= 4);
     }
 }
