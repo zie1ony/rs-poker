@@ -5,3 +5,4 @@ authors = ["Elliott Clark <eclark@apache.org>"]
 
 [dependencies]
 itertools = "0.5.0"
+vec_map = "0.6.0"
