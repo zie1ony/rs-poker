@@ -99,6 +99,7 @@ mod tests {
     use card::*;
     use hand::*;
     use deck::*;
+    use rank::Rankable;
 
     #[test]
     fn test_iter_one() {
@@ -143,9 +144,19 @@ mod tests {
             assert!(cards[0] != cards[1]);
         }
     }
+
     #[test]
     fn test_iter_deck() {
         let d = Deck::default();
         assert_eq!(2598960, d.into_iter().count());
+    }
+
+    #[test]
+    fn test_iter_rank() {
+        let d = Deck::default();
+        for cards in d.into_iter() {
+            let h = Hand::new_with_cards(cards);
+            h.rank();
+        }
     }
 }

@@ -1,3 +1,5 @@
+use std::mem;
+
 #[derive(PartialEq, PartialOrd, Eq, Ord, Debug, Clone, Hash)]
 pub enum Value {
     Two = 0,
@@ -13,6 +15,12 @@ pub enum Value {
     Queen = 10,
     King = 11,
     Ace = 12,
+}
+
+impl Value {
+    pub fn from_usize(v: usize) -> Value {
+        unsafe { mem::transmute(v as u8) }
+    }
 }
 
 #[derive(PartialEq, PartialOrd, Eq, Ord, Debug, Clone, Hash)]

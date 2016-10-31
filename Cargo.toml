@@ -4,5 +4,5 @@ version = "0.1.0"
 authors = ["Elliott Clark <eclark@apache.org>"]
 
 [dependencies]
-itertools = "0.5.0"
+itertools = "0.5.5"
 vec_map = "0.6.0"
