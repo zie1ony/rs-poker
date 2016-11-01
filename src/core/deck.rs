@@ -1,4 +1,4 @@
-use card::*;
+use core::card::{Value, Suit, Card};
 use std::ops::Index;
 use std::ops::RangeFull;
 
@@ -9,20 +9,7 @@ pub struct Deck {
 
 impl Deck {
     pub fn default() -> Deck {
-        let cards: Vec<Card> = iproduct!(&[Value::Two,
-                                           Value::Three,
-                                           Value::Four,
-                                           Value::Five,
-                                           Value::Six,
-                                           Value::Seven,
-                                           Value::Eight,
-                                           Value::Nine,
-                                           Value::Ten,
-                                           Value::Jack,
-                                           Value::Queen,
-                                           Value::King,
-                                           Value::Ace],
-                                         &[Suit::Spade, Suit::Club, Suit::Heart, Suit::Diamond])
+        let cards: Vec<Card> = iproduct!(&Value::values(), &Suit::suits())
             .map(|(v, s)| {
                 Card {
                     value: v.clone(),
@@ -76,7 +63,7 @@ impl Index<RangeFull> for Deck {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use card::*;
+    use core::card::*;
 
     #[test]
     fn test_contains_in() {

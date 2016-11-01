@@ -1,21 +1,35 @@
-use hand::Hand;
-use card::Value;
+use core::hand::Hand;
+use core::card::Value;
 use vec_map::VecMap;
 
+/// All the different possible hand ranks.
+/// For each hand rank the usize corresponds to
+/// the strength of the hand in comparison to others
+/// of the same rank.
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone)]
 pub enum Rank {
+    /// The lowest rank.
+    /// No matches
     HighCard(usize),
+    /// One Card matches another.
     OnePair(usize),
+    /// Two diffent pair of matching cards.
     TwoPair(usize),
+    /// Three of the same value.
     ThreeOfAKind(usize),
+    /// Five cards in a sequence
     Straight(usize),
+    /// Five cards of the same suit
     Flush(usize),
+    /// Three of one value and two of another value
     FullHouse(usize),
+    /// Four of the same value.
     FourOfAKind(usize),
+    /// Five cards in a sequence all fo the same suit.
     StraightFlush(usize),
 }
 
-// Big ugly constant for all the straghts.
+/// Big ugly constant for all the straghts.
 pub const STRAIGHTS: [usize; 10] =
     [// Wheel.
      1 << (Value::Ace as usize) | 1 << (Value::Two as usize) | 1 << (Value::Three as usize) |
@@ -48,6 +62,7 @@ pub const STRAIGHTS: [usize; 10] =
      1 << (Value::Ten as usize) | 1 << (Value::Jack as usize) | 1 << (Value::Queen as usize) |
      1 << (Value::King as usize) | 1 << (Value::Ace as usize)];
 
+/// Can this turn into a hand rank?
 pub trait Rankable {
     fn rank(&self) -> Rank;
     fn rank_straight(&self, hand_rank: usize) -> Option<usize> {
@@ -60,7 +75,10 @@ pub trait Rankable {
     }
 }
 
+/// Implementation for `Hand`
 impl Rankable for Hand {
+    /// Rank this hand. It doesn't do any caching so it's left up to the user
+    /// to understand that duplicate work will be done if this is called more than once.
     fn rank(&self) -> Rank {
         // use for bitset
         let mut suit_set: usize = 0;
@@ -68,20 +86,14 @@ impl Rankable for Hand {
         let mut value_set: usize = 0;
         let mut value_to_count: VecMap<usize> = VecMap::with_capacity(13);
         let mut count_to_value: VecMap<Vec<Value>> = VecMap::with_capacity(13);
-        let mut potential_hand_rank = 0;
         // TODO(eclark): make this more generic
         for c in self[..].iter() {
             let v = c.value.clone() as usize;
             let s = c.suit.clone() as usize;
 
             // Will be used for flush
-            suit_set |= 1 << s as usize;
-            // Will be used to determine straights.
-            value_set |= 1 << v as usize;
-
-            // If this is high card or a flush we need this.
-            // It will be used to differentiate strenght of the same rank
-            potential_hand_rank |= 1 << v;
+            suit_set |= 1 << s;
+            value_set |= 1 << v;
             // Keep track of counts for each card.
             let e = value_to_count.entry(v).or_insert(0);
             *e += 1;
@@ -107,11 +119,11 @@ impl Rankable for Hand {
             // Need to check for all of them.
             let suit_count = suit_set.count_ones();
             let is_flush = suit_count == 1;
-            match (self.rank_straight(potential_hand_rank), is_flush) {
+            match (self.rank_straight(value_set), is_flush) {
                 (Some(rank), true) => Rank::StraightFlush(rank),
                 (Some(rank), false) => Rank::Straight(rank),
-                (None, true) => Rank::Flush(potential_hand_rank),
-                (None, false) => Rank::HighCard(potential_hand_rank),
+                (None, true) => Rank::Flush(value_set),
+                (None, false) => Rank::HighCard(value_set),
             }
         } else if unique_card_count == 2 {
             // This can either be full house, or four of a kind.
@@ -119,13 +131,13 @@ impl Rankable for Hand {
                 Some(three_value) => {
                     let major_rank = 1 << three_value[0].clone() as usize;
                     // Remove the card that we have three of from the minor rank.
-                    let minor_rank = potential_hand_rank ^ major_rank;
+                    let minor_rank = value_set ^ major_rank;
                     // then join the two ranks
                     Rank::FullHouse(major_rank << 13 | minor_rank)
                 }
                 None => {
                     let major_rank = 1 << (count_to_value[4][0].clone() as usize);
-                    let minor_rank = potential_hand_rank ^ major_rank;
+                    let minor_rank = value_set ^ major_rank;
                     Rank::FourOfAKind(major_rank << 13 | minor_rank)
                 }
             }
@@ -134,7 +146,7 @@ impl Rankable for Hand {
             match count_to_value.get(3) {
                 Some(three_value) => {
                     let major_rank = 1 << (three_value[0].clone() as usize);
-                    let minor_rank = potential_hand_rank ^ major_rank;
+                    let minor_rank = value_set ^ major_rank;
                     Rank::ThreeOfAKind(major_rank << 13 | minor_rank)
                 }
                 None => {
@@ -142,7 +154,7 @@ impl Rankable for Hand {
                     let pairs = &count_to_value[2];
                     let major_rank = 1 << pairs[0].clone() as usize |
                                      1 << pairs[1].clone() as usize;
-                    let minor_rank = potential_hand_rank ^ major_rank;
+                    let minor_rank = value_set ^ major_rank;
                     Rank::TwoPair(major_rank << 13 | minor_rank)
                 }
             }
@@ -150,7 +162,7 @@ impl Rankable for Hand {
             // this is unique_card_count == 4
             assert!(unique_card_count == 4);
             let major_rank = 1 << count_to_value[2][0].clone() as usize;
-            let minor_rank = potential_hand_rank ^ major_rank;
+            let minor_rank = value_set ^ major_rank;
             Rank::OnePair(major_rank << 13 | minor_rank)
         }
     }
@@ -160,8 +172,8 @@ impl Rankable for Hand {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use hand::*;
-    use card::*;
+    use core::hand::*;
+    use core::card::*;
 
 
     #[test]

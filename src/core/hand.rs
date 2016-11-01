@@ -1,4 +1,4 @@
-use card::*;
+use core::card::*;
 use std::ops::Index;
 use std::ops::RangeFull;
 
@@ -45,7 +45,7 @@ impl Index<RangeFull> for Hand {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use card::*;
+    use core::card::*;
 
     #[test]
     fn test_add_card() {

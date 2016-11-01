@@ -1,6 +1,4 @@
-use card::*;
-use hand::Hand;
-use deck::Deck;
+use core::*;
 
 #[derive(Debug)]
 pub struct CardIter {
@@ -96,10 +94,9 @@ impl IntoIterator for Deck {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use card::*;
-    use hand::*;
-    use deck::*;
-    use rank::Rankable;
+    use core::card::*;
+    use core::hand::*;
+    use core::deck::*;
 
     #[test]
     fn test_iter_one() {
@@ -149,14 +146,5 @@ mod tests {
     fn test_iter_deck() {
         let d = Deck::default();
         assert_eq!(2598960, d.into_iter().count());
-    }
-
-    #[test]
-    fn test_iter_rank() {
-        let d = Deck::default();
-        for cards in d.into_iter() {
-            let h = Hand::new_with_cards(cards);
-            h.rank();
-        }
     }
 }
