@@ -9,14 +9,15 @@ pub struct Deck {
 
 impl Deck {
     pub fn default() -> Deck {
-        let cards: Vec<Card> = iproduct!(&Value::values(), &Suit::suits())
-            .map(|(v, s)| {
-                Card {
+        let mut cards: Vec<Card> = Vec::with_capacity(52);
+        for v in &Value::values() {
+            for s in &Suit::suits() {
+                cards.push(Card {
                     value: v.clone(),
                     suit: s.clone(),
-                }
-            })
-            .collect();
+                });
+            }
+        }
         Deck { cards: cards }
     }
     fn index(&self, c: &Card) -> Result<usize, usize> {

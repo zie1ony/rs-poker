@@ -2,6 +2,7 @@ use core::card::*;
 use std::ops::Index;
 use std::ops::RangeFull;
 
+#[derive(Debug, Clone, Hash)]
 pub struct Hand {
     cards: Vec<Card>,
 }
