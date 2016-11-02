@@ -15,7 +15,8 @@ pub struct StartingHand {
 }
 
 impl StartingHand {
-    /// Get all the possible starting hands represented by the two values of this starting hand.
+    /// Get all the possible starting hands represented by the
+    /// two values of this starting hand.
     pub fn possible_hands(&self) -> Vec<Hand> {
         if self.suited {
             Suit::suits()
@@ -38,7 +39,7 @@ impl StartingHand {
             } else {
                 12
             };
-            let mut hands: Vec<Hand> = Vec::with_capacity(expected_hands);
+            let mut hands = Vec::with_capacity(expected_hands);
             let suits = Suit::suits();
             for (i, suit_one) in suits.iter().enumerate() {
                 for suit_two in &suits[i + 1..] {
@@ -70,8 +71,9 @@ impl StartingHand {
         }
     }
 
+    /// Create every possible unique StartingHand.
     pub fn all() -> Vec<StartingHand> {
-        let mut hands: Vec<StartingHand> = vec![];
+        let mut hands = Vec::with_capacity(169);
         let values = Value::values();
         for (i, value_one) in values.iter().enumerate() {
             for value_two in &values[i..] {
@@ -132,7 +134,6 @@ mod tests {
 
     #[test]
     fn test_starting_hand_count() {
-
         let num_to_test: usize = StartingHand::all().iter().map(|h| h.possible_hands().len()).sum();
         assert!(1326 == num_to_test);
     }

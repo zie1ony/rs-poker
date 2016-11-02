@@ -1,74 +1,73 @@
 use core::hand::Hand;
 use core::card::Value;
-use vec_map::VecMap;
 
 /// All the different possible hand ranks.
-/// For each hand rank the usize corresponds to
+/// For each hand rank the u32 corresponds to
 /// the strength of the hand in comparison to others
 /// of the same rank.
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone)]
 pub enum Rank {
     /// The lowest rank.
     /// No matches
-    HighCard(usize),
+    HighCard(u32),
     /// One Card matches another.
-    OnePair(usize),
+    OnePair(u32),
     /// Two diffent pair of matching cards.
-    TwoPair(usize),
+    TwoPair(u32),
     /// Three of the same value.
-    ThreeOfAKind(usize),
+    ThreeOfAKind(u32),
     /// Five cards in a sequence
-    Straight(usize),
+    Straight(u32),
     /// Five cards of the same suit
-    Flush(usize),
+    Flush(u32),
     /// Three of one value and two of another value
-    FullHouse(usize),
+    FullHouse(u32),
     /// Four of the same value.
-    FourOfAKind(usize),
-    /// Five cards in a sequence all fo the same suit.
-    StraightFlush(usize),
+    FourOfAKind(u32),
+    /// Five cards in a sequence all for the same suit.
+    StraightFlush(u32),
 }
 
 /// Big ugly constant for all the straghts.
-pub const STRAIGHTS: [usize; 10] =
+pub const STRAIGHTS: [u32; 10] =
     [// Wheel.
-     1 << (Value::Ace as usize) | 1 << (Value::Two as usize) | 1 << (Value::Three as usize) |
-     1 << (Value::Four as usize) | 1 << (Value::Five as usize),
+     1 << (Value::Ace as u32) | 1 << (Value::Two as u32) | 1 << (Value::Three as u32) |
+     1 << (Value::Four as u32) | 1 << (Value::Five as u32),
      // "Normal" straights starting at two to six.
-     1 << (Value::Two as usize) | 1 << (Value::Three as usize) | 1 << (Value::Four as usize) |
-     1 << (Value::Five as usize) | 1 << (Value::Six as usize),
+     1 << (Value::Two as u32) | 1 << (Value::Three as u32) | 1 << (Value::Four as u32) |
+     1 << (Value::Five as u32) | 1 << (Value::Six as u32),
      // Three to Seven
-     1 << (Value::Three as usize) | 1 << (Value::Four as usize) | 1 << (Value::Five as usize) |
-     1 << (Value::Six as usize) | 1 << (Value::Seven as usize),
+     1 << (Value::Three as u32) | 1 << (Value::Four as u32) | 1 << (Value::Five as u32) |
+     1 << (Value::Six as u32) | 1 << (Value::Seven as u32),
      // Four to Eight
-     1 << (Value::Four as usize) | 1 << (Value::Five as usize) | 1 << (Value::Six as usize) |
-     1 << (Value::Seven as usize) | 1 << (Value::Eight as usize),
+     1 << (Value::Four as u32) | 1 << (Value::Five as u32) | 1 << (Value::Six as u32) |
+     1 << (Value::Seven as u32) | 1 << (Value::Eight as u32),
      // Five to Nine
-     1 << (Value::Five as usize) | 1 << (Value::Six as usize) | 1 << (Value::Seven as usize) |
-     1 << (Value::Eight as usize) | 1 << (Value::Nine as usize),
+     1 << (Value::Five as u32) | 1 << (Value::Six as u32) | 1 << (Value::Seven as u32) |
+     1 << (Value::Eight as u32) | 1 << (Value::Nine as u32),
      // Six to Ten
-     1 << (Value::Six as usize) | 1 << (Value::Seven as usize) | 1 << (Value::Eight as usize) |
-     1 << (Value::Nine as usize) | 1 << (Value::Ten as usize),
+     1 << (Value::Six as u32) | 1 << (Value::Seven as u32) | 1 << (Value::Eight as u32) |
+     1 << (Value::Nine as u32) | 1 << (Value::Ten as u32),
      // Seven to Jack.
-     1 << (Value::Seven as usize) | 1 << (Value::Eight as usize) | 1 << (Value::Nine as usize) |
-     1 << (Value::Ten as usize) | 1 << (Value::Jack as usize),
+     1 << (Value::Seven as u32) | 1 << (Value::Eight as u32) | 1 << (Value::Nine as u32) |
+     1 << (Value::Ten as u32) | 1 << (Value::Jack as u32),
      // Eight to Queen
-     1 << (Value::Eight as usize) | 1 << (Value::Nine as usize) | 1 << (Value::Ten as usize) |
-     1 << (Value::Jack as usize) | 1 << (Value::Queen as usize),
+     1 << (Value::Eight as u32) | 1 << (Value::Nine as u32) | 1 << (Value::Ten as u32) |
+     1 << (Value::Jack as u32) | 1 << (Value::Queen as u32),
      // Nine to king
-     1 << (Value::Nine as usize) | 1 << (Value::Ten as usize) | 1 << (Value::Jack as usize) |
-     1 << (Value::Queen as usize) | 1 << (Value::King as usize),
+     1 << (Value::Nine as u32) | 1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
+     1 << (Value::Queen as u32) | 1 << (Value::King as u32),
      // Royal straight
-     1 << (Value::Ten as usize) | 1 << (Value::Jack as usize) | 1 << (Value::Queen as usize) |
-     1 << (Value::King as usize) | 1 << (Value::Ace as usize)];
+     1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) | 1 << (Value::Queen as u32) |
+     1 << (Value::King as u32) | 1 << (Value::Ace as u32)];
 
 /// Can this turn into a hand rank?
 pub trait Rankable {
     fn rank(&self) -> Rank;
-    fn rank_straight(&self, hand_rank: usize) -> Option<usize> {
+    fn rank_straight(&self, hand_rank: u32) -> Option<u32> {
         for (i, hand) in STRAIGHTS.iter().enumerate() {
             if *hand == hand_rank {
-                return Some(i);
+                return Some(i as u32);
             }
         }
         None
@@ -81,30 +80,29 @@ impl Rankable for Hand {
     /// to understand that duplicate work will be done if this is called more than once.
     fn rank(&self) -> Rank {
         // use for bitset
-        let mut suit_set: usize = 0;
+        let mut suit_set: u32 = 0;
         // Use for bitset
-        let mut value_set: usize = 0;
-        let mut value_to_count: VecMap<usize> = VecMap::with_capacity(13);
-        let mut count_to_value: VecMap<Vec<Value>> = VecMap::with_capacity(13);
+        let mut value_set: u32 = 0;
+        let mut value_to_count: [u8; 13] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        // count => bitset of values.
+        let mut count_to_value: [u32; 5] = [0, 0, 0, 0, 0];
         // TODO(eclark): make this more generic
-        for c in self[..].iter() {
-            let v = c.value.clone() as usize;
-            let s = c.suit.clone() as usize;
+        for c in &self[..] {
+            let v = c.value.clone() as u8;
+            let s = c.suit.clone() as u8;
 
             // Will be used for flush
             suit_set |= 1 << s;
             value_set |= 1 << v;
             // Keep track of counts for each card.
-            let e = value_to_count.entry(v).or_insert(0);
-            *e += 1;
+            value_to_count[v as usize] += 1;
         }
 
         // Now rotate the value to count map.
-        for (value, count) in value_to_count {
+        for (value, &count) in value_to_count.iter().enumerate() {
             // Get the entry for the map, or insert it into the map.
-            let e = count_to_value.entry(count).or_insert_with(|| vec![]);
-            // Now that it has to be there, push the new value.
-            (*e).push(Value::from_usize(value));
+            count_to_value[count as usize] |= 1 << value;
         }
 
         // The major deciding factor for hand rank
@@ -113,57 +111,61 @@ impl Rankable for Hand {
 
         // Now that we should have all the information needed.
         // Lets do this.
-        if unique_card_count == 5 {
-            // If there are five different cards it can be a straight
-            // a straight flush, a flush, or just a high card.
-            // Need to check for all of them.
-            let suit_count = suit_set.count_ones();
-            let is_flush = suit_count == 1;
-            match (self.rank_straight(value_set), is_flush) {
-                (Some(rank), true) => Rank::StraightFlush(rank),
-                (Some(rank), false) => Rank::Straight(rank),
-                (None, true) => Rank::Flush(value_set),
-                (None, false) => Rank::HighCard(value_set),
+
+        match unique_card_count {
+            5 => {
+                // If there are five different cards it can be a straight
+                // a straight flush, a flush, or just a high card.
+                // Need to check for all of them.
+                let suit_count = suit_set.count_ones();
+                let is_flush = suit_count == 1;
+                match (self.rank_straight(value_set), is_flush) {
+                    // This is the most likely outcome.
+                    // Not a flush and not a straight.
+                    (None, false) => Rank::HighCard(value_set),
+                    (Some(rank), false) => Rank::Straight(rank),
+                    (None, true) => Rank::Flush(value_set),
+                    (Some(rank), true) => Rank::StraightFlush(rank),
+                }
             }
-        } else if unique_card_count == 2 {
-            // This can either be full house, or four of a kind.
-            match count_to_value.get(3) {
-                Some(three_value) => {
-                    let major_rank = 1 << three_value[0].clone() as usize;
+            4 => {
+                // this is unique_card_count == 4
+                // It is always one pair
+                let major_rank = count_to_value[2];
+                let minor_rank = value_set ^ major_rank;
+                Rank::OnePair(major_rank << 13 | minor_rank)
+            }
+            3 => {
+                // this can be three of a kind or two pair.
+                let three_value = count_to_value[3];
+                if three_value > 0 {
+                    let major_rank = three_value;
+                    let minor_rank = value_set ^ major_rank;
+                    Rank::ThreeOfAKind(major_rank << 13 | minor_rank)
+                } else {
+                    // get the values of the pairs
+                    let major_rank = count_to_value[2];
+                    let minor_rank = value_set ^ major_rank;
+                    Rank::TwoPair(major_rank << 13 | minor_rank)
+
+                }
+            }
+            2 => {
+                // This can either be full house, or four of a kind.
+                let three_value = count_to_value[3];
+                if three_value > 0 {
+                    let major_rank = three_value;
                     // Remove the card that we have three of from the minor rank.
                     let minor_rank = value_set ^ major_rank;
                     // then join the two ranks
                     Rank::FullHouse(major_rank << 13 | minor_rank)
-                }
-                None => {
-                    let major_rank = 1 << (count_to_value[4][0].clone() as usize);
+                } else {
+                    let major_rank = count_to_value[4];
                     let minor_rank = value_set ^ major_rank;
                     Rank::FourOfAKind(major_rank << 13 | minor_rank)
                 }
             }
-        } else if unique_card_count == 3 {
-            // this can be three of a kind or two pair.
-            match count_to_value.get(3) {
-                Some(three_value) => {
-                    let major_rank = 1 << (three_value[0].clone() as usize);
-                    let minor_rank = value_set ^ major_rank;
-                    Rank::ThreeOfAKind(major_rank << 13 | minor_rank)
-                }
-                None => {
-                    // get the values of the pairs
-                    let pairs = &count_to_value[2];
-                    let major_rank = 1 << pairs[0].clone() as usize |
-                                     1 << pairs[1].clone() as usize;
-                    let minor_rank = value_set ^ major_rank;
-                    Rank::TwoPair(major_rank << 13 | minor_rank)
-                }
-            }
-        } else {
-            // this is unique_card_count == 4
-            assert!(unique_card_count == 4);
-            let major_rank = 1 << count_to_value[2][0].clone() as usize;
-            let minor_rank = value_set ^ major_rank;
-            Rank::OnePair(major_rank << 13 | minor_rank)
+            _ => unreachable!(),
         }
     }
 }
@@ -198,9 +200,8 @@ mod tests {
                                              Card{value: Value::Five, suit: Suit::Club},
                                              ]);
 
-        let rank = 1 << Value::Ace as usize | 1 << Value::Eight as usize |
-                   1 << Value::Nine as usize | 1 << Value::Ten as usize |
-                   1 << Value::Five as usize;
+        let rank = 1 << Value::Ace as u32 | 1 << Value::Eight as u32 | 1 << Value::Nine as u32 |
+                   1 << Value::Ten as u32 | 1 << Value::Five as u32;
 
         assert!(Rank::HighCard(rank) == hand.rank());
     }
@@ -215,9 +216,8 @@ mod tests {
                                              Card{value: Value::Five, suit: Suit::Diamond},
                                              ]);
 
-        let rank = 1 << Value::Ace as usize | 1 << Value::Eight as usize |
-                   1 << Value::Nine as usize | 1 << Value::Ten as usize |
-                   1 << Value::Five as usize;
+        let rank = 1 << Value::Ace as u32 | 1 << Value::Eight as u32 | 1 << Value::Nine as u32 |
+                   1 << Value::Ten as u32 | 1 << Value::Five as u32;
 
         assert!(Rank::Flush(rank) == hand.rank());
     }
@@ -232,7 +232,7 @@ mod tests {
                                              Card{value: Value::Nine, suit: Suit::Spade},
                                              ]);
 
-        let rank = (1 << (Value::Nine as usize)) << 13 | 1 << (Value::Ace as usize);
+        let rank = (1 << (Value::Nine as u32)) << 13 | 1 << (Value::Ace as u32);
         assert!(Rank::FullHouse(rank) == hand.rank());
     }
 
@@ -247,8 +247,8 @@ mod tests {
                                              Card{value: Value::Ten, suit: Suit::Spade},
                                              ]);
 
-        let rank = (1 << Value::Ace as usize | 1 << Value::Nine as usize) << 13 |
-                   1 << Value::Ten as usize;
+        let rank = (1 << Value::Ace as u32 | 1 << Value::Nine as u32) << 13 |
+                   1 << Value::Ten as u32;
         assert!(Rank::TwoPair(rank) == hand.rank());
     }
 
@@ -262,8 +262,8 @@ mod tests {
                                              Card{value: Value::Ten, suit: Suit::Spade},
                                              ]);
 
-        let rank = (1 << Value::Ace as usize) << 13 | 1 << Value::Nine as usize |
-                   1 << Value::Eight as usize | 1 << Value::Ten as usize;
+        let rank = (1 << Value::Ace as u32) << 13 | 1 << Value::Nine as u32 |
+                   1 << Value::Eight as u32 | 1 << Value::Ten as u32;
 
         assert!(Rank::OnePair(rank) == hand.rank());
     }
@@ -278,8 +278,8 @@ mod tests {
                                              Card{value: Value::Ten, suit: Suit::Spade},
                                              ]);
 
-        assert!(Rank::FourOfAKind((1 << (Value::Ace as usize) << 13) |
-                                  1 << (Value::Ten as usize)) == hand.rank());
+        assert!(Rank::FourOfAKind((1 << (Value::Ace as u32) << 13) | 1 << (Value::Ten as u32)) ==
+                hand.rank());
     }
 
     #[test]
@@ -320,8 +320,8 @@ mod tests {
                                              ]);
 
 
-        let rank = (1 << (Value::Two as usize)) << 13 | 1 << (Value::Five as usize) |
-                   1 << (Value::Six as usize);
+        let rank = (1 << (Value::Two as u32)) << 13 | 1 << (Value::Five as u32) |
+                   1 << (Value::Six as u32);
 
         assert!(Rank::ThreeOfAKind(rank) == hand.rank());
     }

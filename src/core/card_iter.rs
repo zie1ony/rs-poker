@@ -1,9 +1,10 @@
 use core::*;
 
+/// Given some cards create sets of possible groups of cards.
 #[derive(Debug)]
-pub struct CardIter {
+pub struct CardIter<'a> {
     // All the possible cards that can be dealt
-    possible_cards: Vec<Card>,
+    possible_cards: &'a [Card],
 
     // Set of current offsets being used to create card sets.
     idx: Vec<i64>,
@@ -12,8 +13,10 @@ pub struct CardIter {
     num_cards: usize,
 }
 
-impl CardIter {
-    pub fn new(possible_cards: Vec<Card>, num_cards: usize) -> CardIter {
+
+/// `CardIter` is a container for cards and current state.
+impl<'a> CardIter<'a> {
+    pub fn new<'b>(possible_cards: &'b [Card], num_cards: usize) -> CardIter<'b> {
         let mut idx: Vec<i64> = (0..(num_cards as i64)).collect();
         idx[num_cards - 1] -= 1;
         CardIter {
@@ -23,8 +26,8 @@ impl CardIter {
         }
     }
 }
-
-impl Iterator for CardIter {
+/// The actual `Iterator` for `Card`'s.
+impl<'a> Iterator for CardIter<'a> {
     type Item = Vec<Card>;
     fn next(&mut self) -> Option<Vec<Card>> {
         // Keep track of where we are mutating
@@ -33,7 +36,6 @@ impl Iterator for CardIter {
         while current_level < self.num_cards {
             // Move the current level forward one.
             self.idx[current_level] += 1;
-
 
             // Now check if moving this level forward means that
             // We will need more cards to fill out the rest of the hand
@@ -67,26 +69,24 @@ impl Iterator for CardIter {
 /// The default card iter will give back 5 cards.
 ///
 /// Useful for trying to find the best 5 card hand from 7 cards.
-impl IntoIterator for Hand {
+impl<'a> IntoIterator for &'a Hand {
     type Item = Vec<Card>;
-    type IntoIter = CardIter;
+    type IntoIter = CardIter<'a>;
 
-    fn into_iter(self) -> CardIter {
-        let possible_cards: Vec<Card> = self[..].to_vec();
-        CardIter::new(possible_cards, 5)
+    fn into_iter(self) -> CardIter<'a> {
+        CardIter::new(&self[..], 5)
     }
 }
 /// This is useful for trying every possible 5 card hand
 ///
 /// Probably not something that's going to be done in real
 /// use cases, but still not bad.
-impl IntoIterator for Deck {
+impl<'a> IntoIterator for &'a Deck {
     type Item = Vec<Card>;
-    type IntoIter = CardIter;
+    type IntoIter = CardIter<'a>;
 
-    fn into_iter(self) -> CardIter {
-        let possible_cards: Vec<Card> = self[..].to_vec();
-        CardIter::new(possible_cards, 5)
+    fn into_iter(self) -> CardIter<'a> {
+        CardIter::new(&self[..], 5)
     }
 }
 
@@ -106,12 +106,12 @@ mod tests {
             suit: Suit::Spade,
         });
 
-        for cards in CardIter::new(h[..].to_vec(), 1) {
+        for cards in CardIter::new(&h[..], 1) {
             assert_eq!(1, cards.len());
         }
 
 
-        assert_eq!(1, CardIter::new(h[..].to_vec(), 1).count());
+        assert_eq!(1, CardIter::new(&h[..], 1).count());
     }
 
     #[test]
@@ -132,11 +132,11 @@ mod tests {
 
 
         // Make sure that we get the correct number back.
-        assert_eq!(3, CardIter::new(h[..].to_vec(), 2).count());
+        assert_eq!(3, CardIter::new(&h[..], 2).count());
 
         // Make sure that everything has two cards and they are different.
         //
-        for cards in CardIter::new(h[..].to_vec(), 2) {
+        for cards in CardIter::new(&h[..], 2) {
             assert_eq!(2, cards.len());
             assert!(cards[0] != cards[1]);
         }

@@ -45,7 +45,7 @@ const VALUES: [Value; 13] = [Value::Two,
                              Value::Ace];
 
 impl Value {
-    pub fn from_usize(v: usize) -> Value {
+    pub fn from_u32(v: u32) -> Value {
         unsafe { mem::transmute(v as u8) }
     }
     pub fn values() -> [Value; 13] {
