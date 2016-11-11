@@ -1,6 +1,7 @@
 use core::card::*;
 use std::ops::Index;
 use std::ops::RangeFull;
+use std::slice::Iter;
 
 #[derive(Debug, Clone, Hash)]
 pub struct Hand {
@@ -13,7 +14,6 @@ impl Hand {
     }
     pub fn new_with_cards(cards: Vec<Card>) -> Hand {
         Hand { cards: cards }
-
     }
     /// Add card at to the hand.
     /// No verification is done at all.
@@ -25,6 +25,9 @@ impl Hand {
     }
     pub fn is_empty(&self) -> bool {
         self.cards.is_empty()
+    }
+    pub fn iter(&self) -> Iter<Card> {
+        self.cards.iter()
     }
 }
 

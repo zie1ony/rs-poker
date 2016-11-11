@@ -3,20 +3,20 @@ use core::*;
 /// Given some cards create sets of possible groups of cards.
 #[derive(Debug)]
 pub struct CardIter<'a> {
-    // All the possible cards that can be dealt
+    /// All the possible cards that can be dealt
     possible_cards: &'a [Card],
 
-    // Set of current offsets being used to create card sets.
+    /// Set of current offsets being used to create card sets.
     idx: Vec<i64>,
 
-    // size of card sets requested.
+    /// size of card sets requested.
     num_cards: usize,
 }
 
 
 /// `CardIter` is a container for cards and current state.
 impl<'a> CardIter<'a> {
-    pub fn new<'b>(possible_cards: &'b [Card], num_cards: usize) -> CardIter<'b> {
+    pub fn new(possible_cards: &[Card], num_cards: usize) -> CardIter {
         let mut idx: Vec<i64> = (0..(num_cards as i64)).collect();
         idx[num_cards - 1] -= 1;
         CardIter {
@@ -26,6 +26,7 @@ impl<'a> CardIter<'a> {
         }
     }
 }
+
 /// The actual `Iterator` for `Card`'s.
 impl<'a> Iterator for CardIter<'a> {
     type Item = Vec<Card>;
@@ -65,23 +66,11 @@ impl<'a> Iterator for CardIter<'a> {
     }
 }
 
-
-/// The default card iter will give back 5 cards.
-///
-/// Useful for trying to find the best 5 card hand from 7 cards.
-impl<'a> IntoIterator for &'a Hand {
-    type Item = Vec<Card>;
-    type IntoIter = CardIter<'a>;
-
-    fn into_iter(self) -> CardIter<'a> {
-        CardIter::new(&self[..], 5)
-    }
-}
 /// This is useful for trying every possible 5 card hand
 ///
 /// Probably not something that's going to be done in real
 /// use cases, but still not bad.
-impl<'a> IntoIterator for &'a Deck {
+impl<'a> IntoIterator for &'a FlatDeck {
     type Item = Vec<Card>;
     type IntoIter = CardIter<'a>;
 
@@ -89,7 +78,6 @@ impl<'a> IntoIterator for &'a Deck {
         CardIter::new(&self[..], 5)
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -144,7 +132,7 @@ mod tests {
 
     #[test]
     fn test_iter_deck() {
-        let d = Deck::default();
+        let d: FlatDeck = Deck::default().flatten();
         assert_eq!(2598960, d.into_iter().count());
     }
 }

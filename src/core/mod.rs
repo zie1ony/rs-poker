@@ -5,6 +5,6 @@ pub use self::hand::*;
 mod card_iter;
 pub use self::card_iter::*;
 mod deck;
-pub use self::deck::Deck;
+pub use self::deck::{Deck, FlatDeck};
 mod rank;
 pub use self::rank::{Rank, Rankable};
