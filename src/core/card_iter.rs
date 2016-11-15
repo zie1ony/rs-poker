@@ -20,7 +20,9 @@ impl<'a> CardIter<'a> {
     /// `num_cards` represents how many cards should be in the resulting vector.
     pub fn new(possible_cards: &[Card], num_cards: usize) -> CardIter {
         let mut idx: Vec<usize> = (0..(num_cards as usize)).collect();
-        idx[num_cards - 1] -= 1;
+        if num_cards > 1 {
+            idx[num_cards - 1] -= 1;
+        }
         CardIter {
             possible_cards: possible_cards,
             idx: idx,
@@ -33,6 +35,21 @@ impl<'a> CardIter<'a> {
 impl<'a> Iterator for CardIter<'a> {
     type Item = Vec<Card>;
     fn next(&mut self) -> Option<Vec<Card>> {
+        // This is a complete hack.
+        //
+        // Basically if num_cards == 1 then CardIter::new couldn't
+        // set the last index to one less than the starting index,
+        // because doing so would cause the unsigend usize to roll over.
+        // That means that we need this hack here.
+        if self.num_cards == 1 {
+            if self.idx[0] < self.possible_cards.len() {
+                let c = self.possible_cards[self.idx[0]];
+                self.idx[0] += 1;
+                return Some(vec![c]);
+            } else {
+                return None;
+            }
+        }
         // Keep track of where we are mutating
         let mut current_level: usize = self.num_cards - 1;
 
