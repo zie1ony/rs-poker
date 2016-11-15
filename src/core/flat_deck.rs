@@ -2,6 +2,9 @@ use std::ops::{Index, RangeTo, RangeFrom, RangeFull};
 use core::card::Card;
 use core::deck::Deck;
 
+extern crate rand;
+use self::rand::{thread_rng, sample};
+
 /// `FlatDeck` is a deck of cards that allows easy
 /// indexing into the cards. It does not provide
 /// contains methods.
@@ -21,6 +24,12 @@ impl FlatDeck {
     /// that someone will deal all 52 cards from a deck.
     pub fn is_empty(&self) -> bool {
         self.cards.is_empty()
+    }
+
+    /// Give a random sample of the cards still left in the deck
+    pub fn sample(&self, n: usize) -> Vec<Card> {
+        let mut rng = thread_rng();
+        sample(&mut rng, &self.cards[..], n).iter().map(|c| *(*c)).collect()
     }
 }
 
