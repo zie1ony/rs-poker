@@ -61,7 +61,7 @@ impl<'a> Iterator for CardIter<'a> {
 
         let result_cards: Vec<Card> = self.idx
             .iter()
-            .map(|i| self.possible_cards[*i as usize])
+            .map(|i| self.possible_cards[*i as usize].clone())
             .collect();
         Some(result_cards)
     }
@@ -86,6 +86,7 @@ mod tests {
     use core::card::*;
     use core::hand::*;
     use core::deck::*;
+    use core::flat_deck::*;
 
     #[test]
     fn test_iter_one() {
@@ -133,7 +134,7 @@ mod tests {
 
     #[test]
     fn test_iter_deck() {
-        let d: FlatDeck = Deck::default().flatten();
+        let d: FlatDeck = Deck::default().into();
         assert_eq!(2598960, d.into_iter().count());
     }
 }
