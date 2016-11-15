@@ -63,7 +63,16 @@ pub const STRAIGHTS: [u32; 10] =
 
 /// Can this turn into a hand rank?
 pub trait Rankable {
+    /// Rank the current 5 card hand.
+    /// This will no cache the value.
     fn rank(&self) -> Rank;
+
+    /// Given a bitset of hand ranks. This method
+    /// will determine if there's a staright, and will give the
+    /// rank. Wheel is the lowest, broadway is the highest value.
+    ///
+    /// Returns None if the hand ranks represented don't correspond
+    /// to a straight.
     fn rank_straight(&self, hand_rank: u32) -> Option<u32> {
         for (i, hand) in STRAIGHTS.iter().enumerate() {
             if *hand == hand_rank {
@@ -89,8 +98,8 @@ impl Rankable for Hand {
         let mut count_to_value: [u32; 5] = [0, 0, 0, 0, 0];
         // TODO(eclark): make this more generic
         for c in &self[..] {
-            let v = c.value.clone() as u8;
-            let s = c.suit.clone() as u8;
+            let v = c.value as u8;
+            let s = c.suit as u8;
 
             // Will be used for flush
             suit_set |= 1 << s;

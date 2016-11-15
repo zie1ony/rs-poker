@@ -18,7 +18,7 @@ fn iter_in_deck(b: &mut test::Bencher) {
 fn iter_hand(b: &mut test::Bencher) {
     let mut rng = thread_rng();
     let d: FlatDeck = Deck::default().into();
-    let cards = sample(&mut rng, &d[..], 7).iter().map(|c| (*c).clone()).collect();
+    let cards = sample(&mut rng, &d[..], 7).iter().map(|c| *(*c)).collect();
     let hand = Hand::new_with_cards(cards);
 
     b.iter(|| CardIter::new(&hand[..], 5).count())

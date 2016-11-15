@@ -23,12 +23,12 @@ impl StartingHand {
                 .iter()
                 .map(|s| {
                     Hand::new_with_cards(vec![Card {
-                                                  value: self.value_one.clone(),
-                                                  suit: s.clone(),
+                                                  value: self.value_one,
+                                                  suit: *s,
                                               },
                                               Card {
-                                                  value: self.value_two.clone(),
-                                                  suit: s.clone(),
+                                                  value: self.value_two,
+                                                  suit: *s,
                                               }])
                 })
                 .collect()
@@ -45,23 +45,23 @@ impl StartingHand {
                 for suit_two in &suits[i + 1..] {
                     // Push the hands in.
                     hands.push(Hand::new_with_cards(vec![Card {
-                                                             value: self.value_one.clone(),
-                                                             suit: suit_one.clone(),
+                                                             value: self.value_one,
+                                                             suit: *suit_one,
                                                          },
                                                          Card {
-                                                             value: self.value_two.clone(),
-                                                             suit: suit_two.clone(),
+                                                             value: self.value_two,
+                                                             suit: *suit_two,
                                                          }]));
 
                     // If this isn't a pair then the flipped suits is needed.
                     if self.value_one != self.value_two {
                         hands.push(Hand::new_with_cards(vec![Card {
-                                                                 value: self.value_one.clone(),
-                                                                 suit: suit_two.clone(),
+                                                                 value: self.value_one,
+                                                                 suit: *suit_two,
                                                              },
                                                              Card {
-                                                                 value: self.value_two.clone(),
-                                                                 suit: suit_one.clone(),
+                                                                 value: self.value_two,
+                                                                 suit: *suit_one,
                                                              }]));
                     }
 
@@ -78,15 +78,15 @@ impl StartingHand {
         for (i, value_one) in values.iter().enumerate() {
             for value_two in &values[i..] {
                 hands.push(StartingHand {
-                    value_one: value_one.clone(),
-                    value_two: value_two.clone(),
+                    value_one: *value_one,
+                    value_two: *value_two,
                     suited: false,
                 });
 
                 if value_one != value_two {
                     hands.push(StartingHand {
-                        value_one: value_one.clone(),
-                        value_two: value_two.clone(),
+                        value_one: *value_one,
+                        value_two: *value_two,
                         suited: true,
                     });
                 }

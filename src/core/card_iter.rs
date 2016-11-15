@@ -7,7 +7,7 @@ pub struct CardIter<'a> {
     possible_cards: &'a [Card],
 
     /// Set of current offsets being used to create card sets.
-    idx: Vec<i64>,
+    idx: Vec<usize>,
 
     /// size of card sets requested.
     num_cards: usize,
@@ -16,8 +16,10 @@ pub struct CardIter<'a> {
 
 /// `CardIter` is a container for cards and current state.
 impl<'a> CardIter<'a> {
+    /// Create a new `CardIter` from a slice of cards.
+    /// `num_cards` represents how many cards should be in the resulting vector.
     pub fn new(possible_cards: &[Card], num_cards: usize) -> CardIter {
-        let mut idx: Vec<i64> = (0..(num_cards as i64)).collect();
+        let mut idx: Vec<usize> = (0..(num_cards as usize)).collect();
         idx[num_cards - 1] -= 1;
         CardIter {
             possible_cards: possible_cards,
@@ -32,7 +34,7 @@ impl<'a> Iterator for CardIter<'a> {
     type Item = Vec<Card>;
     fn next(&mut self) -> Option<Vec<Card>> {
         // Keep track of where we are mutating
-        let mut current_level = self.num_cards - 1;
+        let mut current_level: usize = self.num_cards - 1;
 
         while current_level < self.num_cards {
             // Move the current level forward one.
@@ -42,8 +44,7 @@ impl<'a> Iterator for CardIter<'a> {
             // We will need more cards to fill out the rest of the hand
             // then are there.
             let cards_needed_after = self.num_cards - (current_level + 1);
-            if self.idx[current_level] as usize >=
-               (self.possible_cards.len() - cards_needed_after) {
+            if self.idx[current_level] + cards_needed_after >= self.possible_cards.len() {
                 if current_level == 0 {
                     return None;
                 }
@@ -60,7 +61,7 @@ impl<'a> Iterator for CardIter<'a> {
 
         let result_cards: Vec<Card> = self.idx
             .iter()
-            .map(|i| self.possible_cards[*i as usize].clone())
+            .map(|i| self.possible_cards[*i as usize])
             .collect();
         Some(result_cards)
     }

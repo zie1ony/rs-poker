@@ -1,6 +1,8 @@
 use std::mem;
 
-#[derive(PartialEq, PartialOrd, Eq, Ord, Debug, Clone, Hash)]
+/// Card rank or value.
+/// This is basically the face value - 2
+#[derive(PartialEq, PartialOrd, Eq, Ord, Debug, Clone, Copy, Hash)]
 pub enum Value {
     /// 2
     Two = 0,
@@ -30,6 +32,8 @@ pub enum Value {
     Ace = 12,
 }
 
+/// Constant of all the values.
+/// This is what `Value::values()` returns
 const VALUES: [Value; 13] = [Value::Two,
                              Value::Three,
                              Value::Four,
@@ -45,15 +49,23 @@ const VALUES: [Value; 13] = [Value::Two,
                              Value::Ace];
 
 impl Value {
-    pub fn from_u32(v: u32) -> Value {
-        unsafe { mem::transmute(v as u8) }
+    /// Take a u32 and convert it to a value.
+    pub fn from_u8(v: u8) -> Value {
+        unsafe { mem::transmute(v) }
     }
+    /// Get all of the `Value`'s that are possible.
+    /// This is used to iterate through all possible
+    /// values when creating a new deck, or
+    /// generating all possible starting hands.
     pub fn values() -> [Value; 13] {
         VALUES
     }
 }
 
-#[derive(PartialEq, PartialOrd, Eq, Ord, Debug, Clone, Hash)]
+/// Enum for the four different suits.
+/// While this has support for ordering it's not
+/// sensical. The sorting is only there to allow sorting cards.
+#[derive(PartialEq, PartialOrd, Eq, Ord, Debug, Clone, Copy, Hash)]
 pub enum Suit {
     /// Spades
     Spade = 0,
@@ -65,6 +77,7 @@ pub enum Suit {
     Diamond = 3,
 }
 
+/// All of the `Suit`'s. This is what `Suit::suits()` returns.
 const SUITS: [Suit; 4] = [Suit::Spade, Suit::Club, Suit::Heart, Suit::Diamond];
 
 /// Impl of Suit
@@ -79,9 +92,11 @@ impl Suit {
 
 /// The main struct of this library.
 /// This is a carrier for Suit and Value combined.
-#[derive(PartialEq, PartialOrd, Eq, Ord, Debug, Clone, Hash)]
+#[derive(PartialEq, PartialOrd, Eq, Ord, Debug, Clone, Copy, Hash)]
 pub struct Card {
+    /// The face value of this card.
     pub value: Value,
+    /// The suit of this card.
     pub suit: Suit,
 }
 
@@ -129,6 +144,12 @@ mod tests {
         assert!(Value::Two < Value::Ace);
         assert!(Value::King < Value::Ace);
         assert_eq!(Value::Two, Value::Two);
+    }
+
+    #[test]
+    fn test_from_u8() {
+        assert_eq!(Value::Two, Value::from_u8(0));
+        assert_eq!(Value::Ace, Value::from_u8(12));
     }
 
     #[test]
