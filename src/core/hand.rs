@@ -76,7 +76,7 @@ impl Index<RangeFrom<usize>> for Hand {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use core::card::*;
+    use core::card::Card;
 
     #[test]
     fn test_add_card() {

@@ -78,7 +78,7 @@ impl<'a> Iterator for CardIter<'a> {
 
         let result_cards: Vec<Card> = self.idx
             .iter()
-            .map(|i| self.possible_cards[*i as usize].clone())
+            .map(|i| self.possible_cards[*i as usize])
             .collect();
         Some(result_cards)
     }
@@ -100,8 +100,8 @@ impl<'a> IntoIterator for &'a FlatDeck {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use core::card::*;
-    use core::hand::*;
+    use core::card::Card;
+    use core::hand::Hand;
     use core::deck::*;
     use core::flat_deck::*;
 
