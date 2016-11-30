@@ -38,6 +38,12 @@ impl FlatDeck {
         let mut rng = thread_rng();
         rng.shuffle(&mut self.cards)
     }
+
+    /// Deal a card if there is one there to deal.
+    /// None if the deck is empty
+    pub fn deal(&mut self) -> Option<Card> {
+        self.cards.pop()
+    }
 }
 
 impl Index<usize> for FlatDeck {
