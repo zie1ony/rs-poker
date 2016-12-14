@@ -201,13 +201,26 @@ mod tests {
 
     #[test]
     fn test_high_card_hand() {
-        let hand = Hand::new_with_cards(vec![
-                                             Card{value: Value::Ace, suit: Suit::Diamond},
-                                             Card{value: Value::Eight, suit: Suit::Heart},
-                                             Card{value: Value::Nine, suit: Suit::Club},
-                                             Card{value: Value::Ten, suit: Suit::Club},
-                                             Card{value: Value::Five, suit: Suit::Club},
-                                             ]);
+        let hand = Hand::new_with_cards(vec![Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Eight,
+                                                 suit: Suit::Heart,
+                                             },
+                                             Card {
+                                                 value: Value::Nine,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Ten,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Five,
+                                                 suit: Suit::Club,
+                                             }]);
 
         let rank = 1 << Value::Ace as u32 | 1 << Value::Eight as u32 | 1 << Value::Nine as u32 |
                    1 << Value::Ten as u32 | 1 << Value::Five as u32;
@@ -217,13 +230,26 @@ mod tests {
 
     #[test]
     fn test_flush() {
-        let hand = Hand::new_with_cards(vec![
-                                             Card{value: Value::Ace, suit: Suit::Diamond},
-                                             Card{value: Value::Eight, suit: Suit::Diamond},
-                                             Card{value: Value::Nine, suit: Suit::Diamond},
-                                             Card{value: Value::Ten, suit: Suit::Diamond},
-                                             Card{value: Value::Five, suit: Suit::Diamond},
-                                             ]);
+        let hand = Hand::new_with_cards(vec![Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Eight,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Nine,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Ten,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Five,
+                                                 suit: Suit::Diamond,
+                                             }]);
 
         let rank = 1 << Value::Ace as u32 | 1 << Value::Eight as u32 | 1 << Value::Nine as u32 |
                    1 << Value::Ten as u32 | 1 << Value::Five as u32;
@@ -233,13 +259,26 @@ mod tests {
 
     #[test]
     fn test_full_house() {
-        let hand = Hand::new_with_cards(vec![
-                                             Card{value: Value::Ace, suit: Suit::Diamond},
-                                             Card{value: Value::Ace, suit: Suit::Club},
-                                             Card{value: Value::Nine, suit: Suit::Diamond},
-                                             Card{value: Value::Nine, suit: Suit::Club},
-                                             Card{value: Value::Nine, suit: Suit::Spade},
-                                             ]);
+        let hand = Hand::new_with_cards(vec![Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Nine,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Nine,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Nine,
+                                                 suit: Suit::Spade,
+                                             }]);
 
         let rank = (1 << (Value::Nine as u32)) << 13 | 1 << (Value::Ace as u32);
         assert!(Rank::FullHouse(rank) == hand.rank());
@@ -248,13 +287,26 @@ mod tests {
     #[test]
     fn test_two_pair() {
         // Make a two pair hand.
-        let hand = Hand::new_with_cards(vec![
-                                             Card{value: Value::Ace, suit: Suit::Diamond},
-                                             Card{value: Value::Ace, suit: Suit::Club},
-                                             Card{value: Value::Nine, suit: Suit::Diamond},
-                                             Card{value: Value::Nine, suit: Suit::Club},
-                                             Card{value: Value::Ten, suit: Suit::Spade},
-                                             ]);
+        let hand = Hand::new_with_cards(vec![Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Nine,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Nine,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Ten,
+                                                 suit: Suit::Spade,
+                                             }]);
 
         let rank = (1 << Value::Ace as u32 | 1 << Value::Nine as u32) << 13 |
                    1 << Value::Ten as u32;
@@ -263,13 +315,26 @@ mod tests {
 
     #[test]
     fn test_one_pair() {
-        let hand = Hand::new_with_cards(vec![
-                                             Card{value: Value::Ace, suit: Suit::Diamond},
-                                             Card{value: Value::Ace, suit: Suit::Club},
-                                             Card{value: Value::Nine, suit: Suit::Diamond},
-                                             Card{value: Value::Eight, suit: Suit::Club},
-                                             Card{value: Value::Ten, suit: Suit::Spade},
-                                             ]);
+        let hand = Hand::new_with_cards(vec![Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Nine,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Eight,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Ten,
+                                                 suit: Suit::Spade,
+                                             }]);
 
         let rank = (1 << Value::Ace as u32) << 13 | 1 << Value::Nine as u32 |
                    1 << Value::Eight as u32 | 1 << Value::Ten as u32;
@@ -279,13 +344,26 @@ mod tests {
 
     #[test]
     fn test_four_of_a_kind() {
-        let hand = Hand::new_with_cards(vec![
-                                             Card{value: Value::Ace, suit: Suit::Diamond},
-                                             Card{value: Value::Ace, suit: Suit::Club},
-                                             Card{value: Value::Ace, suit: Suit::Spade},
-                                             Card{value: Value::Ace, suit: Suit::Heart},
-                                             Card{value: Value::Ten, suit: Suit::Spade},
-                                             ]);
+        let hand = Hand::new_with_cards(vec![Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Spade,
+                                             },
+                                             Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Heart,
+                                             },
+                                             Card {
+                                                 value: Value::Ten,
+                                                 suit: Suit::Spade,
+                                             }]);
 
         assert!(Rank::FourOfAKind((1 << (Value::Ace as u32) << 13) | 1 << (Value::Ten as u32)) ==
                 hand.rank());
@@ -293,13 +371,26 @@ mod tests {
 
     #[test]
     fn test_wheel() {
-        let hand = Hand::new_with_cards(vec![
-                                             Card{value: Value::Ace, suit: Suit::Diamond},
-                                             Card{value: Value::Two, suit: Suit::Club},
-                                             Card{value: Value::Three, suit: Suit::Spade},
-                                             Card{value: Value::Four, suit: Suit::Heart},
-                                             Card{value: Value::Five, suit: Suit::Spade},
-                                             ]);
+        let hand = Hand::new_with_cards(vec![Card {
+                                                 value: Value::Ace,
+                                                 suit: Suit::Diamond,
+                                             },
+                                             Card {
+                                                 value: Value::Two,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Three,
+                                                 suit: Suit::Spade,
+                                             },
+                                             Card {
+                                                 value: Value::Four,
+                                                 suit: Suit::Heart,
+                                             },
+                                             Card {
+                                                 value: Value::Five,
+                                                 suit: Suit::Spade,
+                                             }]);
 
         assert!(Rank::Straight(0) == hand.rank());
     }
@@ -307,26 +398,52 @@ mod tests {
 
     #[test]
     fn test_straight() {
-        let hand = Hand::new_with_cards(vec![
-                                             Card{value: Value::Two, suit: Suit::Club},
-                                             Card{value: Value::Three, suit: Suit::Spade},
-                                             Card{value: Value::Four, suit: Suit::Heart},
-                                             Card{value: Value::Five, suit: Suit::Spade},
-                                             Card{value: Value::Six, suit: Suit::Diamond},
-                                             ]);
+        let hand = Hand::new_with_cards(vec![Card {
+                                                 value: Value::Two,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Three,
+                                                 suit: Suit::Spade,
+                                             },
+                                             Card {
+                                                 value: Value::Four,
+                                                 suit: Suit::Heart,
+                                             },
+                                             Card {
+                                                 value: Value::Five,
+                                                 suit: Suit::Spade,
+                                             },
+                                             Card {
+                                                 value: Value::Six,
+                                                 suit: Suit::Diamond,
+                                             }]);
 
         assert!(Rank::Straight(1) == hand.rank());
     }
 
     #[test]
     fn test_three_of_a_kind() {
-        let hand = Hand::new_with_cards(vec![
-                                             Card{value: Value::Two, suit: Suit::Club},
-                                             Card{value: Value::Two, suit: Suit::Spade},
-                                             Card{value: Value::Two, suit: Suit::Heart},
-                                             Card{value: Value::Five, suit: Suit::Spade},
-                                             Card{value: Value::Six, suit: Suit::Diamond},
-                                             ]);
+        let hand = Hand::new_with_cards(vec![Card {
+                                                 value: Value::Two,
+                                                 suit: Suit::Club,
+                                             },
+                                             Card {
+                                                 value: Value::Two,
+                                                 suit: Suit::Spade,
+                                             },
+                                             Card {
+                                                 value: Value::Two,
+                                                 suit: Suit::Heart,
+                                             },
+                                             Card {
+                                                 value: Value::Five,
+                                                 suit: Suit::Spade,
+                                             },
+                                             Card {
+                                                 value: Value::Six,
+                                                 suit: Suit::Diamond,
+                                             }]);
 
 
         let rank = (1 << (Value::Two as u32)) << 13 | 1 << (Value::Five as u32) |
