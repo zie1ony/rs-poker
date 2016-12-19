@@ -7,7 +7,7 @@ use std::slice::Iter;
 ///
 /// This doesn't have the ability to easily check if a card is
 /// in the hand. So do that before adding/removing a card.
-#[derive(Debug, Clone, Hash)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub struct Hand {
     /// Where all the cards are placed un-ordered.
     cards: Vec<Card>,

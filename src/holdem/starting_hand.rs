@@ -1,28 +1,30 @@
 use core::{Value, Suit, Card, Hand};
 
 
-#[derive(Debug, Eq, PartialEq, PartialOrd, Ord, Clone)]
+#[derive(Debug, Eq, PartialEq, PartialOrd, Ord, Clone, Copy)]
 pub enum Suitedness {
     Suited,
     OffSuit,
     Any,
 }
 
+
+
 /// `HoldemStartingHand` represents the two card starting hand of texas holdem.
 /// It can generate all the possible actual starting hands.
 ///
 /// Give two values and if you only want suited variants.
 #[derive(Debug, Eq, PartialEq, PartialOrd, Ord, Clone)]
-pub struct StartingHand {
+pub struct DefaultStartingHand {
     /// The first value.
-    pub value_one: Value,
+    value_one: Value,
     /// The second value.
-    pub value_two: Value,
+    value_two: Value,
     /// should we only consider possible starting hands of the same suit?
-    pub suited: Suitedness,
+    suited: Suitedness,
 }
 
-impl StartingHand {
+impl DefaultStartingHand {
     fn create_suited(&self) -> Vec<Hand> {
         // Can't have a suited pair. Not unless you're cheating.
         if self.value_one == self.value_two {
@@ -84,17 +86,75 @@ impl StartingHand {
         }
         hands
     }
-}
 
-impl StartingHand {
     /// Get all the possible starting hands represented by the
     /// two values of this starting hand.
-    pub fn possible_hands(&self) -> Vec<Hand> {
+    fn possible_hands(&self) -> Vec<Hand> {
         match self.suited {
             Suitedness::Suited => self.create_suited(),
             Suitedness::OffSuit => self.create_offsuit(),
             Suitedness::Any => self.append_offsuit(self.create_suited()),
         }
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, PartialOrd)]
+pub struct SingleCardRangeStartingHand {
+    value_one: Value,
+    /// Inclusive start range
+    start: Value,
+    /// Inclusive end range
+    end: Value,
+    // What Suits can this have.
+    suited: Suitedness,
+}
+
+
+impl SingleCardRangeStartingHand {
+    fn possible_hands(&self) -> Vec<Hand> {
+        let mut cur_value = self.start;
+        let mut hands = vec![];
+        while cur_value <= self.end {
+            let mut new_hands = DefaultStartingHand {
+                    value_one: self.value_one,
+                    value_two: cur_value,
+                    suited: self.suited,
+                }
+                .possible_hands();
+            hands.append(&mut new_hands);
+            cur_value = Value::from_u8(cur_value as u8 + 1);
+        }
+
+        hands
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, PartialOrd)]
+pub enum StartingHand {
+    Def(DefaultStartingHand),
+    SingleCardRange(SingleCardRangeStartingHand),
+}
+
+impl StartingHand {
+    pub fn default(value_one: Value, value_two: Value, suited: Suitedness) -> StartingHand {
+        StartingHand::Def(DefaultStartingHand {
+            value_one: value_one,
+            value_two: value_two,
+            suited: suited,
+        })
+    }
+
+    pub fn single_range(value_one: Value,
+                        start: Value,
+                        end: Value,
+                        suited: Suitedness)
+                        -> StartingHand {
+        StartingHand::SingleCardRange(SingleCardRangeStartingHand {
+            value_one: value_one,
+            start: start,
+            end: end,
+            suited: suited,
+        })
     }
 
     /// Create every possible unique StartingHand.
@@ -103,14 +163,21 @@ impl StartingHand {
         let values = Value::values();
         for (i, value_one) in values.iter().enumerate() {
             for value_two in &values[i..] {
-                hands.push(StartingHand {
+                hands.push(StartingHand::Def(DefaultStartingHand {
                     value_one: *value_one,
                     value_two: *value_two,
                     suited: Suitedness::Any,
-                });
+                }));
             }
         }
         hands
+    }
+
+    pub fn possible_hands(&self) -> Vec<Hand> {
+        match *self {
+            StartingHand::Def(ref h) => h.possible_hands(),
+            StartingHand::SingleCardRange(ref h) => h.possible_hands(),
+        }
     }
 }
 
@@ -121,7 +188,7 @@ mod tests {
 
     #[test]
     fn test_aces() {
-        let sh = StartingHand {
+        let sh = DefaultStartingHand {
             value_one: Value::Ace,
             value_two: Value::Ace,
             suited: Suitedness::OffSuit,
@@ -132,7 +199,7 @@ mod tests {
 
     #[test]
     fn test_suited_connector() {
-        let sh = StartingHand {
+        let sh = DefaultStartingHand {
             value_one: Value::Ace,
             value_two: Value::King,
             suited: Suitedness::Suited,
@@ -141,7 +208,7 @@ mod tests {
     }
     #[test]
     fn test_unsuited_connector() {
-        let sh = StartingHand {
+        let sh = DefaultStartingHand {
             value_one: Value::Ace,
             value_two: Value::King,
             suited: Suitedness::OffSuit,

@@ -60,6 +60,25 @@ impl Value {
     pub fn values() -> [Value; 13] {
         VALUES
     }
+
+    pub fn from_char(c: char) -> Option<Value> {
+        match c {
+            'A' => Some(Value::Ace),
+            'K' => Some(Value::King),
+            'Q' => Some(Value::Queen),
+            'J' => Some(Value::Jack),
+            'T' => Some(Value::Ten),
+            '9' => Some(Value::Nine),
+            '8' => Some(Value::Eight),
+            '7' => Some(Value::Seven),
+            '6' => Some(Value::Six),
+            '5' => Some(Value::Five),
+            '4' => Some(Value::Four),
+            '3' => Some(Value::Three),
+            '2' => Some(Value::Two),
+            _ => None,
+        }
+    }
 }
 
 /// Enum for the four different suits.
@@ -87,6 +106,20 @@ impl Suit {
     /// Provide all the Suit's that there are.
     pub fn suits() -> [Suit; 4] {
         SUITS
+    }
+
+    pub fn from_u8(s: u8) -> Suit {
+        unsafe { mem::transmute(s) }
+    }
+
+    pub fn from_char(s: char) -> Option<Suit> {
+        match s {
+            'd' => Some(Suit::Diamond),
+            's' => Some(Suit::Spade),
+            'h' => Some(Suit::Heart),
+            'c' => Some(Suit::Club),
+            _ => None,
+        }
     }
 }
 

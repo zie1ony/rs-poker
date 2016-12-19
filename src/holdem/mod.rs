@@ -7,3 +7,7 @@ pub use self::starting_hand::{Suitedness, StartingHand};
 mod game;
 /// Export `Game`
 pub use self::game::Game;
+
+
+mod parse;
+pub use self::parse::RangeParser;
