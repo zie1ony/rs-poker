@@ -428,6 +428,9 @@ impl RangeParser {
                     suited = Suitedness::Suited;
                 }
                 Modifier::Plus => {
+                    if gap != None {
+                        return Err(String::from("Plus can't be combined with range."));
+                    }
                     let ex_gap = first_range.end.gap(&second_range.end);
                     if ex_gap <= 1 {
                         // This is either a pocket pair (ex_gap == 0)
@@ -686,20 +689,21 @@ mod test {
     fn test_bad_input() {
         assert!(RangeParser::parse_one(&String::from("4f7")).is_err());
     }
-
-
     #[test]
     fn test_explicit_suit_plus() {
         assert!(RangeParser::parse_one(&String::from("2s2+"))
                     .unwrap()
                     .len() > 0);
     }
-
     #[test]
     fn test_explicit_suit_pair() {
         assert!(RangeParser::parse_one(&String::from("8D8"))
                     .unwrap()
                     .len() > 0);
+    }
+    #[test]
+    fn test_ok_with_trailing_plus() {
+        assert!(RangeParser::parse_one(&String::from("8Q-62+")).is_err());
     }
 
 }
