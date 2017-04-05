@@ -1,21 +1,25 @@
 use core::{Value, Suit, Card, Hand};
 
-
+/// Enum to represent how the suits of a hand correspond to each other.
+/// `Suitedness::Suited` will mean that all cards have the same suit
+/// `Suitedness::OffSuit` will mean that all cards have the different suit
+/// `Suitedness::Any` makes no promises.
 #[derive(Debug, Eq, PartialEq, PartialOrd, Ord, Clone, Copy)]
 pub enum Suitedness {
+    /// All of the cards are the same suit
     Suited,
+    /// None of the cards are the same suit
     OffSuit,
+    /// No promises about suit.
     Any,
 }
-
-
 
 /// `HoldemStartingHand` represents the two card starting hand of texas holdem.
 /// It can generate all the possible actual starting hands.
 ///
 /// Give two values and if you only want suited variants.
 #[derive(Debug, Eq, PartialEq, PartialOrd, Ord, Clone)]
-pub struct DefaultStartingHand {
+pub struct Default {
     /// The first value.
     value_one: Value,
     /// The second value.
@@ -24,10 +28,16 @@ pub struct DefaultStartingHand {
     suited: Suitedness,
 }
 
-impl DefaultStartingHand {
+impl Default {
+    /// Is this starting hand a pocket pair?
+    fn is_pair(&self) -> bool {
+        self.value_one == self.value_two
+    }
+
+    /// Create a new vector of all suited hands.
     fn create_suited(&self) -> Vec<Hand> {
         // Can't have a suited pair. Not unless you're cheating.
-        if self.value_one == self.value_two {
+        if self.is_pair() {
             return vec![];
         }
         Suit::suits()
@@ -45,17 +55,18 @@ impl DefaultStartingHand {
             .collect()
     }
 
+
+    /// Create a new vector of all the off suit hands.
     fn create_offsuit(&self) -> Vec<Hand> {
         // Since the values are the same there is no reason to swap the suits.
-        let expected_hands = if self.value_one == self.value_two {
-            6
-        } else {
-            12
-        };
+        let expected_hands = if self.is_pair() { 6 } else { 12 };
         self.append_offsuit(Vec::with_capacity(expected_hands))
     }
 
-
+    /// Append all the off suit hands to the passed in vec and
+    /// then return it.
+    ///
+    /// @returns the passed in vector with offsuit hands appended.
     fn append_offsuit(&self, mut hands: Vec<Hand>) -> Vec<Hand> {
         let suits = Suit::suits();
         for (i, suit_one) in suits.iter().enumerate() {
@@ -98,24 +109,30 @@ impl DefaultStartingHand {
     }
 }
 
+
+/// Starting hand struct to represent where it's one
+/// static card and a range for the other.
 #[derive(Debug, PartialEq, Eq, PartialOrd)]
-pub struct SingleCardRangeStartingHand {
+pub struct SingleCardRange {
+    /// First value; this one will not change.
     value_one: Value,
     /// Inclusive start range
     start: Value,
     /// Inclusive end range
     end: Value,
-    // What Suits can this have.
+    /// What Suits can this have.
     suited: Suitedness,
 }
 
 
-impl SingleCardRangeStartingHand {
+impl SingleCardRange {
+    /// Generate all the possible hands for this starting hand type.
     fn possible_hands(&self) -> Vec<Hand> {
         let mut cur_value = self.start;
         let mut hands = vec![];
+        // TODO: Make a better iterator for values.
         while cur_value <= self.end {
-            let mut new_hands = DefaultStartingHand {
+            let mut new_hands = Default {
                     value_one: self.value_one,
                     value_two: cur_value,
                     suited: self.suited,
@@ -129,27 +146,34 @@ impl SingleCardRangeStartingHand {
     }
 }
 
+/// Enum to represent all the possible ways to specify a starting hand.
 #[derive(Debug, PartialEq, Eq, PartialOrd)]
 pub enum StartingHand {
-    Def(DefaultStartingHand),
-    SingleCardRange(SingleCardRangeStartingHand),
+    /// Default starting hand type. This means that we
+    /// specify two cards and their suitedness.
+    Def(Default),
+
+    /// A starting hand where the second card is a range.
+    SingleCardRange(SingleCardRange),
 }
 
 impl StartingHand {
+    /// Create a default starting hand with two `Value`'s and a `Suitedness`.
     pub fn default(value_one: Value, value_two: Value, suited: Suitedness) -> StartingHand {
-        StartingHand::Def(DefaultStartingHand {
+        StartingHand::Def(Default {
                               value_one: value_one,
                               value_two: value_two,
                               suited: suited,
                           })
     }
 
+    /// Create a new StartingHand with the second card being a range.
     pub fn single_range(value_one: Value,
                         start: Value,
                         end: Value,
                         suited: Suitedness)
                         -> StartingHand {
-        StartingHand::SingleCardRange(SingleCardRangeStartingHand {
+        StartingHand::SingleCardRange(SingleCardRange {
                                           value_one: value_one,
                                           start: start,
                                           end: end,
@@ -163,7 +187,7 @@ impl StartingHand {
         let values = Value::values();
         for (i, value_one) in values.iter().enumerate() {
             for value_two in &values[i..] {
-                hands.push(StartingHand::Def(DefaultStartingHand {
+                hands.push(StartingHand::Def(Default {
                                                  value_one: *value_one,
                                                  value_two: *value_two,
                                                  suited: Suitedness::Any,
@@ -173,6 +197,7 @@ impl StartingHand {
         hands
     }
 
+    /// From a StartingHand specify all the hands this could represent.
     pub fn possible_hands(&self) -> Vec<Hand> {
         match *self {
             StartingHand::Def(ref h) => h.possible_hands(),
@@ -188,18 +213,17 @@ mod tests {
 
     #[test]
     fn test_aces() {
-        let sh = DefaultStartingHand {
+        let sh = Default {
             value_one: Value::Ace,
             value_two: Value::Ace,
             suited: Suitedness::OffSuit,
         };
-        println!("{:?}", sh.possible_hands());
         assert!(6 == sh.possible_hands().len());
     }
 
     #[test]
     fn test_suited_connector() {
-        let sh = DefaultStartingHand {
+        let sh = Default {
             value_one: Value::Ace,
             value_two: Value::King,
             suited: Suitedness::Suited,
@@ -208,7 +232,7 @@ mod tests {
     }
     #[test]
     fn test_unsuited_connector() {
-        let sh = DefaultStartingHand {
+        let sh = Default {
             value_one: Value::Ace,
             value_two: Value::King,
             suited: Suitedness::OffSuit,

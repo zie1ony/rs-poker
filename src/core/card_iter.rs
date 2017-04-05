@@ -116,8 +116,6 @@ mod tests {
         for cards in CardIter::new(&h[..], 1) {
             assert_eq!(1, cards.len());
         }
-
-
         assert_eq!(1, CardIter::new(&h[..], 1).count());
     }
 
@@ -136,7 +134,6 @@ mod tests {
                    value: Value::Four,
                    suit: Suit::Spade,
                });
-
 
         // Make sure that we get the correct number back.
         assert_eq!(3, CardIter::new(&h[..], 2).count());

@@ -8,6 +8,7 @@ mod game;
 /// Export `Game`
 pub use self::game::Game;
 
-
+/// Module with all the starting hand parsing code.
 mod parse;
+/// Export `RangeParser`
 pub use self::parse::RangeParser;

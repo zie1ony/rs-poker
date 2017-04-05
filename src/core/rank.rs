@@ -29,37 +29,45 @@ pub enum Rank {
 }
 
 /// Big ugly constant for all the straghts.
-pub const STRAIGHTS: [u32; 10] =
-    [// Wheel.
-     1 << (Value::Ace as u32) | 1 << (Value::Two as u32) | 1 << (Value::Three as u32) |
-     1 << (Value::Four as u32) | 1 << (Value::Five as u32),
-     // "Normal" straights starting at two to six.
-     1 << (Value::Two as u32) | 1 << (Value::Three as u32) | 1 << (Value::Four as u32) |
-     1 << (Value::Five as u32) | 1 << (Value::Six as u32),
-     // Three to Seven
-     1 << (Value::Three as u32) | 1 << (Value::Four as u32) | 1 << (Value::Five as u32) |
-     1 << (Value::Six as u32) | 1 << (Value::Seven as u32),
-     // Four to Eight
-     1 << (Value::Four as u32) | 1 << (Value::Five as u32) | 1 << (Value::Six as u32) |
-     1 << (Value::Seven as u32) | 1 << (Value::Eight as u32),
-     // Five to Nine
-     1 << (Value::Five as u32) | 1 << (Value::Six as u32) | 1 << (Value::Seven as u32) |
-     1 << (Value::Eight as u32) | 1 << (Value::Nine as u32),
-     // Six to Ten
-     1 << (Value::Six as u32) | 1 << (Value::Seven as u32) | 1 << (Value::Eight as u32) |
-     1 << (Value::Nine as u32) | 1 << (Value::Ten as u32),
-     // Seven to Jack.
-     1 << (Value::Seven as u32) | 1 << (Value::Eight as u32) | 1 << (Value::Nine as u32) |
-     1 << (Value::Ten as u32) | 1 << (Value::Jack as u32),
-     // Eight to Queen
-     1 << (Value::Eight as u32) | 1 << (Value::Nine as u32) | 1 << (Value::Ten as u32) |
-     1 << (Value::Jack as u32) | 1 << (Value::Queen as u32),
-     // Nine to king
-     1 << (Value::Nine as u32) | 1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
-     1 << (Value::Queen as u32) | 1 << (Value::King as u32),
-     // Royal straight
-     1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) | 1 << (Value::Queen as u32) |
-     1 << (Value::King as u32) | 1 << (Value::Ace as u32)];
+const STRAIGHT0: u32 = 1 << (Value::Ace as u32) | 1 << (Value::Two as u32) |
+                       1 << (Value::Three as u32) |
+                       1 << (Value::Four as u32) | 1 << (Value::Five as u32);
+// "Normal" straights starting at two to six.
+const STRAIGHT1: u32 = 1 << (Value::Two as u32) | 1 << (Value::Three as u32) |
+                       1 << (Value::Four as u32) |
+                       1 << (Value::Five as u32) | 1 << (Value::Six as u32);
+// Three to Seven
+const STRAIGHT2: u32 = 1 << (Value::Three as u32) | 1 << (Value::Four as u32) |
+                       1 << (Value::Five as u32) |
+                       1 << (Value::Six as u32) | 1 << (Value::Seven as u32);
+// Four to Eight
+const STRAIGHT3: u32 =
+    1 << (Value::Four as u32) | 1 << (Value::Five as u32) | 1 << (Value::Six as u32) |
+    1 << (Value::Seven as u32) | 1 << (Value::Eight as u32);
+// Five to Nine
+const STRAIGHT4: u32 =
+    1 << (Value::Five as u32) | 1 << (Value::Six as u32) | 1 << (Value::Seven as u32) |
+    1 << (Value::Eight as u32) | 1 << (Value::Nine as u32);
+// Six to Ten
+const STRAIGHT5: u32 = 1 << (Value::Six as u32) | 1 << (Value::Seven as u32) |
+                       1 << (Value::Eight as u32) |
+                       1 << (Value::Nine as u32) | 1 << (Value::Ten as u32);
+// Seven to Jack.
+const STRAIGHT6: u32 = 1 << (Value::Seven as u32) | 1 << (Value::Eight as u32) |
+                       1 << (Value::Nine as u32) |
+                       1 << (Value::Ten as u32) | 1 << (Value::Jack as u32);
+// Eight to Queen
+const STRAIGHT7: u32 = 1 << (Value::Eight as u32) | 1 << (Value::Nine as u32) |
+                       1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
+                       1 << (Value::Queen as u32);
+// Nine to king
+const STRAIGHT8: u32 =
+    1 << (Value::Nine as u32) | 1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
+    1 << (Value::Queen as u32) | 1 << (Value::King as u32);
+// Royal straight
+const STRAIGHT9: u32 = 1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
+                       1 << (Value::Queen as u32) |
+                       1 << (Value::King as u32) | 1 << (Value::Ace as u32);
 
 /// Can this turn into a hand rank?
 pub trait Rankable {
@@ -73,13 +81,21 @@ pub trait Rankable {
     ///
     /// Returns None if the hand ranks represented don't correspond
     /// to a straight.
-    fn rank_straight(&self, hand_rank: u32) -> Option<u32> {
-        for (i, hand) in STRAIGHTS.iter().enumerate() {
-            if *hand == hand_rank {
-                return Some(i as u32);
-            }
+    #[inline]
+    fn rank_straight(&self, hand_rank: &u32) -> Option<u32> {
+        match hand_rank {
+            &STRAIGHT0 => Some(0),
+            &STRAIGHT1 => Some(1),
+            &STRAIGHT2 => Some(2),
+            &STRAIGHT3 => Some(3),
+            &STRAIGHT4 => Some(4),
+            &STRAIGHT5 => Some(5),
+            &STRAIGHT6 => Some(6),
+            &STRAIGHT7 => Some(7),
+            &STRAIGHT8 => Some(8),
+            &STRAIGHT9 => Some(9),
+            _ => None,
         }
-        None
     }
 }
 
@@ -128,7 +144,7 @@ impl Rankable for Hand {
                 // Need to check for all of them.
                 let suit_count = suit_set.count_ones();
                 let is_flush = suit_count == 1;
-                match (self.rank_straight(value_set), is_flush) {
+                match (self.rank_straight(&value_set), is_flush) {
                     // This is the most likely outcome.
                     // Not a flush and not a straight.
                     (None, false) => Rank::HighCard(value_set),
@@ -452,14 +468,5 @@ mod tests {
                    1 << (Value::Six as u32);
 
         assert!(Rank::ThreeOfAKind(rank) == hand.rank());
-    }
-
-
-    #[test]
-    fn test_straight_constants() {
-        for c in STRAIGHTS.iter() {
-            // Make sure that all of the constant hands have exactly 5 ones.
-            assert!(5 == c.count_ones());
-        }
     }
 }

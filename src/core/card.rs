@@ -1,4 +1,6 @@
 use std::mem;
+use std::cmp;
+use std::ascii::AsciiExt;
 
 /// Card rank or value.
 /// This is basically the face value - 2
@@ -50,8 +52,14 @@ const VALUES: [Value; 13] = [Value::Two,
 
 impl Value {
     /// Take a u32 and convert it to a value.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use furry_fiesta::core::Value;
+    /// assert_eq!(Value::Four, Value::from_u8(Value::Four as u8));
     pub fn from_u8(v: u8) -> Value {
-        unsafe { mem::transmute(v) }
+        unsafe { mem::transmute(cmp::min(v, Value::Ace as u8)) }
     }
     /// Get all of the `Value`'s that are possible.
     /// This is used to iterate through all possible
@@ -61,8 +69,19 @@ impl Value {
         VALUES
     }
 
+    /// Given a character parse that char into a value.
+    /// Case is ignored as long as the char is in the ascii range (It should be).
+    /// @returns None if there's no value there.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use furry_fiesta::core::Value;
+    ///
+    /// assert_eq!(Value::Ace, Value::from_char('A').unwrap());
+    /// ```
     pub fn from_char(c: char) -> Option<Value> {
-        match c {
+        match c.to_ascii_uppercase() {
             'A' => Some(Value::Ace),
             'K' => Some(Value::King),
             'Q' => Some(Value::Queen),
@@ -78,6 +97,20 @@ impl Value {
             '2' => Some(Value::Two),
             _ => None,
         }
+    }
+
+    /// How card ranks seperate the two values.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use furry_fiesta::core::Value;
+    /// assert_eq!(1, Value::Ace.gap(&Value::King));
+    /// ```
+    pub fn gap(&self, other: &Value) -> u8 {
+        let min = cmp::min(*self as u8, *other as u8);
+        let max = cmp::max(*self as u8, *other as u8);
+        max - min
     }
 }
 
@@ -108,12 +141,39 @@ impl Suit {
         SUITS
     }
 
+    /// Translate a Suit from a u8. If the u8 is above the expected value
+    /// then Diamond will be the result.
+    ///
+    /// #Examples
+    /// ```
+    /// use furry_fiesta::core::Suit;
+    /// let idx = Suit::Club as u8;
+    /// assert_eq!(Suit::Club, Suit::from_u8(idx));
+    /// ```
     pub fn from_u8(s: u8) -> Suit {
-        unsafe { mem::transmute(s) }
+        unsafe { mem::transmute(cmp::min(s, Suit::Diamond as u8)) }
     }
 
+    /// Given a character that represents a suit try and parse that char.
+    /// If the char can represent a suit return it.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use furry_fiesta::core::Suit;
+    ///
+    /// let s = Suit::from_char('s');
+    /// assert_eq!(Some(Suit::Spade), s);
+    /// ```
+    ///
+    /// ```
+    /// use furry_fiesta::core::Suit;
+    ///
+    /// let s = Suit::from_char('X');
+    /// assert_eq!(None, s);
+    /// ```
     pub fn from_char(s: char) -> Option<Suit> {
-        match s {
+        match s.to_ascii_lowercase() {
             'd' => Some(Suit::Diamond),
             's' => Some(Suit::Spade),
             'h' => Some(Suit::Heart),
@@ -186,8 +246,37 @@ mod tests {
     }
 
     #[test]
-    fn test_size() {
+    fn test_size_card() {
         // Card should be really small. Hopefully just two u8's
-        assert!(mem::size_of::<Card>() <= 4);
+        assert!(mem::size_of::<Card>() <= 2);
+    }
+
+    #[test]
+    fn test_size_suit() {
+        // One byte for Suit
+        assert!(mem::size_of::<Suit>() <= 1);
+    }
+
+    #[test]
+    fn test_size_value() {
+        // One byte for Value
+        assert!(mem::size_of::<Value>() <= 1);
+    }
+
+    #[test]
+    fn test_gap() {
+        // test on gap
+        assert!(1 == Value::Ace.gap(&Value::King));
+        // test no gap at the high end
+        assert!(0 == Value::Ace.gap(&Value::Ace));
+        // test no gap at the low end
+        assert!(0 == Value::Two.gap(&Value::Two));
+        // Test one gap at the low end
+        assert!(1 == Value::Two.gap(&Value::Three));
+        // test that ordering doesn't matter
+        assert!(1 == Value::Three.gap(&Value::Two));
+        // Test things that are far apart
+        assert!(12 == Value::Ace.gap(&Value::Two));
+        assert!(12 == Value::Two.gap(&Value::Ace));
     }
 }
