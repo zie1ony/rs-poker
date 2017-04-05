@@ -415,8 +415,18 @@ impl RangeParser {
             iter.next();
             // Now do something with it.
             match m {
-                Modifier::Offsuit => suited = Suitedness::OffSuit,
-                Modifier::Suited => suited = Suitedness::Suited,
+                Modifier::Offsuit => {
+                    if first_suit != None && first_suit == second_suit {
+                        return Err(String::from("Can't specify offsuit and the suits are the same."));
+                    }
+                    suited = Suitedness::OffSuit;
+                }
+                Modifier::Suited => {
+                    if first_suit != None && second_suit != None && first_suit != second_suit {
+                        return Err(String::from("Can't specify suited and the suits are different"));
+                    }
+                    suited = Suitedness::Suited;
+                }
                 Modifier::Plus => {
                     let ex_gap = first_range.end.gap(&second_range.end);
                     if ex_gap <= 1 {
@@ -425,6 +435,8 @@ impl RangeParser {
                         first_range.end = Value::Ace;
                         second_range.end = Value::from_u8(Value::Ace as u8 - ex_gap);
                         gap = Some(ex_gap);
+                    } else if first_range.end < second_range.end {
+                        return Err(String::from("Can't use + when the second card is smaller than the first"));
                     } else {
                         second_range.end = Value::from_u8(first_range.end as u8 - 1);
                     }
@@ -458,6 +470,7 @@ impl RangeParser {
         second_range.sort();
         if first_range < second_range {
             std::mem::swap(&mut first_range, &mut second_range);
+            std::mem::swap(&mut first_suit, &mut second_suit);
         }
 
         // Now create an iterator for two cards.
@@ -467,27 +480,42 @@ impl RangeParser {
             None => RangeIter::stat(first_range.start, second_range.clone()),
         };
 
-        if suited == Suitedness::Suited && citer.is_pair() {
-            return Err(String::from("Can't have suited pairs."));
+        // There can not be suited pairs
+        if citer.is_pair() {
+            // Do the two cards have a suit specified and it is the same suit.
+            let explicitly_suited = first_suit != None && first_suit == second_suit;
+            if suited == Suitedness::Suited || explicitly_suited {
+                return Err(String::from("Can't have suited pairs."));
+            }
         }
-        Ok(citer
+
+        let filtered: Vec<Hand> = citer
             // Need to make sure that the first card is in the range
             .filter(|hand| first_range.include(hand[0].value))
             // Make sure the second card is in the range
             .filter(|hand| second_range.include(hand[1].value))
             // If this is suited then make sure that they are suited.
             .filter(|h| {
-                suited == Suitedness::Any ||
+                (suited == Suitedness::Any) ||
                 (suited == Suitedness::OffSuit && h[0].suit != h[1].suit) ||
                 (suited == Suitedness::Suited && h[0].suit == h[1].suit)
             })
             // Make sure the suits match if specified
-            .filter(|h| first_suit.map_or(true, |s| h[0].suit == s))
-            // Make sure the second suits match if specified.
-            .filter(|h| second_suit.map_or(true, |s| h[1].suit == s))
+            .filter(|h| {
+                if h[0].value == h[1].value {
+                    // This is a pair so ordering on suits can be weird.
+                    first_suit.map_or(true, |s| h[0].suit == s || h[1].suit == s) &&
+                    second_suit.map_or(true, |s| h[0].suit == s || h[1].suit == s)
+                } else {
+                    first_suit.map_or(true, |s| h[0].suit == s) &&
+                    second_suit.map_or(true, |s| h[1].suit == s)
+                }
+            })
             // If there is a gap make sure it's enforced.
             .filter(|h| gap.map_or(true, |g| g == h[0].value.gap(&h[1].value)))
-        .collect())
+            .collect();
+
+        Ok(filtered)
     }
 }
 
@@ -630,4 +658,48 @@ mod test {
         let shs = RangeParser::parse_one(&String::from("88s"));
         assert!(shs.is_err());
     }
+    #[test]
+    fn test_cant_suit_pairs_explicit() {
+        let shs = RangeParser::parse_one(&String::from("8s8s"));
+        assert!(shs.is_err());
+    }
+
+    #[test]
+    fn test_explicit_pair_good() {
+        assert!(RangeParser::parse_one(&String::from("2c2s"))
+                    .unwrap()
+                    .len() > 0);
+    }
+    #[test]
+    fn test_explicit_suit_good() {
+        assert!(RangeParser::parse_one(&String::from("6c2c"))
+                    .unwrap()
+                    .len() > 0);
+    }
+    #[test]
+    fn test_explicit_suited_no_good() {
+        assert!(RangeParser::parse_one(&String::from("6c2co")).is_err());
+        assert!(RangeParser::parse_one(&String::from("6h2cs")).is_err());
+    }
+
+    #[test]
+    fn test_bad_input() {
+        assert!(RangeParser::parse_one(&String::from("4f7")).is_err());
+    }
+
+
+    #[test]
+    fn test_explicit_suit_plus() {
+        assert!(RangeParser::parse_one(&String::from("2s2+"))
+                    .unwrap()
+                    .len() > 0);
+    }
+
+    #[test]
+    fn test_explicit_suit_pair() {
+        assert!(RangeParser::parse_one(&String::from("8D8"))
+                    .unwrap()
+                    .len() > 0);
+    }
+
 }
