@@ -223,7 +223,8 @@ mod tests {
                                              }]);
 
         let rank = 1 << Value::Ace as u32 | 1 << Value::Eight as u32 | 1 << Value::Nine as u32 |
-                   1 << Value::Ten as u32 | 1 << Value::Five as u32;
+                   1 << Value::Ten as u32 |
+                   1 << Value::Five as u32;
 
         assert!(Rank::HighCard(rank) == hand.rank());
     }
@@ -252,7 +253,8 @@ mod tests {
                                              }]);
 
         let rank = 1 << Value::Ace as u32 | 1 << Value::Eight as u32 | 1 << Value::Nine as u32 |
-                   1 << Value::Ten as u32 | 1 << Value::Five as u32;
+                   1 << Value::Ten as u32 |
+                   1 << Value::Five as u32;
 
         assert!(Rank::Flush(rank) == hand.rank());
     }

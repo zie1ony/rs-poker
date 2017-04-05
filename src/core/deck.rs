@@ -18,9 +18,9 @@ impl Deck {
         for v in &Value::values() {
             for s in &Suit::suits() {
                 cards.insert(Card {
-                    value: *v,
-                    suit: *s,
-                });
+                                 value: *v,
+                                 suit: *s,
+                             });
             }
         }
         Deck { cards: cards }
@@ -66,9 +66,9 @@ mod tests {
     fn test_contains_in() {
         let d = Deck::default();
         assert!(d.contains(&Card {
-            value: Value::Eight,
-            suit: Suit::Heart,
-        }));
+                                value: Value::Eight,
+                                suit: Suit::Heart,
+                            }));
     }
 
     #[test]

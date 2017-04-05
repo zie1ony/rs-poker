@@ -8,9 +8,9 @@ use furry_fiesta::core::{Deck, Hand, FlatDeck, CardIter};
 #[bench]
 fn iter_in_deck(b: &mut test::Bencher) {
     b.iter(|| {
-        let d: FlatDeck = Deck::default().into();
-        d.into_iter().count()
-    });
+               let d: FlatDeck = Deck::default().into();
+               d.into_iter().count()
+           });
 }
 
 #[bench]

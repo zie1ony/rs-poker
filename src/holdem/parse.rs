@@ -83,17 +83,22 @@ impl RangeParser {
             if range {
                 return Err(String::from("Can't specify range and plus in the same hands."));
             }
+            if first_card.value < second_card.value {
+                return Err(String::from("Can't specify a Plus when the second card
+              is less than the first."));
+            }
             Ok(StartingHand::single_range(first_card.value,
                                           second_card.value,
                                           first_card.value,
                                           suitedness))
         } else if range {
-            unimplemented!()
+            Err(String::from("Not implemented"))
+        } else if first_card.value == second_card.value && suitedness == Suitedness::Suited {
+            Err(String::from("Can't be suited and a pair"))
         } else {
             // TODO Right now this doesn't work with specified suits.
             Ok(StartingHand::default(first_card.value, second_card.value, suitedness))
         }
-
     }
 
     /// From a mut Peekable<Chars> this will take the first chars and bring out
@@ -150,5 +155,17 @@ mod test {
                        .possible_hands(),
                    shs.possible_hands());
 
+    }
+
+    #[test]
+    fn test_err_plus_less() {
+        let shs = RangeParser::parse_one(&String::from("8T+"));
+        assert!(shs.is_err());
+    }
+
+    #[test]
+    fn test_cant_suit_pairs() {
+        let shs = RangeParser::parse_one(&String::from("88s"));
+        assert!(shs.is_err());
     }
 }

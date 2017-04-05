@@ -14,9 +14,9 @@ fn all_starting(b: &mut test::Bencher) {
 #[bench]
 fn iter_everything(b: &mut test::Bencher) {
     b.iter(|| -> usize {
-        StartingHand::all()
-            .iter()
-            .map(|sh| -> usize { sh.possible_hands().len() })
-            .sum()
-    })
+               StartingHand::all()
+                   .iter()
+                   .map(|sh| -> usize { sh.possible_hands().len() })
+                   .sum()
+           })
 }

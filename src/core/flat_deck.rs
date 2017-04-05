@@ -29,7 +29,10 @@ impl FlatDeck {
     /// Give a random sample of the cards still left in the deck
     pub fn sample(&self, n: usize) -> Vec<Card> {
         let mut rng = thread_rng();
-        sample(&mut rng, &self.cards[..], n).iter().map(|c| *(*c)).collect()
+        sample(&mut rng, &self.cards[..], n)
+            .iter()
+            .map(|c| *(*c))
+            .collect()
     }
 
     /// Randomly shuffle the flat deck.

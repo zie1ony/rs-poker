@@ -138,10 +138,10 @@ pub enum StartingHand {
 impl StartingHand {
     pub fn default(value_one: Value, value_two: Value, suited: Suitedness) -> StartingHand {
         StartingHand::Def(DefaultStartingHand {
-            value_one: value_one,
-            value_two: value_two,
-            suited: suited,
-        })
+                              value_one: value_one,
+                              value_two: value_two,
+                              suited: suited,
+                          })
     }
 
     pub fn single_range(value_one: Value,
@@ -150,11 +150,11 @@ impl StartingHand {
                         suited: Suitedness)
                         -> StartingHand {
         StartingHand::SingleCardRange(SingleCardRangeStartingHand {
-            value_one: value_one,
-            start: start,
-            end: end,
-            suited: suited,
-        })
+                                          value_one: value_one,
+                                          start: start,
+                                          end: end,
+                                          suited: suited,
+                                      })
     }
 
     /// Create every possible unique StartingHand.
@@ -164,10 +164,10 @@ impl StartingHand {
         for (i, value_one) in values.iter().enumerate() {
             for value_two in &values[i..] {
                 hands.push(StartingHand::Def(DefaultStartingHand {
-                    value_one: *value_one,
-                    value_two: *value_two,
-                    suited: Suitedness::Any,
-                }));
+                                                 value_one: *value_one,
+                                                 value_two: *value_two,
+                                                 suited: Suitedness::Any,
+                                             }));
             }
         }
         hands
@@ -218,7 +218,10 @@ mod tests {
 
     #[test]
     fn test_starting_hand_count() {
-        let num_to_test: usize = StartingHand::all().iter().map(|h| h.possible_hands().len()).sum();
+        let num_to_test: usize = StartingHand::all()
+            .iter()
+            .map(|h| h.possible_hands().len())
+            .sum();
         assert!(1326 == num_to_test);
     }
 }

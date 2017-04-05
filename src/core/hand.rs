@@ -98,9 +98,9 @@ mod tests {
     fn test_index() {
         let mut h = Hand::default();
         h.push(Card {
-            value: Value::Four,
-            suit: Suit::Spade,
-        });
+                   value: Value::Four,
+                   suit: Suit::Spade,
+               });
         // Make sure the card is there
         assert_eq!(Card {
                        value: Value::Four,
