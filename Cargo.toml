@@ -2,6 +2,13 @@
 name = "rs_poker"
 version = "0.1.0"
 authors = ["Elliott Clark <eclark@apache.org>"]
+keywords = ["cards", "poker"]
+categories = ["games"]
+homepage = "https://github.com/elliottneilclark/rs-poker"
+description = "A base library for rust poker code."
+readme = "README.md"
+license = "Apache-2.0"
+
 
 [dependencies]
 rand = "0.3"
