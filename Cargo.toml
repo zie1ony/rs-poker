@@ -1,10 +1,11 @@
 [package]
 name = "rs_poker"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Elliott Clark <eclark@apache.org>"]
 keywords = ["cards", "poker"]
 categories = ["games"]
-homepage = "https://github.com/elliottneilclark/rs-poker"
+homepage = "http://elliottneilclark.github.io/rs-poker/rs_poker/index.html"
+repository = "https://github.com/elliottneilclark/rs-poker"
 description = "A base library for rust poker code."
 readme = "README.md"
 license = "Apache-2.0"
