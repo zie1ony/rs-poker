@@ -1,9 +1,9 @@
 #![feature(test)]
-extern crate furry_fiesta;
+extern crate rs_poker;
 extern crate test;
 extern crate rand;
 
-use furry_fiesta::holdem::StartingHand;
+use rs_poker::holdem::StartingHand;
 
 
 #[bench]

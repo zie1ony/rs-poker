@@ -1,9 +1,9 @@
 #![feature(test)]
-extern crate furry_fiesta;
+extern crate rs_poker;
 extern crate test;
 extern crate rand;
 
-use furry_fiesta::core::{Deck, Hand, FlatDeck, CardIter};
+use rs_poker::core::{Deck, Hand, FlatDeck, CardIter};
 
 #[bench]
 fn iter_in_deck(b: &mut test::Bencher) {

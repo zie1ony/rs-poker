@@ -1,8 +1,8 @@
 #![no_main]
 #[macro_use] extern crate libfuzzer_sys;
-extern crate furry_fiesta;
+extern crate rs_poker;
 use std::str;
-use furry_fiesta::holdem::RangeParser;
+use rs_poker::holdem::RangeParser;
 
 
 fuzz_target!(|data: &[u8]| {

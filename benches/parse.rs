@@ -1,9 +1,9 @@
 #![feature(test)]
-extern crate furry_fiesta;
+extern crate rs_poker;
 extern crate test;
 extern crate rand;
 
-use furry_fiesta::holdem::RangeParser;
+use rs_poker::holdem::RangeParser;
 
 #[bench]
 fn parse_ak_off(b: &mut test::Bencher) {

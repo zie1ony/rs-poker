@@ -56,7 +56,7 @@ impl Value {
     /// # Examples
     ///
     /// ```
-    /// use furry_fiesta::core::Value;
+    /// use rs_poker::core::Value;
     /// assert_eq!(Value::Four, Value::from_u8(Value::Four as u8));
     pub fn from_u8(v: u8) -> Value {
         unsafe { mem::transmute(cmp::min(v, Value::Ace as u8)) }
@@ -76,7 +76,7 @@ impl Value {
     /// # Examples
     ///
     /// ```
-    /// use furry_fiesta::core::Value;
+    /// use rs_poker::core::Value;
     ///
     /// assert_eq!(Value::Ace, Value::from_char('A').unwrap());
     /// ```
@@ -104,7 +104,7 @@ impl Value {
     /// # Examples
     ///
     /// ```
-    /// use furry_fiesta::core::Value;
+    /// use rs_poker::core::Value;
     /// assert_eq!(1, Value::Ace.gap(&Value::King));
     /// ```
     pub fn gap(&self, other: &Value) -> u8 {
@@ -146,7 +146,7 @@ impl Suit {
     ///
     /// #Examples
     /// ```
-    /// use furry_fiesta::core::Suit;
+    /// use rs_poker::core::Suit;
     /// let idx = Suit::Club as u8;
     /// assert_eq!(Suit::Club, Suit::from_u8(idx));
     /// ```
@@ -160,14 +160,14 @@ impl Suit {
     /// # Examples
     ///
     /// ```
-    /// use furry_fiesta::core::Suit;
+    /// use rs_poker::core::Suit;
     ///
     /// let s = Suit::from_char('s');
     /// assert_eq!(Some(Suit::Spade), s);
     /// ```
     ///
     /// ```
-    /// use furry_fiesta::core::Suit;
+    /// use rs_poker::core::Suit;
     ///
     /// let s = Suit::from_char('X');
     /// assert_eq!(None, s);

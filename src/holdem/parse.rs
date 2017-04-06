@@ -217,7 +217,7 @@ impl RangeParser {
     /// You can send in hands where the suits are specified for all hands.
     ///
     /// ```
-    /// use furry_fiesta::holdem::RangeParser;
+    /// use rs_poker::holdem::RangeParser;
     ///
     /// let hand = RangeParser::parse_one("AhKh").unwrap();
     /// assert_eq!(1, hand.len());
@@ -227,8 +227,8 @@ impl RangeParser {
     /// but you want them to be suited.
     ///
     /// ```
-    /// use furry_fiesta::holdem::RangeParser;
-    /// use furry_fiesta::core::Value;
+    /// use rs_poker::holdem::RangeParser;
+    /// use rs_poker::core::Value;
     ///
     /// let hands = RangeParser::parse_one("AKs").unwrap();
     /// assert!(hands.len() == 4);
@@ -242,8 +242,8 @@ impl RangeParser {
     /// You can also specify that the cards are not of the same suit.
     ///
     /// ```
-    /// use furry_fiesta::holdem::RangeParser;
-    /// use furry_fiesta::core::Value;
+    /// use rs_poker::holdem::RangeParser;
+    /// use rs_poker::core::Value;
     ///
     /// let hands = RangeParser::parse_one("AKo").unwrap();
     ///
@@ -262,8 +262,8 @@ impl RangeParser {
     /// equal to or above the specified values.
     ///
     /// ```
-    /// use furry_fiesta::holdem::RangeParser;
-    /// use furry_fiesta::core::Value;
+    /// use rs_poker::holdem::RangeParser;
+    /// use rs_poker::core::Value;
     ///
     /// let hands = RangeParser::parse_one("TT+").unwrap();
     ///
@@ -279,8 +279,8 @@ impl RangeParser {
     /// values.
     ///
     /// ```
-    /// use furry_fiesta::holdem::RangeParser;
-    /// use furry_fiesta::core::Value;
+    /// use rs_poker::holdem::RangeParser;
+    /// use rs_poker::core::Value;
     ///
     /// let hands = RangeParser::parse_one("T9o+").unwrap();
     ///
@@ -296,8 +296,8 @@ impl RangeParser {
     /// and below the first card.
     ///
     /// ```
-    /// use furry_fiesta::holdem::RangeParser;
-    /// use furry_fiesta::core::Value;
+    /// use rs_poker::holdem::RangeParser;
+    /// use rs_poker::core::Value;
     /// let hands = RangeParser::parse_one("A9s+").unwrap();
     /// for hand in hands {
     ///     assert!(hand[0].value > hand[1].value);
@@ -311,8 +311,8 @@ impl RangeParser {
     /// Suited middle connectors you could do something like this.
     ///
     /// ```
-    /// use furry_fiesta::holdem::RangeParser;
-    /// use furry_fiesta::core::Value;
+    /// use rs_poker::holdem::RangeParser;
+    /// use rs_poker::core::Value;
     ///
     /// let hands = RangeParser::parse_one("JT-67s").unwrap();
     /// for hand in hands {
@@ -337,7 +337,7 @@ impl RangeParser {
     ///
     ///
     /// ```
-    /// use furry_fiesta::holdem::RangeParser;
+    /// use rs_poker::holdem::RangeParser;
     /// let hands = RangeParser::parse_one("AQ-J9").unwrap();
     /// println!("Hands = {:?}", hands);
     /// ```
@@ -347,7 +347,7 @@ impl RangeParser {
     /// If it's not parse_one will return an `Err`.
     ///
     /// ```rust,should_panic
-    /// use furry_fiesta::holdem::RangeParser;
+    /// use rs_poker::holdem::RangeParser;
     /// // This will not work since the difference between Ace and King is one
     /// // while the diffence between Jack and Nine is two.
     /// let hands = RangeParser::parse_one("AK-J9").unwrap();

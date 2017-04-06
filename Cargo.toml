@@ -1,5 +1,5 @@
 [package]
-name = "furry_fiesta"
+name = "rs_poker"
 version = "0.1.0"
 authors = ["Elliott Clark <eclark@apache.org>"]
 

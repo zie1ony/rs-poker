@@ -1,9 +1,9 @@
 #![feature(test)]
-extern crate furry_fiesta;
+extern crate rs_poker;
 extern crate test;
 extern crate rand;
 
-use furry_fiesta::core::{Deck, Rankable, Hand, Flattenable};
+use rs_poker::core::{Deck, Rankable, Hand, Flattenable};
 
 #[bench]
 fn rank_one(b: &mut test::Bencher) {
