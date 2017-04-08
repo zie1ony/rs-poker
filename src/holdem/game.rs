@@ -31,7 +31,7 @@ impl Game {
         for h in &hands {
             for c in h.iter() {
                 if !d.remove(c) {
-                    return Err(format!("Card {:?} was already removed from the deck.", c));
+                    return Err(format!("Card {} was already removed from the deck.", c));
                 }
             }
         }

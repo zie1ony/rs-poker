@@ -32,39 +32,39 @@ pub enum Rank {
 const STRAIGHT0: u32 = 1 << (Value::Ace as u32) | 1 << (Value::Two as u32) |
                        1 << (Value::Three as u32) |
                        1 << (Value::Four as u32) | 1 << (Value::Five as u32);
-// "Normal" straights starting at two to six.
+/// "Normal" straights starting at two to six.
 const STRAIGHT1: u32 = 1 << (Value::Two as u32) | 1 << (Value::Three as u32) |
                        1 << (Value::Four as u32) |
                        1 << (Value::Five as u32) | 1 << (Value::Six as u32);
-// Three to Seven
+/// Three to Seven
 const STRAIGHT2: u32 = 1 << (Value::Three as u32) | 1 << (Value::Four as u32) |
                        1 << (Value::Five as u32) |
                        1 << (Value::Six as u32) | 1 << (Value::Seven as u32);
-// Four to Eight
+/// Four to Eight
 const STRAIGHT3: u32 =
     1 << (Value::Four as u32) | 1 << (Value::Five as u32) | 1 << (Value::Six as u32) |
     1 << (Value::Seven as u32) | 1 << (Value::Eight as u32);
-// Five to Nine
+/// Five to Nine
 const STRAIGHT4: u32 =
     1 << (Value::Five as u32) | 1 << (Value::Six as u32) | 1 << (Value::Seven as u32) |
     1 << (Value::Eight as u32) | 1 << (Value::Nine as u32);
-// Six to Ten
+/// Six to Ten
 const STRAIGHT5: u32 = 1 << (Value::Six as u32) | 1 << (Value::Seven as u32) |
                        1 << (Value::Eight as u32) |
                        1 << (Value::Nine as u32) | 1 << (Value::Ten as u32);
-// Seven to Jack.
+/// Seven to Jack.
 const STRAIGHT6: u32 = 1 << (Value::Seven as u32) | 1 << (Value::Eight as u32) |
                        1 << (Value::Nine as u32) |
                        1 << (Value::Ten as u32) | 1 << (Value::Jack as u32);
-// Eight to Queen
+/// Eight to Queen
 const STRAIGHT7: u32 = 1 << (Value::Eight as u32) | 1 << (Value::Nine as u32) |
                        1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
                        1 << (Value::Queen as u32);
-// Nine to king
+/// Nine to king
 const STRAIGHT8: u32 =
     1 << (Value::Nine as u32) | 1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
     1 << (Value::Queen as u32) | 1 << (Value::King as u32);
-// Royal straight
+/// Royal straight
 const STRAIGHT9: u32 = 1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
                        1 << (Value::Queen as u32) |
                        1 << (Value::King as u32) | 1 << (Value::Ace as u32);
@@ -83,17 +83,17 @@ pub trait Rankable {
     /// to a straight.
     #[inline]
     fn rank_straight(&self, hand_rank: &u32) -> Option<u32> {
-        match hand_rank {
-            &STRAIGHT0 => Some(0),
-            &STRAIGHT1 => Some(1),
-            &STRAIGHT2 => Some(2),
-            &STRAIGHT3 => Some(3),
-            &STRAIGHT4 => Some(4),
-            &STRAIGHT5 => Some(5),
-            &STRAIGHT6 => Some(6),
-            &STRAIGHT7 => Some(7),
-            &STRAIGHT8 => Some(8),
-            &STRAIGHT9 => Some(9),
+        match *hand_rank {
+            STRAIGHT0 => Some(0),
+            STRAIGHT1 => Some(1),
+            STRAIGHT2 => Some(2),
+            STRAIGHT3 => Some(3),
+            STRAIGHT4 => Some(4),
+            STRAIGHT5 => Some(5),
+            STRAIGHT6 => Some(6),
+            STRAIGHT7 => Some(7),
+            STRAIGHT8 => Some(8),
+            STRAIGHT9 => Some(9),
             _ => None,
         }
     }

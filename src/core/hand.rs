@@ -53,7 +53,9 @@ impl Hand {
             // Now try and get a char.
             let vco = chars.next();
             // If there was no char then we are done.
-            if vco != None {
+            if vco == None {
+                break;
+            } else {
                 // If we got a value char then we should get a
                 // suit.
                 let sco = chars.next();
@@ -73,10 +75,8 @@ impl Hand {
                 let c = Card { value: v, suit: s };
                 if !cards.insert(c) {
                     // If this card is already in the set then error out.
-                    return Err(format!("This card has already been added {:?}", c));
+                    return Err(format!("This card has already been added {}", c));
                 }
-            } else {
-                break;
             }
         }
 

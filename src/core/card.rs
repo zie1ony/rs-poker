@@ -1,6 +1,7 @@
 use std::mem;
 use std::cmp;
 use std::ascii::AsciiExt;
+use std::fmt;
 
 /// Card rank or value.
 /// This is basically the face value - 2
@@ -99,6 +100,25 @@ impl Value {
         }
     }
 
+    /// Convert this Value to a char.
+    pub fn to_char(&self) -> char {
+        match *self {
+            Value::Ace => 'A',
+            Value::King => 'K',
+            Value::Queen => 'Q',
+            Value::Jack => 'J',
+            Value::Ten => 'T',
+            Value::Nine => '9',
+            Value::Eight => '8',
+            Value::Seven => '7',
+            Value::Six => '6',
+            Value::Five => '5',
+            Value::Four => '4',
+            Value::Three => '3',
+            Value::Two => '2',
+        }
+    }
+
     /// How card ranks seperate the two values.
     ///
     /// # Examples
@@ -181,6 +201,16 @@ impl Suit {
             _ => None,
         }
     }
+
+    /// This Suit to a character.
+    pub fn to_char(&self) -> char {
+        match *self {
+            Suit::Diamond => 'd',
+            Suit::Spade => 's',
+            Suit::Heart => 'h',
+            Suit::Club => 'c',
+        }
+    }
 }
 
 /// The main struct of this library.
@@ -192,6 +222,13 @@ pub struct Card {
     /// The suit of this card.
     pub suit: Suit,
 }
+
+impl fmt::Display for Card {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}{}", self.value.to_char(), self.suit.to_char())
+    }
+}
+
 
 #[cfg(test)]
 mod tests {
