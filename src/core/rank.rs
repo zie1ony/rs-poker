@@ -70,6 +70,65 @@ const STRAIGHT9: u32 = 1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
                        1 << (Value::Queen as u32) |
                        1 << (Value::King as u32) | 1 << (Value::Ace as u32);
 
+/// Given a bitset of hand ranks. This method
+/// will determine if there's a staright, and will give the
+/// rank. Wheel is the lowest, broadway is the highest value.
+///
+/// Returns None if the hand ranks represented don't correspond
+/// to a straight.
+#[inline]
+fn rank_straight(value_set: u32) -> Option<u32> {
+    // We do a bunch of if/else statemens as there could be more than
+    // 5 different bits set so the straight might not be equal to the
+    // straight mask without masking them off.
+    if value_set & STRAIGHT9 == STRAIGHT9 {
+        Some(9)
+    } else if value_set & STRAIGHT8 == STRAIGHT8 {
+        Some(8)
+    } else if value_set & STRAIGHT7 == STRAIGHT7 {
+        Some(7)
+    } else if value_set & STRAIGHT6 == STRAIGHT6 {
+        Some(6)
+    } else if value_set & STRAIGHT5 == STRAIGHT5 {
+        Some(5)
+    } else if value_set & STRAIGHT4 == STRAIGHT4 {
+        Some(4)
+    } else if value_set & STRAIGHT3 == STRAIGHT3 {
+        Some(3)
+    } else if value_set & STRAIGHT2 == STRAIGHT2 {
+        Some(2)
+    } else if value_set & STRAIGHT1 == STRAIGHT1 {
+        Some(1)
+    } else if value_set & STRAIGHT0 == STRAIGHT0 {
+        Some(0)
+    } else {
+        None
+    }
+}
+/// Keep only the most signifigant bit.
+fn keep_highest(rank: u32) -> u32 {
+    1 << (32 - rank.leading_zeros() - 1)
+}
+/// Keep the N most signifigant bits.
+///
+/// This works by removing the least signifigant bits.
+fn keep_n(rank: u32, to_keep: u32) -> u32 {
+    let mut result = rank;
+    while result.count_ones() > to_keep {
+        result &= result - 1;
+    }
+    result
+}
+/// From a slice of values sets find if there's one that has a
+/// flush
+fn find_flush(suit_value_sets: &[u32]) -> Option<usize> {
+    for (i, sv) in suit_value_sets.iter().enumerate() {
+        if sv.count_ones() >= 5 {
+            return Some(i);
+        }
+    }
+    None
+}
 /// Can this turn into a hand rank?
 pub trait Rankable {
     /// Rank the current 5 card hand.
@@ -97,59 +156,59 @@ pub trait Rankable {
         }
 
         // Find out if there's a flush
-        let flush: Option<usize> = self.find_flush(&suit_value_sets);
+        let flush: Option<usize> = find_flush(&suit_value_sets);
 
         // If this is a flush then it could be a straight flush
         // or a flush. So check only once.
         if let Some(flush_idx) = flush {
             // If we can find a straight in the flush then it's s flush
-            if let Some(rank) = self.rank_straight(suit_value_sets[flush_idx]) {
+            if let Some(rank) = rank_straight(suit_value_sets[flush_idx]) {
                 Rank::StraightFlush(rank)
             } else {
                 // Else it's just a normal flush
-                let rank = self.keep_n(suit_value_sets[flush_idx], 5);
+                let rank = keep_n(suit_value_sets[flush_idx], 5);
                 Rank::Flush(rank)
             }
         } else if count_to_value[4] != 0 {
             // Four of a kind.
-            let high = self.keep_highest(value_set ^ count_to_value[4]);
+            let high = keep_highest(value_set ^ count_to_value[4]);
             Rank::FourOfAKind(count_to_value[4] << 13 | high)
         } else if count_to_value[3] != 0 && count_to_value[3].count_ones() == 2 {
             // There are two sets. So the best we can make is a full house.
-            let set = self.keep_highest(count_to_value[3]);
+            let set = keep_highest(count_to_value[3]);
             let pair = count_to_value[3] ^ set;
             Rank::FullHouse(set << 13 | pair)
         } else if count_to_value[3] != 0 && count_to_value[2] != 0 {
             // there is a pair and a set.
             let set = count_to_value[3];
-            let pair = self.keep_highest(count_to_value[2]);
+            let pair = keep_highest(count_to_value[2]);
             Rank::FullHouse(set << 13 | pair)
-        } else if let Some(s_rank) = self.rank_straight(value_set) {
+        } else if let Some(s_rank) = rank_straight(value_set) {
             // If there's a straight return it now.
             Rank::Straight(s_rank)
         } else if count_to_value[3] != 0 {
             // if there is a set then we need to keep 2 cards that
             // aren't in the set.
-            let low = self.keep_n(value_set ^ count_to_value[3], 2);
+            let low = keep_n(value_set ^ count_to_value[3], 2);
             Rank::ThreeOfAKind(count_to_value[3] << 13 | low)
         } else if count_to_value[2].count_ones() >= 2 {
             // Two pair
             //
             // That can be because we have 3 pairs and a high card.
             // Or we could have two pair and two high cards.
-            let pairs = self.keep_n(count_to_value[2], 2);
-            let low = self.keep_highest(value_set ^ pairs);
+            let pairs = keep_n(count_to_value[2], 2);
+            let low = keep_highest(value_set ^ pairs);
             Rank::TwoPair(pairs << 13 | low)
         } else if count_to_value[2] == 0 {
             // This means that there's no pair
             // no sets, no straights, no flushes, so only a
             // high cards.
-            Rank::HighCard(self.keep_n(value_set, 5))
+            Rank::HighCard(keep_n(value_set, 5))
         } else {
             // Otherwise there's only one pair.
             let pair = count_to_value[2];
             // Keep the highest three cards not in the pair.
-            let low = self.keep_n(value_set ^ count_to_value[2], 3);
+            let low = keep_n(value_set ^ count_to_value[2], 3);
             Rank::OnePair(pair << 13 | low)
         }
     }
@@ -196,7 +255,7 @@ pub trait Rankable {
                 // Need to check for all of them.
                 let suit_count = suit_set.count_ones();
                 let is_flush = suit_count == 1;
-                match (self.rank_straight(value_set), is_flush) {
+                match (rank_straight(value_set), is_flush) {
                     // This is the most likely outcome.
                     // Not a flush and not a straight.
                     (None, false) => Rank::HighCard(value_set),
@@ -244,69 +303,6 @@ pub trait Rankable {
             }
             _ => unreachable!(),
         }
-    }
-
-    /// Given a bitset of hand ranks. This method
-    /// will determine if there's a staright, and will give the
-    /// rank. Wheel is the lowest, broadway is the highest value.
-    ///
-    /// Returns None if the hand ranks represented don't correspond
-    /// to a straight.
-    #[inline]
-    fn rank_straight(&self, value_set: u32) -> Option<u32> {
-
-        // We do a bunch of if/else statemens as there could be more than
-        // 5 different bits set so the straight might not be equal to the
-        // straight mask without masking them off.
-        if value_set.count_ones() < 5 {
-            None
-        } else if value_set & STRAIGHT9 == STRAIGHT9 {
-            Some(9)
-        } else if value_set & STRAIGHT8 == STRAIGHT8 {
-            Some(8)
-        } else if value_set & STRAIGHT7 == STRAIGHT7 {
-            Some(7)
-        } else if value_set & STRAIGHT6 == STRAIGHT6 {
-            Some(6)
-        } else if value_set & STRAIGHT5 == STRAIGHT5 {
-            Some(5)
-        } else if value_set & STRAIGHT4 == STRAIGHT4 {
-            Some(4)
-        } else if value_set & STRAIGHT3 == STRAIGHT3 {
-            Some(3)
-        } else if value_set & STRAIGHT2 == STRAIGHT2 {
-            Some(2)
-        } else if value_set & STRAIGHT1 == STRAIGHT1 {
-            Some(1)
-        } else if value_set & STRAIGHT0 == STRAIGHT0 {
-            Some(0)
-        } else {
-            None
-        }
-    }
-    /// Keep only the most signifigant bit.
-    fn keep_highest(&self, rank: u32) -> u32 {
-        1 << (32 - rank.leading_zeros() - 1)
-    }
-    /// Keep the N most signifigant bits.
-    ///
-    /// This works by removing the least signifigant bits.
-    fn keep_n(&self, rank: u32, to_keep: u32) -> u32 {
-        let mut result = rank;
-        while result.count_ones() > to_keep {
-            result &= result - 1;
-        }
-        result
-    }
-    /// From a slice of values sets find if there's one that has a
-    /// flush
-    fn find_flush(&self, suit_value_sets: &[u32]) -> Option<usize> {
-        for (i, sv) in suit_value_sets.iter().enumerate() {
-            if sv.count_ones() >= 5 {
-                return Some(i);
-            }
-        }
-        None
     }
 }
 
