@@ -17,9 +17,17 @@ git = "https://github.com/rust-fuzz/libfuzzer-sys.git"
 [workspace]
 members = ["."]
 
+[profile.dev]
+opt-level = 3
+
 [[bin]]
 name = "fuzzer_script_1"
 path = "fuzzers/fuzzer_script_1.rs"
+
 [[bin]]
 name = "fuzzer_script_2"
 path = "fuzzers/fuzzer_script_2.rs"
+
+[[bin]]
+name = "rank_seven"
+path = "fuzzers/rank_seven.rs"
