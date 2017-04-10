@@ -20,8 +20,3 @@ travis-ci = { repository = "elliottneilclark/rs-poker" }
 [profile.release]
 debug = true
 lto = true
-
-
-[[bin]]
-name = "game_bench"
-path = "src/holdem/game_bench.rs"
