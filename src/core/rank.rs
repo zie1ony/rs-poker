@@ -253,29 +253,32 @@ pub trait Rankable {
     /// Returns None if the hand ranks represented don't correspond
     /// to a straight.
     #[inline]
-    fn rank_straight(&self, hand_rank: u32) -> Option<u32> {
+    fn rank_straight(&self, value_set: u32) -> Option<u32> {
+
         // We do a bunch of if/else statemens as there could be more than
         // 5 different bits set so the straight might not be equal to the
         // straight mask without masking them off.
-        if hand_rank & STRAIGHT9 == STRAIGHT9 {
+        if value_set.count_ones() < 5 {
+            None
+        } else if value_set & STRAIGHT9 == STRAIGHT9 {
             Some(9)
-        } else if hand_rank & STRAIGHT8 == STRAIGHT8 {
+        } else if value_set & STRAIGHT8 == STRAIGHT8 {
             Some(8)
-        } else if hand_rank & STRAIGHT7 == STRAIGHT7 {
+        } else if value_set & STRAIGHT7 == STRAIGHT7 {
             Some(7)
-        } else if hand_rank & STRAIGHT6 == STRAIGHT6 {
+        } else if value_set & STRAIGHT6 == STRAIGHT6 {
             Some(6)
-        } else if hand_rank & STRAIGHT5 == STRAIGHT5 {
+        } else if value_set & STRAIGHT5 == STRAIGHT5 {
             Some(5)
-        } else if hand_rank & STRAIGHT4 == STRAIGHT4 {
+        } else if value_set & STRAIGHT4 == STRAIGHT4 {
             Some(4)
-        } else if hand_rank & STRAIGHT3 == STRAIGHT3 {
+        } else if value_set & STRAIGHT3 == STRAIGHT3 {
             Some(3)
-        } else if hand_rank & STRAIGHT2 == STRAIGHT2 {
+        } else if value_set & STRAIGHT2 == STRAIGHT2 {
             Some(2)
-        } else if hand_rank & STRAIGHT1 == STRAIGHT1 {
+        } else if value_set & STRAIGHT1 == STRAIGHT1 {
             Some(1)
-        } else if hand_rank & STRAIGHT0 == STRAIGHT0 {
+        } else if value_set & STRAIGHT0 == STRAIGHT0 {
             Some(0)
         } else {
             None

@@ -1,8 +1,5 @@
 use core::*;
 
-extern crate rand;
-use self::rand::{thread_rng, sample};
-
 /// Current state of a game.
 #[derive(Debug)]
 pub struct Game {
@@ -12,6 +9,7 @@ pub struct Game {
     board: Vec<Card>,
     /// Hands still playing.
     hands: Vec<Hand>,
+    current_offset: usize,
 }
 
 impl Game {
@@ -21,6 +19,7 @@ impl Game {
                deck: Deck::default().flatten(),
                board: Vec::with_capacity(5),
                hands: (0..num_players).map(|_| Hand::default()).collect(),
+               current_offset: 52,
            })
     }
 
@@ -41,6 +40,7 @@ impl Game {
                deck: d.flatten(),
                hands: hands,
                board: vec![],
+               current_offset: 52,
            })
     }
 
@@ -60,16 +60,14 @@ impl Game {
         }
         // Figure out how many cards to deal.
         let num_cards = 5 - self.board.len();
-        // Get an rng to help out
-        let mut rng = thread_rng();
         // Now iterate over a sample of the deck.
-        for c in &sample(&mut rng, &self.deck[..], num_cards) {
+        self.shuffle_if_needed();
+        for c in &self.deck[self.current_offset..self.current_offset + num_cards] {
             for h in &mut self.hands {
-                // This sucks.
-                // Sample gives a reference to a ref.
-                h.push(*(*c));
+                h.push(*c);
             }
         }
+        self.current_offset += num_cards;
 
         // Now get the best rank of all the possible hands.
         let best_rank = self.hands
@@ -85,6 +83,12 @@ impl Game {
         for h in &mut self.hands {
             h.truncate(2 + self.board.len());
 
+        }
+    }
+    fn shuffle_if_needed(&mut self) {
+        if self.current_offset + 5 > self.deck.len() {
+            self.current_offset = 0;
+            self.deck.shuffle();
         }
     }
 }
