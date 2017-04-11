@@ -1,7 +1,7 @@
 # rs-poker
 
 [![Build Status](https://travis-ci.org/elliottneilclark/rs-poker.svg?branch=master)](https://travis-ci.org/elliottneilclark/rs-poker)
-[![](http://meritbadge.herokuapp.com/rs-poker)](https://crates.io/crates/rs-poker)
+[![Crates.io](https://img.shields.io/crates/v/rs-poker.svg)]()
 
 RS Poker is a rust library aimed at being a good starting place
 for lots of poker rust code. Correctness and performance are the two main goals.
