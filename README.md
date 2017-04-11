@@ -6,6 +6,9 @@
 RS Poker is a rust library aimed at being a good starting place
 for lots of poker rust code. Correctness and performance are the two main goals.
 
+Documentation is uploaded [here](http://elliottneilclark.github.io/rs-poker)
+The crates.io page is [here](https://crates.io/crates/rs_poker)
+
 ## Core
 
 The Core module contains code that is not specific to different
