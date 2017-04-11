@@ -122,12 +122,7 @@ fn keep_n(rank: u32, to_keep: u32) -> u32 {
 /// From a slice of values sets find if there's one that has a
 /// flush
 fn find_flush(suit_value_sets: &[u32]) -> Option<usize> {
-    for (i, sv) in suit_value_sets.iter().enumerate() {
-        if sv.count_ones() >= 5 {
-            return Some(i);
-        }
-    }
-    None
+    suit_value_sets.iter().position(|sv| sv.count_ones() >= 5)
 }
 /// Can this turn into a hand rank?
 pub trait Rankable {
