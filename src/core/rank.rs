@@ -29,46 +29,14 @@ pub enum Rank {
     StraightFlush(u32),
 }
 
-/// Big ugly constant for all the straghts.
+/// The Wheel straight is the only one without 5 bits in a row.
+/// So create a maske spe
 const STRAIGHT0: u32 = 1 << (Value::Ace as u32) | 1 << (Value::Two as u32) |
                        1 << (Value::Three as u32) |
                        1 << (Value::Four as u32) | 1 << (Value::Five as u32);
-/// "Normal" straights starting at two to six.
-const STRAIGHT1: u32 = 1 << (Value::Two as u32) | 1 << (Value::Three as u32) |
-                       1 << (Value::Four as u32) |
-                       1 << (Value::Five as u32) | 1 << (Value::Six as u32);
-/// Three to Seven
-const STRAIGHT2: u32 = 1 << (Value::Three as u32) | 1 << (Value::Four as u32) |
-                       1 << (Value::Five as u32) |
-                       1 << (Value::Six as u32) | 1 << (Value::Seven as u32);
-/// Four to Eight
-const STRAIGHT3: u32 =
-    1 << (Value::Four as u32) | 1 << (Value::Five as u32) | 1 << (Value::Six as u32) |
-    1 << (Value::Seven as u32) | 1 << (Value::Eight as u32);
-/// Five to Nine
-const STRAIGHT4: u32 =
-    1 << (Value::Five as u32) | 1 << (Value::Six as u32) | 1 << (Value::Seven as u32) |
-    1 << (Value::Eight as u32) | 1 << (Value::Nine as u32);
-/// Six to Ten
-const STRAIGHT5: u32 = 1 << (Value::Six as u32) | 1 << (Value::Seven as u32) |
-                       1 << (Value::Eight as u32) |
-                       1 << (Value::Nine as u32) | 1 << (Value::Ten as u32);
-/// Seven to Jack.
-const STRAIGHT6: u32 = 1 << (Value::Seven as u32) | 1 << (Value::Eight as u32) |
-                       1 << (Value::Nine as u32) |
-                       1 << (Value::Ten as u32) | 1 << (Value::Jack as u32);
-/// Eight to Queen
-const STRAIGHT7: u32 = 1 << (Value::Eight as u32) | 1 << (Value::Nine as u32) |
-                       1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
-                       1 << (Value::Queen as u32);
-/// Nine to king
-const STRAIGHT8: u32 =
-    1 << (Value::Nine as u32) | 1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
-    1 << (Value::Queen as u32) | 1 << (Value::King as u32);
-/// Royal straight
-const STRAIGHT9: u32 = 1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
-                       1 << (Value::Queen as u32) |
-                       1 << (Value::King as u32) | 1 << (Value::Ace as u32);
+/// A straight is 5 cards in a row, so create a mask of 5 bits in a row.
+/// If there is any place that this matches 5 bits then there is a straight.
+const STRAIGHT_MASK: u32 = 0b11111;
 
 /// Given a bitset of hand ranks. This method
 /// will determine if there's a staright, and will give the
@@ -76,33 +44,31 @@ const STRAIGHT9: u32 = 1 << (Value::Ten as u32) | 1 << (Value::Jack as u32) |
 ///
 /// Returns None if the hand ranks represented don't correspond
 /// to a straight.
-#[inline]
 fn rank_straight(value_set: u32) -> Option<u32> {
-    // We do a bunch of if/else statemens as there could be more than
-    // 5 different bits set so the straight might not be equal to the
-    // straight mask without masking them off.
-    if value_set & STRAIGHT9 == STRAIGHT9 {
-        Some(9)
-    } else if value_set & STRAIGHT8 == STRAIGHT8 {
-        Some(8)
-    } else if value_set & STRAIGHT7 == STRAIGHT7 {
-        Some(7)
-    } else if value_set & STRAIGHT6 == STRAIGHT6 {
-        Some(6)
-    } else if value_set & STRAIGHT5 == STRAIGHT5 {
-        Some(5)
-    } else if value_set & STRAIGHT4 == STRAIGHT4 {
-        Some(4)
-    } else if value_set & STRAIGHT3 == STRAIGHT3 {
-        Some(3)
-    } else if value_set & STRAIGHT2 == STRAIGHT2 {
-        Some(2)
-    } else if value_set & STRAIGHT1 == STRAIGHT1 {
-        Some(1)
-    } else if value_set & STRAIGHT0 == STRAIGHT0 {
-        Some(0)
-    } else {
-        None
+    if value_set.count_ones() < 5 {
+        return None;
+    }
+    // Check to see if this is the wheel. It's pretty unlikely.
+    if value_set & STRAIGHT0 == STRAIGHT0 {
+        return Some(0);
+    }
+
+    // Since we need to find the highest straight, not just the first straight
+    // We will keep track of the highest straight found. Assuming that we won't find anything.
+    let mut found: Option<u32> = None;
+    // We're going to shift the bits by this amount each time
+    // and then see if the
+    let mut shift = value_set.trailing_zeros();
+    loop {
+        let shifted = value_set >> shift;
+        if (shifted & STRAIGHT_MASK) == STRAIGHT_MASK {
+            found = Some(shift + 1);
+        }
+        // No need to go any farther. This was our last chance.
+        if shifted.count_ones() == 5 {
+            return found;
+        }
+        shift += (shifted ^ 0b1).trailing_zeros();
     }
 }
 /// Keep only the most signifigant bit.
@@ -122,12 +88,9 @@ fn keep_n(rank: u32, to_keep: u32) -> u32 {
 /// From a slice of values sets find if there's one that has a
 /// flush
 fn find_flush(suit_value_sets: &[u32]) -> Option<usize> {
-    for (i, sv) in suit_value_sets.iter().enumerate() {
-        if sv.count_ones() >= 5 {
-            return Some(i);
-        }
-    }
-    None
+    suit_value_sets
+        .iter()
+        .position(|sv| sv.count_ones() >= 5)
 }
 /// Can this turn into a hand rank?
 pub trait Rankable {
@@ -414,6 +377,14 @@ mod tests {
     fn test_rank_seven_straight_flush() {
         let h = Hand::new_from_str("AdKdQdJdTd9d8d").unwrap();
         assert_eq!(Rank::StraightFlush(9), h.rank_seven());
+    }
+
+    #[test]
+    fn test_rank_seven_straight_flush_wheel() {
+        // Make sure that we pick up the wheel straight flush
+        // over different straight.
+        let h = Hand::new_from_str("2d3d4d5d6h7cAd").unwrap();
+        assert_eq!(Rank::StraightFlush(0), h.rank_seven());
     }
 
     #[test]
