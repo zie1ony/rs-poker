@@ -1,5 +1,4 @@
 use core::hand::Hand;
-use core::card::Value;
 use core::card::Card;
 
 /// All the different possible hand ranks.
@@ -29,15 +28,7 @@ pub enum Rank {
     StraightFlush(u32),
 }
 
-/// The Wheel straight is the only one without 5 bits in a row.
-/// So create a maske spe
-const STRAIGHT0: u32 = 1 << (Value::Ace as u32) | 1 << (Value::Two as u32) |
-                       1 << (Value::Three as u32) |
-                       1 << (Value::Four as u32) | 1 << (Value::Five as u32);
-/// A straight is 5 cards in a row, so create a mask of 5 bits in a row.
-/// If there is any place that this matches 5 bits then there is a straight.
-const STRAIGHT_MASK: u32 = 0b11111;
-
+const WHEEL: u32 = 0b1000000001111;
 /// Given a bitset of hand ranks. This method
 /// will determine if there's a staright, and will give the
 /// rank. Wheel is the lowest, broadway is the highest value.
@@ -46,27 +37,41 @@ const STRAIGHT_MASK: u32 = 0b11111;
 /// to a straight.
 fn rank_straight(value_set: u32) -> Option<u32> {
     // Check to see if this is the wheel. It's pretty unlikely.
-    if value_set & STRAIGHT0 == STRAIGHT0 {
+    if value_set & WHEEL == WHEEL {
         return Some(0);
-    }
-
-    // Since we need to find the highest straight, not just the first straight
-    // We will keep track of the highest straight found. Assuming that we won't find anything.
-    let mut found: Option<u32> = None;
-    // We're going to shift the bits by this amount each time
-    // and then see if the
-    let mut shift = value_set.trailing_zeros();
-    loop {
-        let shifted = value_set >> shift;
-        if (shifted & STRAIGHT_MASK) == STRAIGHT_MASK {
-            found = Some(shift + 1);
+    } else {
+        // Example of something with a straight:
+        //       0000111111100
+        //       0001111111000
+        //       0011111110000
+        //       0111111100000
+        //       1111111000000
+        //       -------------
+        //       0000111000000
+        //
+        // So there were seven ones in a row
+        // we removed the bottom 4.
+        //
+        // Now an example of an almost straight:
+        //
+        //       0001110111100
+        //       0011101111000
+        //       0111011110000
+        //       1110111100000
+        //       1101111000000
+        //       -------------
+        //       0000000000000
+        let left = value_set & (value_set << 1) & (value_set << 2) & (value_set << 3) &
+                   (value_set << 4);
+        //
+        // Now count the leading 0's
+        let idx = left.leading_zeros();
+        // If this isn't all zeros then we found a straight
+        if idx < 32 {
+            return Some(32 - 4 - idx);
         }
-        // No need to go any farther. This was our last chance.
-        if shifted.count_ones() <= 5 {
-            return found;
-        }
-        shift += (shifted ^ 0b1).trailing_zeros();
     }
+    None
 }
 /// Keep only the most signifigant bit.
 fn keep_highest(rank: u32) -> u32 {
