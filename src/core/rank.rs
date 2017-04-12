@@ -36,42 +36,41 @@ const WHEEL: u32 = 0b1000000001111;
 /// Returns None if the hand ranks represented don't correspond
 /// to a straight.
 fn rank_straight(value_set: u32) -> Option<u32> {
-    // Check to see if this is the wheel. It's pretty unlikely.
-    if value_set & WHEEL == WHEEL {
+    // Example of something with a straight:
+    //       0000111111100
+    //       0001111111000
+    //       0011111110000
+    //       0111111100000
+    //       1111111000000
+    //       -------------
+    //       0000111000000
+    //
+    // So there were seven ones in a row
+    // we removed the bottom 4.
+    //
+    // Now an example of an almost straight:
+    //
+    //       0001110111100
+    //       0011101111000
+    //       0111011110000
+    //       1110111100000
+    //       1101111000000
+    //       -------------
+    //       0000000000000
+    let left = value_set & (value_set << 1) & (value_set << 2) & (value_set << 3) &
+               (value_set << 4);
+    //
+    // Now count the leading 0's
+    let idx = left.leading_zeros();
+    // If this isn't all zeros then we found a straight
+    if idx < 32 {
+        return Some(32 - 4 - idx);
+    } else if value_set & WHEEL == WHEEL {
+        // Check to see if this is the wheel. It's pretty unlikely.
         return Some(0);
     } else {
-        // Example of something with a straight:
-        //       0000111111100
-        //       0001111111000
-        //       0011111110000
-        //       0111111100000
-        //       1111111000000
-        //       -------------
-        //       0000111000000
-        //
-        // So there were seven ones in a row
-        // we removed the bottom 4.
-        //
-        // Now an example of an almost straight:
-        //
-        //       0001110111100
-        //       0011101111000
-        //       0111011110000
-        //       1110111100000
-        //       1101111000000
-        //       -------------
-        //       0000000000000
-        let left = value_set & (value_set << 1) & (value_set << 2) & (value_set << 3) &
-                   (value_set << 4);
-        //
-        // Now count the leading 0's
-        let idx = left.leading_zeros();
-        // If this isn't all zeros then we found a straight
-        if idx < 32 {
-            return Some(32 - 4 - idx);
-        }
+        None
     }
-    None
 }
 /// Keep only the most signifigant bit.
 fn keep_highest(rank: u32) -> u32 {
@@ -403,6 +402,13 @@ mod tests {
             assert_eq!(Rank::Straight(idx as u32 + 1),
                        Hand::new_from_str(s).unwrap().rank_seven());
         }
+    }
+
+
+    #[test]
+    fn test_rank_seven_find_best_with_wheel() {
+        let h = Hand::new_from_str("6dKdAd2d5d4d3d").unwrap();
+        assert_eq!(Rank::StraightFlush(1), h.rank_seven());
     }
 
     #[test]
