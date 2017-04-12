@@ -45,9 +45,6 @@ const STRAIGHT_MASK: u32 = 0b11111;
 /// Returns None if the hand ranks represented don't correspond
 /// to a straight.
 fn rank_straight(value_set: u32) -> Option<u32> {
-    if value_set.count_ones() < 5 {
-        return None;
-    }
     // Check to see if this is the wheel. It's pretty unlikely.
     if value_set & STRAIGHT0 == STRAIGHT0 {
         return Some(0);
@@ -65,7 +62,7 @@ fn rank_straight(value_set: u32) -> Option<u32> {
             found = Some(shift + 1);
         }
         // No need to go any farther. This was our last chance.
-        if shifted.count_ones() == 5 {
+        if shifted.count_ones() <= 5 {
             return found;
         }
         shift += (shifted ^ 0b1).trailing_zeros();
