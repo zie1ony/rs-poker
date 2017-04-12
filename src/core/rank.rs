@@ -29,11 +29,14 @@ pub enum Rank {
     StraightFlush(u32),
 }
 
-/// Big ugly constant for all the straghts.
+/// The Wheel straight is the only one without 5 bits in a row.
+/// So create a maske spe
 const STRAIGHT0: u32 = 1 << (Value::Ace as u32) | 1 << (Value::Two as u32) |
                        1 << (Value::Three as u32) |
                        1 << (Value::Four as u32) | 1 << (Value::Five as u32);
-const STRAIGT_MASK: u32 = 0b11111;
+/// A straight is 5 cards in a row, so create a mask of 5 bits in a row.
+/// If there is any place that this matches 5 bits then there is a straight.
+const STRAIGHT_MASK: u32 = 0b11111;
 
 /// Given a bitset of hand ranks. This method
 /// will determine if there's a staright, and will give the
@@ -58,7 +61,7 @@ fn rank_straight(value_set: u32) -> Option<u32> {
     let mut shift = value_set.trailing_zeros();
     loop {
         let shifted = value_set >> shift;
-        if (shifted & STRAIGT_MASK) == STRAIGT_MASK {
+        if (shifted & STRAIGHT_MASK) == STRAIGHT_MASK {
             found = Some(shift + 1);
         }
         // No need to go any farther. This was our last chance.
@@ -374,6 +377,14 @@ mod tests {
     fn test_rank_seven_straight_flush() {
         let h = Hand::new_from_str("AdKdQdJdTd9d8d").unwrap();
         assert_eq!(Rank::StraightFlush(9), h.rank_seven());
+    }
+
+    #[test]
+    fn test_rank_seven_straight_flush_wheel() {
+        // Make sure that we pick up the wheel straight flush
+        // over different straight.
+        let h = Hand::new_from_str("2d3d4d5d6h7cAd").unwrap();
+        assert_eq!(Rank::StraightFlush(0), h.rank_seven());
     }
 
     #[test]
