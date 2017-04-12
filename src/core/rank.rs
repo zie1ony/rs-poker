@@ -1,5 +1,4 @@
 use core::hand::Hand;
-use core::card::Value;
 use core::card::Card;
 
 /// All the different possible hand ranks.
@@ -29,15 +28,7 @@ pub enum Rank {
     StraightFlush(u32),
 }
 
-/// The Wheel straight is the only one without 5 bits in a row.
-/// So create a maske spe
-const STRAIGHT0: u32 = 1 << (Value::Ace as u32) | 1 << (Value::Two as u32) |
-                       1 << (Value::Three as u32) |
-                       1 << (Value::Four as u32) | 1 << (Value::Five as u32);
-/// A straight is 5 cards in a row, so create a mask of 5 bits in a row.
-/// If there is any place that this matches 5 bits then there is a straight.
-const STRAIGHT_MASK: u32 = 0b11111;
-
+const WHEEL: u32 = 0b1000000001111;
 /// Given a bitset of hand ranks. This method
 /// will determine if there's a staright, and will give the
 /// rank. Wheel is the lowest, broadway is the highest value.
@@ -45,27 +36,40 @@ const STRAIGHT_MASK: u32 = 0b11111;
 /// Returns None if the hand ranks represented don't correspond
 /// to a straight.
 fn rank_straight(value_set: u32) -> Option<u32> {
-    // Check to see if this is the wheel. It's pretty unlikely.
-    if value_set & STRAIGHT0 == STRAIGHT0 {
+    // Example of something with a straight:
+    //       0000111111100
+    //       0001111111000
+    //       0011111110000
+    //       0111111100000
+    //       1111111000000
+    //       -------------
+    //       0000111000000
+    //
+    // So there were seven ones in a row
+    // we removed the bottom 4.
+    //
+    // Now an example of an almost straight:
+    //
+    //       0001110111100
+    //       0011101111000
+    //       0111011110000
+    //       1110111100000
+    //       1101111000000
+    //       -------------
+    //       0000000000000
+    let left = value_set & (value_set << 1) & (value_set << 2) & (value_set << 3) &
+               (value_set << 4);
+    //
+    // Now count the leading 0's
+    let idx = left.leading_zeros();
+    // If this isn't all zeros then we found a straight
+    if idx < 32 {
+        return Some(32 - 4 - idx);
+    } else if value_set & WHEEL == WHEEL {
+        // Check to see if this is the wheel. It's pretty unlikely.
         return Some(0);
-    }
-
-    // Since we need to find the highest straight, not just the first straight
-    // We will keep track of the highest straight found. Assuming that we won't find anything.
-    let mut found: Option<u32> = None;
-    // We're going to shift the bits by this amount each time
-    // and then see if the
-    let mut shift = value_set.trailing_zeros();
-    loop {
-        let shifted = value_set >> shift;
-        if (shifted & STRAIGHT_MASK) == STRAIGHT_MASK {
-            found = Some(shift + 1);
-        }
-        // No need to go any farther. This was our last chance.
-        if shifted.count_ones() <= 5 {
-            return found;
-        }
-        shift += (shifted ^ 0b1).trailing_zeros();
+    } else {
+        None
     }
 }
 /// Keep only the most signifigant bit.
@@ -382,6 +386,29 @@ mod tests {
         // over different straight.
         let h = Hand::new_from_str("2d3d4d5d6h7cAd").unwrap();
         assert_eq!(Rank::StraightFlush(0), h.rank_seven());
+    }
+    #[test]
+    fn test_rank_seven_straights() {
+        let straights = ["2h3c4s5d6dTsKh",
+                         "3c4s5d6d7hTsKh",
+                         "4s5d6d7h8cTsKh",
+                         "5c6c7h8h9dAhAd",
+                         "6c7c8h9hTsKc6s",
+                         "7c8h9hTsKc6sJh",
+                         "8h9hTsQc6sJhAs",
+                         "9hTsQc6sJhKsKc",
+                         "TsQc6sJhKsAc5h"];
+        for (idx, s) in straights.iter().enumerate() {
+            assert_eq!(Rank::Straight(idx as u32 + 1),
+                       Hand::new_from_str(s).unwrap().rank_seven());
+        }
+    }
+
+
+    #[test]
+    fn test_rank_seven_find_best_with_wheel() {
+        let h = Hand::new_from_str("6dKdAd2d5d4d3d").unwrap();
+        assert_eq!(Rank::StraightFlush(1), h.rank_seven());
     }
 
     #[test]
