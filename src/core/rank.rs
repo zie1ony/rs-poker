@@ -388,6 +388,22 @@ mod tests {
         let h = Hand::new_from_str("2d3d4d5d6h7cAd").unwrap();
         assert_eq!(Rank::StraightFlush(0), h.rank_seven());
     }
+    #[test]
+    fn test_rank_seven_straights() {
+        let straights = ["2h3c4s5d6dTsKh",
+                         "3c4s5d6d7hTsKh",
+                         "4s5d6d7h8cTsKh",
+                         "5c6c7h8h9dAhAd",
+                         "6c7c8h9hTsKc6s",
+                         "7c8h9hTsKc6sJh",
+                         "8h9hTsQc6sJhAs",
+                         "9hTsQc6sJhKsKc",
+                         "TsQc6sJhKsAc5h"];
+        for (idx, s) in straights.iter().enumerate() {
+            assert_eq!(Rank::Straight(idx as u32 + 1),
+                       Hand::new_from_str(s).unwrap().rank_seven());
+        }
+    }
 
     #[test]
     fn test_rank_seven_four_kind() {
