@@ -10,7 +10,7 @@ fn main() {
         .collect();
     let mut g = Game::new_with_hands(hands).expect("Should be able to create a game.");
     let mut wins: [u64; 2] = [0, 0];
-    for _ in 0..200000000 {
+    for _ in 0..2000000 {
         let r = g.simulate().expect("There should be one best rank.");
         g.reset();
         wins[r.0] += 1
