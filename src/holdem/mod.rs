@@ -3,10 +3,10 @@ mod starting_hand;
 /// Export `StartingHand`
 pub use self::starting_hand::{Suitedness, StartingHand};
 
-/// Module for `Game` that will hold the current state of the game.
-mod game;
-/// Export `Game`
-pub use self::game::Game;
+/// Module for `MonteCarloGame` that will hold the current state of the game for simulation.
+mod monte_carlo_game;
+/// Export `MonteCarloGame`
+pub use self::monte_carlo_game::MonteCarloGame;
 
 /// Module with all the starting hand parsing code.
 mod parse;

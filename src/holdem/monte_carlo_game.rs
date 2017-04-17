@@ -2,7 +2,7 @@ use core::*;
 
 /// Current state of a game.
 #[derive(Debug)]
-pub struct Game {
+pub struct MonteCarloGame {
     /// Flatten deck
     deck: FlatDeck,
     /// Community cards.
@@ -12,19 +12,9 @@ pub struct Game {
     current_offset: usize,
 }
 
-impl Game {
-    /// Create a new game with no cards dealt and `num_players` empty hands.
-    pub fn new(num_players: usize) -> Result<Game, String> {
-        Ok(Game {
-               deck: Deck::default().flatten(),
-               board: Vec::with_capacity(5),
-               hands: (0..num_players).map(|_| Hand::default()).collect(),
-               current_offset: 52,
-           })
-    }
-
+impl MonteCarloGame {
     /// If we already have hands then lets start there.
-    pub fn new_with_hands(hands: Vec<Hand>) -> Result<Game, String> {
+    pub fn new_with_hands(hands: Vec<Hand>) -> Result<MonteCarloGame, String> {
         let mut d = Deck::default();
         for h in &hands {
             if h.len() != 2 {
@@ -36,7 +26,7 @@ impl Game {
                 }
             }
         }
-        Ok(Game {
+        Ok(MonteCarloGame {
                deck: d.flatten(),
                hands: hands,
                board: vec![],
@@ -100,23 +90,13 @@ mod test {
     use core::Rank;
 
     #[test]
-    fn test_create_game() {
-        let g = Game::new(9).unwrap();
-        assert!(g.deck.len() == 52);
-        assert!(g.hands.len() == 9);
-    }
-
-
-    #[test]
     fn test_simulate_pocket_pair() {
         let hands = ["AdAh", "2c2s"]
             .iter()
             .map(|s| Hand::new_from_str(s).unwrap())
             .collect();
-        let mut g = Game::new_with_hands(hands).unwrap();
+        let mut g = MonteCarloGame::new_with_hands(hands).unwrap();
         let result = g.simulate().unwrap();
-        println!("h0 = {:?}", g.hands[0]);
-        println!("h1 = {:?}", g.hands[1]);
         assert!(result.1 >= Rank::OnePair(0));
 
     }
