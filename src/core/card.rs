@@ -37,19 +37,21 @@ pub enum Value {
 
 /// Constant of all the values.
 /// This is what `Value::values()` returns
-const VALUES: [Value; 13] = [Value::Two,
-                             Value::Three,
-                             Value::Four,
-                             Value::Five,
-                             Value::Six,
-                             Value::Seven,
-                             Value::Eight,
-                             Value::Nine,
-                             Value::Ten,
-                             Value::Jack,
-                             Value::Queen,
-                             Value::King,
-                             Value::Ace];
+const VALUES: [Value; 13] = [
+    Value::Two,
+    Value::Three,
+    Value::Four,
+    Value::Five,
+    Value::Six,
+    Value::Seven,
+    Value::Eight,
+    Value::Nine,
+    Value::Ten,
+    Value::Jack,
+    Value::Queen,
+    Value::King,
+    Value::Ace,
+];
 
 impl Value {
     /// Take a u32 and convert it to a value.
@@ -59,6 +61,7 @@ impl Value {
     /// ```
     /// use rs_poker::core::Value;
     /// assert_eq!(Value::Four, Value::from_u8(Value::Four as u8));
+    /// ```
     pub fn from_u8(v: u8) -> Value {
         unsafe { mem::transmute(cmp::min(v, Value::Ace as u8)) }
     }
@@ -157,6 +160,14 @@ const SUITS: [Suit; 4] = [Suit::Spade, Suit::Club, Suit::Heart, Suit::Diamond];
 /// This is just here to provide a list of all `Suit`'s.
 impl Suit {
     /// Provide all the Suit's that there are.
+    /// 
+    /// # Examples
+    /// 
+    /// ```
+    /// use rs_poker::core::Suit;
+    /// let suits = Suit::suits();
+    /// assert_eq!(4, suits.len());
+    /// ```
     pub fn suits() -> [Suit; 4] {
         SUITS
     }
