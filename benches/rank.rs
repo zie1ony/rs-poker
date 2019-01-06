@@ -1,20 +1,26 @@
-#![feature(test)]
+#[macro_use]
+extern crate criterion;
 extern crate rs_poker;
-extern crate test;
 extern crate rand;
 
 use rs_poker::core::{Deck, Rankable, Hand, Flattenable};
+use criterion::Criterion;
 
-#[bench]
-fn rank_one(b: &mut test::Bencher) {
+fn rank_one(c: &mut Criterion) {
     let d = Deck::default().flatten();
     let hand = Hand::new_with_cards(d.sample(5));
+    c.bench_function("Rank one 5 card hand", move |b| {
     b.iter(|| hand.rank())
+    });
 }
 
-#[bench]
-fn rank(b: &mut test::Bencher) {
+fn rank_best_seven(c: &mut Criterion) {
     let d = Deck::default().flatten();
     let hand = Hand::new_with_cards(d.sample(7));
+    c.bench_function("Rank best 5card hand from 7", move |b| {
     b.iter(|| hand.rank())
+    });
 }
+
+criterion_group!(benches, rank_one, rank_best_seven);
+criterion_main!(benches);

@@ -13,6 +13,29 @@ license = "Apache-2.0"
 [dependencies]
 rand = "0.6"
 
+[dev-dependencies]
+criterion = "0.2"
+
+[[bench]]
+name = "game"
+harness = false
+
+[[bench]]
+name = "holdem_starting_hand"
+harness = false
+
+[[bench]]
+name = "iter"
+harness = false
+
+[[bench]]
+name = "parse"
+harness = false
+
+[[bench]]
+name = "rank"
+harness = false
+
 [badges]
 travis-ci = { repository = "elliottneilclark/rs-poker" }
 

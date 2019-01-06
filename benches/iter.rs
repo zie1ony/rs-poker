@@ -1,22 +1,28 @@
-#![feature(test)]
+#[macro_use]
+extern crate criterion;
 extern crate rs_poker;
-extern crate test;
 extern crate rand;
 
 use rs_poker::core::{Deck, FlatDeck, CardIter};
+use criterion::Criterion;
 
-#[bench]
-fn iter_in_deck(b: &mut test::Bencher) {
+fn iter_in_deck(c: &mut Criterion) {
+    c.bench_function("Iter all 5 cards hand in deck", |b| {
     b.iter(|| {
                let d: FlatDeck = Deck::default().into();
                d.into_iter().count()
-           });
+           })
+    });
 }
 
-#[bench]
-fn iter_hand(b: &mut test::Bencher) {
+fn iter_hand(c: &mut Criterion) {
     let d: FlatDeck = Deck::default().into();
     let hand = d.sample(7);
 
+    c.bench_function("Iter all 5 cards hand in 7 card hand ", move |b| {
     b.iter(|| CardIter::new(&hand[..], 5).count())
+    });
 }
+
+criterion_group!(benches, iter_in_deck, iter_hand);
+criterion_main!(benches);

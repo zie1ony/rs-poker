@@ -1,22 +1,27 @@
-#![feature(test)]
+#[macro_use]
+extern crate criterion;
 extern crate rs_poker;
-extern crate test;
 extern crate rand;
 
 use rs_poker::holdem::StartingHand;
+use criterion::Criterion;
 
-
-#[bench]
-fn all_starting(b: &mut test::Bencher) {
+fn all_starting(c: &mut Criterion) {
+    c.bench_function("Generate all starting hands", |b| {
     b.iter(StartingHand::all)
+    });
 }
 
-#[bench]
-fn iter_everything(b: &mut test::Bencher) {
+fn iter_everything(c: &mut Criterion) {
+    c.bench_function("Iter all possible hads from all starting hands", |b| {
     b.iter(|| -> usize {
                StartingHand::all()
                    .iter()
                    .map(|sh| -> usize { sh.possible_hands().len() })
                    .sum()
            })
+    });
 }
+
+criterion_group!(benches, all_starting, iter_everything);
+criterion_main!(benches);
