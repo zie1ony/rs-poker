@@ -1,6 +1,5 @@
 use std::mem;
 use std::cmp;
-use std::ascii::AsciiExt;
 use std::fmt;
 
 /// Card rank or value.
