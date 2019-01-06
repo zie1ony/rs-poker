@@ -3,7 +3,8 @@ use core::card::Card;
 use core::deck::Deck;
 
 extern crate rand;
-use rand::{sample, thread_rng, Rng};
+use rand::thread_rng;
+use rand::seq::*;
 
 /// `FlatDeck` is a deck of cards that allows easy
 /// indexing into the cards. It does not provide
@@ -29,17 +30,14 @@ impl FlatDeck {
     /// Give a random sample of the cards still left in the deck
     pub fn sample(&self, n: usize) -> Vec<Card> {
         let mut rng = thread_rng();
-        sample(&mut rng, &self.cards[..], n)
-            .iter()
-            .map(|c| *(*c))
-            .collect()
+        self.cards.choose_multiple(&mut rng, n).cloned().collect()
     }
 
     /// Randomly shuffle the flat deck.
     /// This will ensure the there's no order to the deck.
     pub fn shuffle(&mut self) {
         let mut rng = thread_rng();
-        rng.shuffle(&mut self.cards)
+        self.cards.shuffle(&mut rng)
     }
 
     /// Deal a card if there is one there to deal.
