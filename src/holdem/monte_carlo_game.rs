@@ -1,4 +1,4 @@
-use core::*;
+use crate::core::*;
 
 /// Current state of a game.
 #[derive(Debug)]
@@ -85,8 +85,8 @@ impl MonteCarloGame {
 #[cfg(test)]
 mod test {
     use super::*;
-    use core::Hand;
-    use core::Rank;
+    use crate::core::Hand;
+    use crate::core::Rank;
 
     #[test]
     fn test_simulate_pocket_pair() {

@@ -1,5 +1,5 @@
-use holdem::Suitedness;
-use core::{Card, Hand, Suit, Value};
+use crate::holdem::Suitedness;
+use crate::core::{Card, Hand, Suit, Value};
 use std::iter::Iterator;
 use std;
 
@@ -528,7 +528,7 @@ impl RangeParser {
 #[cfg(test)]
 mod test {
     use super::*;
-    use core::Value;
+    use crate::core::Value;
 
     #[test]
     fn test_range_iter_static() {

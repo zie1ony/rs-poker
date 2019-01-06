@@ -1,4 +1,4 @@
-use core::{Card, Hand, Suit, Value};
+use crate::core::{Card, Hand, Suit, Value};
 
 /// Enum to represent how the suits of a hand correspond to each other.
 /// `Suitedness::Suited` will mean that all cards have the same suit
@@ -221,7 +221,7 @@ impl StartingHand {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use core::Value;
+    use crate::core::Value;
 
     #[test]
     fn test_aces() {
