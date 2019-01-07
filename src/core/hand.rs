@@ -1,4 +1,4 @@
-use core::card::*;
+use crate::core::card::*;
 use std::ops::Index;
 use std::ops::{RangeFrom, RangeFull, RangeTo};
 use std::slice::Iter;
@@ -62,11 +62,11 @@ impl Hand {
                 // suit.
                 let sco = chars.next();
                 // Now try and parse the two chars that we have.
-                let v = try!(
+                let v = r#try!(
                     vco.and_then(Value::from_char)
                         .ok_or_else(|| { format!("Couldn't parse value {}", vco.unwrap_or('?')) })
                 );
-                let s = try!(
+                let s = r#try!(
                     sco.and_then(Suit::from_char)
                         .ok_or_else(|| { format!("Couldn't parse suit {}", sco.unwrap_or('?')) })
                 );
@@ -145,7 +145,7 @@ impl Index<RangeFrom<usize>> for Hand {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use core::card::Card;
+    use crate::core::card::Card;
 
     #[test]
     fn test_add_card() {

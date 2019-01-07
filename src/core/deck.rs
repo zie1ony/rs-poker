@@ -1,4 +1,4 @@
-use core::card::{Card, Suit, Value};
+use crate::core::card::{Card, Suit, Value};
 use std::collections::HashSet;
 use std::collections::hash_set::{IntoIter, Iter};
 
@@ -66,7 +66,7 @@ impl IntoIterator for Deck {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use core::card::*;
+    use crate::core::card::*;
 
     #[test]
     fn test_contains_in() {

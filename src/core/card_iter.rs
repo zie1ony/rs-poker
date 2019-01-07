@@ -1,4 +1,4 @@
-use core::*;
+use crate::core::*;
 
 /// Given some cards create sets of possible groups of cards.
 #[derive(Debug)]
@@ -100,10 +100,10 @@ impl<'a> IntoIterator for &'a FlatDeck {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use core::card::Card;
-    use core::hand::Hand;
-    use core::deck::*;
-    use core::flat_deck::*;
+    use crate::core::card::Card;
+    use crate::core::hand::Hand;
+    use crate::core::deck::*;
+    use crate::core::flat_deck::*;
 
     #[test]
     fn test_iter_one() {

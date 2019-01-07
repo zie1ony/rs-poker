@@ -1,6 +1,6 @@
 use std::ops::{Index, Range, RangeFrom, RangeFull, RangeTo};
-use core::card::Card;
-use core::deck::Deck;
+use crate::core::card::Card;
+use crate::core::deck::Deck;
 
 extern crate rand;
 use rand::thread_rng;
