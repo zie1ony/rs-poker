@@ -1,6 +1,6 @@
 [package]
 name = "rs_poker"
-version = "0.5.1"
+version = "0.5.2-alpha.0"
 authors = ["Elliott Clark <eclark@apache.org>"]
 keywords = ["cards", "poker"]
 categories = ["games"]
