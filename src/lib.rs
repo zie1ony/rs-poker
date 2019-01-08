@@ -1,9 +1,9 @@
-//! Furry Fiesta is a library for poker.
+//! RS-Poker is a library for poker.
 //! It's mostly meant for Holdem games, however the core functionality
 //! should work for all game types.
 //!
 //! # Implemented:
-//! Currently Furry Fiesta supports:
+//! Currently RS-Poker supports:
 //!
 //! * Hand Iteration.
 //! * Hand Ranking.
