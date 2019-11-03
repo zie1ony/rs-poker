@@ -1,8 +1,7 @@
-use crate::holdem::Suitedness;
 use crate::core::{Card, Hand, Suit, Value};
-use std::iter::Iterator;
+use crate::holdem::Suitedness;
 use std;
-
+use std::iter::Iterator;
 
 /// Inclusive Range of card values.
 #[derive(Debug, Clone, PartialEq, PartialOrd)]
@@ -49,12 +48,12 @@ enum Modifier {
 impl Modifier {
     /// From a character try and extract a modifier.
     /// Returns None if it doesn't match anything.
-    fn from_char(c: char) -> Option<Modifier> {
+    fn from_char(c: char) -> Option<Self> {
         match c {
-            '+' => Some(Modifier::Plus),
-            's' => Some(Modifier::Suited),
-            'o' => Some(Modifier::Offsuit),
-            '-' => Some(Modifier::Range),
+            '+' => Some(Self::Plus),
+            's' => Some(Self::Suited),
+            'o' => Some(Self::Offsuit),
+            '-' => Some(Self::Range),
             _ => None,
         }
     }
@@ -91,8 +90,8 @@ struct RangeIter {
 
 impl RangeIter {
     /// Create a new parser by giving it a static value and a range.
-    fn stat(value: Value, range_two: InclusiveValueRange) -> RangeIter {
-        RangeIter {
+    fn stat(value: Value, range_two: InclusiveValueRange) -> Self {
+        Self {
             value_one: RangeIterValueSpecifier::Static(value),
             range: range_two,
             offset: 0,
@@ -102,8 +101,8 @@ impl RangeIter {
     }
     /// Create a range iterator where the first card is a gap away from
     /// the second.
-    fn gap(gap: u8, range_two: InclusiveValueRange) -> RangeIter {
-        RangeIter {
+    fn gap(gap: u8, range_two: InclusiveValueRange) -> Self {
+        Self {
             value_one: RangeIterValueSpecifier::Gap(gap),
             range: range_two,
             offset: 0,
@@ -112,10 +111,10 @@ impl RangeIter {
         }
     }
     /// Create an iterator over a range of pocket pairs
-    fn pair(range: InclusiveValueRange) -> RangeIter {
-        RangeIter {
+    fn pair(range: InclusiveValueRange) -> Self {
+        Self {
             value_one: RangeIterValueSpecifier::Pair,
-            range: range,
+            range,
             offset: 0,
             suit_one_offset: 0,
             suit_two_offset: 1,
@@ -327,7 +326,7 @@ impl RangeParser {
     ///     // Second card is less than or equal to Ten
     ///     assert!(hand[1].value <= Value::Ten);
     ///     // All hands are connectors.
-    ///     assert_eq!(1, hand[0].value.gap(&hand[1].value));
+    ///     assert_eq!(1, hand[0].value.gap(hand[1].value));
     /// }
     /// ```
     ///
@@ -344,7 +343,7 @@ impl RangeParser {
     ///
     /// Since the dash modifier represents a range the difference
     /// between cards ( the gap ) must remain constant.
-    /// If it's not parse_one will return an `Err`.
+    /// If it's not `parse_one will` return an `Err`.
     ///
     /// ```rust,should_panic
     /// use rs_poker::holdem::RangeParser;
@@ -373,7 +372,8 @@ impl RangeParser {
         let mut gap: Option<u8> = None;
 
         // Get the first char.
-        let fv_char = iter.next()
+        let fv_char = iter
+            .next()
             .ok_or_else(|| String::from("Error getting the first card of the hand"))?;
         // It should be a value.
         first_range.start = Value::from_char(fv_char)
@@ -388,7 +388,8 @@ impl RangeParser {
         }
 
         // Now there should be another value char.
-        let sv_char = iter.next()
+        let sv_char = iter
+            .next()
             .ok_or_else(|| String::from("Error getting the second card of the hand."))?;
         // that char should parse correctly.
         second_range.start = Value::from_char(sv_char)
@@ -431,7 +432,7 @@ impl RangeParser {
                     if gap != None {
                         return Err(String::from("Plus can't be combined with range."));
                     }
-                    let ex_gap = first_range.end.gap(&second_range.end);
+                    let ex_gap = first_range.end.gap(second_range.end);
                     if ex_gap <= 1 {
                         // This is either a pocket pair (ex_gap == 0)
                         // or connectors (ex_gap == 1).
@@ -456,8 +457,8 @@ impl RangeParser {
                     second_range.end = Value::from_char(sr_char)
                         .ok_or_else(|| String::from("Error parsing the range"))?;
 
-                    let first_gap = first_range.start.gap(&second_range.start);
-                    let second_gap = first_range.end.gap(&second_range.end);
+                    let first_gap = first_range.start.gap(second_range.start);
+                    let second_gap = first_range.end.gap(second_range.end);
 
                     if first_gap != second_gap {
                         return Err(String::from(
@@ -501,29 +502,28 @@ impl RangeParser {
             .filter(|hand| second_range.include(hand[1].value))
             // If this is suited then make sure that they are suited.
             .filter(|h| {
-                (suited == Suitedness::Any) ||
-                    (suited == Suitedness::OffSuit && h[0].suit != h[1].suit) ||
-                    (suited == Suitedness::Suited && h[0].suit == h[1].suit)
+                (suited == Suitedness::Any)
+                    || (suited == Suitedness::OffSuit && h[0].suit != h[1].suit)
+                    || (suited == Suitedness::Suited && h[0].suit == h[1].suit)
             })
-        // Make sure the suits match if specified
-        .filter(|h| {
-            if h[0].value == h[1].value {
-                // This is a pair so ordering on suits can be weird.
-                first_suit.map_or(true, |s| h[0].suit == s || h[1].suit == s) &&
-                    second_suit.map_or(true, |s| h[0].suit == s || h[1].suit == s)
-            } else {
-                first_suit.map_or(true, |s| h[0].suit == s) &&
-                    second_suit.map_or(true, |s| h[1].suit == s)
-            }
-        })
-        // If there is a gap make sure it's enforced.
-        .filter(|h| gap.map_or(true, |g| g == h[0].value.gap(&h[1].value)))
+            // Make sure the suits match if specified
+            .filter(|h| {
+                if h[0].value == h[1].value {
+                    // This is a pair so ordering on suits can be weird.
+                    first_suit.map_or(true, |s| h[0].suit == s || h[1].suit == s)
+                        && second_suit.map_or(true, |s| h[0].suit == s || h[1].suit == s)
+                } else {
+                    first_suit.map_or(true, |s| h[0].suit == s)
+                        && second_suit.map_or(true, |s| h[1].suit == s)
+                }
+            })
+            // If there is a gap make sure it's enforced.
+            .filter(|h| gap.map_or(true, |g| g == h[0].value.gap(h[1].value)))
             .collect();
 
         Ok(filtered)
     }
 }
-
 
 #[cfg(test)]
 mod test {
@@ -675,11 +675,15 @@ mod test {
 
     #[test]
     fn test_explicit_pair_good() {
-        assert!(RangeParser::parse_one(&String::from("2c2s")).unwrap().len() > 0);
+        assert!(!RangeParser::parse_one(&String::from("2c2s"))
+            .unwrap()
+            .is_empty());
     }
     #[test]
     fn test_explicit_suit_good() {
-        assert!(RangeParser::parse_one(&String::from("6c2c")).unwrap().len() > 0);
+        assert!(!RangeParser::parse_one(&String::from("6c2c"))
+            .unwrap()
+            .is_empty());
     }
     #[test]
     fn test_explicit_suited_no_good() {
@@ -693,15 +697,18 @@ mod test {
     }
     #[test]
     fn test_explicit_suit_plus() {
-        assert!(RangeParser::parse_one(&String::from("2s2+")).unwrap().len() > 0);
+        assert!(!RangeParser::parse_one(&String::from("2s2+"))
+            .unwrap()
+            .is_empty());
     }
     #[test]
     fn test_explicit_suit_pair() {
-        assert!(RangeParser::parse_one(&String::from("8D8")).unwrap().len() > 0);
+        assert!(!RangeParser::parse_one(&String::from("8D8"))
+            .unwrap()
+            .is_empty());
     }
     #[test]
     fn test_ok_with_trailing_plus() {
         assert!(RangeParser::parse_one(&String::from("8Q-62+")).is_err());
     }
-
 }

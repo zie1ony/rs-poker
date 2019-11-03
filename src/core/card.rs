@@ -1,6 +1,6 @@
-use std::mem;
 use std::cmp;
 use std::fmt;
+use std::mem;
 
 /// Card rank or value.
 /// This is basically the face value - 2
@@ -61,14 +61,16 @@ impl Value {
     /// use rs_poker::core::Value;
     /// assert_eq!(Value::Four, Value::from_u8(Value::Four as u8));
     /// ```
-    pub fn from_u8(v: u8) -> Value {
-        unsafe { mem::transmute(cmp::min(v, Value::Ace as u8)) }
+    #[must_use]
+    pub fn from_u8(v: u8) -> Self {
+        unsafe { mem::transmute(cmp::min(v, Self::Ace as u8)) }
     }
     /// Get all of the `Value`'s that are possible.
     /// This is used to iterate through all possible
     /// values when creating a new deck, or
     /// generating all possible starting hands.
-    pub fn values() -> [Value; 13] {
+    #[must_use]
+    pub fn values() -> [Self; 13] {
         VALUES
     }
 
@@ -83,41 +85,43 @@ impl Value {
     ///
     /// assert_eq!(Value::Ace, Value::from_char('A').unwrap());
     /// ```
-    pub fn from_char(c: char) -> Option<Value> {
+    #[must_use]
+    pub fn from_char(c: char) -> Option<Self> {
         match c.to_ascii_uppercase() {
-            'A' => Some(Value::Ace),
-            'K' => Some(Value::King),
-            'Q' => Some(Value::Queen),
-            'J' => Some(Value::Jack),
-            'T' => Some(Value::Ten),
-            '9' => Some(Value::Nine),
-            '8' => Some(Value::Eight),
-            '7' => Some(Value::Seven),
-            '6' => Some(Value::Six),
-            '5' => Some(Value::Five),
-            '4' => Some(Value::Four),
-            '3' => Some(Value::Three),
-            '2' => Some(Value::Two),
+            'A' => Some(Self::Ace),
+            'K' => Some(Self::King),
+            'Q' => Some(Self::Queen),
+            'J' => Some(Self::Jack),
+            'T' => Some(Self::Ten),
+            '9' => Some(Self::Nine),
+            '8' => Some(Self::Eight),
+            '7' => Some(Self::Seven),
+            '6' => Some(Self::Six),
+            '5' => Some(Self::Five),
+            '4' => Some(Self::Four),
+            '3' => Some(Self::Three),
+            '2' => Some(Self::Two),
             _ => None,
         }
     }
 
     /// Convert this Value to a char.
-    pub fn to_char(&self) -> char {
-        match *self {
-            Value::Ace => 'A',
-            Value::King => 'K',
-            Value::Queen => 'Q',
-            Value::Jack => 'J',
-            Value::Ten => 'T',
-            Value::Nine => '9',
-            Value::Eight => '8',
-            Value::Seven => '7',
-            Value::Six => '6',
-            Value::Five => '5',
-            Value::Four => '4',
-            Value::Three => '3',
-            Value::Two => '2',
+    #[must_use]
+    pub fn to_char(self) -> char {
+        match self {
+            Self::Ace => 'A',
+            Self::King => 'K',
+            Self::Queen => 'Q',
+            Self::Jack => 'J',
+            Self::Ten => 'T',
+            Self::Nine => '9',
+            Self::Eight => '8',
+            Self::Seven => '7',
+            Self::Six => '6',
+            Self::Five => '5',
+            Self::Four => '4',
+            Self::Three => '3',
+            Self::Two => '2',
         }
     }
 
@@ -127,11 +131,12 @@ impl Value {
     ///
     /// ```
     /// use rs_poker::core::Value;
-    /// assert_eq!(1, Value::Ace.gap(&Value::King));
+    /// assert_eq!(1, Value::Ace.gap(Value::King));
     /// ```
-    pub fn gap(&self, other: &Value) -> u8 {
-        let min = cmp::min(*self as u8, *other as u8);
-        let max = cmp::max(*self as u8, *other as u8);
+    #[must_use]
+    pub fn gap(self, other: Self) -> u8 {
+        let min = cmp::min(self as u8, other as u8);
+        let max = cmp::max(self as u8, other as u8);
         max - min
     }
 }
@@ -159,15 +164,16 @@ const SUITS: [Suit; 4] = [Suit::Spade, Suit::Club, Suit::Heart, Suit::Diamond];
 /// This is just here to provide a list of all `Suit`'s.
 impl Suit {
     /// Provide all the Suit's that there are.
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use rs_poker::core::Suit;
     /// let suits = Suit::suits();
     /// assert_eq!(4, suits.len());
     /// ```
-    pub fn suits() -> [Suit; 4] {
+    #[must_use]
+    pub fn suits() -> [Self; 4] {
         SUITS
     }
 
@@ -180,8 +186,9 @@ impl Suit {
     /// let idx = Suit::Club as u8;
     /// assert_eq!(Suit::Club, Suit::from_u8(idx));
     /// ```
-    pub fn from_u8(s: u8) -> Suit {
-        unsafe { mem::transmute(cmp::min(s, Suit::Diamond as u8)) }
+    #[must_use]
+    pub fn from_u8(s: u8) -> Self {
+        unsafe { mem::transmute(cmp::min(s, Self::Diamond as u8)) }
     }
 
     /// Given a character that represents a suit try and parse that char.
@@ -202,23 +209,25 @@ impl Suit {
     /// let s = Suit::from_char('X');
     /// assert_eq!(None, s);
     /// ```
-    pub fn from_char(s: char) -> Option<Suit> {
+    #[must_use]
+    pub fn from_char(s: char) -> Option<Self> {
         match s.to_ascii_lowercase() {
-            'd' => Some(Suit::Diamond),
-            's' => Some(Suit::Spade),
-            'h' => Some(Suit::Heart),
-            'c' => Some(Suit::Club),
+            'd' => Some(Self::Diamond),
+            's' => Some(Self::Spade),
+            'h' => Some(Self::Heart),
+            'c' => Some(Self::Club),
             _ => None,
         }
     }
 
     /// This Suit to a character.
-    pub fn to_char(&self) -> char {
-        match *self {
-            Suit::Diamond => 'd',
-            Suit::Spade => 's',
-            Suit::Heart => 'h',
-            Suit::Club => 'c',
+    #[must_use]
+    pub fn to_char(self) -> char {
+        match self {
+            Self::Diamond => 'd',
+            Self::Spade => 's',
+            Self::Heart => 'h',
+            Self::Club => 'c',
         }
     }
 }
@@ -238,7 +247,6 @@ impl fmt::Display for Card {
         write!(f, "{}{}", self.value.to_char(), self.suit.to_char())
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -270,8 +278,6 @@ mod tests {
             suit: Suit::Club,
         };
 
-        // Make sure that equals works
-        assert!(c1 == c1);
         // Make sure that the values are ordered
         assert!(c1 < c2);
         assert!(c2 > c1);
@@ -313,17 +319,17 @@ mod tests {
     #[test]
     fn test_gap() {
         // test on gap
-        assert!(1 == Value::Ace.gap(&Value::King));
+        assert!(1 == Value::Ace.gap(Value::King));
         // test no gap at the high end
-        assert!(0 == Value::Ace.gap(&Value::Ace));
+        assert!(0 == Value::Ace.gap(Value::Ace));
         // test no gap at the low end
-        assert!(0 == Value::Two.gap(&Value::Two));
+        assert!(0 == Value::Two.gap(Value::Two));
         // Test one gap at the low end
-        assert!(1 == Value::Two.gap(&Value::Three));
+        assert!(1 == Value::Two.gap(Value::Three));
         // test that ordering doesn't matter
-        assert!(1 == Value::Three.gap(&Value::Two));
+        assert!(1 == Value::Three.gap(Value::Two));
         // Test things that are far apart
-        assert!(12 == Value::Ace.gap(&Value::Two));
-        assert!(12 == Value::Two.gap(&Value::Ace));
+        assert!(12 == Value::Ace.gap(Value::Two));
+        assert!(12 == Value::Two.gap(Value::Ace));
     }
 }

@@ -14,21 +14,21 @@ pub struct MonteCarloGame {
 
 impl MonteCarloGame {
     /// If we already have hands then lets start there.
-    pub fn new_with_hands(hands: Vec<Hand>) -> Result<MonteCarloGame, String> {
+    pub fn new_with_hands(hands: Vec<Hand>) -> Result<Self, String> {
         let mut d = Deck::default();
         for h in &hands {
             if h.len() != 2 {
                 return Err(String::from("Hand passed in doesn't have 2 cards."));
             }
             for c in h.iter() {
-                if !d.remove(c) {
+                if !d.remove(*c) {
                     return Err(format!("Card {} was already removed from the deck.", c));
                 }
             }
         }
-        Ok(MonteCarloGame {
+        Ok(Self {
             deck: d.flatten(),
-            hands: hands,
+            hands,
             board: vec![],
             current_offset: 52,
         })
@@ -60,7 +60,8 @@ impl MonteCarloGame {
         self.current_offset += num_cards;
 
         // Now get the best rank of all the possible hands.
-        let best_rank = self.hands
+        let best_rank = self
+            .hands
             .iter()
             .map(|h| h.rank())
             .enumerate()

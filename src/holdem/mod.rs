@@ -1,7 +1,7 @@
 /// Module that can generate possible cards for a starting hand.
 mod starting_hand;
 /// Export `StartingHand`
-pub use self::starting_hand::{Suitedness, StartingHand};
+pub use self::starting_hand::{StartingHand, Suitedness};
 
 /// Module for `MonteCarloGame` that will hold the current state of the game for simulation.
 mod monte_carlo_game;

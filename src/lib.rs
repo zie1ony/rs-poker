@@ -14,6 +14,7 @@
 //! * Holdem Game State.
 //! * Multi-threading
 //!
+#![deny(clippy::all)]
 extern crate rand;
 
 /// Allow all the core poker functionality to be used

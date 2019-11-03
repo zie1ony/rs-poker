@@ -6,7 +6,6 @@ mod card;
 /// Re-export Card, Value, and Suit
 pub use self::card::{Card, Suit, Value};
 
-
 /// Code related to cards in hands.
 mod hand;
 /// Everything in there should be public.

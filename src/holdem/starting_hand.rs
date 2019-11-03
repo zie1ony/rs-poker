@@ -57,7 +57,6 @@ impl Default {
             .collect()
     }
 
-
     /// Create a new vector of all the off suit hands.
     fn create_offsuit(&self) -> Vec<Hand> {
         // Since the values are the same there is no reason to swap the suits.
@@ -114,7 +113,6 @@ impl Default {
     }
 }
 
-
 /// Starting hand struct to represent where it's one
 /// static card and a range for the other.
 #[derive(Debug, PartialEq, Eq, PartialOrd)]
@@ -129,7 +127,6 @@ pub struct SingleCardRange {
     suited: Suitedness,
 }
 
-
 impl SingleCardRange {
     /// Generate all the possible hands for this starting hand type.
     fn possible_hands(&self) -> Vec<Hand> {
@@ -141,7 +138,8 @@ impl SingleCardRange {
                 value_one: self.value_one,
                 value_two: cur_value,
                 suited: self.suited,
-            }.possible_hands();
+            }
+            .possible_hands();
             hands.append(&mut new_hands);
             cur_value = Value::from_u8(cur_value as u8 + 1);
         }
@@ -163,42 +161,40 @@ pub enum StartingHand {
 
 impl StartingHand {
     /// Create a default starting hand with two `Value`'s and a `Suitedness`.
-    pub fn default(value_one: Value, value_two: Value, suited: Suitedness) -> StartingHand {
-        StartingHand::Def(Default {
-            value_one: value_one,
-            value_two: value_two,
-            suited: suited,
+    #[must_use]
+    pub fn default(value_one: Value, value_two: Value, suited: Suitedness) -> Self {
+        Self::Def(Default {
+            value_one,
+            value_two,
+            suited,
         })
     }
 
     /// Create a new StartingHand with the second card being a range.
-    pub fn single_range(
-        value_one: Value,
-        start: Value,
-        end: Value,
-        suited: Suitedness,
-    ) -> StartingHand {
-        StartingHand::SingleCardRange(SingleCardRange {
-            value_one: value_one,
-            start: start,
-            end: end,
-            suited: suited,
+    #[must_use]
+    pub fn single_range(value_one: Value, start: Value, end: Value, suited: Suitedness) -> Self {
+        Self::SingleCardRange(SingleCardRange {
+            value_one,
+            start,
+            end,
+            suited,
         })
     }
 
     /// Create every possible unique StartingHand.
-    pub fn all() -> Vec<StartingHand> {
+    #[must_use]
+    pub fn all() -> Vec<Self> {
         let mut hands = Vec::with_capacity(169);
         let values = Value::values();
         for (i, value_one) in values.iter().enumerate() {
             for value_two in &values[i..] {
-                hands.push(StartingHand::Def(Default {
+                hands.push(Self::Def(Default {
                     value_one: *value_one,
                     value_two: *value_two,
                     suited: Suitedness::OffSuit,
                 }));
                 if value_one != value_two {
-                    hands.push(StartingHand::Def(Default {
+                    hands.push(Self::Def(Default {
                         value_one: *value_one,
                         value_two: *value_two,
                         suited: Suitedness::Suited,
@@ -209,11 +205,12 @@ impl StartingHand {
         hands
     }
 
-    /// From a StartingHand specify all the hands this could represent.
+    /// From a `StartingHand` specify all the hands this could represent.
+    #[must_use]
     pub fn possible_hands(&self) -> Vec<Hand> {
         match *self {
-            StartingHand::Def(ref h) => h.possible_hands(),
-            StartingHand::SingleCardRange(ref h) => h.possible_hands(),
+            Self::Def(ref h) => h.possible_hands(),
+            Self::SingleCardRange(ref h) => h.possible_hands(),
         }
     }
 }

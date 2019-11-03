@@ -1,5 +1,5 @@
-use crate::core::hand::Hand;
 use crate::core::card::Card;
+use crate::core::hand::Hand;
 
 /// All the different possible hand ranks.
 /// For each hand rank the u32 corresponds to
@@ -29,7 +29,7 @@ pub enum Rank {
 }
 
 /// Bit mask for the wheel (Ace, two, three, four, five)
-const WHEEL: u32 = 0b1000000001111;
+const WHEEL: u32 = 0b1_0000_0000_1111;
 /// Given a bitset of hand ranks. This method
 /// will determine if there's a staright, and will give the
 /// rank. Wheel is the lowest, broadway is the highest value.
@@ -64,10 +64,10 @@ fn rank_straight(value_set: u32) -> Option<u32> {
     let idx = left.leading_zeros();
     // If this isn't all zeros then we found a straight
     if idx < 32 {
-        return Some(32 - 4 - idx);
+        Some(32 - 4 - idx)
     } else if value_set & WHEEL == WHEEL {
         // Check to see if this is the wheel. It's pretty unlikely.
-        return Some(0);
+        Some(0)
     } else {
         // We found nothing.
         None
@@ -284,11 +284,13 @@ pub trait Rankable {
 
 /// Implementation for `Hand`
 impl Rankable for Hand {
+    #[must_use]
     fn cards(&self) -> &[Card] {
         &self[..]
     }
 }
 impl Rankable for Vec<Card> {
+    #[must_use]
     fn cards(&self) -> &[Card] {
         &self[..]
     }
@@ -297,8 +299,8 @@ impl Rankable for Vec<Card> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::core::hand::*;
     use crate::core::card::*;
+    use crate::core::hand::*;
 
     #[test]
     fn test_keep_highest() {
@@ -325,8 +327,11 @@ mod tests {
     #[test]
     fn test_high_card_hand() {
         let hand = Hand::new_from_str("Ad8h9cTc5c").unwrap();
-        let rank = 1 << Value::Ace as u32 | 1 << Value::Eight as u32 | 1 << Value::Nine as u32
-            | 1 << Value::Ten as u32 | 1 << Value::Five as u32;
+        let rank = 1 << Value::Ace as u32
+            | 1 << Value::Eight as u32
+            | 1 << Value::Nine as u32
+            | 1 << Value::Ten as u32
+            | 1 << Value::Five as u32;
 
         assert!(Rank::HighCard(rank) == hand.rank_five());
     }
@@ -334,8 +339,11 @@ mod tests {
     #[test]
     fn test_flush() {
         let hand = Hand::new_from_str("Ad8d9dTd5d").unwrap();
-        let rank = 1 << Value::Ace as u32 | 1 << Value::Eight as u32 | 1 << Value::Nine as u32
-            | 1 << Value::Ten as u32 | 1 << Value::Five as u32;
+        let rank = 1 << Value::Ace as u32
+            | 1 << Value::Eight as u32
+            | 1 << Value::Nine as u32
+            | 1 << Value::Ten as u32
+            | 1 << Value::Five as u32;
 
         assert!(Rank::Flush(rank) == hand.rank_five());
     }
@@ -359,8 +367,10 @@ mod tests {
     #[test]
     fn test_one_pair() {
         let hand = Hand::new_from_str("AdAc9d8cTs").unwrap();
-        let rank = (1 << Value::Ace as u32) << 13 | 1 << Value::Nine as u32
-            | 1 << Value::Eight as u32 | 1 << Value::Ten as u32;
+        let rank = (1 << Value::Ace as u32) << 13
+            | 1 << Value::Nine as u32
+            | 1 << Value::Eight as u32
+            | 1 << Value::Ten as u32;
 
         assert!(Rank::OnePair(rank) == hand.rank_five());
     }
@@ -379,7 +389,6 @@ mod tests {
         let hand = Hand::new_from_str("Ad2c3s4h5s").unwrap();
         assert!(Rank::Straight(0) == hand.rank_five());
     }
-
 
     #[test]
     fn test_straight() {
@@ -429,7 +438,6 @@ mod tests {
         }
     }
 
-
     #[test]
     fn test_rank_seven_find_best_with_wheel() {
         let h = Hand::new_from_str("6dKdAd2d5d4d3d").unwrap();
@@ -478,7 +486,6 @@ mod tests {
         let low_rank = 1 << Value::Ten as u32;
         assert_eq!(Rank::TwoPair(pair_rank | low_rank), h.rank());
     }
-
 
     #[test]
     fn test_rank_seven_two_pair() {

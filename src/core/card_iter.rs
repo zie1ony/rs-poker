@@ -13,20 +13,20 @@ pub struct CardIter<'a> {
     num_cards: usize,
 }
 
-
 /// `CardIter` is a container for cards and current state.
 impl<'a> CardIter<'a> {
     /// Create a new `CardIter` from a slice of cards.
     /// `num_cards` represents how many cards should be in the resulting vector.
+    #[must_use]
     pub fn new(possible_cards: &[Card], num_cards: usize) -> CardIter {
         let mut idx: Vec<usize> = (0..(num_cards as usize)).collect();
         if num_cards > 1 {
             idx[num_cards - 1] -= 1;
         }
         CardIter {
-            possible_cards: possible_cards,
-            idx: idx,
-            num_cards: num_cards,
+            possible_cards,
+            idx,
+            num_cards,
         }
     }
 }
@@ -76,7 +76,8 @@ impl<'a> Iterator for CardIter<'a> {
             }
         }
 
-        let result_cards: Vec<Card> = self.idx
+        let result_cards: Vec<Card> = self
+            .idx
             .iter()
             .map(|i| self.possible_cards[*i as usize])
             .collect();
@@ -92,6 +93,7 @@ impl<'a> IntoIterator for &'a FlatDeck {
     type Item = Vec<Card>;
     type IntoIter = CardIter<'a>;
 
+    #[must_use]
     fn into_iter(self) -> CardIter<'a> {
         CardIter::new(&self[..], 5)
     }
@@ -101,9 +103,9 @@ impl<'a> IntoIterator for &'a FlatDeck {
 mod tests {
     use super::*;
     use crate::core::card::Card;
-    use crate::core::hand::Hand;
     use crate::core::deck::*;
     use crate::core::flat_deck::*;
+    use crate::core::hand::Hand;
 
     #[test]
     fn test_iter_one() {
@@ -149,6 +151,6 @@ mod tests {
     #[test]
     fn test_iter_deck() {
         let d: FlatDeck = Deck::default().into();
-        assert_eq!(2598960, d.into_iter().count());
+        assert_eq!(2_598_960, d.into_iter().count());
     }
 }

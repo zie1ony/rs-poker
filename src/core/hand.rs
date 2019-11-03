@@ -1,8 +1,8 @@
 use crate::core::card::*;
+use std::collections::HashSet;
 use std::ops::Index;
 use std::ops::{RangeFrom, RangeFull, RangeTo};
 use std::slice::Iter;
-use std::collections::HashSet;
 
 /// Struct to hold cards.
 ///
@@ -16,14 +16,16 @@ pub struct Hand {
 
 impl Hand {
     /// Create the default empty hand.
-    pub fn default() -> Hand {
-        Hand {
+    #[must_use]
+    pub fn default() -> Self {
+        Self {
             cards: Vec::with_capacity(5),
         }
     }
     /// Create the hand with specific hand.
-    pub fn new_with_cards(cards: Vec<Card>) -> Hand {
-        Hand { cards: cards }
+    #[must_use]
+    pub fn new_with_cards(cards: Vec<Card>) -> Self {
+        Self { cards }
     }
 
     /// From a str create a new hand.
@@ -42,7 +44,7 @@ impl Hand {
     /// let hand = Hand::new_from_str("AdKx");
     /// assert!(hand.is_err());
     /// ```
-    pub fn new_from_str(hand_string: &str) -> Result<Hand, String> {
+    pub fn new_from_str(hand_string: &str) -> Result<Self, String> {
         // Get the chars iterator.
         let mut chars = hand_string.chars();
         // Where we will put the cards
@@ -62,14 +64,12 @@ impl Hand {
                 // suit.
                 let sco = chars.next();
                 // Now try and parse the two chars that we have.
-                let v = r#try!(
-                    vco.and_then(Value::from_char)
-                        .ok_or_else(|| { format!("Couldn't parse value {}", vco.unwrap_or('?')) })
-                );
-                let s = r#try!(
-                    sco.and_then(Suit::from_char)
-                        .ok_or_else(|| { format!("Couldn't parse suit {}", sco.unwrap_or('?')) })
-                );
+                let v = vco
+                    .and_then(Value::from_char)
+                    .ok_or_else(|| format!("Couldn't parse value {}", vco.unwrap_or('?')))?;
+                let s = sco
+                    .and_then(Suit::from_char)
+                    .ok_or_else(|| format!("Couldn't parse suit {}", sco.unwrap_or('?')))?;
 
                 let c = Card { value: v, suit: s };
                 if !cards.insert(c) {
@@ -86,7 +86,7 @@ impl Hand {
         let mut cv: Vec<Card> = cards.into_iter().collect();
 
         cv.reserve(7);
-        Ok(Hand { cards: cv })
+        Ok(Self { cards: cv })
     }
     /// Add card at to the hand.
     /// No verification is done at all.
@@ -98,14 +98,17 @@ impl Hand {
         self.cards.truncate(len)
     }
     /// How many cards are in this hand so far ?
+    #[must_use]
     pub fn len(&self) -> usize {
         self.cards.len()
     }
     /// Are there any cards at all ?
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.cards.is_empty()
     }
     /// Create an iter on the cards.
+    #[must_use]
     pub fn iter(&self) -> Iter<Card> {
         self.cards.iter()
     }
@@ -114,6 +117,7 @@ impl Hand {
 /// Allow indexing into the hand.
 impl Index<usize> for Hand {
     type Output = Card;
+    #[must_use]
     fn index(&self, index: usize) -> &Card {
         &self.cards[index]
     }
@@ -122,6 +126,7 @@ impl Index<usize> for Hand {
 /// Allow the index to get refernce to every card.
 impl Index<RangeFull> for Hand {
     type Output = [Card];
+    #[must_use]
     fn index(&self, range: RangeFull) -> &[Card] {
         &self.cards[range]
     }
@@ -129,18 +134,18 @@ impl Index<RangeFull> for Hand {
 
 impl Index<RangeTo<usize>> for Hand {
     type Output = [Card];
+    #[must_use]
     fn index(&self, index: RangeTo<usize>) -> &[Card] {
         &self.cards[index]
     }
 }
 impl Index<RangeFrom<usize>> for Hand {
     type Output = [Card];
+    #[must_use]
     fn index(&self, index: RangeFrom<usize>) -> &[Card] {
         &self.cards[index]
     }
 }
-
-
 
 #[cfg(test)]
 mod tests {
@@ -149,7 +154,6 @@ mod tests {
 
     #[test]
     fn test_add_card() {
-        assert!(true);
         let mut h = Hand::default();
         let c = Card {
             value: Value::Three,
