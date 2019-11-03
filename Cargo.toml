@@ -38,7 +38,7 @@ name = "rank"
 harness = false
 
 [badges]
-travis-ci = { repository = "elliottneilclark/rs-poker" }
+gitlab = { repository = "eclark/rs-poker", branch = "master" }
 
 [profile.release]
 debug = true
