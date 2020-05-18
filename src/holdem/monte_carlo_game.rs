@@ -6,7 +6,7 @@ pub struct MonteCarloGame {
     /// Flatten deck
     deck: FlatDeck,
     /// Community cards.
-    pub board: Vec<Card>,
+    board: Vec<Card>,
     /// Hands still playing.
     hands: Vec<Hand>,
     current_offset: usize,

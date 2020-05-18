@@ -3,7 +3,7 @@ use rs_poker::core::{Card, Hand, Suit, Value};
 use rs_poker::holdem::MonteCarloGame;
 
 fn main() {
-    let hands = ["Ahjs", "td9d"]
+    let hands = ["Adkh", "8c8s"]
         .iter()
         .map(|s| Hand::new_from_str(s).expect("Should be able to create a hand."))
         .collect();
