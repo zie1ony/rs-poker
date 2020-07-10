@@ -117,7 +117,6 @@ mod test {
             .collect();
         let mut g = MonteCarloGame::new_with_hands(hands, board).unwrap();
         let result = g.simulate().unwrap();
-        println!("JM: {:?}", result);
         assert!(result.1 >= Rank::ThreeOfAKind(0));
     }
 }
