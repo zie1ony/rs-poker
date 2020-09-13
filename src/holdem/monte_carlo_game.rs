@@ -14,7 +14,7 @@ pub struct MonteCarloGame {
 
 impl MonteCarloGame {
     /// If we already have hands then lets start there.
-    pub fn new_with_hands(hands: Vec<Hand>) -> Result<Self, String> {
+    pub fn new_with_hands(hands: Vec<Hand>, board: Vec<Card>) -> Result<Self, String> {
         let mut d = Deck::default();
         for h in &hands {
             if h.len() != 2 {
@@ -26,10 +26,15 @@ impl MonteCarloGame {
                 }
             }
         }
+        for c in board.iter() {
+            if !d.remove(*c) {
+                return Err(format!("Card {} was already removed from the deck.", c));
+            }
+        }
         Ok(Self {
             deck: d.flatten(),
             hands,
-            board: vec![],
+            board,
             current_offset: 52,
         })
     }
@@ -72,7 +77,7 @@ impl MonteCarloGame {
     /// Reset the game state.
     pub fn reset(&mut self) {
         for h in &mut self.hands {
-            h.truncate(2 + self.board.len());
+            h.truncate(2);
         }
     }
     fn shuffle_if_needed(&mut self) {
@@ -95,8 +100,23 @@ mod test {
             .iter()
             .map(|s| Hand::new_from_str(s).unwrap())
             .collect();
-        let mut g = MonteCarloGame::new_with_hands(hands).unwrap();
+        let mut g = MonteCarloGame::new_with_hands(hands, vec![]).unwrap();
         let result = g.simulate().unwrap();
         assert!(result.1 >= Rank::OnePair(0));
+    }
+    #[test]
+    fn test_simulate_pocket_pair_with_board() {
+        let board = vec![
+            Card{suit: Suit::Spade, value: Value::Ace},
+            Card{suit: Suit::Diamond, value: Value::Three},
+            Card{suit: Suit::Diamond, value: Value::Four},
+        ];
+        let hands = ["AdAh", "2c2s"]
+            .iter()
+            .map(|s| Hand::new_from_str(s).unwrap())
+            .collect();
+        let mut g = MonteCarloGame::new_with_hands(hands, board).unwrap();
+        let result = g.simulate().unwrap();
+        assert!(result.1 >= Rank::ThreeOfAKind(0));
     }
 }
