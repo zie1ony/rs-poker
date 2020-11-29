@@ -107,9 +107,18 @@ mod test {
     #[test]
     fn test_simulate_pocket_pair_with_board() {
         let board = vec![
-            Card{suit: Suit::Spade, value: Value::Ace},
-            Card{suit: Suit::Diamond, value: Value::Three},
-            Card{suit: Suit::Diamond, value: Value::Four},
+            Card {
+                suit: Suit::Spade,
+                value: Value::Ace,
+            },
+            Card {
+                suit: Suit::Diamond,
+                value: Value::Three,
+            },
+            Card {
+                suit: Suit::Diamond,
+                value: Value::Four,
+            },
         ];
         let hands = ["AdAh", "2c2s"]
             .iter()

@@ -11,7 +11,8 @@ fn simulate_one_game(c: &mut Criterion) {
         .iter()
         .map(|s| Hand::new_from_str(s).expect("Should be able to create a hand."))
         .collect();
-    let mut g = MonteCarloGame::new_with_hands(hands).expect("Should be able to create a game.");
+    let mut g =
+        MonteCarloGame::new_with_hands(hands, vec![]).expect("Should be able to create a game.");
 
     c.bench_function("Simulate AdAh vs 2c2s", move |b| {
         b.iter(|| {

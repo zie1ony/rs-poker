@@ -7,7 +7,8 @@ fn main() {
         .iter()
         .map(|s| Hand::new_from_str(s).expect("Should be able to create a hand."))
         .collect();
-    let mut g = MonteCarloGame::new_with_hands(hands, vec![]).expect("Should be able to create a game.");
+    let mut g =
+        MonteCarloGame::new_with_hands(hands, vec![]).expect("Should be able to create a game.");
     let mut wins: [u64; 2] = [0, 0];
     for _ in 0..2_000_000 {
         let r = g.simulate().expect("There should be one best rank.");

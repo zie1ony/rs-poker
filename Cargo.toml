@@ -12,10 +12,10 @@ license = "Apache-2.0"
 edition = "2018"
 
 [dependencies]
-rand = "0.7.2"
+rand = "0.7.3"
 
 [dev-dependencies]
-criterion = "0.3.0"
+criterion = "0.3.3"
 
 [[bench]]
 name = "game"
