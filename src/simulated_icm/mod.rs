@@ -31,7 +31,7 @@ fn award_payments(
 ) -> bool {
     if remaining_stacks[idx] == 0 {
         winnings[idx] += payments.get(*next_place).unwrap_or(&DEFAULT_PAYMENT);
-        *next_place = *next_place - 1;
+        *next_place -= 1;
         if *next_place == 0 {
             winnings[other_idx] += payments.get(*next_place).unwrap_or(&DEFAULT_PAYMENT);
         }
