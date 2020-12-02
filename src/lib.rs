@@ -24,3 +24,5 @@ pub mod core;
 /// The holdem specific code. This contains range
 /// parsing, game state, and starting hand code.
 pub mod holdem;
+
+pub mod simulated_icm;
