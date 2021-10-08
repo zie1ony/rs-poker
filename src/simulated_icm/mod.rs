@@ -84,7 +84,7 @@ pub fn simulate_icm_tournament(chip_stacks: &[i32], payments: &[i32]) -> Vec<i32
             // Check if hero was eliminated.
             if award_payments(
                 &remaining_stacks,
-                &payments,
+                payments,
                 *hero,
                 *villan,
                 &mut winnings,
@@ -96,7 +96,7 @@ pub fn simulate_icm_tournament(chip_stacks: &[i32], payments: &[i32]) -> Vec<i32
             // Now check if the villan was eliminated.
             if award_payments(
                 &remaining_stacks,
-                &payments,
+                payments,
                 *villan,
                 *hero,
                 &mut winnings,

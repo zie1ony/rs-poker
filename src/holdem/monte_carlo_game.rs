@@ -103,7 +103,7 @@ impl MonteCarloGame {
             .enumerate()
             .max_by_key(|&(_, ref rank)| rank.clone())
             .ok_or_else(|| String::from("Unable to determine best rank."));
-        Ok(best_rank?)
+        best_rank
     }
     /// Reset the game state.
     pub fn reset(&mut self) {
