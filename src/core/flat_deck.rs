@@ -104,10 +104,10 @@ impl Flattenable for Deck {
     }
 }
 
-impl Into<FlatDeck> for Deck {
+impl From<Deck> for FlatDeck {
     /// Flatten a `Deck` into a `FlatDeck`.
     #[must_use]
-    fn into(self) -> FlatDeck {
-        self.flatten()
+    fn from(deck: Deck) -> Self {
+        deck.flatten()
     }
 }

@@ -15,31 +15,6 @@ pub struct MonteCarloGame {
 impl MonteCarloGame {
     /// If we already have hands then lets start there.
     pub fn new_with_hands(hands: Vec<Hand>, board: Vec<Card>) -> Result<Self, String> {
-        let mut d = Deck::default();
-        for h in &hands {
-            if h.len() != 2 {
-                return Err(String::from("Hand passed in doesn't have 2 cards."));
-            }
-            for c in h.iter() {
-                if !d.remove(*c) {
-                    return Err(format!("Card {} was already removed from the deck.", c));
-                }
-            }
-        }
-        for c in board.iter() {
-            if !d.remove(*c) {
-                return Err(format!("Card {} was already removed from the deck.", c));
-            }
-        }
-        Ok(Self {
-            deck: d.flatten(),
-            hands,
-            board,
-            current_offset: 52,
-        })
-    }
-
-    pub fn new_with_board(hands: Vec<Hand>, board: Vec<Card>) -> Result<Self, String> {
         let mut deck = Deck::default();
         if board.len() > 5 {
             return Err(String::from("Board passed in has more than 5 cards"));
@@ -62,11 +37,16 @@ impl MonteCarloGame {
             }
         }
 
+        let flat_deck = deck.flatten();
+        // Grab the deck.len() so that any call to shuffle_if_needed
+        // will result in a shuffling.
+        let offset = flat_deck.len();
+
         Ok(Self {
-            deck: deck.flatten(),
+            deck: flat_deck,
             hands,
             board,
-            current_offset: 52,
+            current_offset: offset,
         })
     }
 
@@ -103,7 +83,7 @@ impl MonteCarloGame {
             .enumerate()
             .max_by_key(|&(_, ref rank)| rank.clone())
             .ok_or_else(|| String::from("Unable to determine best rank."));
-        Ok(best_rank?)
+        best_rank
     }
     /// Reset the game state.
     pub fn reset(&mut self) {
@@ -180,7 +160,7 @@ mod test {
                 suit: Suit::Heart,
             },
         ];
-        let mut g = MonteCarloGame::new_with_board(hands, board).unwrap();
+        let mut g = MonteCarloGame::new_with_hands(hands, board).unwrap();
         let result = g.simulate().unwrap();
         assert!(result.1 >= Rank::ThreeOfAKind(4));
     }

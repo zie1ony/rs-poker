@@ -22,7 +22,7 @@ fn main() {
         },
     ];
     let mut g =
-        MonteCarloGame::new_with_board(hands, board).expect("Should be able to create a game.");
+        MonteCarloGame::new_with_hands(hands, board).expect("Should be able to create a game.");
     let mut wins: [u64; 2] = [0, 0];
     for _ in 0..2_000_000 {
         let r = g.simulate().expect("There should be one best rank.");
