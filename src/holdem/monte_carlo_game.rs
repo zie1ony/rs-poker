@@ -1,3 +1,5 @@
+use fixedbitset::FixedBitSet;
+
 use crate::core::*;
 
 /// Current state of a game.
@@ -54,10 +56,7 @@ impl MonteCarloGame {
     ///
     /// This will fill out the board and then return the tuple
     /// of which hand had the best rank in end.
-    pub fn simulate(&mut self) -> Result<(usize, Rank), String> {
-        if self.hands.is_empty() {
-            return Err(String::from("There are no hands."));
-        }
+    pub fn simulate(&mut self) -> (FixedBitSet, Rank) {
         // Add the board cards to all the hands.
         for c in &self.board {
             for h in &mut self.hands {
@@ -76,15 +75,32 @@ impl MonteCarloGame {
         self.current_offset += num_cards;
 
         // Now get the best rank of all the possible hands.
-        let best_rank = self
-            .hands
-            .iter()
-            .map(|h| h.rank())
-            .enumerate()
-            .max_by_key(|&(_, ref rank)| rank.clone())
-            .ok_or_else(|| String::from("Unable to determine best rank."));
-        best_rank
+        self.hands.iter().map(|h| h.rank()).enumerate().fold(
+            (
+                FixedBitSet::with_capacity(self.hands.len()),
+                Rank::HighCard(0),
+            ),
+            |(mut found, max_rank), (idx, rank)| {
+                match rank.cmp(&max_rank) {
+                    std::cmp::Ordering::Equal => {
+                        // If this is a tie then add the index.
+                        found.set(idx, true);
+                        (found, rank)
+                    }
+                    std::cmp::Ordering::Greater => {
+                        // If this is the higest then reset all the bitset that's 1's
+                        // Then set only the current hand's index as true
+                        found.clear();
+                        found.set(idx, true);
+                        (found, rank)
+                    }
+                    // Otherwise keep what we've already found.
+                    _ => (found, max_rank),
+                }
+            },
+        )
     }
+
     /// Reset the game state.
     pub fn reset(&mut self) {
         for h in &mut self.hands {
@@ -112,9 +128,10 @@ mod test {
             .map(|s| Hand::new_from_str(s).unwrap())
             .collect();
         let mut g = MonteCarloGame::new_with_hands(hands, vec![]).unwrap();
-        let result = g.simulate().unwrap();
+        let result = g.simulate();
         assert!(result.1 >= Rank::OnePair(0));
     }
+
     #[test]
     fn test_simulate_pocket_pair_with_board() {
         let board = vec![
@@ -136,7 +153,7 @@ mod test {
             .map(|s| Hand::new_from_str(s).unwrap())
             .collect();
         let mut g = MonteCarloGame::new_with_hands(hands, board).unwrap();
-        let result = g.simulate().unwrap();
+        let result = g.simulate();
         assert!(result.1 >= Rank::ThreeOfAKind(0));
     }
 
@@ -161,7 +178,7 @@ mod test {
             },
         ];
         let mut g = MonteCarloGame::new_with_hands(hands, board).unwrap();
-        let result = g.simulate().unwrap();
+        let result = g.simulate();
         assert!(result.1 >= Rank::ThreeOfAKind(4));
     }
 }
