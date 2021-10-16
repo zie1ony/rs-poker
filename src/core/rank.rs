@@ -5,6 +5,7 @@ use crate::core::hand::Hand;
 /// For each hand rank the u32 corresponds to
 /// the strength of the hand in comparison to others
 /// of the same rank.
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone)]
 pub enum Rank {
     /// The lowest rank.
