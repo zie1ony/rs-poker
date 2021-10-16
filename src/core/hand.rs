@@ -8,6 +8,7 @@ use std::slice::Iter;
 ///
 /// This doesn't have the ability to easily check if a card is
 /// in the hand. So do that before adding/removing a card.
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub struct Hand {
     /// Where all the cards are placed un-ordered.
