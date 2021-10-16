@@ -16,7 +16,7 @@ fn simulate_one_game(c: &mut Criterion) {
 
     c.bench_function("Simulate AdAh vs 2c2s", move |b| {
         b.iter(|| {
-            let r = g.simulate().expect("There should be one best rank.");
+            let r = g.simulate();
             g.reset();
             r
         })
