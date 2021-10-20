@@ -39,7 +39,7 @@ impl MonteCarloGame {
             }
         }
 
-        let flat_deck = deck.flatten();
+        let flat_deck: FlatDeck = deck.into();
         // Grab the deck.len() so that any call to shuffle_if_needed
         // will result in a shuffling.
         let offset = flat_deck.len();

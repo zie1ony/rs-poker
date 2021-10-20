@@ -78,26 +78,19 @@ impl Index<RangeFull> for FlatDeck {
     }
 }
 
-/// Trait that means a deck can be made into a `FlatDeck`
-pub trait Flattenable {
-    /// Consume a `Deck` and produce a deck suitable for random index.
-    fn flatten(self) -> FlatDeck;
-}
-
-/// Allow creating a flat deck from a Deck
-impl Flattenable for Deck {
-    /// Flatten this deck, consuming it to produce a `FlatDeck` that's
-    /// easier to get random access to.
-    fn flatten(self) -> FlatDeck {
-        FlatDeck {
-            cards: self.into_iter().collect(),
-        }
+impl From<Vec<Card>> for FlatDeck {
+    fn from(value: Vec<Card>) -> Self {
+        Self { cards: value }
     }
 }
 
+/// Allow creating a flat deck from a Deck
 impl From<Deck> for FlatDeck {
-    /// Flatten a `Deck` into a `FlatDeck`.
-    fn from(deck: Deck) -> Self {
-        deck.flatten()
+    /// Flatten this deck, consuming it to produce a `FlatDeck` that's
+    /// easier to get random access to.
+    fn from(value: Deck) -> Self {
+        Self {
+            cards: value.into_iter().collect(),
+        }
     }
 }

@@ -72,7 +72,7 @@ impl Value {
     /// This is used to iterate through all possible
     /// values when creating a new deck, or
     /// generating all possible starting hands.
-    pub fn values() -> [Self; 13] {
+    pub const fn values() -> [Self; 13] {
         VALUES
     }
 
@@ -199,7 +199,7 @@ impl Suit {
     /// let suits = Suit::suits();
     /// assert_eq!(4, suits.len());
     /// ```
-    pub fn suits() -> [Self; 4] {
+    pub const fn suits() -> [Self; 4] {
         SUITS
     }
 
