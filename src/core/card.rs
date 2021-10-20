@@ -1,6 +1,9 @@
 use std::cmp;
+use std::convert::TryFrom;
 use std::fmt;
 use std::mem;
+
+use super::error::RSPokerError;
 
 /// Card rank or value.
 /// This is basically the face value - 2
@@ -62,16 +65,14 @@ impl Value {
     /// use rs_poker::core::Value;
     /// assert_eq!(Value::Four, Value::from_u8(Value::Four as u8));
     /// ```
-    #[must_use]
     pub fn from_u8(v: u8) -> Self {
-        unsafe { mem::transmute(cmp::min(v, Self::Ace as u8)) }
+        Self::from(v)
     }
     /// Get all of the `Value`'s that are possible.
     /// This is used to iterate through all possible
     /// values when creating a new deck, or
     /// generating all possible starting hands.
-    #[must_use]
-    pub fn values() -> [Self; 13] {
+    pub const fn values() -> [Self; 13] {
         VALUES
     }
 
@@ -86,44 +87,13 @@ impl Value {
     ///
     /// assert_eq!(Value::Ace, Value::from_char('A').unwrap());
     /// ```
-    #[must_use]
     pub fn from_char(c: char) -> Option<Self> {
-        match c.to_ascii_uppercase() {
-            'A' => Some(Self::Ace),
-            'K' => Some(Self::King),
-            'Q' => Some(Self::Queen),
-            'J' => Some(Self::Jack),
-            'T' => Some(Self::Ten),
-            '9' => Some(Self::Nine),
-            '8' => Some(Self::Eight),
-            '7' => Some(Self::Seven),
-            '6' => Some(Self::Six),
-            '5' => Some(Self::Five),
-            '4' => Some(Self::Four),
-            '3' => Some(Self::Three),
-            '2' => Some(Self::Two),
-            _ => None,
-        }
+        Self::try_from(c).ok()
     }
 
     /// Convert this Value to a char.
-    #[must_use]
     pub fn to_char(self) -> char {
-        match self {
-            Self::Ace => 'A',
-            Self::King => 'K',
-            Self::Queen => 'Q',
-            Self::Jack => 'J',
-            Self::Ten => 'T',
-            Self::Nine => '9',
-            Self::Eight => '8',
-            Self::Seven => '7',
-            Self::Six => '6',
-            Self::Five => '5',
-            Self::Four => '4',
-            Self::Three => '3',
-            Self::Two => '2',
-        }
+        char::from(self)
     }
 
     /// How card ranks seperate the two values.
@@ -134,11 +104,66 @@ impl Value {
     /// use rs_poker::core::Value;
     /// assert_eq!(1, Value::Ace.gap(Value::King));
     /// ```
-    #[must_use]
     pub fn gap(self, other: Self) -> u8 {
         let min = cmp::min(self as u8, other as u8);
         let max = cmp::max(self as u8, other as u8);
         max - min
+    }
+}
+
+impl From<u8> for Value {
+    fn from(value: u8) -> Self {
+        unsafe { mem::transmute(cmp::min(value, Self::Ace as u8)) }
+    }
+}
+
+impl TryFrom<char> for Value {
+    type Error = RSPokerError;
+
+    /// ```
+    /// use rs_poker::core::*;
+    /// use std::convert::TryFrom;
+    ///
+    /// assert_eq!(Value::Jack, Value::try_from('j').unwrap());
+    /// assert_eq!(Value::Jack, Value::try_from('J').unwrap());
+    /// ```
+    fn try_from(value: char) -> Result<Self, Self::Error> {
+        match value.to_ascii_uppercase() {
+            'A' => Ok(Self::Ace),
+            'K' => Ok(Self::King),
+            'Q' => Ok(Self::Queen),
+            'J' => Ok(Self::Jack),
+            'T' => Ok(Self::Ten),
+            '9' => Ok(Self::Nine),
+            '8' => Ok(Self::Eight),
+            '7' => Ok(Self::Seven),
+            '6' => Ok(Self::Six),
+            '5' => Ok(Self::Five),
+            '4' => Ok(Self::Four),
+            '3' => Ok(Self::Three),
+            '2' => Ok(Self::Two),
+            _ => Err(RSPokerError::UnexpectedValueChar),
+        }
+    }
+}
+
+impl From<Value> for char {
+    fn from(value: Value) -> Self {
+        match value {
+            Value::Ace => 'A',
+            Value::King => 'K',
+            Value::Queen => 'Q',
+            Value::Jack => 'J',
+            Value::Ten => 'T',
+            Value::Nine => '9',
+            Value::Eight => '8',
+            Value::Seven => '7',
+            Value::Six => '6',
+            Value::Five => '5',
+            Value::Four => '4',
+            Value::Three => '3',
+            Value::Two => '2',
+        }
     }
 }
 
@@ -174,8 +199,7 @@ impl Suit {
     /// let suits = Suit::suits();
     /// assert_eq!(4, suits.len());
     /// ```
-    #[must_use]
-    pub fn suits() -> [Self; 4] {
+    pub const fn suits() -> [Self; 4] {
         SUITS
     }
 
@@ -188,9 +212,8 @@ impl Suit {
     /// let idx = Suit::Club as u8;
     /// assert_eq!(Suit::Club, Suit::from_u8(idx));
     /// ```
-    #[must_use]
     pub fn from_u8(s: u8) -> Self {
-        unsafe { mem::transmute(cmp::min(s, Self::Diamond as u8)) }
+        Self::from(s)
     }
 
     /// Given a character that represents a suit try and parse that char.
@@ -211,25 +234,43 @@ impl Suit {
     /// let s = Suit::from_char('X');
     /// assert_eq!(None, s);
     /// ```
-    #[must_use]
     pub fn from_char(s: char) -> Option<Self> {
-        match s.to_ascii_lowercase() {
-            'd' => Some(Self::Diamond),
-            's' => Some(Self::Spade),
-            'h' => Some(Self::Heart),
-            'c' => Some(Self::Club),
-            _ => None,
-        }
+        TryFrom::try_from(s).ok()
     }
 
     /// This Suit to a character.
-    #[must_use]
     pub fn to_char(self) -> char {
-        match self {
-            Self::Diamond => 'd',
-            Self::Spade => 's',
-            Self::Heart => 'h',
-            Self::Club => 'c',
+        char::from(self)
+    }
+}
+
+impl From<u8> for Suit {
+    fn from(value: u8) -> Self {
+        unsafe { mem::transmute(cmp::min(value, Self::Diamond as u8)) }
+    }
+}
+
+impl TryFrom<char> for Suit {
+    type Error = RSPokerError;
+
+    fn try_from(value: char) -> Result<Self, Self::Error> {
+        match value.to_ascii_lowercase() {
+            'd' => Ok(Self::Diamond),
+            's' => Ok(Self::Spade),
+            'h' => Ok(Self::Heart),
+            'c' => Ok(Self::Club),
+            _ => Err(RSPokerError::UnexpectedSuitChar),
+        }
+    }
+}
+
+impl From<Suit> for char {
+    fn from(value: Suit) -> Self {
+        match value {
+            Suit::Diamond => 'd',
+            Suit::Spade => 's',
+            Suit::Heart => 'h',
+            Suit::Club => 'c',
         }
     }
 }
@@ -247,7 +288,21 @@ pub struct Card {
 
 impl fmt::Display for Card {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}{}", self.value.to_char(), self.suit.to_char())
+        write!(f, "{}{}", char::from(self.value), char::from(self.suit))
+    }
+}
+
+impl TryFrom<&str> for Card {
+    type Error = RSPokerError;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        let mut chars = value.chars();
+        let value_char = chars.next().ok_or(RSPokerError::TooFewChars)?;
+        let suit_char = chars.next().ok_or(RSPokerError::TooFewChars)?;
+        Ok(Self {
+            value: Value::try_from(value_char)?,
+            suit: Suit::try_from(suit_char)?,
+        })
     }
 }
 
@@ -264,6 +319,27 @@ mod tests {
         };
         assert_eq!(Suit::Spade, c.suit);
         assert_eq!(Value::Three, c.value);
+    }
+
+    #[test]
+    fn test_try_parse_card() {
+        let expected = Card {
+            value: Value::King,
+            suit: Suit::Spade,
+        };
+
+        assert_eq!(expected, Card::try_from("Ks").unwrap())
+    }
+
+    #[test]
+    fn test_parse_all_cards() {
+        for suit in SUITS {
+            for value in VALUES {
+                let e = Card { suit, value };
+                let card_string = format!("{}{}", char::from(value), char::from(suit));
+                assert_eq!(e, Card::try_from(card_string.as_str()).unwrap());
+            }
+        }
     }
 
     #[test]

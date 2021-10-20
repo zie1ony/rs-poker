@@ -161,7 +161,6 @@ pub enum StartingHand {
 
 impl StartingHand {
     /// Create a default starting hand with two `Value`'s and a `Suitedness`.
-    #[must_use]
     pub fn default(value_one: Value, value_two: Value, suited: Suitedness) -> Self {
         Self::Def(Default {
             value_one,
@@ -171,7 +170,6 @@ impl StartingHand {
     }
 
     /// Create a new StartingHand with the second card being a range.
-    #[must_use]
     pub fn single_range(value_one: Value, start: Value, end: Value, suited: Suitedness) -> Self {
         Self::SingleCardRange(SingleCardRange {
             value_one,
@@ -182,7 +180,6 @@ impl StartingHand {
     }
 
     /// Create every possible unique StartingHand.
-    #[must_use]
     pub fn all() -> Vec<Self> {
         let mut hands = Vec::with_capacity(169);
         let values = Value::values();
@@ -206,7 +203,6 @@ impl StartingHand {
     }
 
     /// From a `StartingHand` specify all the hands this could represent.
-    #[must_use]
     pub fn possible_hands(&self) -> Vec<Hand> {
         match *self {
             Self::Def(ref h) => h.possible_hands(),

@@ -3,6 +3,7 @@
 
 /// card.rs has value and suit.
 mod card;
+mod error;
 /// Re-export Card, Value, and Suit
 pub use self::card::{Card, Suit, Value};
 
@@ -24,7 +25,7 @@ pub use self::deck::Deck;
 /// Flattened deck
 mod flat_deck;
 /// Export the trait and the result.
-pub use self::flat_deck::{FlatDeck, Flattenable};
+pub use self::flat_deck::FlatDeck;
 
 /// 5 Card hand ranking code.
 mod rank;

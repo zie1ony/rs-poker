@@ -20,7 +20,6 @@ impl Deck {
     ///
     /// assert_eq!(52, Deck::default().len());
     /// ```
-    #[must_use]
     pub fn default() -> Self {
         let mut cards: HashSet<Card> = HashSet::new();
         for v in &Value::values() {
@@ -34,7 +33,6 @@ impl Deck {
         Self { cards }
     }
     /// Given a card, is it in the current deck?
-    #[must_use]
     pub fn contains(&self, c: Card) -> bool {
         self.cards.contains(&c)
     }
@@ -43,17 +41,14 @@ impl Deck {
         self.cards.remove(&c)
     }
     /// How many cards are there in the deck.
-    #[must_use]
     pub fn len(&self) -> usize {
         self.cards.len()
     }
     /// Have all of the cards been dealt from this deck?
-    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.cards.is_empty()
     }
     /// Get an iterator from this deck
-    #[must_use]
     pub fn iter(&self) -> Iter<Card> {
         self.cards.iter()
     }
@@ -64,7 +59,6 @@ impl IntoIterator for Deck {
     type Item = Card;
     type IntoIter = IntoIter<Card>;
     /// Consume this deck and create a new iterator.
-    #[must_use]
     fn into_iter(self) -> IntoIter<Card> {
         self.cards.into_iter()
     }
