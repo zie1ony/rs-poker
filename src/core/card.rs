@@ -65,7 +65,6 @@ impl Value {
     /// use rs_poker::core::Value;
     /// assert_eq!(Value::Four, Value::from_u8(Value::Four as u8));
     /// ```
-    #[must_use]
     pub fn from_u8(v: u8) -> Self {
         Self::from(v)
     }
@@ -73,7 +72,6 @@ impl Value {
     /// This is used to iterate through all possible
     /// values when creating a new deck, or
     /// generating all possible starting hands.
-    #[must_use]
     pub fn values() -> [Self; 13] {
         VALUES
     }
@@ -89,13 +87,11 @@ impl Value {
     ///
     /// assert_eq!(Value::Ace, Value::from_char('A').unwrap());
     /// ```
-    #[must_use]
     pub fn from_char(c: char) -> Option<Self> {
         Self::try_from(c).ok()
     }
 
     /// Convert this Value to a char.
-    #[must_use]
     pub fn to_char(self) -> char {
         char::from(self)
     }
@@ -108,7 +104,6 @@ impl Value {
     /// use rs_poker::core::Value;
     /// assert_eq!(1, Value::Ace.gap(Value::King));
     /// ```
-    #[must_use]
     pub fn gap(self, other: Self) -> u8 {
         let min = cmp::min(self as u8, other as u8);
         let max = cmp::max(self as u8, other as u8);
@@ -125,6 +120,13 @@ impl From<u8> for Value {
 impl TryFrom<char> for Value {
     type Error = RSPokerError;
 
+    /// ```
+    /// use rs_poker::core::*;
+    /// use std::convert::TryFrom;
+    ///
+    /// assert_eq!(Value::Jack, Value::try_from('j').unwrap());
+    /// assert_eq!(Value::Jack, Value::try_from('J').unwrap());
+    /// ```
     fn try_from(value: char) -> Result<Self, Self::Error> {
         match value.to_ascii_uppercase() {
             'A' => Ok(Self::Ace),
@@ -197,7 +199,6 @@ impl Suit {
     /// let suits = Suit::suits();
     /// assert_eq!(4, suits.len());
     /// ```
-    #[must_use]
     pub fn suits() -> [Self; 4] {
         SUITS
     }
@@ -211,7 +212,6 @@ impl Suit {
     /// let idx = Suit::Club as u8;
     /// assert_eq!(Suit::Club, Suit::from_u8(idx));
     /// ```
-    #[must_use]
     pub fn from_u8(s: u8) -> Self {
         Self::from(s)
     }
@@ -234,13 +234,11 @@ impl Suit {
     /// let s = Suit::from_char('X');
     /// assert_eq!(None, s);
     /// ```
-    #[must_use]
     pub fn from_char(s: char) -> Option<Self> {
         TryFrom::try_from(s).ok()
     }
 
     /// This Suit to a character.
-    #[must_use]
     pub fn to_char(self) -> char {
         char::from(self)
     }

@@ -285,13 +285,11 @@ pub trait Rankable {
 
 /// Implementation for `Hand`
 impl Rankable for Hand {
-    #[must_use]
     fn cards(&self) -> &[Card] {
         &self[..]
     }
 }
 impl Rankable for Vec<Card> {
-    #[must_use]
     fn cards(&self) -> &[Card] {
         &self[..]
     }

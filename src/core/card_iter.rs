@@ -17,7 +17,6 @@ pub struct CardIter<'a> {
 impl<'a> CardIter<'a> {
     /// Create a new `CardIter` from a slice of cards.
     /// `num_cards` represents how many cards should be in the resulting vector.
-    #[must_use]
     pub fn new(possible_cards: &[Card], num_cards: usize) -> CardIter {
         let mut idx: Vec<usize> = (0..(num_cards as usize)).collect();
         if num_cards > 1 {
@@ -93,7 +92,6 @@ impl<'a> IntoIterator for &'a FlatDeck {
     type Item = Vec<Card>;
     type IntoIter = CardIter<'a>;
 
-    #[must_use]
     fn into_iter(self) -> CardIter<'a> {
         CardIter::new(&self[..], 5)
     }

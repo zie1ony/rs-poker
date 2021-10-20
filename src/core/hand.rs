@@ -17,14 +17,12 @@ pub struct Hand {
 
 impl Hand {
     /// Create the default empty hand.
-    #[must_use]
     pub fn default() -> Self {
         Self {
             cards: Vec::with_capacity(5),
         }
     }
     /// Create the hand with specific hand.
-    #[must_use]
     pub fn new_with_cards(cards: Vec<Card>) -> Self {
         Self { cards }
     }
@@ -99,17 +97,14 @@ impl Hand {
         self.cards.truncate(len)
     }
     /// How many cards are in this hand so far ?
-    #[must_use]
     pub fn len(&self) -> usize {
         self.cards.len()
     }
     /// Are there any cards at all ?
-    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.cards.is_empty()
     }
     /// Create an iter on the cards.
-    #[must_use]
     pub fn iter(&self) -> Iter<Card> {
         self.cards.iter()
     }
@@ -118,7 +113,6 @@ impl Hand {
 /// Allow indexing into the hand.
 impl Index<usize> for Hand {
     type Output = Card;
-    #[must_use]
     fn index(&self, index: usize) -> &Card {
         &self.cards[index]
     }
@@ -127,7 +121,6 @@ impl Index<usize> for Hand {
 /// Allow the index to get refernce to every card.
 impl Index<RangeFull> for Hand {
     type Output = [Card];
-    #[must_use]
     fn index(&self, range: RangeFull) -> &[Card] {
         &self.cards[range]
     }
@@ -135,14 +128,12 @@ impl Index<RangeFull> for Hand {
 
 impl Index<RangeTo<usize>> for Hand {
     type Output = [Card];
-    #[must_use]
     fn index(&self, index: RangeTo<usize>) -> &[Card] {
         &self.cards[index]
     }
 }
 impl Index<RangeFrom<usize>> for Hand {
     type Output = [Card];
-    #[must_use]
     fn index(&self, index: RangeFrom<usize>) -> &[Card] {
         &self.cards[index]
     }
