@@ -3,6 +3,7 @@
 
 /// card.rs has value and suit.
 mod card;
+mod error;
 /// Re-export Card, Value, and Suit
 pub use self::card::{Card, Suit, Value};
 
