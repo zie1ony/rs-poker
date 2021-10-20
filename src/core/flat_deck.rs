@@ -94,3 +94,29 @@ impl From<Deck> for FlatDeck {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::core::card::{Suit, Value};
+
+    #[test]
+    fn test_deck_from() {
+        let fd: FlatDeck = Deck::default().into();
+        assert_eq!(52, fd.len());
+    }
+
+    #[test]
+    fn test_from_vec() {
+        let c = Card {
+            value: Value::Nine,
+            suit: Suit::Heart,
+        };
+        let v = vec![c];
+
+        let mut flat_deck: FlatDeck = v.into();
+
+        assert_eq!(1, flat_deck.len());
+        assert_eq!(c, flat_deck.deal().unwrap());
+    }
+}
