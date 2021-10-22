@@ -19,7 +19,7 @@ impl Hand {
     /// Create the default empty hand.
     pub fn default() -> Self {
         Self {
-            cards: Vec::with_capacity(5),
+            cards: Vec::with_capacity(7),
         }
     }
     /// Create the hand with specific hand.

@@ -27,14 +27,14 @@ impl MonteCarloGame {
                 return Err(String::from("Hand passed in doesn't have 2 cards."));
             }
             for card in hand.iter() {
-                if !deck.remove(*card) {
+                if !deck.remove(card) {
                     return Err(format!("Card {} was already removed from the deck.", card));
                 }
             }
         }
 
         for card in &board {
-            if !deck.remove(*card) {
+            if !deck.remove(card) {
                 return Err(format!("Card {} was already removed from the deck.", card));
             }
         }

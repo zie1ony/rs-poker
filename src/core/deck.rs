@@ -33,12 +33,12 @@ impl Deck {
         Self { cards }
     }
     /// Given a card, is it in the current deck?
-    pub fn contains(&self, c: Card) -> bool {
-        self.cards.contains(&c)
+    pub fn contains(&self, c: &Card) -> bool {
+        self.cards.contains(c)
     }
     /// Given a card remove it from the deck if it is present.
-    pub fn remove(&mut self, c: Card) -> bool {
-        self.cards.remove(&c)
+    pub fn remove(&mut self, c: &Card) -> bool {
+        self.cards.remove(c)
     }
     /// How many cards are there in the deck.
     pub fn len(&self) -> usize {
@@ -72,7 +72,7 @@ mod tests {
     #[test]
     fn test_contains_in() {
         let d = Deck::default();
-        assert!(d.contains(Card {
+        assert!(d.contains(&Card {
             value: Value::Eight,
             suit: Suit::Heart,
         }));
@@ -85,9 +85,9 @@ mod tests {
             value: Value::Ace,
             suit: Suit::Heart,
         };
-        assert!(d.contains(c));
-        assert!(d.remove(c));
-        assert!(!d.contains(c));
-        assert!(!d.remove(c));
+        assert!(d.contains(&c));
+        assert!(d.remove(&c));
+        assert!(!d.contains(&c));
+        assert!(!d.remove(&c));
     }
 }
