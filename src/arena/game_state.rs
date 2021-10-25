@@ -40,6 +40,7 @@ impl RoundData {
 pub struct GameState {
     pub num_players: usize,
     pub player_active: FixedBitSet,
+    total_pot: usize,
     pub stacks: Vec<usize>,
     pub big_blind: usize,
     pub small_blind: usize,
@@ -66,6 +67,7 @@ impl GameState {
             player_active: active_mask,
             dealer_idx: 0,
             last_raise: 0,
+            total_pot: 0,
             hands: vec![Hand::default(); num_players],
             round: Round::Starting,
             board: vec![],
@@ -121,7 +123,15 @@ impl GameState {
             rd.player_bet[idx] += bet_ammount;
             rd.bet_count[idx] += 1;
 
-            rd.bet = rd.bet.max(bet_ammount);
+            // The amount to be called is
+            // the maximum anyone has wagered.
+            rd.bet = rd.bet.max(rd.player_bet[idx]);
+
+            // Keep the maximum bet ammount. Anything
+            // smaller should be due to going all in.
+            rd.min_bet = rd.min_bet.max(bet_ammount);
+
+            self.total_pot += bet_ammount;
 
             // We're out and can't continue.
             if self.stacks[idx] == 0 {
