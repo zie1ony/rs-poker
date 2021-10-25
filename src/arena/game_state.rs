@@ -1,6 +1,8 @@
 use fixedbitset::FixedBitSet;
 
 use crate::core::{Card, Hand};
+
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum Round {
     Starting,
     Preflop,
@@ -8,6 +10,19 @@ pub enum Round {
     Turn,
     River,
     Showdown,
+}
+
+impl Round {
+    pub fn advance(&self) -> Option<Self> {
+        match *self {
+            Round::Starting => Some(Round::Preflop),
+            Round::Preflop => Some(Round::Flop),
+            Round::Flop => Some(Round::Turn),
+            Round::Turn => Some(Round::River),
+            Round::River => Some(Round::Showdown),
+            _ => None,
+        }
+    }
 }
 
 pub struct RoundData {
@@ -78,8 +93,7 @@ impl GameState {
     pub fn advance_round(&mut self) {
         match self.round {
             Round::Starting => self.advance_preflop(),
-            Round::Preflop => self.advance_flop(),
-            _ => todo!(),
+            _ => self.advance_normal(),
         }
     }
 
@@ -90,8 +104,8 @@ impl GameState {
         self.do_bet(self.big_blind, true);
     }
 
-    fn advance_flop(&mut self) {
-        self.round = Round::Flop;
+    fn advance_normal(&mut self) {
+        self.round = self.round.advance().unwrap();
         self.round_data.push(self.round_data())
     }
 
@@ -123,13 +137,15 @@ impl GameState {
             rd.player_bet[idx] += bet_ammount;
             rd.bet_count[idx] += 1;
 
+            let previous_bet = rd.bet;
+
             // The amount to be called is
             // the maximum anyone has wagered.
             rd.bet = rd.bet.max(rd.player_bet[idx]);
 
             // Keep the maximum bet ammount. Anything
             // smaller should be due to going all in.
-            rd.min_bet = rd.min_bet.max(bet_ammount);
+            rd.min_bet = rd.min_bet.max(rd.bet - previous_bet);
 
             self.total_pot += bet_ammount;
 
