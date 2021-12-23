@@ -53,15 +53,23 @@ impl RoundData {
 }
 
 pub struct GameState {
+    /// The number of players that started
     pub num_players: usize,
+    /// Which players are still active in the game.
     pub player_active: FixedBitSet,
+    /// The total ammount in all pots
     total_pot: usize,
+    /// How much is left in each player's stack
     pub stacks: Vec<usize>,
+    /// The big blind size
     pub big_blind: usize,
+    /// The small blind size
     pub small_blind: usize,
+    /// The hands for each player. We keep hands
+    /// even if the player is not currently active.
     pub hands: Vec<Hand>,
+    /// The index of the player who's the dealer
     pub dealer_idx: usize,
-    pub last_raise: usize,
     pub round: Round,
     pub round_data: Vec<RoundData>,
     pub board: Vec<Card>,
@@ -81,13 +89,20 @@ impl GameState {
             small_blind,
             player_active: active_mask,
             dealer_idx: 0,
-            last_raise: 0,
             total_pot: 0,
             hands: vec![Hand::default(); num_players],
             round: Round::Starting,
             board: vec![],
             round_data: vec![],
         }
+    }
+
+    pub fn num_active_players(&self) -> usize {
+        self.player_active.count_ones(..)
+    }
+
+    pub fn is_complete(&self) -> bool {
+        self.num_active_players() == 1 || self.round == Round::Showdown
     }
 
     pub fn advance_round(&mut self) {
