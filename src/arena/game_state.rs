@@ -2,6 +2,8 @@ use fixedbitset::FixedBitSet;
 
 use crate::core::{Card, Hand};
 
+use super::errors::GameStateError;
+
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum Round {
     Starting,
@@ -13,14 +15,14 @@ pub enum Round {
 }
 
 impl Round {
-    pub fn advance(&self) -> Option<Self> {
+    pub fn advance(&self) -> Result<Self, GameStateError> {
         match *self {
-            Round::Starting => Some(Round::Preflop),
-            Round::Preflop => Some(Round::Flop),
-            Round::Flop => Some(Round::Turn),
-            Round::Turn => Some(Round::River),
-            Round::River => Some(Round::Showdown),
-            _ => None,
+            Round::Starting => Ok(Round::Preflop),
+            Round::Preflop => Ok(Round::Flop),
+            Round::Flop => Ok(Round::Turn),
+            Round::Turn => Ok(Round::River),
+            Round::River => Ok(Round::Showdown),
+            _ => Err(GameStateError::CantAdvanceRound),
         }
     }
 }
@@ -49,6 +51,19 @@ impl RoundData {
                 break;
             }
         }
+    }
+
+    pub fn do_bet(&mut self, bet_ammount: usize) {
+        self.player_bet[self.to_act_idx] += bet_ammount;
+        self.bet_count[self.to_act_idx] += 1;
+
+        // The amount to be called is
+        // the maximum anyone has wagered.
+        self.bet = self.bet.max(self.player_bet[self.to_act_idx]);
+
+        // Keep the maximum bet ammount. Anything
+        // smaller should be due to going all in.
+        self.min_bet = self.min_bet.max(bet_ammount);
     }
 }
 
@@ -105,23 +120,25 @@ impl GameState {
         self.num_active_players() == 1 || self.round == Round::Showdown
     }
 
-    pub fn advance_round(&mut self) {
+    pub fn advance_round(&mut self) -> Result<(), GameStateError> {
         match self.round {
             Round::Starting => self.advance_preflop(),
             _ => self.advance_normal(),
         }
     }
 
-    fn advance_preflop(&mut self) {
+    fn advance_preflop(&mut self) -> Result<(), GameStateError> {
         self.round = Round::Preflop;
         self.round_data.push(self.round_data());
-        self.do_bet(self.small_blind, true);
-        self.do_bet(self.big_blind, true);
+        self.do_bet(self.small_blind, true)?;
+        self.do_bet(self.big_blind, true)?;
+        Ok(())
     }
 
-    fn advance_normal(&mut self) {
-        self.round = self.round.advance().unwrap();
-        self.round_data.push(self.round_data())
+    fn advance_normal(&mut self) -> Result<(), GameStateError> {
+        self.round = self.round.advance()?;
+        self.round_data.push(self.round_data());
+        Ok(())
     }
 
     fn round_data(&self) -> RoundData {
@@ -135,61 +152,70 @@ impl GameState {
         }
     }
 
-    pub fn do_bet(&mut self, ammount: usize, is_forced: bool) -> Option<usize> {
-        if let Some(round_idx) = self.round_index() {
-            // Grab the current round data.
-            let rd = &mut self.round_data[round_idx];
+    pub fn do_bet(&mut self, ammount: usize, is_forced: bool) -> Result<usize, GameStateError> {
+        let round_idx = self.round_index()?;
 
-            // Which player is next to act
-            let idx = rd.to_act_idx;
-            // Can't bet what's not there
-            let bet_ammount = ammount.min(self.stacks[idx]);
-            // Take the money out.
-            self.stacks[idx] -= bet_ammount;
-            // If they put money into the pot then they are done this turn.
-            rd.player_active.set(idx, is_forced);
+        // Which player is next to act
+        let idx = self.round_data[round_idx].to_act_idx;
 
-            rd.player_bet[idx] += bet_ammount;
-            rd.bet_count[idx] += 1;
+        // Can't bet what's not there
+        let bet_ammount = self.validate_bet_ammount(ammount)?;
+        // Take the money out.
+        self.stacks[idx] -= bet_ammount;
+        // Grab the current round data.
+        let rd = &mut self.round_data[round_idx];
+        // If they put money into the pot then they are done this turn.
+        rd.player_active.set(idx, !is_forced);
+        rd.do_bet(bet_ammount);
 
-            let previous_bet = rd.bet;
+        self.total_pot += bet_ammount;
 
-            // The amount to be called is
-            // the maximum anyone has wagered.
-            rd.bet = rd.bet.max(rd.player_bet[idx]);
-
-            // Keep the maximum bet ammount. Anything
-            // smaller should be due to going all in.
-            rd.min_bet = rd.min_bet.max(rd.bet - previous_bet);
-
-            self.total_pot += bet_ammount;
-
-            // We're out and can't continue.
-            if self.stacks[idx] == 0 {
-                self.player_active.set(idx, false);
-                rd.player_active.set(idx, false);
-            }
-
-            // Advance the next to act.
-            rd.advance();
-
-            Some(bet_ammount)
-        } else {
-            None
+        // We're out and can't continue.
+        if self.stacks[idx] == 0 {
+            self.player_active.set(idx, false);
+            // It doesn' matter if this is a forced
+            // bet if the player is out of money.
+            rd.player_active.set(idx, false);
         }
+
+        // Advance the next to act.
+        rd.advance();
+
+        Ok(bet_ammount)
     }
 
     pub fn left_of_dealer(&self) -> usize {
         (self.dealer_idx + 1) % self.num_players
     }
 
-    fn round_index(&self) -> Option<usize> {
+    fn round_index(&self) -> Result<usize, GameStateError> {
         match self.round {
-            Round::Preflop => Some(0),
-            Round::Flop => Some(1),
-            Round::Turn => Some(2),
-            Round::River => Some(3),
-            _ => None,
+            Round::Preflop => Ok(0),
+            Round::Flop => Ok(1),
+            Round::Turn => Ok(2),
+            Round::River => Ok(3),
+            _ => Err(GameStateError::InvalidRoundIndex),
+        }
+    }
+
+    fn validate_bet_ammount(&self, ammount: usize) -> Result<usize, GameStateError> {
+        let round_idx = self.round_index()?;
+
+        // Which player is next to act
+        let idx = self.round_data[round_idx].to_act_idx;
+        let bet_ammount = self.stacks[idx].min(ammount);
+
+        let to_call = self.round_data[round_idx].bet - self.round_data[round_idx].player_bet[idx];
+
+        let new_total_player_bet = self.round_data[round_idx].player_bet[idx] + bet_ammount;
+        let diff = new_total_player_bet as i64 - self.round_data[round_idx].bet as i64;
+
+        if bet_ammount < to_call {
+            Err(GameStateError::BetSizeDoesntCall)
+        } else if diff > 0 && ((diff as usize) < self.round_data[round_idx].min_bet) {
+            Err(GameStateError::RaiseSizeTooSmall)
+        } else {
+            Ok(bet_ammount)
         }
     }
 }

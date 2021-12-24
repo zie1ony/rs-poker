@@ -49,18 +49,18 @@ impl HoldemSimulation {
             h.push(self.deck.deal().unwrap());
             h.push(self.deck.deal().unwrap());
         }
-        self.game_state.advance_round();
+        self.game_state.advance_round().unwrap();
     }
 
     fn preflop(&mut self) {
         // self.run_betting_round();
-        self.game_state.advance_round();
+        self.game_state.advance_round().unwrap()
     }
 
     fn flop(&mut self) {
         self.deal_comunity(3);
         // self.run_betting_round();
-        self.game_state.advance_round();
+        self.game_state.advance_round().unwrap()
     }
 
     fn deal_comunity(&mut self, num_cards: usize) {
