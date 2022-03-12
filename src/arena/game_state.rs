@@ -158,8 +158,12 @@ impl GameState {
         // Which player is next to act
         let idx = self.round_data[round_idx].to_act_idx;
 
-        // Can't bet what's not there
-        let bet_ammount = self.validate_bet_ammount(ammount)?;
+        // Make sure the bet is a correct ammount and if not then cap it at the maximum
+        let bet_ammount = if is_forced {
+            ammount
+        } else {
+            self.validate_bet_ammount(ammount)?
+        };
         // Take the money out.
         self.stacks[idx] -= bet_ammount;
         // Grab the current round data.
@@ -203,19 +207,32 @@ impl GameState {
 
         // Which player is next to act
         let idx = self.round_data[round_idx].to_act_idx;
-        let bet_ammount = self.stacks[idx].min(ammount);
 
-        let to_call = self.round_data[round_idx].bet - self.round_data[round_idx].player_bet[idx];
-
-        let new_total_player_bet = self.round_data[round_idx].player_bet[idx] + bet_ammount;
-        let diff = new_total_player_bet as i64 - self.round_data[round_idx].bet as i64;
-
-        if bet_ammount < to_call {
-            Err(GameStateError::BetSizeDoesntCall)
-        } else if diff > 0 && ((diff as usize) < self.round_data[round_idx].min_bet) {
-            Err(GameStateError::RaiseSizeTooSmall)
+        if self.round_data[round_idx].player_bet[idx] > ammount {
+            // We've already bet more than this. No takes backs.
+            Err(GameStateError::BetSizeDoesntCallSelf)
         } else {
-            Ok(bet_ammount)
+            // How much extra are we putting in.
+            let extra = ammount - self.round_data[round_idx].player_bet[idx];
+
+            // How much more are we putting in this time. Capped at the stack
+            let capped_extra = self.stacks[idx].min(extra);
+            // What our new player bet will be
+            let capped_new_player_bet = self.round_data[round_idx].player_bet[idx] + capped_extra;
+            let current_bet = self.round_data[round_idx].bet;
+            // How much this is a raise.
+            let raise = (capped_new_player_bet as i64 - current_bet as i64).max(0) as usize;
+            let is_all_in = capped_extra == self.stacks[idx];
+            if capped_new_player_bet < self.round_data[round_idx].bet && !is_all_in {
+                // If we're not even calling and it's not an all in.
+                Err(GameStateError::BetSizeDoesntCall)
+            } else if raise > 0 && raise < self.round_data[round_idx].min_bet && !is_all_in {
+                // There's a raise the raise is less than the min bet and it's not an all in
+                Err(GameStateError::RaiseSizeTooSmall)
+            } else {
+                // Yeah this looks ok.
+                Ok(capped_extra)
+            }
         }
     }
 }
