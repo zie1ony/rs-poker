@@ -1,7 +1,7 @@
 #[derive(Debug, Clone, PartialEq)]
 pub enum Action {
     Fold,
-    Bet(usize),
+    Bet(i32),
 }
 
 #[cfg(test)]

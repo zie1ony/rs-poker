@@ -33,11 +33,11 @@ impl Round {
 pub struct RoundData {
     pub player_active: FixedBitSet,
     // The minimum allowed bet.
-    pub min_raise: usize,
+    pub min_raise: i32,
     // The value to be called.
-    pub bet: usize,
+    pub bet: i32,
     // How much each player has put in so far.
-    pub player_bet: Vec<usize>,
+    pub player_bet: Vec<i32>,
     // The number of times the player has put in money.
     pub bet_count: Vec<u8>,
     pub raise_count: Vec<u8>,
@@ -57,7 +57,7 @@ impl RoundData {
         }
     }
 
-    pub fn do_bet(&mut self, extra_ammount: usize, is_forced: bool) {
+    pub fn do_bet(&mut self, extra_ammount: i32, is_forced: bool) {
         self.player_bet[self.to_act_idx] += extra_ammount;
         self.bet_count[self.to_act_idx] += 1;
 
@@ -80,7 +80,7 @@ impl RoundData {
         self.player_active.count_ones(..)
     }
 
-    pub fn current_player_bet(&self) -> usize {
+    pub fn current_player_bet(&self) -> i32 {
         self.player_bet[self.to_act_idx]
     }
 }
@@ -93,14 +93,14 @@ pub struct GameState {
     pub player_active: FixedBitSet,
     pub player_all_in: FixedBitSet,
     /// The total ammount in all pots
-    total_pot: usize,
+    total_pot: i32,
     /// How much is left in each player's stack
-    pub stacks: Vec<usize>,
-    pub player_bet: Vec<usize>,
+    pub stacks: Vec<i32>,
+    pub player_bet: Vec<i32>,
     /// The big blind size
-    pub big_blind: usize,
+    pub big_blind: i32,
     /// The small blind size
-    pub small_blind: usize,
+    pub small_blind: i32,
     /// The hands for each player. We keep hands
     /// even if the player is not currently active.
     pub hands: Vec<Hand>,
@@ -115,12 +115,7 @@ pub struct GameState {
 }
 
 impl GameState {
-    pub fn new(
-        stacks: Vec<usize>,
-        big_blind: usize,
-        small_blind: usize,
-        dealer_idx: usize,
-    ) -> Self {
+    pub fn new(stacks: Vec<i32>, big_blind: i32, small_blind: i32, dealer_idx: usize) -> Self {
         let num_players = stacks.len();
 
         // Everyone's active right now
@@ -219,7 +214,7 @@ impl GameState {
         Ok(())
     }
 
-    pub fn do_bet(&mut self, ammount: usize, is_forced: bool) -> Result<usize, GameStateError> {
+    pub fn do_bet(&mut self, ammount: i32, is_forced: bool) -> Result<i32, GameStateError> {
         // round index doesn't change. So no need
         // to do the bounds check more than once.
         let round_idx = self.round_index()?;
@@ -287,7 +282,7 @@ impl GameState {
         }
     }
 
-    fn validate_forced_bet_ammount(&self, ammount: usize) -> Result<usize, GameStateError> {
+    fn validate_forced_bet_ammount(&self, ammount: i32) -> Result<i32, GameStateError> {
         let round_idx = self.round_index()?;
 
         // Which player is next to act
@@ -296,7 +291,7 @@ impl GameState {
         Ok(self.stacks[idx].min(ammount))
     }
 
-    fn validate_bet_ammount(&self, ammount: usize) -> Result<usize, GameStateError> {
+    fn validate_bet_ammount(&self, ammount: i32) -> Result<i32, GameStateError> {
         let round_idx = self.round_index()?;
 
         // Which player is next to act
@@ -315,7 +310,7 @@ impl GameState {
             let capped_new_player_bet = self.round_data[round_idx].player_bet[idx] + capped_extra;
             let current_bet = self.round_data[round_idx].bet;
             // How much this is a raise.
-            let raise = (capped_new_player_bet as i64 - current_bet as i64).max(0) as usize;
+            let raise = (capped_new_player_bet - current_bet).max(0);
             let is_all_in = capped_extra == self.stacks[idx];
             let is_raise = raise > 0;
             if capped_new_player_bet < self.round_data[round_idx].bet && !is_all_in {
