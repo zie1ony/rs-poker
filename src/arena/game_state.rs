@@ -1,6 +1,6 @@
-use fixedbitset::FixedBitSet;
+use core::fmt;
 
-use std::fmt;
+use fixedbitset::FixedBitSet;
 
 use crate::core::{Card, Hand};
 
@@ -79,6 +79,10 @@ impl RoundData {
     pub fn num_active_players(&self) -> usize {
         self.player_active.count_ones(..)
     }
+
+    pub fn current_player_bet(&self) -> usize {
+        self.player_bet[self.to_act_idx]
+    }
 }
 
 #[derive(Clone)]
@@ -92,6 +96,7 @@ pub struct GameState {
     total_pot: usize,
     /// How much is left in each player's stack
     pub stacks: Vec<usize>,
+    pub player_bet: Vec<usize>,
     /// The big blind size
     pub big_blind: usize,
     /// The small blind size
@@ -110,7 +115,12 @@ pub struct GameState {
 }
 
 impl GameState {
-    pub fn new(stacks: Vec<usize>, big_blind: usize, small_blind: usize, dealer_idx: usize) -> Self {
+    pub fn new(
+        stacks: Vec<usize>,
+        big_blind: usize,
+        small_blind: usize,
+        dealer_idx: usize,
+    ) -> Self {
         let num_players = stacks.len();
 
         // Everyone's active right now
@@ -124,6 +134,7 @@ impl GameState {
             small_blind,
             player_active: active_mask,
             player_all_in: FixedBitSet::with_capacity(num_players),
+            player_bet: vec![0; num_players],
             dealer_idx: dealer_idx,
             total_pot: 0,
             hands: vec![Hand::default(); num_players],
@@ -184,6 +195,14 @@ impl GameState {
         }
     }
 
+    pub fn current_round_data(&self) -> Option<&RoundData> {
+        if let Ok(round_idx) = self.round_index() {
+            Some(&self.round_data[round_idx])
+        } else {
+            None
+        }
+    }
+
     pub fn fold(&mut self) -> Result<(), GameStateError> {
         // round index doesn't change. So no need
         // to do the bounds check more than once.
@@ -222,6 +241,8 @@ impl GameState {
         let prev_bet = rd.bet;
 
         rd.do_bet(extra_ammount, is_forced);
+
+        self.player_bet[idx] += extra_ammount;
 
         self.total_pot += extra_ammount;
 
@@ -356,7 +377,7 @@ mod tests {
         game_state.advance_round().unwrap();
 
         // 0 player, 1 dealer, 2 small blind, 3 big blind
-        assert_eq!(0, game_state.round_data[game_state.round_index().unwrap()].to_act_idx);
+        assert_eq!(0, game_state.current_round_data().unwrap().to_act_idx);
         dbg!(game_state.clone());
         game_state.fold().unwrap();
         game_state.fold().unwrap();
@@ -364,34 +385,46 @@ mod tests {
         game_state.do_bet(10, false).unwrap();
         assert_eq!(
             0,
-            game_state.round_data[game_state.round_index().unwrap()].num_active_players()
+            game_state
+                .current_round_data()
+                .unwrap()
+                .num_active_players()
         );
         assert_eq!(2, game_state.num_active_players());
 
         // Flop
         game_state.advance_round().unwrap();
-        assert_eq!(2, game_state.round_data[game_state.round_index().unwrap()].to_act_idx);
+        assert_eq!(2, game_state.current_round_data().unwrap().to_act_idx);
         game_state.do_bet(0, false).unwrap();
-        assert_eq!(3, game_state.round_data[game_state.round_index().unwrap()].to_act_idx);
+        assert_eq!(3, game_state.current_round_data().unwrap().to_act_idx);
         game_state.do_bet(0, false).unwrap();
         assert_eq!(
             0,
-            game_state.round_data[game_state.round_index().unwrap()].num_active_players()
+            game_state
+                .current_round_data()
+                .unwrap()
+                .num_active_players()
         );
         assert_eq!(2, game_state.num_active_players());
 
         // Turn
         game_state.advance_round().unwrap();
-        assert_eq!(2, game_state.round_data[game_state.round_index().unwrap()].to_act_idx);
+        assert_eq!(2, game_state.current_round_data().unwrap().to_act_idx);
         assert_eq!(
             2,
-            game_state.round_data[game_state.round_index().unwrap()].num_active_players()
+            game_state
+                .current_round_data()
+                .unwrap()
+                .num_active_players()
         );
         game_state.do_bet(0, false).unwrap();
         game_state.do_bet(0, false).unwrap();
         assert_eq!(
             0,
-            game_state.round_data[game_state.round_index().unwrap()].num_active_players()
+            game_state
+                .current_round_data()
+                .unwrap()
+                .num_active_players()
         );
         assert_eq!(2, game_state.num_active_players());
 
@@ -401,7 +434,10 @@ mod tests {
         game_state.do_bet(0, false).unwrap();
         assert_eq!(
             0,
-            game_state.round_data[game_state.round_index().unwrap()].num_active_players()
+            game_state
+                .current_round_data()
+                .unwrap()
+                .num_active_players()
         );
         assert_eq!(2, game_state.num_active_players());
 

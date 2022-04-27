@@ -9,10 +9,24 @@ pub struct FoldingAgent {}
 
 impl Agent for FoldingAgent {
     fn act(&self, game_state: &GameState) -> Action {
-        if game_state.player_active.count_ones(..) == game_state.num_players {
-            Action::Fold
+        match (
+            game_state.current_round_data(),
+            game_state.num_active_players(),
+        ) {
+            (Some(round), 1) => Action::Bet(round.bet),
+            _ => Action::Fold,
+        }
+    }
+}
+
+pub struct CallingAgent {}
+
+impl Agent for CallingAgent {
+    fn act(&self, game_state: &GameState) -> Action {
+        if let Some(round) = game_state.current_round_data() {
+            Action::Bet(round.bet)
         } else {
-            Action::Check
+            Action::Fold
         }
     }
 }
