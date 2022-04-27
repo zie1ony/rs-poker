@@ -135,7 +135,7 @@ impl GameState {
             player_active: active_mask,
             player_all_in: FixedBitSet::with_capacity(num_players),
             player_bet: vec![0; num_players],
-            dealer_idx: dealer_idx,
+            dealer_idx,
             total_pot: 0,
             hands: vec![Hand::default(); num_players],
             round: Round::Starting,

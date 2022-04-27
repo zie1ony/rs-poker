@@ -39,10 +39,7 @@ impl HoldemSimulation {
     }
 
     pub fn more_rounds(&self) -> bool {
-        match self.game_state.round {
-            Round::Showdown => false,
-            _ => true,
-        }
+        !matches!(self.game_state.round, Round::Showdown)
     }
 
     pub fn step(&mut self) {
@@ -114,7 +111,7 @@ impl HoldemSimulation {
         match action {
             Action::Bet(bet_ammount) => {
                 let result = self.game_state.do_bet(bet_ammount, false);
-                if !result.is_ok() {
+                if result.is_err() {
                     self.game_state.fold().unwrap();
                 }
             }
