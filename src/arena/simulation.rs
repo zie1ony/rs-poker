@@ -53,13 +53,13 @@ impl HoldemSimulation {
     }
 
     fn preflop(&mut self) {
-        // self.run_betting_round();
+        self.run_betting_round();
         self.game_state.advance_round().unwrap()
     }
 
     fn flop(&mut self) {
         self.deal_comunity(3);
-        // self.run_betting_round();
+        self.run_betting_round();
         self.game_state.advance_round().unwrap()
     }
 
@@ -76,6 +76,8 @@ impl HoldemSimulation {
         // Drain the community_cards vec into the game_state board.
         self.game_state.board.append(&mut community_cards);
     }
+
+    fn run_betting_round(&mut self) {}
 }
 
 #[cfg(test)]
@@ -85,7 +87,7 @@ mod tests {
     #[test]
     fn test_single_step_agent() {
         let stacks = vec![100; 9];
-        let game_state = GameState::new(stacks, 10, 5);
+        let game_state = GameState::new(stacks, 10, 5, 0);
         let mut sim = HoldemSimulation::new(game_state);
 
         assert_eq!(100, sim.game_state.stacks[1]);
