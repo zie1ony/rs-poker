@@ -23,10 +23,8 @@ pub struct CallingAgent {}
 
 impl Agent for CallingAgent {
     fn act(&self, game_state: &GameState) -> Action {
-        if let Some(round) = game_state.current_round_data() {
-            Action::Bet(round.bet)
-        } else {
-            Action::Fold
-        }
+        game_state
+            .current_round_data()
+            .map_or_else(|| Action::Fold, |round| Action::Bet(round.bet))
     }
 }
