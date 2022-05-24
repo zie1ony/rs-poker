@@ -14,6 +14,7 @@ pub enum Round {
     Turn,
     River,
     Showdown,
+    Complete,
 }
 
 impl Round {
@@ -24,6 +25,7 @@ impl Round {
             Round::Flop => Ok(Round::Turn),
             Round::Turn => Ok(Round::River),
             Round::River => Ok(Round::Showdown),
+            Round::Showdown => Ok(Round::Complete),
             _ => Err(GameStateError::CantAdvanceRound),
         }
     }
@@ -40,6 +42,7 @@ pub struct RoundData {
     pub player_bet: Vec<i32>,
     // The number of times the player has put in money.
     pub bet_count: Vec<u8>,
+    // The number of times the player has increased the bet voluntarily.
     pub raise_count: Vec<u8>,
     // The index of the next player to act.
     pub to_act_idx: usize,
@@ -93,10 +96,11 @@ pub struct GameState {
     pub player_active: FixedBitSet,
     pub player_all_in: FixedBitSet,
     /// The total ammount in all pots
-    total_pot: i32,
+    pub total_pot: i32,
     /// How much is left in each player's stack
     pub stacks: Vec<i32>,
     pub player_bet: Vec<i32>,
+    pub player_winnings: Vec<i32>,
     /// The big blind size
     pub big_blind: i32,
     /// The small blind size
@@ -130,6 +134,7 @@ impl GameState {
             player_active: active_mask,
             player_all_in: FixedBitSet::with_capacity(num_players),
             player_bet: vec![0; num_players],
+            player_winnings: vec![0; num_players],
             dealer_idx,
             total_pot: 0,
             hands: vec![Hand::default(); num_players],
@@ -179,15 +184,19 @@ impl GameState {
     }
 
     fn new_round_data(&self) -> RoundData {
-        RoundData {
+        let mut rd = RoundData {
             player_bet: vec![0; self.num_players],
             bet_count: vec![0; self.num_players],
             raise_count: vec![0; self.num_players],
             bet: 0,
             min_raise: self.big_blind,
             player_active: self.player_active.clone(),
-            to_act_idx: self.left_of_dealer(),
-        }
+            to_act_idx: self.dealer_idx,
+        };
+
+        rd.advance();
+
+        rd
     }
 
     pub fn current_round_data(&self) -> Option<&RoundData> {
@@ -211,6 +220,7 @@ impl GameState {
         rd.player_active.set(idx, false);
         rd.advance();
         self.player_active.set(idx, false);
+
         Ok(())
     }
 
@@ -255,7 +265,10 @@ impl GameState {
 
         // We're out and can't continue
         if self.stacks[idx] == 0 {
+            // Keep track of who's still active.
             self.player_active.set(idx, false);
+            // Keep track of going all in. We'll use that later on
+            // to determine who's worth ranking.
             self.player_all_in.set(idx, true);
             // It doesn' matter if this is a forced
             // bet if the player is out of money.
@@ -268,8 +281,9 @@ impl GameState {
         Ok(extra_ammount)
     }
 
-    pub fn left_of_dealer(&self) -> usize {
-        (self.dealer_idx + 1) % self.num_players
+    pub fn award(&mut self, player_idx: usize, ammount: i32) {
+        self.stacks[player_idx] += ammount;
+        self.player_winnings[player_idx] += ammount;
     }
 
     fn round_index(&self) -> Result<usize, GameStateError> {

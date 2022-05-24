@@ -1,7 +1,8 @@
 use core::fmt;
+use std::collections::BTreeMap;
 
 use crate::arena::game_state::Round;
-use crate::core::{Card, Deck, FlatDeck};
+use crate::core::{Card, Deck, FlatDeck, Rank, Rankable};
 
 use super::action::Action;
 use super::agent::Agent;
@@ -39,7 +40,7 @@ impl HoldemSimulation {
     }
 
     pub fn more_rounds(&self) -> bool {
-        !matches!(self.game_state.round, Round::Showdown)
+        !matches!(self.game_state.round, Round::Complete)
     }
 
     pub fn step(&mut self) {
@@ -49,7 +50,8 @@ impl HoldemSimulation {
             Round::Flop => self.flop(),
             Round::Turn => self.turn(),
             Round::River => self.river(),
-            _ => (),
+            Round::Showdown => self.showdown(),
+            Round::Complete => (),
         }
     }
 
@@ -81,6 +83,77 @@ impl HoldemSimulation {
     fn river(&mut self) {
         self.deal_comunity(1);
         self.run_betting_round();
+        self.game_state.advance_round().unwrap()
+    }
+
+    fn showdown(&mut self) {
+        // Rank each player that still has a chance.
+        let mut active = self.game_state.player_active.clone();
+        active.union_with(&self.game_state.player_all_in);
+
+        let mut bets = self.game_state.player_bet.clone();
+
+        // Create a map where the keys are the ranks and the values are vectors of player index.
+        let ranks = active
+            .ones()
+            .into_iter()
+            .map(|idx| (idx, self.game_state.hands[idx].rank()))
+            .fold(
+                BTreeMap::new(),
+                |mut map: BTreeMap<Rank, Vec<usize>>, (idx, rank)| {
+                    map.entry(rank)
+                        .and_modify(|m| {
+                            m.push(idx);
+                            m.sort_by(|a, b| bets[*a].cmp(&bets[*b]));
+                        })
+                        .or_insert_with(|| vec![idx]);
+
+                    map
+                },
+            );
+
+        // By default the map gives keys in assending order. We want them descending.
+        // The actual player vector is sorted in ascending order according to bet size.
+        for (_rank, players) in ranks.into_iter().rev() {
+            let mut start_idx = 0;
+            let end_idx = players.len();
+
+            while start_idx < end_idx {
+                // Becasue our lists are ordered from smallest bets to largest
+                // we can just assume the first one is the smallest
+                let max_wager = bets[players[start_idx]];
+                let mut pot = 0;
+
+                // Most common is that ties will
+                // be for wagers that are all the same.
+                // So check if there's no more
+                // bets to award for this player.
+                if max_wager == 0 {
+                    start_idx += 1;
+                    continue;
+                }
+
+                // Take all the wagers into a singular pot.
+                for b in bets.iter_mut() {
+                    let w = (*b).min(max_wager);
+                    *b -= w;
+                    pot += w;
+                }
+
+                // Now all the winning players get
+                // an equal share of the total pot
+                let num_players = (end_idx - start_idx) as i32;
+                let split = pot / num_players;
+                for idx in &players[start_idx..end_idx] {
+                    self.game_state.award(*idx, split);
+                }
+
+                // Since the first player is bet size
+                // that we used. They have won everything that they're eligible for.
+                start_idx += 1;
+            }
+        }
+
         self.game_state.advance_round().unwrap()
     }
 
@@ -131,6 +204,8 @@ impl fmt::Debug for HoldemSimulation {
 
 #[cfg(test)]
 mod tests {
+    use std::convert::TryFrom;
+
     use crate::arena::agent::CallingAgent;
 
     use super::*;
@@ -168,5 +243,94 @@ mod tests {
         }
 
         assert_eq!(sim.game_state.num_active_players(), 4);
+
+        assert_ne!(0, sim.game_state.player_winnings.iter().sum());
+        assert_eq!(40, sim.game_state.player_winnings.iter().sum());
+    }
+
+    #[test]
+    fn test_simulation_complex_showdown() {
+        let stacks = vec![100, 5, 10, 100, 200];
+        let mut game_state = GameState::new(stacks, 10, 5, 0);
+        let mut deck = Deck::default();
+
+        deal_hand_card(0, "Ks", &mut deck, &mut game_state);
+        deal_hand_card(0, "Kh", &mut deck, &mut game_state);
+
+        deal_hand_card(1, "As", &mut deck, &mut game_state);
+        deal_hand_card(1, "Ac", &mut deck, &mut game_state);
+
+        deal_hand_card(2, "Ad", &mut deck, &mut game_state);
+        deal_hand_card(2, "Ah", &mut deck, &mut game_state);
+
+        deal_hand_card(3, "6d", &mut deck, &mut game_state);
+        deal_hand_card(3, "4d", &mut deck, &mut game_state);
+
+        deal_hand_card(4, "9d", &mut deck, &mut game_state);
+        deal_hand_card(4, "9s", &mut deck, &mut game_state);
+
+        // Start
+        game_state.advance_round().unwrap();
+        // Preflop
+        game_state.fold().unwrap(); // idx 3
+        game_state.do_bet(10, false).unwrap(); // idx 4
+        game_state.do_bet(10, false).unwrap(); // idx 0
+
+        game_state.advance_round().unwrap();
+        assert_eq!(game_state.num_active_players(), 2);
+
+        deal_community_card("6c", &mut deck, &mut game_state);
+        deal_community_card("2d", &mut deck, &mut game_state);
+        deal_community_card("3d", &mut deck, &mut game_state);
+        // Flop
+        game_state.do_bet(90, false).unwrap(); // idx 4
+        game_state.do_bet(90, false).unwrap(); // idx 0
+        game_state.advance_round().unwrap();
+        assert_eq!(game_state.num_active_players(), 1);
+
+        deal_community_card("8h", &mut deck, &mut game_state);
+        // Turn
+        game_state.do_bet(0, false).unwrap(); // idx 4
+        game_state.advance_round().unwrap();
+        assert_eq!(game_state.num_active_players(), 1);
+
+        // River
+        deal_community_card("8s", &mut deck, &mut game_state);
+        game_state.do_bet(100, false).unwrap(); // idx 4
+        game_state.advance_round().unwrap();
+        assert_eq!(game_state.num_active_players(), 0);
+
+        let mut sim = HoldemSimulation::new(game_state);
+        sim.step();
+
+        assert_eq!(Round::Complete, sim.game_state.round);
+
+        assert_eq!(180, sim.game_state.player_winnings[0]);
+        assert_eq!(10, sim.game_state.player_winnings[1]);
+        assert_eq!(25, sim.game_state.player_winnings[2]);
+        assert_eq!(0, sim.game_state.player_winnings[3]);
+        assert_eq!(100, sim.game_state.player_winnings[4]);
+
+        assert_eq!(180, sim.game_state.stacks[0]);
+        assert_eq!(10, sim.game_state.stacks[1]);
+        assert_eq!(25, sim.game_state.stacks[2]);
+        assert_eq!(100, sim.game_state.stacks[3]);
+        assert_eq!(100, sim.game_state.stacks[4]);
+    }
+
+    fn deal_hand_card(idx: usize, card_str: &str, deck: &mut Deck, game_state: &mut GameState) {
+        let c = Card::try_from(card_str).unwrap();
+        assert_eq!(true, deck.remove(&c));
+        game_state.hands[idx].push(c);
+    }
+
+    fn deal_community_card(card_str: &str, deck: &mut Deck, game_state: &mut GameState) {
+        let c = Card::try_from(card_str).unwrap();
+        assert_eq!(true, deck.remove(&c));
+        for h in &mut game_state.hands {
+            h.push(c.clone());
+        }
+
+        game_state.board.push(c);
     }
 }
