@@ -26,3 +26,5 @@ pub mod core;
 pub mod holdem;
 
 pub mod simulated_icm;
+
+pub mod arena;

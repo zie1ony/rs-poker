@@ -26,7 +26,7 @@ fn award_payments(
     payments: &[i32],
     idx: usize,
     other_idx: usize,
-    winnings: &mut Vec<i32>,
+    winnings: &mut [i32],
     next_place: &mut usize,
 ) -> bool {
     if remaining_stacks[idx] == 0 {
