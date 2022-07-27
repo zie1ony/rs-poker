@@ -9,10 +9,7 @@
 //! * Hand Ranking.
 //! * Hand Range parsing.
 //! * Hand Range generation.
-//!
-//! # Planned:
 //! * Holdem Game State.
-//! * Multi-threading
 //!
 #![deny(clippy::all)]
 extern crate rand;
@@ -25,6 +22,11 @@ pub mod core;
 /// parsing, game state, and starting hand code.
 pub mod holdem;
 
+/// Given a tournament calculate the implied
+/// equity in the total tournament.
 pub mod simulated_icm;
 
+/// Simulate poker games via agents that
+/// play. Then determine who wins the most over
+/// time
 pub mod arena;
