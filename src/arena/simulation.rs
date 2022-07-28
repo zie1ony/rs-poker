@@ -11,8 +11,8 @@ use super::game_state::GameState;
 
 pub struct HoldemSimulation {
     agents: Vec<Box<dyn Agent>>,
-    game_state: GameState,
-    deck: FlatDeck,
+    pub game_state: GameState,
+    pub deck: FlatDeck,
 }
 
 impl HoldemSimulation {
@@ -31,11 +31,22 @@ impl HoldemSimulation {
 
         let mut flat_deck: FlatDeck = d.into();
         flat_deck.shuffle();
-
         Self {
             game_state,
             agents,
             deck: flat_deck,
+        }
+    }
+
+    pub fn new_with_agents_and_deck(
+        game_state: GameState,
+        deck: FlatDeck,
+        agents: Vec<Box<dyn Agent>>,
+    ) -> Self {
+        Self {
+            game_state,
+            agents,
+            deck,
         }
     }
 
