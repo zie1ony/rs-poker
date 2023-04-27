@@ -9,7 +9,7 @@ use rand::thread_rng;
 /// `FlatDeck` is a deck of cards that allows easy
 /// indexing into the cards. It does not provide
 /// contains methods.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct FlatDeck {
     /// Card storage.
     cards: Vec<Card>,
@@ -92,6 +92,14 @@ impl From<Deck> for FlatDeck {
         Self {
             cards: value.into_iter().collect(),
         }
+    }
+}
+impl Default for FlatDeck {
+    fn default() -> Self {
+        let mut cards: Vec<Card> = Deck::default().into_iter().collect();
+        let mut rng = thread_rng();
+        cards.shuffle(&mut rng);
+        Self { cards }
     }
 }
 
