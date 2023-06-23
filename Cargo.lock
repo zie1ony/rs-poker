@@ -487,7 +487,7 @@ checksum = "436b050e76ed2903236f032a59761c1eb99e1b0aead2c257922771dab1fc8c78"
 
 [[package]]
 name = "rs_poker"
-version = "3.0.0-alpha.2"
+version = "3.0.0-alpha.3"
 dependencies = [
  "arbitrary",
  "criterion",
