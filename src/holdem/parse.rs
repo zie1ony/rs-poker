@@ -1,5 +1,6 @@
 use crate::core::{Card, Hand, RSPokerError, Suit, Value};
 use crate::holdem::Suitedness;
+use std::collections::HashSet;
 use std::iter::Iterator;
 
 /// Inclusive Range of card values.
@@ -522,6 +523,37 @@ impl RangeParser {
 
         Ok(filtered)
     }
+
+    /// Parse a string and return all the starting hands
+    ///
+    /// # Examples
+    ///
+    /// Same as `parse_one` but this will parse a comma separated list of hands.
+    ///
+    /// ```
+    /// use rs_poker::holdem::RangeParser;
+    ///
+    /// let hand = RangeParser::parse_many("KK+,A2s+").unwrap();
+    /// assert_eq!(60, hand.len());
+    ///
+    /// // Filters out duplicates.
+    /// assert_eq!(RangeParser::parse_many("AK-87s,A2s+").unwrap().len(), 72)
+    /// ```
+    pub fn parse_many(r_str: &str) -> Result<Vec<Hand>, RSPokerError> {
+        let all_hands: Vec<_> = r_str
+            // Split into different ranges
+            .split(',')
+            // Try to parse the ranges.
+            .map(|s| RangeParser::parse_one(s.trim()))
+            // Use FromIterator to get a result and unwrap it.
+            .collect::<Result<Vec<_>, _>>()?;
+
+        // Filter the unique hands.
+        let unique_hands: HashSet<Hand> = all_hands.into_iter().flatten().collect();
+
+        // Transform hands into a vec for storage
+        Ok(unique_hands.into_iter().collect())
+    }
 }
 
 #[cfg(test)]
@@ -713,5 +745,35 @@ mod test {
     #[test]
     fn test_ok_with_trailing_plus() {
         assert!(RangeParser::parse_one(&String::from("8Q-62+")).is_err());
+    }
+
+    #[test]
+    fn test_ok_with_multiple() {
+        assert!(RangeParser::parse_many(&String::from("KK+, AJs+")).is_ok());
+    }
+
+    #[test]
+    fn test_ok_with_single() {
+        assert!(RangeParser::parse_many(&String::from("KK+")).is_ok());
+    }
+
+    #[test]
+    fn test_parse_multiple() {
+        assert_eq!(
+            RangeParser::parse_many(&String::from("KK+, A2s+"))
+                .unwrap()
+                .len(),
+            60
+        );
+    }
+
+    #[test]
+    fn test_filters_duplicates() {
+        assert_eq!(
+            RangeParser::parse_many(&String::from("AK-87s,A2s+"))
+                .unwrap()
+                .len(),
+            72
+        );
     }
 }
