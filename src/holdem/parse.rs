@@ -69,6 +69,8 @@ enum RangeIterValueSpecifier {
     Static(Value),
     /// Pair
     Pair,
+    /// StaticRange. Value is the higher value. Second value is the gap.
+    StaticRange(Value, u8),
 }
 
 /// This is an `Iterator` that will iterate over two card hands
@@ -102,9 +104,12 @@ impl RangeIter {
     }
     /// Create a range iterator where the first card is a gap away from
     /// the second.
-    fn gap(gap: u8, range_two: InclusiveValueRange) -> Self {
+    fn gap(gap: u8, range_two: InclusiveValueRange, static_value: Option<Value>) -> Self {
         Self {
-            value_one: RangeIterValueSpecifier::Gap(gap),
+            value_one: match static_value {
+                Some(v) => RangeIterValueSpecifier::StaticRange(v, gap),
+                None => RangeIterValueSpecifier::Gap(gap),
+            },
             range: range_two,
             offset: 0,
             suit_one_offset: 0,
@@ -173,6 +178,9 @@ impl RangeIter {
             }
             RangeIterValueSpecifier::Static(value) => value,
             RangeIterValueSpecifier::Pair => Value::from_u8(self.range.start as u8 + self.offset),
+            RangeIterValueSpecifier::StaticRange(value, gap) => {
+                Value::from_u8(value as u8 + gap + self.offset)
+            }
         };
         // Create the card.
         Card {
@@ -372,6 +380,8 @@ impl RangeParser {
         let mut suited = Suitedness::Any;
         // Assume that this is not a set of connectors
         let mut gap: Option<u8> = None;
+        // Assume that range is not static
+        let mut is_static = false;
 
         // Get the first char.
         let fv_char = iter.next().ok_or(RSPokerError::TooFewChars)?;
@@ -456,10 +466,16 @@ impl RangeParser {
                         let first_gap = first_range.start.gap(second_range.start);
                         let second_gap = first_range.end.gap(second_range.end);
 
-                        if first_gap != second_gap {
+                        is_static = first_range.start == first_range.end
+                            && second_range.start != second_range.end;
+
+                        if first_gap != second_gap && !is_static {
                             return Err(RSPokerError::InvalidGap);
                         }
-                        gap = Some(first_gap);
+                        gap = match is_static {
+                            true => Some(first_gap),
+                            false => Some(second_gap),
+                        }
                     }
                 }
             } else {
@@ -479,10 +495,15 @@ impl RangeParser {
             std::mem::swap(&mut first_suit, &mut second_suit);
         }
 
+        let static_value = match is_static {
+            true => Some(first_range.end),
+            false => None,
+        };
+
         // Now create an iterator for two cards.
         let citer = match gap {
             Some(0) => RangeIter::pair(first_range.clone()),
-            Some(g) => RangeIter::gap(g, second_range.clone()),
+            Some(g) => RangeIter::gap(g, second_range.clone(), static_value),
             None => RangeIter::stat(first_range.start, second_range.clone()),
         };
 
@@ -518,7 +539,12 @@ impl RangeParser {
                 }
             })
             // If there is a gap make sure it's enforced.
-            .filter(|h| gap.map_or(true, |g| g == h[0].value.gap(h[1].value)))
+            .filter(|h| {
+                gap.map_or(true, |g| match is_static {
+                    true => true,
+                    false => h[0].value.gap(h[1].value) == g,
+                })
+            })
             .collect();
 
         Ok(filtered)
@@ -667,10 +693,30 @@ mod test {
     }
 
     #[test]
+    fn test_parse_static() {
+        let c = RangeParser::parse_one(&String::from("A9s-A5s")).unwrap();
+
+        assert_eq!(c.len(), 20);
+
+        assert!(c.iter().all(|h| {
+            h[0].value == Value::Ace
+                && h[1].value >= Value::Five
+                && h[1].value <= Value::Nine
+                && h[0].suit == h[1].suit
+        }));
+    }
+
+    #[test]
+    fn test_fail_parse_static_flipped() {
+        assert!(RangeParser::parse_one(&String::from("9As-5As")).is_err());
+    }
+
+    #[test]
     fn test_range_parse_suited() {
         let c = RangeParser::parse_one("87-JTs").unwrap();
         assert_eq!(4 * 4, c.len());
     }
+
     #[test]
     fn test_range_parse_flipped() {
         let c = RangeParser::parse_one("JT-87").unwrap();
@@ -681,6 +727,7 @@ mod test {
         }
         assert_eq!(4 * 4 * 4, count);
     }
+
     #[test]
     fn test_range_parse_flipped_flipped() {
         let c = RangeParser::parse_one("TJ-78").unwrap();
@@ -691,6 +738,7 @@ mod test {
         }
         assert_eq!(4 * 4 * 4, count);
     }
+
     #[test]
     fn test_range_parse() {
         let c = RangeParser::parse_one("87-JT").unwrap();
@@ -702,6 +750,7 @@ mod test {
         let shs = RangeParser::parse_one(&String::from("88s"));
         assert!(shs.is_err());
     }
+
     #[test]
     fn test_cant_suit_pairs_explicit() {
         let shs = RangeParser::parse_one(&String::from("8s8s"));
@@ -714,12 +763,14 @@ mod test {
             .unwrap()
             .is_empty());
     }
+
     #[test]
     fn test_explicit_suit_good() {
         assert!(!RangeParser::parse_one(&String::from("6c2c"))
             .unwrap()
             .is_empty());
     }
+
     #[test]
     fn test_explicit_suited_no_good() {
         assert!(RangeParser::parse_one(&String::from("6c2co")).is_err());
@@ -730,18 +781,21 @@ mod test {
     fn test_bad_input() {
         assert!(RangeParser::parse_one(&String::from("4f7")).is_err());
     }
+
     #[test]
     fn test_explicit_suit_plus() {
         assert!(!RangeParser::parse_one(&String::from("2s2+"))
             .unwrap()
             .is_empty());
     }
+
     #[test]
     fn test_explicit_suit_pair() {
         assert!(!RangeParser::parse_one(&String::from("8D8"))
             .unwrap()
             .is_empty());
     }
+
     #[test]
     fn test_ok_with_trailing_plus() {
         assert!(RangeParser::parse_one(&String::from("8Q-62+")).is_err());
