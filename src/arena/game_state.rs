@@ -10,6 +10,7 @@ use super::errors::GameStateError;
 pub enum Round {
     #[default]
     Starting,
+    Ante,
     Preflop,
     Flop,
     Turn,
@@ -22,6 +23,7 @@ impl Display for Round {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Round::Starting => write!(f, "Starting"),
+            Round::Ante => write!(f, "Ante"),
             Round::Preflop => write!(f, "Preflop"),
             Round::Flop => write!(f, "Flop"),
             Round::Turn => write!(f, "Turn"),
@@ -35,7 +37,8 @@ impl Display for Round {
 impl Round {
     pub fn advance(&self) -> Self {
         match *self {
-            Round::Starting => Round::Preflop,
+            Round::Starting => Round::Ante,
+            Round::Ante => Round::Preflop,
             Round::Preflop => Round::Flop,
             Round::Flop => Round::Turn,
             Round::Turn => Round::River,
@@ -154,6 +157,8 @@ pub struct GameState {
     pub big_blind: f32,
     /// The small blind size
     pub small_blind: f32,
+    /// The ante size
+    pub ante: f32,
     /// The hands for each player. We keep hands
     /// even if the player is not currently active.
     pub hands: Vec<Hand>,
@@ -171,7 +176,13 @@ pub struct GameState {
 }
 
 impl GameState {
-    pub fn new(stacks: Vec<f32>, big_blind: f32, small_blind: f32, dealer_idx: usize) -> Self {
+    pub fn new(
+        stacks: Vec<f32>,
+        big_blind: f32,
+        small_blind: f32,
+        ante: f32,
+        dealer_idx: usize,
+    ) -> Self {
         let num_players = stacks.len();
         GameState {
             num_players,
@@ -179,6 +190,7 @@ impl GameState {
             stacks,
             big_blind,
             small_blind,
+            ante,
             player_active: PlayerBitSet::new(num_players),
             player_all_in: PlayerBitSet::default(),
             player_bet: vec![0.0; num_players],
@@ -233,24 +245,8 @@ impl GameState {
     pub fn advance_round(&mut self) {
         match self.round {
             Round::Complete => (),
-            Round::Starting => self.advance_preflop(),
             _ => self.advance_normal(),
         }
-    }
-
-    fn advance_preflop(&mut self) {
-        self.round = self.round.advance();
-        // create a new round data
-        // and advance to the next player after
-        // the dealer to start dealing cards.
-        let mut round_data = RoundData::new(
-            self.num_players,
-            self.big_blind,
-            self.player_active,
-            self.dealer_idx,
-        );
-        round_data.advance_action();
-        self.round_data = round_data;
     }
 
     fn advance_normal(&mut self) {
@@ -262,7 +258,10 @@ impl GameState {
             self.player_active,
             self.dealer_idx,
         );
-        if !self.player_active.get(round_data.to_act_idx) {
+        round_data.advance_action();
+        if self.round == Round::Preflop && self.num_players == 2 {
+            // With only two players, it is the dealer that has
+            // to post the small blind, so pass the action back.
             round_data.advance_action();
         }
         self.round_data = round_data;
@@ -427,6 +426,7 @@ impl fmt::Debug for GameState {
             .field("stacks", &self.stacks)
             .field("big_blind", &self.big_blind)
             .field("small_blind", &self.small_blind)
+            .field("ante", &self.ante)
             .field("hands", &self.hands)
             .field("dealer_idx", &self.dealer_idx)
             .field("round", &self.round)
@@ -443,7 +443,8 @@ mod tests {
     #[test]
     fn test_fold_around_call() {
         let stacks = vec![100.0; 4];
-        let mut game_state = GameState::new(stacks, 10.0, 5.0, 1);
+        let mut game_state = GameState::new(stacks, 10.0, 5.0, 0.0, 1);
+        game_state.advance_round();
         game_state.advance_round();
 
         // 0 player, 1 dealer, 2 small blind, 3 big blind
@@ -498,7 +499,8 @@ mod tests {
     #[test]
     fn test_cant_bet_less_0() {
         let stacks = vec![100.0; 5];
-        let mut game_state = GameState::new(stacks, 2.0, 1.0, 0);
+        let mut game_state = GameState::new(stacks, 2.0, 1.0, 0.0, 0);
+        game_state.advance_round();
         game_state.advance_round();
 
         game_state.do_bet(33.0, false).unwrap();
@@ -511,8 +513,9 @@ mod tests {
     #[test]
     fn test_cant_bet_less_with_all_in() {
         let stacks = vec![100.0, 50.0, 50.0, 100.0, 10.0];
-        let mut game_state = GameState::new(stacks, 2.0, 1.0, 0);
-        // Post blinds and setup next to act
+        let mut game_state = GameState::new(stacks, 2.0, 1.0, 0.0, 0);
+        // Do the start and ante rounds and setup next to act
+        game_state.advance_round();
         game_state.advance_round();
 
         // UTG raises to 10
@@ -536,8 +539,9 @@ mod tests {
     #[test]
     fn test_cant_under_minraise_bb() {
         let stacks = vec![500.0; 5];
-        let mut game_state = GameState::new(stacks, 20.0, 10.0, 0);
-        // Post blinds and setup next to act
+        let mut game_state = GameState::new(stacks, 20.0, 10.0, 0.0, 0);
+        // Do the start and ante rounds and setup next to act
+        game_state.advance_round();
         game_state.advance_round();
 
         game_state.do_bet(10.0, true).unwrap();
