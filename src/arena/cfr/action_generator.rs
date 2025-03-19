@@ -146,18 +146,16 @@ impl ActionGenerator for BasicCFRActionGenerator {
         if all_in_ammount > game_state.current_round_bet() {
             // All-in, Bet all the money
             // Bet everything we have bet so far plus the remaining stack
-            res.push(AgentAction::Bet(all_in_ammount));
+            res.push(AgentAction::AllIn);
         }
         res
     }
 
-    fn action_to_idx(&self, game_state: &GameState, action: &AgentAction) -> usize {
-        if action == &AgentAction::Fold {
-            0
-        } else if action == &AgentAction::Bet(game_state.current_round_bet()) {
-            1
-        } else {
-            2
+    fn action_to_idx(&self, _game_state: &GameState, action: &AgentAction) -> usize {
+        match action {
+            AgentAction::Fold => 0,
+            AgentAction::Bet(_) => 1,
+            AgentAction::AllIn => 2,
         }
     }
 
@@ -218,13 +216,7 @@ mod tests {
             1
         );
         assert_eq!(
-            action_generator.action_to_idx(
-                &game_state,
-                &AgentAction::Bet(
-                    game_state.current_round_current_player_bet()
-                        + game_state.current_player_stack()
-                )
-            ),
+            action_generator.action_to_idx(&game_state, &AgentAction::AllIn),
             2
         );
     }
