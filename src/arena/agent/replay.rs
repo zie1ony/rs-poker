@@ -41,7 +41,7 @@ impl<'a> SliceReplayAgent<'a> {
 }
 
 impl Agent for VecReplayAgent {
-    fn act(self: &mut VecReplayAgent, _id: &uuid::Uuid, _game_state: &GameState) -> AgentAction {
+    fn act(self: &mut VecReplayAgent, _id: u128, _game_state: &GameState) -> AgentAction {
         let idx = self.idx;
         self.idx += 1;
         self.actions
@@ -51,11 +51,7 @@ impl Agent for VecReplayAgent {
 }
 
 impl<'a> Agent for SliceReplayAgent<'a> {
-    fn act(
-        self: &mut SliceReplayAgent<'a>,
-        _id: &uuid::Uuid,
-        _game_state: &GameState,
-    ) -> AgentAction {
+    fn act(self: &mut SliceReplayAgent<'a>, _id: u128, _game_state: &GameState) -> AgentAction {
         let idx = self.idx;
         self.idx += 1;
         self.actions
