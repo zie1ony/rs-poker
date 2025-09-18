@@ -139,6 +139,8 @@ pub use agent::{Agent, AgentGenerator, CloneAgentGenerator};
 pub use game_state::{CloneGameStateGenerator, GameState, GameStateGenerator};
 pub use historian::{CloneHistorianGenerator, Historian, HistorianError, HistorianGenerator};
 pub use replay_game::{GameReplay, ReplayError, ReplaySimulationBuilder};
-pub use replay_tournament::{TournamentReplay, TournamentReplayData, TournamentHistorian, ReplayTournamentBuilder};
+pub use replay_tournament::{
+    ReplayTournamentBuilder, TournamentHistorian, TournamentReplay, TournamentReplayData,
+};
 pub use sim_builder::HoldemSimulationBuilder;
 pub use simulation::HoldemSimulation;
