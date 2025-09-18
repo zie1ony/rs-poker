@@ -127,6 +127,8 @@ pub mod competition;
 pub mod errors;
 pub mod game_state;
 pub mod historian;
+pub mod replay_game;
+pub mod replay_tournament;
 pub mod sim_builder;
 pub mod simulation;
 
@@ -136,5 +138,7 @@ pub mod test_util;
 pub use agent::{Agent, AgentGenerator, CloneAgentGenerator};
 pub use game_state::{CloneGameStateGenerator, GameState, GameStateGenerator};
 pub use historian::{CloneHistorianGenerator, Historian, HistorianError, HistorianGenerator};
+pub use replay_game::{GameReplay, ReplayError, ReplaySimulationBuilder};
+pub use replay_tournament::{TournamentReplay, TournamentReplayData, TournamentHistorian, ReplayTournamentBuilder};
 pub use sim_builder::HoldemSimulationBuilder;
 pub use simulation::HoldemSimulation;
