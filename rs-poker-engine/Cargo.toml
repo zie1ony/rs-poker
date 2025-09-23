@@ -1,0 +1,17 @@
+[package]
+name = "rs-poker-engine"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rs-poker-types = { path = "../rs-poker-types" }
+rs_poker = { path = "../rs-poker" }
+rand = "~0.9.1"
+tracing = { version = "~0.1.41" }
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+uuid = { version = "1.18.1", features = ["v4"] }
+
+[[bin]]
+name = "run-random-game"
+path = "bin/run_random_game.rs"

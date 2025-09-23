@@ -365,7 +365,25 @@ impl GameState {
     }
 
     pub fn is_complete(&self) -> bool {
-        self.num_active_players() == 1 || self.round == Round::Complete
+        // Game is complete if we've reached the Complete round
+        if self.round == Round::Complete {
+            return true;
+        }
+
+        // Game is complete if there's only one total player left (active or all-in)
+        let total_players = self.num_active_players() + self.num_all_in_players();
+        if total_players <= 1 {
+            return true;
+        }
+
+        // Game is complete if there's only one active player and no actions are needed
+        // (meaning all other players have folded or gone all-in and the remaining
+        // player doesn't need to respond to any bets)
+        if self.num_active_players() == 1 && self.round_data.needs_action.empty() {
+            return true;
+        }
+
+        false
     }
 
     pub fn to_act_idx(&self) -> usize {

@@ -1,7 +1,10 @@
 use crate::arena::{
-    action::Action, GameState, HoldemSimulation, HoldemSimulationBuilder,
-    action::{DealStartingHandPayload, AwardPayload, ForcedBetPayload, GameStartPayload, PlayedActionPayload, PlayerSitPayload},
-    Agent,
+    Agent, GameState, HoldemSimulation, HoldemSimulationBuilder,
+    action::Action,
+    action::{
+        AwardPayload, DealStartingHandPayload, ForcedBetPayload, PlayedActionPayload,
+        PlayerSitPayload,
+    },
 };
 use crate::core::{Card, Deck};
 use thiserror::Error;
@@ -19,7 +22,8 @@ pub enum ReplayError {
 }
 
 /// A system for replaying poker games from recorded actions.
-/// This ensures the exact same cards are dealt and the same game progression occurs.
+/// This ensures the exact same cards are dealt and the same game progression
+/// occurs.
 #[derive(Debug, Clone)]
 pub struct GameReplay {
     /// All recorded actions from the original game
@@ -43,10 +47,12 @@ impl GameReplay {
         }
     }
 
-    /// Create a replay from just actions, extracting initial state from GameStart action
+    /// Create a replay from just actions, extracting initial state from
+    /// GameStart action
     pub fn from_actions(actions: Vec<Action>) -> Result<Self, ReplayError> {
         // Find the GameStart action to extract initial parameters
-        let game_start = actions.iter()
+        let game_start = actions
+            .iter()
             .find_map(|action| match action {
                 Action::GameStart(payload) => Some(payload),
                 _ => None,
@@ -65,9 +71,10 @@ impl GameReplay {
                         player_stacks.resize(*idx + 1, 0.0);
                     }
                     player_stacks[*idx] = *player_stack;
-                    
+
                     // For simplicity, assume dealer is at index 0
-                    // You might want to extract this from other actions if needed
+                    // You might want to extract this from other actions if
+                    // needed
                 }
                 _ => {}
             }
@@ -97,7 +104,7 @@ impl GameReplay {
         let action = self.actions[self.current_action_index].clone();
         self.apply_action(&action)?;
         self.current_action_index += 1;
-        
+
         Ok(Some(action))
     }
 
@@ -164,7 +171,7 @@ impl GameReplay {
             Action::DealCommunity(card) => {
                 // Add the community card to the board
                 self.current_state.board.push(*card);
-                
+
                 // Also add to all player hands (as the original simulation does)
                 for hand in &mut self.current_state.hands {
                     hand.insert(*card);
@@ -197,13 +204,13 @@ impl GameReplay {
         self.current_state.round_data.min_raise = payload.final_min_raise;
         self.current_state.player_active = payload.players_active;
         self.current_state.player_all_in = payload.players_all_in;
-        
+
         // Update stack (pot increase comes from player stacks)
         let pot_increase = payload.final_pot - payload.starting_pot;
         if pot_increase > 0.0 {
             self.current_state.stacks[payload.idx] -= pot_increase;
         }
-        
+
         Ok(())
     }
 
@@ -261,17 +268,17 @@ impl ReplaySimulationBuilder {
         agents: Vec<Box<dyn Agent>>,
     ) -> Result<HoldemSimulation, ReplayError> {
         let replay = self.build_replay()?;
-        
+
         // Create a deck that will deal the exact same cards as recorded
         let predetermined_deck = PredetreminedDeck::from_actions(&replay.actions);
-        
+
         let simulation = HoldemSimulationBuilder::default()
             .game_state(replay.initial_state.clone())
             .agents(agents)
             .deck(predetermined_deck.into())
             .build()
             .map_err(|_| ReplayError::GameStateInconsistency)?;
-            
+
         Ok(simulation)
     }
 }
@@ -284,7 +291,7 @@ struct PredetreminedDeck {
 impl PredetreminedDeck {
     fn from_actions(actions: &[Action]) -> Self {
         let mut cards = Vec::new();
-        
+
         for action in actions {
             match action {
                 Action::DealStartingHand(DealStartingHandPayload { card, .. }) => {
@@ -296,7 +303,7 @@ impl PredetreminedDeck {
                 _ => {}
             }
         }
-        
+
         Self {
             cards_to_deal: cards,
         }
@@ -306,12 +313,12 @@ impl PredetreminedDeck {
 impl From<PredetreminedDeck> for Deck {
     fn from(predetermined: PredetreminedDeck) -> Self {
         let mut deck = Deck::new();
-        
+
         // Add cards in reverse order since Deck.deal() pops from the end
         for card in predetermined.cards_to_deal.into_iter().rev() {
             deck.insert(card);
         }
-        
+
         deck
     }
 }
@@ -319,24 +326,18 @@ impl From<PredetreminedDeck> for Deck {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::core::{Card, Suit, Value};
     use crate::arena::{
-        agent::{VecReplayAgent, Agent}, 
-        historian::VecHistorian, 
         HoldemSimulationBuilder,
-        action::AgentAction
+        action::{AgentAction, GameStartPayload},
+        agent::{Agent, VecReplayAgent},
+        historian::VecHistorian,
     };
+    use crate::core::{Card, Suit, Value};
     use rand::{SeedableRng, rngs::StdRng};
 
     #[test]
     fn test_replay_basic() {
-        let initial_state = GameState::new_starting(
-            vec![100.0, 100.0],
-            10.0,
-            5.0,
-            0.0,
-            0,
-        );
+        let initial_state = GameState::new_starting(vec![100.0, 100.0], 10.0, 5.0, 0.0, 0);
 
         let actions = vec![
             Action::GameStart(GameStartPayload {
@@ -355,7 +356,7 @@ mod tests {
         ];
 
         let mut replay = GameReplay::new(initial_state, actions);
-        
+
         // Step through actions
         replay.step_forward().unwrap();
         replay.step_forward().unwrap();
@@ -371,17 +372,15 @@ mod tests {
     fn test_game_replay_creation_and_state() {
         let stacks = vec![100.0, 100.0];
         let initial_state = GameState::new_starting(stacks.clone(), 10.0, 5.0, 0.0, 0);
-        
-        let actions = vec![
-            Action::GameStart(GameStartPayload {
-                ante: 0.0,
-                small_blind: 5.0,
-                big_blind: 10.0,
-            }),
-        ];
-        
+
+        let actions = vec![Action::GameStart(GameStartPayload {
+            ante: 0.0,
+            small_blind: 5.0,
+            big_blind: 10.0,
+        })];
+
         let replay = GameReplay::new(initial_state.clone(), actions.clone());
-        
+
         // Test initial state
         assert_eq!(replay.get_current_action_index(), 0);
         assert!(replay.has_more_actions());
@@ -393,7 +392,7 @@ mod tests {
     #[test]
     fn test_replay_step_through_actions() {
         let initial_state = GameState::new_starting(vec![100.0, 100.0], 10.0, 5.0, 0.0, 0);
-        
+
         let actions = vec![
             Action::GameStart(GameStartPayload {
                 ante: 0.0,
@@ -406,9 +405,9 @@ mod tests {
             }),
             Action::DealCommunity(Card::new(Value::King, Suit::Heart)),
         ];
-        
+
         let mut replay = GameReplay::new(initial_state, actions.clone());
-        
+
         // Step through each action
         let mut step_count = 0;
         while replay.has_more_actions() {
@@ -417,7 +416,7 @@ mod tests {
             step_count += 1;
             assert!(step_count <= actions.len());
         }
-        
+
         assert_eq!(step_count, actions.len());
         assert!(!replay.has_more_actions());
         assert_eq!(replay.get_current_action_index(), actions.len());
@@ -426,7 +425,7 @@ mod tests {
     #[test]
     fn test_time_travel_functionality() {
         let initial_state = GameState::new_starting(vec![100.0, 100.0], 10.0, 5.0, 0.0, 0);
-        
+
         let actions = vec![
             Action::GameStart(GameStartPayload {
                 ante: 0.0,
@@ -443,26 +442,26 @@ mod tests {
             }),
             Action::DealCommunity(Card::new(Value::Queen, Suit::Diamond)),
         ];
-        
+
         let mut replay = GameReplay::new(initial_state.clone(), actions);
-        
+
         // Jump to middle action
         let mid_action = 2;
         let jump_result = replay.step_to(mid_action);
         assert!(jump_result.is_ok());
         assert_eq!(replay.get_current_action_index(), mid_action);
-        
+
         // Jump to early action (backward)
         let early_action = 1;
         let early_result = replay.step_to(early_action);
         assert!(early_result.is_ok());
         assert_eq!(replay.get_current_action_index(), early_action);
-        
+
         // Jump to end
         let end_result = replay.step_to(4);
         assert!(end_result.is_ok());
         assert_eq!(replay.get_current_action_index(), 4);
-        
+
         // Reset to start
         replay.reset_to_start();
         assert_eq!(replay.get_current_action_index(), 0);
@@ -472,20 +471,18 @@ mod tests {
     #[test]
     fn test_boundary_conditions() {
         let initial_state = GameState::new_starting(vec![100.0, 100.0], 10.0, 5.0, 0.0, 0);
-        let actions = vec![
-            Action::GameStart(GameStartPayload {
-                ante: 0.0,
-                small_blind: 5.0,
-                big_blind: 10.0,
-            }),
-        ];
-        
+        let actions = vec![Action::GameStart(GameStartPayload {
+            ante: 0.0,
+            small_blind: 5.0,
+            big_blind: 10.0,
+        })];
+
         let mut replay = GameReplay::new(initial_state, actions);
-        
+
         // Test invalid action index
         let invalid_jump = replay.step_to(10);
         assert!(invalid_jump.is_err());
-        
+
         // Test stepping beyond available actions
         replay.step_forward().unwrap(); // Valid step
         let beyond_result = replay.step_forward();
@@ -497,62 +494,76 @@ mod tests {
         // Run a full simulation with historian
         let historian = Box::new(VecHistorian::new());
         let records_storage = historian.get_storage();
-        
+
         let stacks = vec![100.0, 100.0];
         let agents: Vec<Box<dyn Agent>> = vec![
-            Box::new(VecReplayAgent::new(vec![AgentAction::Call, AgentAction::Call])),
-            Box::new(VecReplayAgent::new(vec![AgentAction::Call, AgentAction::Call])),
+            Box::new(VecReplayAgent::new(vec![
+                AgentAction::Call,
+                AgentAction::Call,
+            ])),
+            Box::new(VecReplayAgent::new(vec![
+                AgentAction::Call,
+                AgentAction::Call,
+            ])),
         ];
-        
+
         let game_state = GameState::new_starting(stacks.clone(), 10.0, 5.0, 0.0, 0);
         let mut rng = StdRng::seed_from_u64(12345);
-        
+
         let mut sim = HoldemSimulationBuilder::default()
             .game_state(game_state.clone())
             .agents(agents)
             .historians(vec![historian])
             .build()
             .unwrap();
-            
+
         sim.run(&mut rng);
-        
+
         // Store original results
         let original_board = sim.game_state.board.clone();
         let original_hands = sim.game_state.hands.clone();
         let original_total_pot = sim.game_state.total_pot;
         let original_stacks = sim.game_state.stacks.clone();
-        
+
         // Extract actions and create replay
         let records = records_storage.borrow();
         let actions: Vec<Action> = records.iter().map(|r| r.action.clone()).collect();
         drop(records);
-        
+
         let initial_state = GameState::new_starting(stacks, 10.0, 5.0, 0.0, 0);
         let mut replay = GameReplay::new(initial_state, actions);
-        
+
         // Step through entire replay
         while replay.has_more_actions() {
             replay.step_forward().unwrap();
         }
-        
+
         // Verify exact reproduction
         let replay_state = replay.get_current_state();
         assert_eq!(replay_state.board, original_board);
         assert_eq!(replay_state.total_pot, original_total_pot);
         assert_eq!(replay_state.stacks, original_stacks);
-        
+
         // Compare hands card by card
-        for (i, (sim_hand, replay_hand)) in original_hands.iter().zip(replay_state.hands.iter()).enumerate() {
+        for (i, (sim_hand, replay_hand)) in original_hands
+            .iter()
+            .zip(replay_state.hands.iter())
+            .enumerate()
+        {
             let sim_cards: Vec<_> = sim_hand.iter().collect();
             let replay_cards: Vec<_> = replay_hand.iter().collect();
-            assert_eq!(sim_cards, replay_cards, "Player {} hands must match exactly", i);
+            assert_eq!(
+                sim_cards, replay_cards,
+                "Player {} hands must match exactly",
+                i
+            );
         }
     }
 
     #[test]
     fn test_step_by_step_consistency() {
         let initial_state = GameState::new_starting(vec![100.0, 100.0], 10.0, 5.0, 0.0, 0);
-        
+
         let actions = vec![
             Action::GameStart(GameStartPayload {
                 ante: 0.0,
@@ -570,14 +581,14 @@ mod tests {
             Action::DealCommunity(Card::new(Value::Queen, Suit::Diamond)),
             Action::DealCommunity(Card::new(Value::Jack, Suit::Club)),
         ];
-        
+
         let mut replay = GameReplay::new(initial_state, actions.clone());
-        
+
         // Step through and verify state consistency at each step
         for i in 1..=actions.len() {
             replay.step_to(i).unwrap();
             assert_eq!(replay.get_current_action_index(), i);
-            
+
             let current_state = replay.get_current_state();
             assert_eq!(current_state.stacks.len(), 2);
             assert!(current_state.total_pot >= 0.0);
@@ -598,20 +609,29 @@ mod tests {
             }),
             Action::DealCommunity(Card::new(Value::Queen, Suit::Diamond)),
         ];
-        
+
         let deck = PredetreminedDeck::from_actions(&actions);
-        
+
         // Should have extracted 3 cards from deal actions
         assert_eq!(deck.cards_to_deal.len(), 3);
-        assert!(deck.cards_to_deal.contains(&Card::new(Value::Ace, Suit::Spade)));
-        assert!(deck.cards_to_deal.contains(&Card::new(Value::King, Suit::Heart)));
-        assert!(deck.cards_to_deal.contains(&Card::new(Value::Queen, Suit::Diamond)));
+        assert!(
+            deck.cards_to_deal
+                .contains(&Card::new(Value::Ace, Suit::Spade))
+        );
+        assert!(
+            deck.cards_to_deal
+                .contains(&Card::new(Value::King, Suit::Heart))
+        );
+        assert!(
+            deck.cards_to_deal
+                .contains(&Card::new(Value::Queen, Suit::Diamond))
+        );
     }
 
     #[test]
     fn test_replay_simulation_builder() {
         let initial_state = GameState::new_starting(vec![100.0, 100.0], 10.0, 5.0, 0.0, 0);
-        
+
         let actions = vec![
             Action::GameStart(GameStartPayload {
                 ante: 0.0,
@@ -623,17 +643,17 @@ mod tests {
                 idx: 0,
             }),
         ];
-        
+
         // Test building replay
         let replay = ReplaySimulationBuilder::new()
             .with_initial_state(initial_state.clone())
             .with_actions(actions.clone())
             .build_replay()
             .unwrap();
-        
+
         assert_eq!(replay.get_actions().len(), actions.len());
         assert_eq!(replay.get_current_state().stacks, initial_state.stacks);
-        
+
         // Test building predetermined deck from actions
         let deck = PredetreminedDeck::from_actions(&actions);
         assert!(deck.cards_to_deal.len() > 0);
@@ -656,10 +676,10 @@ mod tests {
                 player_stack: 100.0,
             }),
         ];
-        
+
         let replay = GameReplay::from_actions(actions.clone());
         assert!(replay.is_ok());
-        
+
         let replay = replay.unwrap();
         assert_eq!(replay.get_actions().len(), actions.len());
         assert_eq!(replay.get_current_state().stacks, vec![100.0, 100.0]);
@@ -667,16 +687,14 @@ mod tests {
 
     #[test]
     fn test_from_actions_missing_game_start() {
-        let actions = vec![
-            Action::DealStartingHand(DealStartingHandPayload {
-                card: Card::new(Value::Ace, Suit::Spade),
-                idx: 0,
-            }),
-        ];
-        
+        let actions = vec![Action::DealStartingHand(DealStartingHandPayload {
+            card: Card::new(Value::Ace, Suit::Spade),
+            idx: 0,
+        })];
+
         let replay = GameReplay::from_actions(actions);
         assert!(replay.is_err());
-        
+
         if let Err(ReplayError::MissingInitialGameState) = replay {
             // Expected error type
         } else {

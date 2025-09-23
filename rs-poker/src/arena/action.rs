@@ -3,7 +3,7 @@ use crate::core::{Card, Hand, PlayerBitSet, Rank};
 use super::game_state::Round;
 
 /// Represents an action that an agent can take in a game.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, schemars::JsonSchema)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
 pub enum AgentAction {

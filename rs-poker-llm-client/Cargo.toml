@@ -1,0 +1,20 @@
+[package]
+name = "rs-poker-llm-client"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1.0" }
+serde_json = "1.0"
+schemars = "0.8"
+dotenv = "0.15.0"
+async-openai = "0.29.3"
+tokio = { version = "1", default-features = false, features = ["full"] }
+openai-schemars = "0.1.0"
+
+[[bin]]
+name = "run-llm"
+path = "run_llm.rs"
+
+[lib]
+path = "llm_client.rs"

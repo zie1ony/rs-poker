@@ -1,0 +1,19 @@
+[package]
+name = "rs-poker-cli"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.4", features = ["derive"] }
+crossterm = "0.27"
+tokio = { version = "1.0", features = ["full"] }
+rs_poker = { path = "../rs-poker" }
+rs-poker-types = { path = "../rs-poker-types" }
+rs-poker-engine = { path = "../rs-poker-engine" }
+rs-poker-server = { path = "../rs-poker-server" }
+rs-poker-llm-client = { path = "../rs-poker-llm-client" }
+
+
+[[bin]]
+name = "run-cli"
+path = "bin/run_cli.rs"

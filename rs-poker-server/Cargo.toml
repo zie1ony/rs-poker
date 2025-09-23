@@ -1,0 +1,22 @@
+[package]
+name = "rs-poker-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rs_poker = { path = "../rs-poker" }
+rs-poker-engine = { path = "../rs-poker-engine" }
+rs-poker-types = { path = "../rs-poker-types" }
+axum = { version = "0.8.4", features = ["macros"] }
+tokio = { version = "1.0", features = ["full"] }
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+http-body-util = "0.1.0"
+tower = { version = "0.5.2", features = ["util"] }
+reqwest = { version = "0.12", features = ["json"] }
+serde_urlencoded = "0.7"
+thiserror = "1.0"
+
+[[bin]]
+name = "run-server"
+path = "bin/run_server.rs"
