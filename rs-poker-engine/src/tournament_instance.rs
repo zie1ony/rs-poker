@@ -34,6 +34,10 @@ impl TournamentInstance {
         &self.status
     }
 
+    pub fn is_completed(&self) -> bool {
+        matches!(self.status, TournamentStatus::Completed)
+    }
+
     pub fn winner(&self) -> Option<&rs_poker_types::player::Player> {
         if matches!(self.status, TournamentStatus::Completed) {
             // Find the player with the highest stack (or the only one with money)

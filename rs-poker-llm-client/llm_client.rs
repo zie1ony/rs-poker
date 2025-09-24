@@ -70,6 +70,13 @@ pub fn print_stats() {
     println!("  Output tokens: {}", stats_guard.output_tokens);
 }
 
+pub fn count_tokens(input: &str) -> usize {
+    use tiktoken_rs::o200k_base;
+    let bpe = o200k_base().unwrap();
+    let tokens = bpe.encode_with_special_tokens(input);
+    tokens.len()
+}
+
 pub trait LLMResponse: serde::Serialize + DeserializeOwned + JsonSchema {
     const DESCRIPTION: &'static str;
 

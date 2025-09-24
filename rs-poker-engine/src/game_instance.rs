@@ -4,7 +4,7 @@ use rs_poker::{
     core::{Card, Deck},
 };
 use rs_poker_types::{
-    game::{Decision, GameFullView, GameId, GamePlayerView, GameStatus},
+    game::{Decision, GameFinalResults, GameFullView, GameId, GamePlayerView, GameSettings, GameStatus},
     player::{AutomatType, Player, PlayerName},
 };
 
@@ -45,6 +45,18 @@ impl GameInstance {
             simulation,
             players,
         }
+    }
+
+    pub fn new_from_config_with_random_cards(
+        config: &GameSettings
+    ) -> Self {
+        Self::new_with_random_cards(
+            config.game_id.clone(),
+            config.players.clone(),
+            config.stacks.clone(),
+            config.small_blind * 2.0,
+            config.small_blind,
+        )
     }
 
     pub fn new_with_random_cards(
@@ -189,6 +201,18 @@ impl GameInstance {
             .iter()
             .map(|a| format!("{:?}\n", a))
             .collect()
+    }
+
+    pub fn game_final_results(&self) -> Option<GameFinalResults> {
+        if self.simulation.game_state.is_complete() {
+            Some(GameFinalResults {
+                game_id: self.game_id.clone(),
+                player_names: self.players.iter().map(|p| p.name()).collect(),
+                final_stacks: self.simulation.game_state.stacks.clone(),
+            })
+        } else {
+            None
+        }
     }
 }
 
