@@ -7,10 +7,10 @@ pub async fn main() {
         .await
         .unwrap();
     println!("Listening on http://{}", listener.local_addr().unwrap());
-    
+
     // Create the server
     let server = axum::serve(listener, app());
-    
+
     // Handle graceful shutdown on Ctrl+C
     tokio::select! {
         result = server => {

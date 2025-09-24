@@ -1,4 +1,4 @@
-use rs_poker_engine::{game_instance::GameInstance, summary::GameSummary};
+use rs_poker_engine::{game_instance::GameInstance, game_summary::GameSummary};
 use rs_poker_types::{
     game::GameId,
     player::{AutomatType, Player, PlayerName},

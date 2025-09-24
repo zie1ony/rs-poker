@@ -56,11 +56,11 @@ pub async fn run_example_game(mock_server: bool) {
 
 async fn initialize_game(client: &PokerClient) -> GameId {
     let players = vec![
-        // Player::ai("Alice", "gpt-5-mini", "aggressive, but withdraw sometimes"),
+        Player::ai("Alice", "gpt-5-mini", "aggressive, but withdraw sometimes"),
+        Player::ai("Bob", "gpt-4o-mini", "defensive, but bluffy"),
         // Player::human("Diana"),
-        // Player::ai("Bob", "gpt-4o-mini", "defensive, but bluffy"),
-        Player::random("name1"),
-        Player::random("name2"),
+        // Player::random("name1"),
+        // Player::random("name2"),
     ];
 
     // Start new game.
@@ -202,7 +202,11 @@ async fn handle_ai_player_action(
     println!("{}", frame.render());
 }
 
-fn display_action_menu(frame: &mut Frame, possible_actions: &[PossibleAction], selected_index: usize) {
+fn display_action_menu(
+    frame: &mut Frame,
+    possible_actions: &[PossibleAction],
+    selected_index: usize,
+) {
     let mut actions_text = String::new();
     actions_text.push_str("Available actions (use ↑/↓ to navigate, Enter to select, q to quit):\n");
     for (i, action) in possible_actions.iter().enumerate() {
@@ -293,11 +297,7 @@ async fn handle_bet_input(frame: &mut Frame, min: f32, max: f32) -> Option<Agent
     }
 }
 
-async fn handle_game_finished(
-    client: &PokerClient,
-    game_id: &GameId,
-    frame: &mut Frame,
-) -> bool {
+async fn handle_game_finished(client: &PokerClient, game_id: &GameId, frame: &mut Frame) -> bool {
     let game_full_view_resp = client
         .game_full_view(GameFullViewRequest {
             game_id: game_id.clone(),

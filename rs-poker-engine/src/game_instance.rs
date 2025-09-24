@@ -10,7 +10,7 @@ use rs_poker_types::{
 
 use crate::{
     game_simulation::{GameActionRequired, GameSimulation},
-    summary::GameSummary,
+    game_summary::GameSummary,
 };
 
 #[derive(Clone)]

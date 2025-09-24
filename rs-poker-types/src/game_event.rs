@@ -9,7 +9,7 @@ use crate::{
 };
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
-pub enum Event {
+pub enum GameEvent {
     GameStarted(GameStartedEvent),
     RoundAdvance(Round),
     ForcedBet(ForcedBetEvent),

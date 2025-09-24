@@ -5,9 +5,10 @@ use std::{
 
 use crate::{
     api_types::{
-        AsJsonRequest, AsJsonResponse, GameCreatedResponse, GameFullViewRequest, GameInfoRequest,
-        GamePlayerViewRequest, HealthCheckRequest, HealthCheckResponse, ListGamesRequest,
-        ListGamesResponse, MakeActionRequest, NewGameRequest, ServerResponse,
+        GameCreatedResponse, GameFullViewRequest, GameInfoRequest, GamePlayerViewRequest,
+        HealthCheckRequest, HealthCheckResponse, ListGamesRequest, ListGamesResponse,
+        MakeActionRequest, NewGameRequest, NewTournamentRequest, ServerResponse,
+        TournamentCreatedResponse,
     },
     error::ServerError,
 };
@@ -16,12 +17,16 @@ use axum::{
     routing::{get, post},
     Json, Router,
 };
-use rs_poker_engine::game_instance::GameInstance;
-use rs_poker_types::game::{GameFullView, GameId, GameInfo, GamePlayerView};
+use rs_poker_engine::{game_instance::GameInstance, tournament_instance::TournamentInstance};
+use rs_poker_types::{
+    game::{GameFullView, GameId, GameInfo, GamePlayerView},
+    tournament::TournamentId,
+};
 
 #[derive(Clone, Default)]
 pub struct PokerServer {
     pub games: HashMap<GameId, GameInstance>,
+    pub tournaments: HashMap<TournamentId, TournamentInstance>,
 }
 
 #[derive(Clone)]
@@ -41,14 +46,16 @@ impl ServerState {
 /// without having to create an HTTP server.
 pub fn app() -> Router {
     Router::new()
-        .route("/as_json", post(as_json_handler))
         .route("/health_check", get(health_check_handler))
+        // Game.
         .route("/new_game", post(new_game_handler))
         .route("/list_games", get(list_games_handler))
         .route("/game_full_view", get(game_full_view_handler))
         .route("/game_player_view", get(game_player_view_handler))
         .route("/game_info", get(game_info_handler))
         .route("/make_action", post(make_action_handler))
+        // Tournament.
+        .route("/new_tournament", post(new_tournament_handler))
         .with_state(ServerState::new())
 }
 
@@ -61,11 +68,7 @@ async fn health_check_handler(
     }))
 }
 
-async fn as_json_handler(Json(payload): Json<AsJsonRequest>) -> ServerResponse<AsJsonResponse> {
-    Json(Ok(AsJsonResponse {
-        data: payload.payload,
-    }))
-}
+// --- game handlers ---
 
 async fn new_game_handler(
     State(state): State<ServerState>,
@@ -100,7 +103,7 @@ async fn list_games_handler(
     Query(params): Query<ListGamesRequest>,
 ) -> ServerResponse<ListGamesResponse> {
     let server = state.server.lock().unwrap();
-    
+
     let game_ids: Vec<(String, rs_poker_types::game::GameStatus)> = server
         .games
         .iter()
@@ -191,6 +194,34 @@ async fn make_action_handler(
         }
         None => Json(Err(ServerError::GameNotFound(payload.game_id.clone()))),
     }
+}
+
+// --- tournament handlers ---
+
+async fn new_tournament_handler(
+    State(state): State<ServerState>,
+    Json(payload): Json<NewTournamentRequest>,
+) -> ServerResponse<TournamentCreatedResponse> {
+    let mut server = state.server.lock().unwrap();
+    let settings = payload.settings;
+
+    // Fail if the tournament ID already exists.
+    if server.tournaments.contains_key(&settings.tournament_id) {
+        return Json(Err(ServerError::TournamentAlreadyExists(
+            settings.tournament_id,
+        )));
+    }
+
+    // Create a new tournament instance.
+    let tournament = TournamentInstance::new(&settings);
+
+    server
+        .tournaments
+        .insert(settings.tournament_id.clone(), tournament);
+
+    Json(Ok(TournamentCreatedResponse {
+        tournament_id: settings.tournament_id.clone(),
+    }))
 }
 
 #[cfg(test)]

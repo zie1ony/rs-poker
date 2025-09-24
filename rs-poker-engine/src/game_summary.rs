@@ -1,23 +1,23 @@
 use rs_poker::arena::{action::AgentAction, game_state::Round};
 use rs_poker_types::{
-    event::{Event, ForcedBetKind},
+    game_event::{ForcedBetKind, GameEvent},
     player::PlayerName,
 };
 
 pub struct GameSummary {
-    pub events: Vec<Event>,
+    pub events: Vec<GameEvent>,
     pub for_player: Option<PlayerName>,
 }
 
 impl GameSummary {
-    pub fn full(events: Vec<Event>) -> Self {
+    pub fn full(events: Vec<GameEvent>) -> Self {
         GameSummary {
             events,
             for_player: None,
         }
     }
 
-    pub fn for_player(events: Vec<Event>, player: PlayerName) -> Self {
+    pub fn for_player(events: Vec<GameEvent>, player: PlayerName) -> Self {
         GameSummary {
             events,
             for_player: Some(player),
@@ -28,7 +28,7 @@ impl GameSummary {
         let mut summary = String::new();
         for event in &self.events {
             match event {
-                Event::GameStarted(e) => {
+                GameEvent::GameStarted(e) => {
                     let players_count = e.players.len();
 
                     summary.push_str(&format!("Game Started - ID: {:?}\n", e.game_id));
@@ -87,7 +87,7 @@ impl GameSummary {
                         }
                     }
                 }
-                Event::RoundAdvance(round) => {
+                GameEvent::RoundAdvance(round) => {
                     let round_name = match round {
                         Round::Preflop => "Preflop",
                         Round::DealFlop => "Flop",
@@ -106,7 +106,7 @@ impl GameSummary {
 
                     summary.push_str(&format!("\n--- {} ---\n", round_name));
                 }
-                Event::ForcedBet(bet_event) => {
+                GameEvent::ForcedBet(bet_event) => {
                     let bet = match bet_event.bet_kind {
                         ForcedBetKind::SmallBlind => "small blind",
                         ForcedBetKind::BigBlind => "big blind",
@@ -120,10 +120,10 @@ impl GameSummary {
                         after_action_info(bet_event.stack_after, bet_event.pot_after)
                     ));
                 }
-                Event::FailedPlayerAction(_failed_player_action_event) => {
+                GameEvent::FailedPlayerAction(_failed_player_action_event) => {
                     panic!("Should never happen");
                 }
-                Event::PlayerAction(e) => {
+                GameEvent::PlayerAction(e) => {
                     let player_name = &e.player_name;
 
                     // If this summary is for a specific player, skip showing all thoughts.
@@ -149,7 +149,7 @@ impl GameSummary {
                         after_action_info(e.stack_after, e.pot_after)
                     ));
                 }
-                Event::ShowCommunityCards(show_event) => {
+                GameEvent::ShowCommunityCards(show_event) => {
                     let card_str = if show_event.cards.len() == 1 {
                         "card"
                     } else {
@@ -167,7 +167,7 @@ impl GameSummary {
                             .join(" ")
                     ));
                 }
-                Event::GameEnded(game_ended_event) => {
+                GameEvent::GameEnded(game_ended_event) => {
                     summary.push_str("\n--- Game Ended ---\n");
                     for award in &game_ended_event.awards {
                         summary.push_str(&format!(

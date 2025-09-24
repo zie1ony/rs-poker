@@ -1,6 +1,6 @@
 use clap::{Parser, Subcommand};
-use rs_poker_cli::cli::{run_example_game, client};
-use rs_poker_server::api_types::{ListGamesRequest, GameFullViewRequest};
+use rs_poker_cli::cli::{client, run_example_game};
+use rs_poker_server::api_types::{GameFullViewRequest, ListGamesRequest};
 use rs_poker_types::game::GameId;
 
 #[derive(Parser)]
@@ -55,11 +55,14 @@ async fn main() {
 
 async fn show_game(mock_server: bool, game_id: String, debug: bool) {
     let client = client(mock_server);
-    
-    match client.game_full_view(GameFullViewRequest { 
-        game_id: GameId::new(&game_id), 
-        debug 
-    }).await {
+
+    match client
+        .game_full_view(GameFullViewRequest {
+            game_id: GameId::new(&game_id),
+            debug,
+        })
+        .await
+    {
         Ok(game_view) => {
             println!("Game ID: {}", game_id);
             println!("Status: {:?}", game_view.status);
@@ -75,7 +78,7 @@ async fn show_game(mock_server: bool, game_id: String, debug: bool) {
 
 async fn list_games(mock_server: bool, active_only: bool) {
     let client = client(mock_server);
-    
+
     match client.list_games(ListGamesRequest { active_only }).await {
         Ok(response) => {
             if response.game_ids.is_empty() {

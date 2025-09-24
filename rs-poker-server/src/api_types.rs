@@ -1,9 +1,10 @@
 use axum::Json;
 use reqwest::Method;
-use rs_poker::{core::Card};
+use rs_poker::core::Card;
 use rs_poker_types::{
     game::{Decision, GameFullView, GameId, GameInfo, GamePlayerView, GameStatus},
     player::{Player, PlayerName},
+    tournament::{TournamentId, TournamentSettings},
 };
 
 use crate::error::ServerError;
@@ -39,30 +40,6 @@ impl ServerRequest for HealthCheckRequest {
 
     fn method(&self) -> Method {
         Method::GET
-    }
-}
-
-// --- as_json ---
-
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct AsJsonRequest {
-    pub payload: serde_json::Value,
-}
-
-#[derive(serde::Deserialize, serde::Serialize)]
-pub struct AsJsonResponse {
-    pub data: serde_json::Value,
-}
-
-impl ServerRequest for AsJsonRequest {
-    type Response = AsJsonResponse;
-
-    fn path(&self) -> String {
-        "/as_json".to_string()
-    }
-
-    fn method(&self) -> Method {
-        Method::POST
     }
 }
 
@@ -196,4 +173,28 @@ impl ServerRequest for MakeActionRequest {
     fn method(&self) -> Method {
         Method::POST
     }
+}
+
+// --- new tournament ---
+
+#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug)]
+pub struct NewTournamentRequest {
+    pub settings: TournamentSettings,
+}
+
+impl ServerRequest for NewTournamentRequest {
+    type Response = TournamentCreatedResponse;
+
+    fn path(&self) -> String {
+        "/new_tournament".to_string()
+    }
+
+    fn method(&self) -> Method {
+        Method::POST
+    }
+}
+
+#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug)]
+pub struct TournamentCreatedResponse {
+    pub tournament_id: TournamentId,
 }

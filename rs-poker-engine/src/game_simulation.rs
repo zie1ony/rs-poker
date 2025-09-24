@@ -2,11 +2,11 @@ use std::collections::BTreeMap;
 use std::fmt;
 
 use rs_poker::arena::GameState;
-use rs_poker_types::event::{
-    Award, Event, FailedPlayerActionEvent, ForcedBetEvent, GameEndedEvent, GameStartedEvent,
+use rs_poker_types::game::{Decision, GameId, PossibleAction};
+use rs_poker_types::game_event::{
+    Award, FailedPlayerActionEvent, ForcedBetEvent, GameEndedEvent, GameEvent, GameStartedEvent,
     PlayerActionEvent, ShowCommunityCardsEvent,
 };
-use rs_poker_types::game::{Decision, GameId, PossibleAction};
 use rs_poker_types::player::{Player, PlayerName};
 use tracing::{Level, debug_span, event, instrument, trace_span};
 
@@ -39,7 +39,7 @@ pub struct GameSimulation {
     pub game_id: GameId,
     pub game_state: GameState,
     pub actions: Vec<Action>,
-    pub events: Vec<Event>,
+    pub events: Vec<GameEvent>,
     pub hands: Vec<[Card; 2]>,
     pub community_cards: [Card; 5],
     pub player_names: Vec<PlayerName>,
@@ -65,7 +65,7 @@ impl GameSimulation {
         let game_state = GameState::new_starting(stacks.clone(), big_blind, small_blind, 0.0, 0);
 
         // Emit a game started event
-        let game_start_event = Event::GameStarted(GameStartedEvent {
+        let game_start_event = GameEvent::GameStarted(GameStartedEvent {
             game_id: game_id.clone(),
             players,
             initial_stacks: stacks.clone(),
@@ -234,13 +234,13 @@ impl GameSimulation {
                 forced_bet_type: ForcedBetType::SmallBlind,
                 player_stack: self.game_state.stacks[sb_idx],
             }));
-            self.record_event(Event::ForcedBet(ForcedBetEvent {
+            self.record_event(GameEvent::ForcedBet(ForcedBetEvent {
                 player_name: self.player_name(sb_idx),
                 player_idx: sb_idx,
                 bet: sb,
                 stack_after: self.game_state.stacks[sb_idx],
                 pot_after: self.game_state.total_pot,
-                bet_kind: rs_poker_types::event::ForcedBetKind::SmallBlind,
+                bet_kind: rs_poker_types::game_event::ForcedBetKind::SmallBlind,
             }));
         }
 
@@ -255,13 +255,13 @@ impl GameSimulation {
                 forced_bet_type: ForcedBetType::BigBlind,
                 player_stack: self.game_state.stacks[bb_idx],
             }));
-            self.record_event(Event::ForcedBet(ForcedBetEvent {
+            self.record_event(GameEvent::ForcedBet(ForcedBetEvent {
                 player_name: self.player_name(bb_idx),
                 player_idx: bb_idx,
                 bet: bb,
                 stack_after: self.game_state.stacks[bb_idx],
                 pot_after: self.game_state.total_pot,
-                bet_kind: rs_poker_types::event::ForcedBetKind::BigBlind,
+                bet_kind: rs_poker_types::game_event::ForcedBetKind::BigBlind,
             }));
         }
 
@@ -451,7 +451,7 @@ impl GameSimulation {
             }
         }
 
-        self.record_event(Event::GameEnded(GameEndedEvent {
+        self.record_event(GameEvent::GameEnded(GameEndedEvent {
             final_round: self.game_state.round,
             awards,
         }));
@@ -476,7 +476,7 @@ impl GameSimulation {
         for c in &community_cards {
             self.record_action(Action::DealCommunity(*c));
         }
-        self.record_event(Event::ShowCommunityCards(ShowCommunityCardsEvent {
+        self.record_event(GameEvent::ShowCommunityCards(ShowCommunityCardsEvent {
             round,
             cards: community_cards.clone(),
         }));
@@ -609,7 +609,7 @@ impl GameSimulation {
                             final_pot: self.game_state.total_pot,
                         },
                     }));
-                    self.record_event(Event::FailedPlayerAction(FailedPlayerActionEvent {
+                    self.record_event(GameEvent::FailedPlayerAction(FailedPlayerActionEvent {
                         player_name: self.player_name(idx),
                         player_idx: idx,
                         player_decision: decision,
@@ -635,7 +635,7 @@ impl GameSimulation {
                         starting_pot,
                         final_pot: self.game_state.total_pot,
                     }));
-                    self.record_event(Event::PlayerAction(PlayerActionEvent {
+                    self.record_event(GameEvent::PlayerAction(PlayerActionEvent {
                         player_name: self.player_name(idx),
                         player_idx: idx,
                         player_decision: decision,
@@ -681,7 +681,7 @@ impl GameSimulation {
                             },
                         }));
 
-                        self.record_event(Event::FailedPlayerAction(FailedPlayerActionEvent {
+                        self.record_event(GameEvent::FailedPlayerAction(FailedPlayerActionEvent {
                             player_name: self.player_name(idx),
                             player_idx: idx,
                             player_decision: decision,
@@ -724,7 +724,7 @@ impl GameSimulation {
                             final_pot: self.game_state.total_pot,
                         }));
 
-                        self.record_event(Event::PlayerAction(PlayerActionEvent {
+                        self.record_event(GameEvent::PlayerAction(PlayerActionEvent {
                             player_name: self.player_name(idx),
                             player_idx: idx,
                             player_decision: decision,
@@ -770,7 +770,7 @@ impl GameSimulation {
                             },
                         }));
 
-                        self.record_event(Event::FailedPlayerAction(FailedPlayerActionEvent {
+                        self.record_event(GameEvent::FailedPlayerAction(FailedPlayerActionEvent {
                             player_name: self.player_name(idx),
                             player_idx: idx,
                             player_decision: decision,
@@ -812,7 +812,7 @@ impl GameSimulation {
                             final_pot: self.game_state.total_pot,
                         }));
 
-                        self.record_event(Event::PlayerAction(PlayerActionEvent {
+                        self.record_event(GameEvent::PlayerAction(PlayerActionEvent {
                             player_name: self.player_name(idx),
                             player_idx: idx,
                             player_decision: decision,
@@ -859,7 +859,7 @@ impl GameSimulation {
                             },
                         }));
 
-                        self.record_event(Event::FailedPlayerAction(FailedPlayerActionEvent {
+                        self.record_event(GameEvent::FailedPlayerAction(FailedPlayerActionEvent {
                             player_name: self.player_name(idx),
                             player_idx: idx,
                             player_decision: decision,
@@ -902,7 +902,7 @@ impl GameSimulation {
                             final_pot: self.game_state.total_pot,
                         }));
 
-                        self.record_event(Event::PlayerAction(PlayerActionEvent {
+                        self.record_event(GameEvent::PlayerAction(PlayerActionEvent {
                             player_name: self.player_name(idx),
                             player_idx: idx,
                             player_decision: decision,
@@ -935,7 +935,7 @@ impl GameSimulation {
                     rank: None,
                     hand: None,
                 }));
-                self.record_event(Event::GameEnded(GameEndedEvent {
+                self.record_event(GameEvent::GameEnded(GameEndedEvent {
                     final_round: self.game_state.round,
                     awards: vec![Award {
                         player_idx: winning_idx,
@@ -965,7 +965,7 @@ impl GameSimulation {
         self.game_state.advance_round();
         if self.game_state.round != current_round {
             self.record_action(Action::RoundAdvance(self.game_state.round));
-            self.record_event(Event::RoundAdvance(self.game_state.round));
+            self.record_event(GameEvent::RoundAdvance(self.game_state.round));
         }
     }
 
@@ -976,7 +976,7 @@ impl GameSimulation {
         self.actions.push(action);
     }
 
-    fn record_event(&mut self, event: Event) {
+    fn record_event(&mut self, event: GameEvent) {
         self.events.push(event);
     }
 

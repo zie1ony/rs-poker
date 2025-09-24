@@ -1,7 +1,11 @@
-use rs_poker::arena::action::{AgentAction};
+use rs_poker::arena::action::AgentAction;
 use rs_poker_llm_client::LLMResponse;
 
-use crate::player::{Player, PlayerName};
+use crate::{
+    player::{Player, PlayerName},
+    random_id,
+    tournament::TournamentId,
+};
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
 pub struct GameId(String);
@@ -12,7 +16,7 @@ impl GameId {
     }
 
     pub fn random() -> Self {
-        Self(uuid::Uuid::new_v4().to_string())
+        Self(random_id("game"))
     }
 
     pub fn as_str(&self) -> &str {
@@ -80,4 +84,21 @@ impl GameInfo {
             None
         }
     }
+}
+
+#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
+pub struct GameSettings {
+    pub tournament_id: Option<TournamentId>,
+    pub torunament_game_number: Option<usize>,
+    pub game_id: GameId,
+    pub small_blind: f32,
+    pub players: Vec<Player>,
+    pub stacks: Vec<f32>,
+}
+
+#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
+pub struct GameFinalResults {
+    pub game_id: GameId,
+    pub player_names: Vec<PlayerName>,
+    pub final_stacks: Vec<f32>,
 }

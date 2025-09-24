@@ -6,9 +6,9 @@ use tower::ServiceExt;
 
 use crate::{
     api_types::{
-        AsJsonRequest, GameCreatedResponse, GameFullViewRequest, GameInfoRequest,
-        GamePlayerViewRequest, HealthCheckRequest, HealthCheckResponse, ListGamesRequest,
-        ListGamesResponse, MakeActionRequest, NewGameRequest, ServerRequest,
+        GameCreatedResponse, GameFullViewRequest, GameInfoRequest, GamePlayerViewRequest,
+        HealthCheckRequest, HealthCheckResponse, ListGamesRequest, ListGamesResponse,
+        MakeActionRequest, NewGameRequest, ServerRequest,
     },
     error::ServerError,
 };
@@ -51,7 +51,9 @@ impl PokerClient {
 
     /// Create a new HTTP client for production use
     pub fn new_http(base_url: &str) -> Self {
-        PokerClient::Http { base_url: base_url.to_string() }
+        PokerClient::Http {
+            base_url: base_url.to_string(),
+        }
     }
 
     pub async fn health_check(
@@ -62,17 +64,6 @@ impl PokerClient {
             PokerClient::Test(router) => make_test_query(router, request).await,
             PokerClient::Http { base_url } => make_http_query(base_url, request).await,
         }
-    }
-
-    /// Send JSON payload and get JSON response using the unified request
-    /// pattern
-    pub async fn as_json(&self, payload: Value) -> Result<Value, PokerClientError> {
-        let request = AsJsonRequest { payload };
-        let response = match self {
-            PokerClient::Test(router) => make_test_query(router, request).await?,
-            PokerClient::Http { base_url } => make_http_query(base_url, request).await?,
-        };
-        Ok(response.data)
     }
 
     /// Start new game.
