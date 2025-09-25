@@ -2039,6 +2039,7 @@ dependencies = [
  "rs-poker-engine",
  "rs-poker-llm-client",
  "rs-poker-server",
+ "rs-poker-tower",
  "rs-poker-types",
  "rs_poker",
  "tokio",
@@ -2088,6 +2089,17 @@ dependencies = [
  "thiserror 1.0.69",
  "tokio",
  "tower",
+]
+
+[[package]]
+name = "rs-poker-tower"
+version = "0.1.0"
+dependencies = [
+ "rand 0.9.1",
+ "rs-poker-llm-client",
+ "rs-poker-server",
+ "rs-poker-types",
+ "tokio",
 ]
 
 [[package]]

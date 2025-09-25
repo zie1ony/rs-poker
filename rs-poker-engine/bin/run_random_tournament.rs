@@ -1,8 +1,15 @@
 use std::collections::HashMap;
 
-use rs_poker_engine::{game_instance::GameInstance, tournament_instance::TournamentInstance, tournament_summary::TournamentSummary};
+use rs_poker_engine::{
+    game_instance::GameInstance, tournament_instance::TournamentInstance,
+    tournament_summary::TournamentSummary,
+};
 use rs_poker_llm_client::count_tokens;
-use rs_poker_types::{game::GameId, player::{Player, PlayerName}, tournament::{TournamentId, TournamentSettings}};
+use rs_poker_types::{
+    game::GameId,
+    player::{Player, PlayerName},
+    tournament::{TournamentId, TournamentSettings},
+};
 
 fn main() {
     let players_n = 10;
@@ -29,11 +36,14 @@ fn main() {
         games.insert(game_instance.game_id.clone(), game_instance);
         tournament.finish_game(&game_result).unwrap();
     }
-    
+
     let summary = TournamentSummary::for_player(
         tournament.events.clone(),
-        games.into_iter().map(|(id, gi)| (id, gi.simulation.events.clone())).collect(),
-        PlayerName::new("Player1")
+        games
+            .into_iter()
+            .map(|(id, gi)| (id, gi.simulation.events.clone()))
+            .collect(),
+        PlayerName::new("Player1"),
     );
     let summary = summary.summary();
     println!("{}", summary);

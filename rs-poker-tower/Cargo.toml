@@ -1,0 +1,15 @@
+[package]
+name = "rs-poker-tower"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "run-tower"
+path = "src/main.rs"
+
+[dependencies]
+rs-poker-server = { path = "../rs-poker-server" }
+rs-poker-types = { path = "../rs-poker-types" }
+rs-poker-llm-client = { path = "../rs-poker-llm-client" }
+tokio = { version = "1", default-features = false, features = ["full"] }
+rand = "~0.9.1"

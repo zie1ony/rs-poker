@@ -1,7 +1,10 @@
 use rs_poker_types::{
     game::{GameFinalResults, GameId, GameSettings},
-    tournament::{TournamentId, TournamentSettings, TournamentStatus},
-    tournament_event::{TournamentCreatedEvent, TournamentEvent, GameStartedEvent, GameEndedEvent, TournamentFinishedEvent},
+    tournament::{TournamentId, TournamentInfo, TournamentSettings, TournamentStatus},
+    tournament_event::{
+        GameEndedEvent, GameStartedEvent, TournamentCreatedEvent, TournamentEvent,
+        TournamentFinishedEvent,
+    },
 };
 
 #[derive(Clone)]
@@ -41,10 +44,12 @@ impl TournamentInstance {
     pub fn winner(&self) -> Option<&rs_poker_types::player::Player> {
         if matches!(self.status, TournamentStatus::Completed) {
             // Find the player with the highest stack (or the only one with money)
-            if let Some((winner_index, _)) = self.player_stacks
+            if let Some((winner_index, _)) = self
+                .player_stacks
                 .iter()
                 .enumerate()
-                .max_by(|(_, a), (_, b)| a.partial_cmp(b).unwrap()) {
+                .max_by(|(_, a), (_, b)| a.partial_cmp(b).unwrap())
+            {
                 self.settings.players.get(winner_index)
             } else {
                 None
@@ -58,7 +63,11 @@ impl TournamentInstance {
         match self.status {
             TournamentStatus::WaitingForNextGame => {
                 // Check if tournament should be completed
-                let players_with_money = self.player_stacks.iter().filter(|&&stack| stack > 0.0).count();
+                let players_with_money = self
+                    .player_stacks
+                    .iter()
+                    .filter(|&&stack| stack > 0.0)
+                    .count();
                 if players_with_money <= 1 {
                     self.status = TournamentStatus::Completed;
                     None
@@ -74,7 +83,9 @@ impl TournamentInstance {
             TournamentStatus::GameInProgress => {
                 // Wait for the current game to finish
                 if let Some(game_id) = &self.current_game_id {
-                    Some(TournamentAction::FinishGame { game_id: game_id.clone() })
+                    Some(TournamentAction::FinishGame {
+                        game_id: game_id.clone(),
+                    })
                 } else {
                     None
                 }
@@ -145,7 +156,8 @@ impl TournamentInstance {
         }
 
         // Validate that the players match
-        let expected_player_names: Vec<_> = self.settings.players.iter().map(|p| p.name()).collect();
+        let expected_player_names: Vec<_> =
+            self.settings.players.iter().map(|p| p.name()).collect();
         if game_final_results.player_names != expected_player_names {
             return Err(TournamentError::PlayersMismatch);
         }
@@ -163,26 +175,40 @@ impl TournamentInstance {
         self.events.push(game_ended_event);
 
         // Check if tournament should be completed (only one player has money left)
-        let players_with_money = self.player_stacks.iter().filter(|&&stack| stack > 0.0).count();
+        let players_with_money = self
+            .player_stacks
+            .iter()
+            .filter(|&&stack| stack > 0.0)
+            .count();
         if players_with_money <= 1 {
             self.status = TournamentStatus::Completed;
-            
+
             // Record tournament finished event
             if let Some(winner) = self.winner() {
-                let tournament_finished_event = TournamentEvent::TournamentFinished(TournamentFinishedEvent {
-                    timestamp: std::time::SystemTime::now(),
-                    tournament_id: self.tournament_id.clone(),
-                    winner: winner.name(),
-                });
+                let tournament_finished_event =
+                    TournamentEvent::TournamentFinished(TournamentFinishedEvent {
+                        timestamp: std::time::SystemTime::now(),
+                        tournament_id: self.tournament_id.clone(),
+                        winner: winner.name(),
+                    });
                 self.events.push(tournament_finished_event);
             }
         } else {
             self.status = TournamentStatus::WaitingForNextGame;
         }
-        
+
         self.current_game_id = None;
 
         Ok(())
+    }
+
+    pub fn info(&self) -> TournamentInfo {
+        TournamentInfo {
+            settings: self.settings.clone(),
+            status: self.status.clone(),
+            games_played: self.next_game_number,
+            current_game_id: self.current_game_id.clone(),
+        }
     }
 }
 
@@ -377,7 +403,7 @@ mod tests {
         // Tournament should be completed
         assert_eq!(tournament.status(), &TournamentStatus::Completed);
         assert_eq!(tournament.player_stacks, vec![300.0, 0.0, 0.0]);
-        
+
         // Alice should be the winner
         let winner = tournament.winner().unwrap();
         assert_eq!(winner.name(), PlayerName::new("Alice"));
@@ -387,33 +413,33 @@ mod tests {
 
         // Verify all expected events were recorded
         assert_eq!(tournament.events.len(), 12); // TournamentCreated + 5*(GameStarted+GameEnded) + TournamentFinished
-        
+
         // Check event types in order
         match &tournament.events[0] {
-            TournamentEvent::TournamentCreated(_) => {},
+            TournamentEvent::TournamentCreated(_) => {}
             _ => panic!("Expected TournamentCreated event"),
         }
-        
+
         for i in 0..5 {
             let game_started_idx = 1 + i * 2;
             let game_ended_idx = 2 + i * 2;
-            
+
             match &tournament.events[game_started_idx] {
-                TournamentEvent::GameStarted(_) => {},
+                TournamentEvent::GameStarted(_) => {}
                 _ => panic!("Expected GameStarted event at index {}", game_started_idx),
             }
-            
+
             match &tournament.events[game_ended_idx] {
-                TournamentEvent::GameEnded(_) => {},
+                TournamentEvent::GameEnded(_) => {}
                 _ => panic!("Expected GameEnded event at index {}", game_ended_idx),
             }
         }
-        
+
         match &tournament.events[11] {
             TournamentEvent::TournamentFinished(event) => {
                 assert_eq!(event.winner, PlayerName::new("Alice"));
                 assert_eq!(event.tournament_id, settings.tournament_id);
-            },
+            }
             _ => panic!("Expected TournamentFinished event"),
         }
     }
@@ -422,17 +448,14 @@ mod tests {
     fn test_next_action() {
         let settings = TournamentSettings {
             tournament_id: TournamentId::random(),
-            players: vec![
-                Player::random("Alice"),
-                Player::random("Bob"),
-            ],
+            players: vec![Player::random("Alice"), Player::random("Bob")],
             starting_player_stack: 100.0,
             starting_small_blind: 5.0,
             double_blinds_every_n_games: None,
         };
 
         let mut tournament = TournamentInstance::new(&settings);
-        
+
         // Should suggest starting the first game
         if let Some(TournamentAction::StartNextGame { game_settings }) = tournament.next_action() {
             assert_eq!(game_settings.torunament_game_number, Some(0));
@@ -443,7 +466,10 @@ mod tests {
 
         // Should suggest finishing the current game
         if let Some(TournamentAction::FinishGame { game_id }) = tournament.next_action() {
-            assert_eq!(game_id, tournament.current_game_id.as_ref().unwrap().clone());
+            assert_eq!(
+                game_id,
+                tournament.current_game_id.as_ref().unwrap().clone()
+            );
         } else {
             panic!("Expected FinishGame action");
         }
@@ -451,10 +477,7 @@ mod tests {
         // Finish the game with Alice winning everything
         let finish_results = GameFinalResults {
             game_id: tournament.current_game_id.as_ref().unwrap().clone(),
-            player_names: vec![
-                PlayerName::new("Alice"),
-                PlayerName::new("Bob"),
-            ],
+            player_names: vec![PlayerName::new("Alice"), PlayerName::new("Bob")],
             final_stacks: vec![200.0, 0.0], // Alice wins all
         };
         tournament.finish_game(&finish_results).unwrap();

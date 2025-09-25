@@ -414,7 +414,7 @@ impl GameSimulation {
                 // side pot. However this side pot might
                 // be the only pot if there were no allins
                 for b in bets.iter_mut() {
-                    let w = (*b).min(max_wager);
+                    let w: f32 = (*b).min(max_wager);
                     *b -= w;
                     pot += w as f64;
                 }

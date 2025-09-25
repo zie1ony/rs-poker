@@ -12,7 +12,7 @@ rs-poker-types = { path = "../rs-poker-types" }
 rs-poker-engine = { path = "../rs-poker-engine" }
 rs-poker-server = { path = "../rs-poker-server" }
 rs-poker-llm-client = { path = "../rs-poker-llm-client" }
-
+rs-poker-tower = { path = "../rs-poker-tower" }
 
 [[bin]]
 name = "run-cli"

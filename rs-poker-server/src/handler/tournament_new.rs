@@ -1,13 +1,10 @@
 use axum::{extract::State, Json};
-use rs_poker_engine::tournament_instance::TournamentInstance;
+use rs_poker_engine::tournament_instance::{TournamentAction, TournamentInstance};
 use rs_poker_types::tournament::{TournamentId, TournamentSettings};
 
-use crate::{define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState};
-
-#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug)]
-pub struct NewTournamentRequest {
-    pub settings: TournamentSettings,
-}
+use crate::{
+    define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState,
+};
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug)]
 pub struct TournamentCreatedResponse {
@@ -16,24 +13,27 @@ pub struct TournamentCreatedResponse {
 
 async fn new_tournament_handler(
     State(state): State<ServerState>,
-    Json(payload): Json<NewTournamentRequest>,
+    Json(settings): Json<TournamentSettings>,
 ) -> HandlerResponse<TournamentCreatedResponse> {
     let mut server = state.server.lock().unwrap();
-    let settings = payload.settings;
+    let tournament_id = settings.tournament_id.clone();
 
     // Fail if the tournament ID already exists.
-    if server.tournaments.contains_key(&settings.tournament_id) {
+    if server.tournaments.contains_key(&tournament_id) {
         return Json(Err(ServerError::TournamentAlreadyExists(
-            settings.tournament_id,
+            tournament_id,
         )));
     }
 
     // Create a new tournament instance.
     let tournament = TournamentInstance::new(&settings);
 
+    // Store it.
     server
         .tournaments
-        .insert(settings.tournament_id.clone(), tournament);
+        .insert(tournament_id.clone(), tournament);
+
+    server.progress_tournament(&tournament_id);
 
     Json(Ok(TournamentCreatedResponse {
         tournament_id: settings.tournament_id.clone(),
@@ -42,7 +42,7 @@ async fn new_tournament_handler(
 
 define_handler!(
     NewTournamentHandler {
-        Request = NewTournamentRequest;
+        Request = TournamentSettings;
         Response = TournamentCreatedResponse;
         Method = POST;
         Path = "/new_tournament";

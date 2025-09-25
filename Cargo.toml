@@ -5,7 +5,8 @@ members = [
     "rs-poker-cli",
     "rs-poker-engine",
     "rs-poker-server",
-    "rs-poker-llm-client"
+    "rs-poker-llm-client",
+    "rs-poker-tower"
 ]
 resolver = "3"
 

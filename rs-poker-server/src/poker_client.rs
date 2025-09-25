@@ -1,20 +1,25 @@
 use axum::{body::Body, extract::Request, Router};
 use http_body_util::BodyExt;
-use rs_poker_types::game::{GameFullView, GameId, GameInfo, GamePlayerView};
+use rs_poker_types::{
+    game::{GameFullView, GameId, GameInfo, GamePlayerView},
+    tournament::{TournamentId, TournamentInfo, TournamentSettings},
+};
 use tower::ServiceExt;
 
 use crate::{
-
-    error::ServerError, 
+    error::ServerError,
     handler::{
-        game_new::{GameCreatedResponse, NewGameRequest, NewGameHandler}, 
-        health_check::{HealthCheckHandler, HealthCheckRequest, HealthCheckResponse},
-        game_list::{ListGamesHandler, ListGamesRequest, ListGamesResponse},
         game_full_view::{GameFullViewHandler, GameFullViewRequest},
-        game_player_view::{GamePlayerViewHandler, GamePlayerViewRequest},
         game_info::{GameInfoHandler, GameInfoRequest},
+        game_list::{ListGamesHandler, ListGamesRequest, ListGamesResponse},
         game_make_action::{MakeActionHandler, MakeActionRequest},
-        Handler
+        game_new::{GameCreatedResponse, NewGameHandler, NewGameRequest},
+        game_player_view::{GamePlayerViewHandler, GamePlayerViewRequest},
+        health_check::{HealthCheckHandler, HealthCheckRequest, HealthCheckResponse},
+        tournament_info::{TournamentInfoHandler, TournamentInfoRequest},
+        tournament_list::{ListTournamentsHandler, ListTournamentsRequest, ListTournamentsResponse},
+        tournament_new::{NewTournamentHandler, TournamentCreatedResponse},
+        Handler,
     },
 };
 
@@ -68,9 +73,16 @@ impl PokerClient {
         }
     }
 
-    pub async fn health_check(&self, request: HealthCheckRequest) -> ClientResult<HealthCheckResponse> {
+    // Health check.
+
+    pub async fn health_check(
+        &self,
+        request: HealthCheckRequest,
+    ) -> ClientResult<HealthCheckResponse> {
         self.query::<HealthCheckHandler>(request).await
     }
+
+    // Game.
 
     pub async fn new_game(&self, new_game: NewGameRequest) -> ClientResult<GameCreatedResponse> {
         self.query::<NewGameHandler>(new_game).await
@@ -98,16 +110,38 @@ impl PokerClient {
         self.query::<GameInfoHandler>(request).await
     }
 
-    pub async fn make_decision(
-        &self,
-        decision: MakeActionRequest,
-    ) -> ClientResult<GameInfo> {
+    pub async fn make_decision(&self, decision: MakeActionRequest) -> ClientResult<GameInfo> {
         self.query::<MakeActionHandler>(decision).await
+    }
+
+    // Tournament.
+
+    pub async fn new_tournament(
+        &self,
+        settings: TournamentSettings,
+    ) -> ClientResult<TournamentCreatedResponse> {
+        self.query::<NewTournamentHandler>(settings).await
+    }
+
+    pub async fn list_tournaments(&self, params: ListTournamentsRequest) -> ClientResult<ListTournamentsResponse> {
+        self.query::<ListTournamentsHandler>(params).await
+    }
+
+    pub async fn tournament_info(
+        &self,
+        tournament_id: &TournamentId,
+    ) -> ClientResult<TournamentInfo> {
+        let request = TournamentInfoRequest {
+            tournament_id: tournament_id.clone(),
+        };
+        self.query::<TournamentInfoHandler>(request).await
     }
 }
 
-async fn make_http_query<T: Handler>(base_url: &str, request: T::Request) -> ClientResult<T::Response>
-{
+async fn make_http_query<T: Handler>(
+    base_url: &str,
+    request: T::Request,
+) -> ClientResult<T::Response> {
     let client = reqwest::Client::new();
     let url = format!("{}{}", base_url, T::path());
 
@@ -149,8 +183,10 @@ async fn make_http_query<T: Handler>(base_url: &str, request: T::Request) -> Cli
         .map_err(PokerClientError::ServerError)
 }
 
-async fn make_test_query<T: Handler>(router: &Router, request: T::Request) -> ClientResult<T::Response>
-{
+async fn make_test_query<T: Handler>(
+    router: &Router,
+    request: T::Request,
+) -> ClientResult<T::Response> {
     let path = T::path();
 
     let axum_request = match T::method() {

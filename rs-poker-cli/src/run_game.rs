@@ -7,13 +7,11 @@ use crossterm::{
 use rs_poker::arena::action::AgentAction;
 use rs_poker_server::{
     handler::{
-        game_new::NewGameRequest, 
-        game_full_view::GameFullViewRequest, 
-        game_player_view::GamePlayerViewRequest, 
-        game_make_action::MakeActionRequest
-    }, 
-    poker_client::PokerClient, 
-    poker_server
+        game_full_view::GameFullViewRequest, game_make_action::MakeActionRequest,
+        game_new::NewGameRequest, game_player_view::GamePlayerViewRequest,
+    },
+    poker_client::PokerClient,
+    poker_server,
 };
 use rs_poker_types::{
     game::{Decision, GameId, GamePlayerView, GameStatus, PossibleAction},
@@ -63,8 +61,8 @@ async fn initialize_game(client: &PokerClient) -> GameId {
     let players = vec![
         Player::ai("Alice", "gpt-4o-mini", "aggressive, but withdraw sometimes"),
         Player::ai("Bob", "gpt-4o-mini", "defensive, but bluffy"),
-        Player::ai("Dob", "gpt-4o-mini", "focuse on winning small pots"),
-        // Player::human("Diana"),
+        // Player::ai("Dob", "gpt-4o-mini", "focuse on winning small pots"),
+        Player::human("Diana"),
         // Player::random("name1"),
         // Player::random("name2"),
     ];

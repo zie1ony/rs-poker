@@ -1,4 +1,7 @@
-use axum::{extract::{Query, State}, Json};
+use axum::{
+    extract::{Query, State},
+    Json,
+};
 use rs_poker_types::game::GameStatus;
 
 use crate::{define_handler, handler::HandlerResponse, poker_server::ServerState};

@@ -3,7 +3,9 @@ use rs_poker::core::Card;
 use rs_poker_engine::game_instance::GameInstance;
 use rs_poker_types::{game::GameId, player::Player};
 
-use crate::{define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState};
+use crate::{
+    define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState,
+};
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug)]
 pub struct NewGameRequest {

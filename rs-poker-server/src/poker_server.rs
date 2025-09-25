@@ -4,18 +4,13 @@ use std::{
 };
 
 use crate::handler::{
-    game_new::NewGameHandler, 
-    health_check::HealthCheckHandler, 
-    game_list::ListGamesHandler,
-    game_full_view::GameFullViewHandler,
-    game_player_view::GamePlayerViewHandler,
-    game_info::GameInfoHandler,
-    game_make_action::MakeActionHandler,
-    new_tournament::NewTournamentHandler,
-    Handler
+    game_full_view::GameFullViewHandler, game_info::GameInfoHandler, game_list::ListGamesHandler,
+    game_make_action::MakeActionHandler, game_new::NewGameHandler,
+    game_player_view::GamePlayerViewHandler, health_check::HealthCheckHandler,
+    tournament_info::TournamentInfoHandler, tournament_list::ListTournamentsHandler, tournament_new::NewTournamentHandler, Handler,
 };
 use axum::Router;
-use rs_poker_engine::{game_instance::GameInstance, tournament_instance::TournamentInstance};
+use rs_poker_engine::{game_instance::GameInstance, tournament_instance::{TournamentAction, TournamentInstance}};
 use rs_poker_types::{game::GameId, tournament::TournamentId};
 
 macro_rules! router {
@@ -28,12 +23,98 @@ macro_rules! router {
     };
 }
 
-
 #[derive(Clone, Default)]
 pub struct PokerServer {
     pub games: HashMap<GameId, GameInstance>,
     pub tournaments: HashMap<TournamentId, TournamentInstance>,
 }
+
+impl PokerServer {
+    pub fn progress_tournament(&mut self, tournament_id: &TournamentId) {
+        if let Some(tournament) = self.tournaments.get_mut(tournament_id) {
+            while let Some(action) = tournament.next_action() {
+                match action {
+                    TournamentAction::StartNextGame { game_settings } => {
+                        // Create and store a new game instance.
+                        let mut game = GameInstance::new_from_config_with_random_cards(&game_settings);
+                        game.run();
+
+                        if !game.is_complete() {
+                            // Store the game.
+                            self.games.insert(game.game_id(), game);
+
+                            // Break if the game could not be completed.
+                            // This means it is waiting for player input.
+                            break;
+                        }
+
+                        // If the game is complete, load the final results.
+                        let game_result = game.game_final_results().unwrap();
+
+                        // Also store the game.
+                        self.games.insert(game.game_id(), game);
+
+                        // Finish the game in the tournament.
+                        tournament.finish_game(&game_result).unwrap();
+
+                        // Continue to the next action.
+                    }
+                    TournamentAction::FinishGame { game_id } => {
+                        // This state means the game has already been started,
+                        // and needs to be pushed to completion.
+                        if let Some(game) = self.games.get_mut(&game_id) {
+                            if !game.is_complete() {
+                                game.run();
+                                if game.is_complete() {
+                                    let game_result = game.game_final_results().unwrap();
+                                    tournament.finish_game(&game_result).unwrap();
+                                } else {
+                                    // Game is still not complete, break to wait for player input.
+                                    break;
+                                }
+                            } else {
+                                // Game is already complete, just finish it in the tournament.
+                                let game_result = game.game_final_results().unwrap();
+                                tournament.finish_game(&game_result).unwrap();
+                            }
+                        } else {
+                            // Game not found, this is an error in the tournament state.
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Run the tournament as far as possible.
+    // let mut tournament = server.tournaments.get_mut(&settings.tournament_id).unwrap();
+    // let mut games = &mut server.games;
+
+    // loop {
+    //     match tournament.next_action() {
+    //         Some(next_tournament_action) => match next_tournament_action {
+    //             TournamentAction::StartNextGame { game_settings } => {
+
+    //             },
+    //             TournamentAction::FinishGame { game_id } => {
+
+    //             },
+    //         },
+    //         None => {
+    //             break;
+    //         },
+    //     }
+    // }
+    // while !tournament.is_completed() {
+    //     let game_settings = tournament.start_next_game().unwrap();
+    //     let mut game_instance = GameInstance::new_from_config_with_random_cards(&game_settings);
+    //     game_instance.run();
+    //     let game_result = game_instance.game_final_results().unwrap();
+    //     games.insert(game_instance.game_id.clone(), game_instance);
+    //     tournament.finish_game(&game_result).unwrap();
+    // }
 
 #[derive(Clone)]
 pub struct ServerState {
@@ -58,11 +139,13 @@ pub fn app() -> Router {
         GamePlayerViewHandler,
         GameInfoHandler,
         MakeActionHandler,
+
         // Tournament.
-        NewTournamentHandler
+        NewTournamentHandler,
+        ListTournamentsHandler,
+        TournamentInfoHandler,
     }
 }
-
 
 #[cfg(test)]
 mod tests {

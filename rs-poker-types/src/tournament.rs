@@ -1,4 +1,4 @@
-use crate::{player::Player, random_id};
+use crate::{game::GameId, player::Player, random_id};
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
 pub struct TournamentId(pub String);
@@ -35,4 +35,12 @@ pub enum TournamentStatus {
     WaitingForNextGame,
     GameInProgress,
     Completed,
+}
+
+#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
+pub struct TournamentInfo {
+    pub settings: TournamentSettings,
+    pub status: TournamentStatus,
+    pub games_played: usize,
+    pub current_game_id: Option<GameId>,
 }

@@ -3,14 +3,16 @@ use reqwest::Method;
 
 use crate::{error::ServerError, poker_server::ServerState};
 
-pub mod health_check;
-pub mod game_new;
-pub mod game_list;
 pub mod game_full_view;
-pub mod game_player_view;
 pub mod game_info;
+pub mod game_list;
 pub mod game_make_action;
-pub mod new_tournament;
+pub mod game_new;
+pub mod game_player_view;
+pub mod health_check;
+pub mod tournament_info;
+pub mod tournament_list;
+pub mod tournament_new;
 
 pub type HandlerResponse<T> = Json<Result<T, ServerError>>;
 
@@ -46,7 +48,7 @@ macro_rules! define_handler {
             fn path() -> &'static str {
                 $path
             }
-            
+
             fn router() -> axum::routing::MethodRouter<crate::poker_server::ServerState> {
                 match stringify!($method) {
                     "GET" => axum::routing::get($handler_fn),

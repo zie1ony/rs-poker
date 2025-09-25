@@ -1,7 +1,7 @@
 use clap::{Parser, Subcommand};
-use rs_poker_cli::cli::{client, run_example_game};
+use rs_poker_cli::run_game::{client, run_example_game};
 use rs_poker_server::handler::{game_full_view::GameFullViewRequest, game_list::ListGamesRequest};
-use rs_poker_types::game::GameId;
+use rs_poker_types::{game::GameId, player::Player, tournament::{TournamentId, TournamentSettings}};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -18,16 +18,32 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
+    /// Game-related commands
+    Game {
+        #[command(subcommand)]
+        command: GameCommands,
+    },
+    /// Tournament-related commands
+    Tournament {
+        #[command(subcommand)]
+        command: TournamentCommands,
+    },
+
+    Tower,
+}
+
+#[derive(Subcommand)]
+enum GameCommands {
     /// Start a new poker game
     Play,
     /// List all games
-    ListGames {
+    List {
         /// Show only active games
         #[arg(short, long)]
         active_only: bool,
     },
     /// Show full view of a specific game
-    ShowGame {
+    Info {
         /// Game ID to show
         game_id: String,
         /// Show debug information
@@ -36,24 +52,66 @@ enum Commands {
     },
 }
 
+#[derive(Subcommand)]
+enum TournamentCommands {
+    /// Create a new tournament
+    New {
+        #[command(subcommand)]
+        tournament_type: TournamentType,
+    },
+    List {
+        /// Show only active tournaments
+        #[arg(short, long)]
+        active_only: bool,
+    },
+    Info {
+        /// Tournament ID to show
+        tournament_id: String,
+    },
+}
+
+#[derive(Subcommand)]
+enum TournamentType {
+    /// Random 3 players tournament.
+    Random3,
+    /// 3 AI players tournament.
+    AI3,
+}
+
 #[tokio::main]
 async fn main() {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Play => {
-            run_example_game(cli.mock_server).await;
-        }
-        Commands::ListGames { active_only } => {
-            list_games(cli.mock_server, active_only).await;
-        }
-        Commands::ShowGame { game_id, debug } => {
-            show_game(cli.mock_server, game_id, debug).await;
+        Commands::Game { command } => match command {
+            GameCommands::Play => {
+                run_example_game(cli.mock_server).await;
+            }
+            GameCommands::List { active_only } => {
+                list_games(cli.mock_server, active_only).await;
+            }
+            GameCommands::Info { game_id, debug } => {
+                info_game(cli.mock_server, game_id, debug).await;
+            }
+        },
+        Commands::Tournament { command } => match command {
+            TournamentCommands::New { tournament_type } => {
+                create_tournament(cli.mock_server, tournament_type).await;
+            }
+            TournamentCommands::List { active_only } => {
+                list_tournaments(cli.mock_server, active_only).await;
+            }
+            TournamentCommands::Info { tournament_id } => {
+                tournament_info(cli.mock_server, tournament_id).await;
+            }
+        },
+        Commands::Tower => {
+            rs_poker_tower::run().await;
         }
     }
 }
 
-async fn show_game(mock_server: bool, game_id: String, debug: bool) {
+async fn info_game(mock_server: bool, game_id: String, debug: bool) {
     let client = client(mock_server);
 
     match client
@@ -95,6 +153,85 @@ async fn list_games(mock_server: bool, active_only: bool) {
         }
         Err(e) => {
             eprintln!("Error listing games: {:?}", e);
+            std::process::exit(1);
+        }
+    }
+}
+
+async fn create_tournament(mock_server: bool, tournament_type: TournamentType) {
+    let settings = match tournament_type {
+        TournamentType::Random3 => TournamentSettings {
+            tournament_id: TournamentId::random(),
+            players: vec![
+                Player::random("Alice"),
+                Player::random("Bob"),
+                Player::random("Charlie"),
+            ],
+            starting_player_stack: 100.0,
+            starting_small_blind: 10.0,
+            double_blinds_every_n_games: Some(2),
+        },
+        TournamentType::AI3 => TournamentSettings {
+            tournament_id: TournamentId::random(),
+            players: vec![
+                Player::ai("Alice", "gpt-4o-mini", "Play tight aggressive"),
+                Player::ai("Bob", "gpt-4o-mini", "Play loose aggressive"),
+                Player::ai("Charlie", "gpt-4o-mini", "Play tight passive"),
+            ],
+            starting_player_stack: 100.0,
+            starting_small_blind: 10.0,
+            double_blinds_every_n_games: Some(2),
+        },
+    };
+    let client = client(mock_server);
+    match client.new_tournament(settings).await {
+        Ok(response) => {
+            println!("Created tournament with ID: {:?}", response.tournament_id);
+        }
+        Err(e) => {
+            eprintln!("Error creating tournament: {:?}", e);
+            std::process::exit(1);
+        }
+    }
+}
+
+async fn list_tournaments(mock_server: bool, active_only: bool) {
+    let client = client(mock_server);
+    
+    match client.list_tournaments(rs_poker_server::handler::tournament_list::ListTournamentsRequest { active_only }).await {
+        Ok(response) => {
+            if response.tournament_ids.is_empty() {
+                if active_only {
+                    println!("No active tournaments found.");
+                } else {
+                    println!("No tournaments found.");
+                }
+            } else {
+                for (tournament_id, status) in response.tournament_ids {
+                    println!("{:?} - {:?}", tournament_id, status);
+                }
+            }
+        }
+        Err(e) => {
+            eprintln!("Error listing tournaments: {:?}", e);
+            std::process::exit(1);
+        }
+    }
+}
+
+async fn tournament_info(mock_server: bool, tournament_id: String) {
+    let client = client(mock_server);
+    let tournament_id = TournamentId(tournament_id);
+    match client.tournament_info(&tournament_id).await {
+        Ok(info) => {
+            // let settings = &info.settings;
+            println!("Tournament ID: {:?}", tournament_id);
+            println!("Game played: {}", info.games_played);
+            println!("Status: {:?}", info.status);
+            println!("Current game ID: {:?}", info.current_game_id);
+        }
+        Err(e) => {
+            eprintln!("Error fetching tournament info: {:?}", e);
             std::process::exit(1);
         }
     }

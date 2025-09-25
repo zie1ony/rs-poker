@@ -1,7 +1,12 @@
-use axum::{extract::{Query, State}, Json};
+use axum::{
+    extract::{Query, State},
+    Json,
+};
 use rs_poker_types::game::{GameId, GameInfo};
 
-use crate::{define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState};
+use crate::{
+    define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState,
+};
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
 pub struct GameInfoRequest {

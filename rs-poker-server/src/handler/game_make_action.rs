@@ -1,7 +1,9 @@
 use axum::{extract::State, Json};
 use rs_poker_types::game::{Decision, GameId, GameInfo};
 
-use crate::{define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState};
+use crate::{
+    define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState,
+};
 
 #[derive(serde::Deserialize, serde::Serialize, Debug)]
 pub struct MakeActionRequest {

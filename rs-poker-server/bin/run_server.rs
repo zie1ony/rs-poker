@@ -11,7 +11,9 @@ pub async fn main() {
     // Create and run the server with graceful shutdown
     axum::serve(listener, app())
         .with_graceful_shutdown(async {
-            signal::ctrl_c().await.expect("Failed to listen for ctrl_c signal");
+            signal::ctrl_c()
+                .await
+                .expect("Failed to listen for ctrl_c signal");
             println!("\nReceived Ctrl+C, shutting down gracefully...");
         })
         .await

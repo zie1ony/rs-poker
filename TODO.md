@@ -23,3 +23,20 @@ Alice posts big blind of 80 (stack: 0, pot: 82.291214)
 Showdown doesn't include players' cards.
 Show only cards that actally participated in the showdown.
 
+### Control Tower
+
+`run-cli control-tower -n 2` to run 2 Workers that can execute tournament.
+
+# Main process
+Starts the server and the ControlTower.
+Is responsible for graceful shutdown of the server and the ControlTower, after Ctrl-C or if the ControlTower ends it's life.
+
+# ControlTower process
+- Talks to the server to get list of tournaments that must be finished.
+- Starts Workers for a single tournament.
+- Recieves notification from the Workers, that the tournament is finished. (can confirm with the server).
+- If Worker process ends unexpectedly, it should stop all Workers and end itself.
+
+# Worker process
+- Executes a single tournament.
+- 
