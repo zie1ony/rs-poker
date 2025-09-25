@@ -43,16 +43,14 @@ impl ServerState {
     }
 }
 
-/// Helper function to add handlers with proper trait bounds
-fn add<T: Handler>(router: Router<ServerState>, _handler: T) -> Router<ServerState> {
-    router.route(T::path(), T::router())
-}
 
 /// Having a function that produces our app makes it easy to call it from tests
 /// without having to create an HTTP server.
-pub fn app() -> Router<ServerState> {
-    let router = Router::new()
+pub fn app() -> Router {
+    Router::new()
         // Game.
+        .route(HealthCheckHandler::path(), HealthCheckHandler::router())
+        .route(NewGameHandler::path(), NewGameHandler::router())
         .route("/list_games", get(list_games_handler))
         .route("/game_full_view", get(game_full_view_handler))
         .route("/game_player_view", get(game_player_view_handler))
@@ -60,15 +58,7 @@ pub fn app() -> Router<ServerState> {
         .route("/make_action", post(make_action_handler))
         // Tournament.
         .route("/new_tournament", post(new_tournament_handler))
-        .with_state(ServerState::new());
-
-    // Health check.
-    let router = add(router, HealthCheckHandler);
-    
-    // Game.
-    let router = add(router, NewGameHandler);
-
-    router
+        .with_state(ServerState::new())
 }
 
 // --- game handlers ---

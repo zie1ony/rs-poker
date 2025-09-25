@@ -1,5 +1,5 @@
 use rs_poker_server::{
-    api_types::HealthCheckRequest, poker_client::PokerClient, poker_server::app,
+    handler::health_check::HealthCheckRequest, poker_client::PokerClient, poker_server::app
 };
 use std::net::SocketAddr;
 use tokio::time::{sleep, Duration};

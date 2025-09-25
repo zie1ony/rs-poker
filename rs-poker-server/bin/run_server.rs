@@ -1,3 +1,4 @@
+use rs_poker_server::poker_server::app;
 use tokio::signal;
 
 #[tokio::main]
@@ -7,18 +8,12 @@ pub async fn main() {
         .unwrap();
     println!("Listening on http://{}", listener.local_addr().unwrap());
 
-    // Create the server
-    let server = axum::serve(listener, app());
-
-    // Handle graceful shutdown on Ctrl+C
-    tokio::select! {
-        result = server => {
-            if let Err(err) = result {
-                eprintln!("Server error: {}", err);
-            }
-        }
-        _ = signal::ctrl_c() => {
+    // Create and run the server with graceful shutdown
+    axum::serve(listener, app())
+        .with_graceful_shutdown(async {
+            signal::ctrl_c().await.expect("Failed to listen for ctrl_c signal");
             println!("\nReceived Ctrl+C, shutting down gracefully...");
-        }
-    }
+        })
+        .await
+        .unwrap();
 }
