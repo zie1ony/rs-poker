@@ -44,8 +44,8 @@ pub enum PossibleAction {
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone, schemars::JsonSchema)]
 pub struct Decision {
-    pub action: AgentAction,
     pub reason: String,
+    pub action: AgentAction,
 }
 
 impl LLMResponse for Decision {

@@ -3,7 +3,7 @@ use rs_poker::core::Card;
 use rs_poker_engine::game_instance::GameInstance;
 use rs_poker_types::{game::GameId, player::Player};
 
-use crate::{api_types::ServerResponse, define_handler, error::ServerError, poker_server::ServerState};
+use crate::{define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState};
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug)]
 pub struct NewGameRequest {
@@ -23,7 +23,7 @@ pub struct GameCreatedResponse {
 async fn new_game_handler(
     State(state): State<ServerState>,
     Json(payload): Json<NewGameRequest>,
-) -> ServerResponse<GameCreatedResponse> {
+) -> HandlerResponse<GameCreatedResponse> {
     let mut server = state.server.lock().unwrap();
 
     // Fail if the game ID already exists.

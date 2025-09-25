@@ -5,6 +5,12 @@ use crate::{error::ServerError, poker_server::ServerState};
 
 pub mod health_check;
 pub mod game_new;
+pub mod game_list;
+pub mod game_full_view;
+pub mod game_player_view;
+pub mod game_info;
+pub mod game_make_action;
+pub mod new_tournament;
 
 pub type HandlerResponse<T> = Json<Result<T, ServerError>>;
 

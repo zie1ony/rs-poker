@@ -1,6 +1,6 @@
 use clap::{Parser, Subcommand};
 use rs_poker_cli::cli::{client, run_example_game};
-use rs_poker_server::api_types::{GameFullViewRequest, ListGamesRequest};
+use rs_poker_server::handler::{game_full_view::GameFullViewRequest, game_list::ListGamesRequest};
 use rs_poker_types::game::GameId;
 
 #[derive(Parser)]

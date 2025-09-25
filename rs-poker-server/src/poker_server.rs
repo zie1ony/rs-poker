@@ -3,25 +3,30 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-use crate::{
-    api_types::{
-        GameFullViewRequest, GameInfoRequest, GamePlayerViewRequest,
-        ListGamesRequest, ListGamesResponse,
-        MakeActionRequest, NewTournamentRequest, ServerResponse,
-        TournamentCreatedResponse,
-    },
-    error::ServerError, handler::{game_new::NewGameHandler, health_check::{HealthCheckHandler}, Handler},
+use crate::handler::{
+    game_new::NewGameHandler, 
+    health_check::HealthCheckHandler, 
+    game_list::ListGamesHandler,
+    game_full_view::GameFullViewHandler,
+    game_player_view::GamePlayerViewHandler,
+    game_info::GameInfoHandler,
+    game_make_action::MakeActionHandler,
+    new_tournament::NewTournamentHandler,
+    Handler
 };
-use axum::{
-    extract::{Query, State},
-    routing::{get, post},
-    Json, Router,
-};
+use axum::Router;
 use rs_poker_engine::{game_instance::GameInstance, tournament_instance::TournamentInstance};
-use rs_poker_types::{
-    game::{GameFullView, GameId, GameInfo, GamePlayerView},
-    tournament::TournamentId,
-};
+use rs_poker_types::{game::GameId, tournament::TournamentId};
+
+macro_rules! router {
+    ($($handler:ident),* $(,)?) => {
+        Router::new()
+            $(
+                .route($handler::path(), $handler::router())
+            )*
+            .with_state(ServerState::new())
+    };
+}
 
 
 #[derive(Clone, Default)]
@@ -43,151 +48,21 @@ impl ServerState {
     }
 }
 
-
-/// Having a function that produces our app makes it easy to call it from tests
-/// without having to create an HTTP server.
 pub fn app() -> Router {
-    Router::new()
+    router! {
         // Game.
-        .route(HealthCheckHandler::path(), HealthCheckHandler::router())
-        .route(NewGameHandler::path(), NewGameHandler::router())
-        .route("/list_games", get(list_games_handler))
-        .route("/game_full_view", get(game_full_view_handler))
-        .route("/game_player_view", get(game_player_view_handler))
-        .route("/game_info", get(game_info_handler))
-        .route("/make_action", post(make_action_handler))
+        HealthCheckHandler,
+        NewGameHandler,
+        ListGamesHandler,
+        GameFullViewHandler,
+        GamePlayerViewHandler,
+        GameInfoHandler,
+        MakeActionHandler,
         // Tournament.
-        .route("/new_tournament", post(new_tournament_handler))
-        .with_state(ServerState::new())
-}
-
-// --- game handlers ---
-
-async fn list_games_handler(
-    State(state): State<ServerState>,
-    Query(params): Query<ListGamesRequest>,
-) -> ServerResponse<ListGamesResponse> {
-    let server = state.server.lock().unwrap();
-
-    let game_ids: Vec<(String, rs_poker_types::game::GameStatus)> = server
-        .games
-        .iter()
-        .filter_map(|(game_id, game)| {
-            let status = game.game_status();
-            if params.active_only && status == rs_poker_types::game::GameStatus::Finished {
-                None
-            } else {
-                Some((game_id.to_string(), status))
-            }
-        })
-        .collect();
-
-    Json(Ok(ListGamesResponse { game_ids }))
-}
-
-async fn game_full_view_handler(
-    State(state): State<ServerState>,
-    Query(params): Query<GameFullViewRequest>,
-) -> ServerResponse<GameFullView> {
-    let server = state.server.lock().unwrap();
-
-    // Find the game instance.
-    match server.games.get(&params.game_id) {
-        Some(game) => {
-            let mut view = game.as_game_full_view();
-            if params.debug {
-                view.summary.push_str("\n\n [Debug Info]\n");
-                view.summary.push_str(game.actions_str().as_str());
-            }
-            Json(Ok(view))
-        }
-        None => Json(Err(ServerError::GameNotFound(params.game_id.clone()))),
+        NewTournamentHandler
     }
 }
 
-async fn game_player_view_handler(
-    State(state): State<ServerState>,
-    Query(params): Query<GamePlayerViewRequest>,
-) -> ServerResponse<GamePlayerView> {
-    let server = state.server.lock().unwrap();
-
-    // Find the game instance.
-    match server.games.get(&params.game_id) {
-        Some(game) => Json(Ok(game.as_game_player_view(&params.player_name))),
-        None => Json(Err(ServerError::GameNotFound(params.game_id.clone()))),
-    }
-}
-
-async fn game_info_handler(
-    State(state): State<ServerState>,
-    Query(params): Query<GameInfoRequest>,
-) -> ServerResponse<GameInfo> {
-    let server = state.server.lock().unwrap();
-
-    // Find the game instance.
-    match server.games.get(&params.game_id) {
-        Some(game) => Json(Ok(GameInfo {
-            game_id: game.game_id.clone(),
-            players: game.players.clone(),
-            status: game.game_status(),
-            current_player_name: game.current_player_name(),
-        })),
-        None => Json(Err(ServerError::GameNotFound(params.game_id.clone()))),
-    }
-}
-
-async fn make_action_handler(
-    State(state): State<ServerState>,
-    Json(payload): Json<MakeActionRequest>,
-) -> ServerResponse<GameInfo> {
-    let mut server = state.server.lock().unwrap();
-
-    // Find the game instance.
-    match server.games.get_mut(&payload.game_id) {
-        Some(game) => {
-            // Apply the action.
-            game.excute_player_action(payload.decision);
-            // Advance the game state.
-            game.run();
-
-            Json(Ok(GameInfo {
-                game_id: game.game_id.clone(),
-                players: game.players.clone(),
-                status: game.game_status(),
-                current_player_name: game.current_player_name(),
-            }))
-        }
-        None => Json(Err(ServerError::GameNotFound(payload.game_id.clone()))),
-    }
-}
-
-// --- tournament handlers ---
-
-async fn new_tournament_handler(
-    State(state): State<ServerState>,
-    Json(payload): Json<NewTournamentRequest>,
-) -> ServerResponse<TournamentCreatedResponse> {
-    let mut server = state.server.lock().unwrap();
-    let settings = payload.settings;
-
-    // Fail if the tournament ID already exists.
-    if server.tournaments.contains_key(&settings.tournament_id) {
-        return Json(Err(ServerError::TournamentAlreadyExists(
-            settings.tournament_id,
-        )));
-    }
-
-    // Create a new tournament instance.
-    let tournament = TournamentInstance::new(&settings);
-
-    server
-        .tournaments
-        .insert(settings.tournament_id.clone(), tournament);
-
-    Json(Ok(TournamentCreatedResponse {
-        tournament_id: settings.tournament_id.clone(),
-    }))
-}
 
 #[cfg(test)]
 mod tests {
