@@ -1,13 +1,12 @@
 use axum::Json;
 use reqwest::Method;
-use rs_poker::core::Card;
 use rs_poker_types::{
     game::{Decision, GameFullView, GameId, GameInfo, GamePlayerView, GameStatus},
     player::{Player, PlayerName},
     tournament::{TournamentId, TournamentSettings},
 };
 
-use crate::error::ServerError;
+use crate::{error::ServerError, handler::game_new::GameCreatedResponse};
 
 pub trait ServerRequest {
     type Response: serde::de::DeserializeOwned;
@@ -17,60 +16,6 @@ pub trait ServerRequest {
 }
 
 pub type ServerResponse<T> = Json<Result<T, ServerError>>;
-
-// --- health_check ---
-
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct HealthCheckRequest {
-    pub id: String,
-}
-
-#[derive(serde::Deserialize, serde::Serialize)]
-pub struct HealthCheckResponse {
-    pub id: String,
-    pub status: String,
-}
-
-impl ServerRequest for HealthCheckRequest {
-    type Response = HealthCheckResponse;
-
-    fn path(&self) -> String {
-        "/health_check".to_string()
-    }
-
-    fn method(&self) -> Method {
-        Method::GET
-    }
-}
-
-// --- new-game ---
-
-#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug)]
-pub struct NewGameRequest {
-    pub game_id: GameId,
-    pub players: Vec<Player>,
-    pub small_blind: f32,
-    pub initial_stacks: Vec<f32>,
-    pub predefined_hands: Option<Vec<(Card, Card)>>,
-    pub predefined_board: Option<Vec<Card>>,
-}
-
-#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug)]
-pub struct GameCreatedResponse {
-    pub game_id: GameId,
-}
-
-impl ServerRequest for NewGameRequest {
-    type Response = GameCreatedResponse;
-
-    fn path(&self) -> String {
-        "/new_game".to_string()
-    }
-
-    fn method(&self) -> Method {
-        Method::POST
-    }
-}
 
 // --- list games ---
 

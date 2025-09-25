@@ -5,12 +5,12 @@ use std::{
 
 use crate::{
     api_types::{
-        GameCreatedResponse, GameFullViewRequest, GameInfoRequest, GamePlayerViewRequest,
-        HealthCheckRequest, HealthCheckResponse, ListGamesRequest, ListGamesResponse,
-        MakeActionRequest, NewGameRequest, NewTournamentRequest, ServerResponse,
+        GameFullViewRequest, GameInfoRequest, GamePlayerViewRequest,
+        ListGamesRequest, ListGamesResponse,
+        MakeActionRequest, NewTournamentRequest, ServerResponse,
         TournamentCreatedResponse,
     },
-    error::ServerError,
+    error::ServerError, handler::{game_new::NewGameHandler, health_check::{HealthCheckHandler}, Handler},
 };
 use axum::{
     extract::{Query, State},
@@ -22,6 +22,7 @@ use rs_poker_types::{
     game::{GameFullView, GameId, GameInfo, GamePlayerView},
     tournament::TournamentId,
 };
+
 
 #[derive(Clone, Default)]
 pub struct PokerServer {
@@ -42,13 +43,16 @@ impl ServerState {
     }
 }
 
+/// Helper function to add handlers with proper trait bounds
+fn add<T: Handler>(router: Router<ServerState>, _handler: T) -> Router<ServerState> {
+    router.route(T::path(), T::router())
+}
+
 /// Having a function that produces our app makes it easy to call it from tests
 /// without having to create an HTTP server.
-pub fn app() -> Router {
-    Router::new()
-        .route("/health_check", get(health_check_handler))
+pub fn app() -> Router<ServerState> {
+    let router = Router::new()
         // Game.
-        .route("/new_game", post(new_game_handler))
         .route("/list_games", get(list_games_handler))
         .route("/game_full_view", get(game_full_view_handler))
         .route("/game_player_view", get(game_player_view_handler))
@@ -56,47 +60,18 @@ pub fn app() -> Router {
         .route("/make_action", post(make_action_handler))
         // Tournament.
         .route("/new_tournament", post(new_tournament_handler))
-        .with_state(ServerState::new())
-}
+        .with_state(ServerState::new());
 
-async fn health_check_handler(
-    Query(params): Query<HealthCheckRequest>,
-) -> ServerResponse<HealthCheckResponse> {
-    Json(Ok(HealthCheckResponse {
-        id: params.id,
-        status: "ok".to_string(),
-    }))
+    // Health check.
+    let router = add(router, HealthCheckHandler);
+    
+    // Game.
+    let router = add(router, NewGameHandler);
+
+    router
 }
 
 // --- game handlers ---
-
-async fn new_game_handler(
-    State(state): State<ServerState>,
-    Json(payload): Json<NewGameRequest>,
-) -> ServerResponse<GameCreatedResponse> {
-    let mut server = state.server.lock().unwrap();
-
-    // Fail if the game ID already exists.
-    if server.games.contains_key(&payload.game_id) {
-        return Json(Err(ServerError::GameAlreadyExists(payload.game_id)));
-    }
-
-    // Create a new game instance.
-    let mut game = GameInstance::new_with_random_cards(
-        payload.game_id.clone(),
-        payload.players.clone(),
-        payload.initial_stacks.clone(),
-        payload.small_blind * 2.0,
-        payload.small_blind,
-    );
-    game.run();
-
-    server.games.insert(payload.game_id.clone(), game);
-
-    Json(Ok(GameCreatedResponse {
-        game_id: payload.game_id.clone(),
-    }))
-}
 
 async fn list_games_handler(
     State(state): State<ServerState>,

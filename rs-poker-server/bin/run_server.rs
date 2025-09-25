@@ -1,4 +1,3 @@
-use rs_poker_server::poker_server::app;
 use tokio::signal;
 
 #[tokio::main]
