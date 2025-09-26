@@ -43,7 +43,7 @@ enum GameCommands {
         active_only: bool,
     },
     /// Show full view of a specific game
-    Info {
+    View {
         /// Game ID to show
         game_id: String,
         /// Show debug information
@@ -68,6 +68,10 @@ enum TournamentCommands {
         /// Tournament ID to show
         tournament_id: String,
     },
+    View {
+        /// Tournament ID to view
+        tournament_id: String,
+    },
 }
 
 #[derive(Subcommand)]
@@ -90,8 +94,8 @@ async fn main() {
             GameCommands::List { active_only } => {
                 list_games(cli.mock_server, active_only).await;
             }
-            GameCommands::Info { game_id, debug } => {
-                info_game(cli.mock_server, game_id, debug).await;
+            GameCommands::View { game_id, debug } => {
+                game_full_view(cli.mock_server, game_id, debug).await;
             }
         },
         Commands::Tournament { command } => match command {
@@ -104,6 +108,11 @@ async fn main() {
             TournamentCommands::Info { tournament_id } => {
                 tournament_info(cli.mock_server, tournament_id).await;
             }
+            TournamentCommands::View { tournament_id } => {
+                // tournament_view(cli.mock_server, tournament_id).await;
+                eprintln!("Tournament view not implemented yet.");
+                std::process::exit(1);
+            }
         },
         Commands::Tower => {
             rs_poker_tower::run().await;
@@ -111,7 +120,7 @@ async fn main() {
     }
 }
 
-async fn info_game(mock_server: bool, game_id: String, debug: bool) {
+async fn game_full_view(mock_server: bool, game_id: String, debug: bool) {
     let client = client(mock_server);
 
     match client

@@ -25,12 +25,19 @@ async fn make_action_handler(
             // Advance the game state.
             game.run();
 
-            Json(Ok(GameInfo {
+            let is_complete = game.is_complete();
+            let game_info = GameInfo {
                 game_id: game.game_id.clone(),
                 players: game.players.clone(),
                 status: game.game_status(),
                 current_player_name: game.current_player_name(),
-            }))
+            };
+
+            if is_complete {
+                server.on_game_completed(&payload.game_id);
+            }
+
+            Json(Ok(game_info))
         }
         None => Json(Err(ServerError::GameNotFound(payload.game_id.clone()))),
     }

@@ -142,7 +142,7 @@ impl Tower {
             }
         }
 
-        self.shutdown().await;
+        self.shutdown(&format!("Max {} number of tasks reached.", self.max_tasks)).await;
     }
 
     fn print_startup_message(&self) {
@@ -280,10 +280,10 @@ impl Tower {
             .await
     }
 
-    async fn shutdown(&mut self) {
+    pub async fn shutdown(&mut self, reason: &str) {
         println!(
-            "[t] Maximum tasks ({}) completed. Shutting down workers...",
-            self.max_tasks
+            "[t] Shutting down tower. Reason: {}. Shutting down workers...",
+            reason
         );
 
         // Send shutdown message to all workers

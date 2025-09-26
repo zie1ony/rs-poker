@@ -25,3 +25,7 @@ Play a tournament with 4 players:
 Tell them that they play as two teams, 1+2 and 3+4.
 See if they can take advantage of this information.
 Player that wins the tournament wins a point for their team.
+
+## EX06
+Play against X random players.
+

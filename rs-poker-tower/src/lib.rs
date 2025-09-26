@@ -1,11 +1,12 @@
 use rs_poker_server::poker_client::PokerClient;
-use tokio::sync::mpsc;
+use tokio::sync::{mpsc, oneshot};
 
 use crate::{
     tower::Tower,
     worker::{Worker, WorkerId, WorkerMessage},
 };
 
+pub mod ai_player;
 pub mod tower;
 pub mod worker;
 
@@ -56,17 +57,33 @@ pub async fn run() {
         worker_handles.push(handle);
     }
 
-    let tower_handle = tokio::spawn(async move {
-        tower.run().await;
+    // Create a shutdown channel
+    let (shutdown_tx, shutdown_rx) = oneshot::channel::<()>();
+
+    let mut tower_handle = tokio::spawn(async move {
+        // Run tower with cancellation support
+        tokio::select! {
+            _ = tower.run() => {
+                println!("Tower finished naturally");
+            }
+            _ = shutdown_rx => {
+                println!("Tower received shutdown signal, shutting down workers...");
+                tower.shutdown("External shutdown signal").await;
+            }
+        }
     });
 
     // Wait for either tower to finish or ctrl+c signal to exit
     tokio::select! {
-        _ = tower_handle => {
+        _ = &mut tower_handle => {
             println!("Tower finished, waiting for workers to stop...");
         }
         _ = tokio::signal::ctrl_c() => {
             println!("Received Ctrl+C signal");
+            // Signal tower to shutdown gracefully
+            let _ = shutdown_tx.send(());
+            // Wait for tower to finish shutdown
+            let _ = tower_handle.await;
         }
     }
 

@@ -27,6 +27,7 @@ macro_rules! router {
 pub struct PokerServer {
     pub games: HashMap<GameId, GameInstance>,
     pub tournaments: HashMap<TournamentId, TournamentInstance>,
+    pub game_tournament_map: HashMap<GameId, TournamentId>,
 }
 
 impl PokerServer {
@@ -86,35 +87,15 @@ impl PokerServer {
             }
         }
     }
+
+    // Method used to notify the server that a game has completed,
+    // so that it can progress the associated tournament if needed.
+    pub fn on_game_completed(&mut self, game_id: &GameId) {
+        if let Some(tournament_id) = self.game_tournament_map.get(game_id).cloned() {
+            self.progress_tournament(&tournament_id);
+        }
+    }
 }
-
-// Run the tournament as far as possible.
-    // let mut tournament = server.tournaments.get_mut(&settings.tournament_id).unwrap();
-    // let mut games = &mut server.games;
-
-    // loop {
-    //     match tournament.next_action() {
-    //         Some(next_tournament_action) => match next_tournament_action {
-    //             TournamentAction::StartNextGame { game_settings } => {
-
-    //             },
-    //             TournamentAction::FinishGame { game_id } => {
-
-    //             },
-    //         },
-    //         None => {
-    //             break;
-    //         },
-    //     }
-    // }
-    // while !tournament.is_completed() {
-    //     let game_settings = tournament.start_next_game().unwrap();
-    //     let mut game_instance = GameInstance::new_from_config_with_random_cards(&game_settings);
-    //     game_instance.run();
-    //     let game_result = game_instance.game_final_results().unwrap();
-    //     games.insert(game_instance.game_id.clone(), game_instance);
-    //     tournament.finish_game(&game_result).unwrap();
-    // }
 
 #[derive(Clone)]
 pub struct ServerState {

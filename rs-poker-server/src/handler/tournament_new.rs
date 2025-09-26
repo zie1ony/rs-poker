@@ -1,5 +1,5 @@
 use axum::{extract::State, Json};
-use rs_poker_engine::tournament_instance::{TournamentAction, TournamentInstance};
+use rs_poker_engine::tournament_instance::{TournamentInstance};
 use rs_poker_types::tournament::{TournamentId, TournamentSettings};
 
 use crate::{

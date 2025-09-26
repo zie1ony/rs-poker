@@ -1,4 +1,4 @@
-use rs_poker_server::poker_client::{self, PokerClient};
+use rs_poker_server::poker_client::PokerClient;
 use tokio::sync::mpsc;
 
 use rs_poker_types::{game::GameId, tournament::TournamentId};
@@ -100,16 +100,127 @@ impl Worker {
     }
 
     async fn execute_tournament(&self, tournament_id: &TournamentId) {
+        println!("[w] Worker {:?} executing tournament {:?}", self.id, tournament_id);
+        
         // Fetch tournament info.
         let info = self.poker_client.tournament_info(tournament_id).await;
-        println!("Tournament info: {:#?}", info);
+        if let Err(e) = info {
+            println!("[w] Worker {:?} failed to get tournament info: {:?}", self.id, e);
+            return;
+        }
+        let info = info.unwrap();
+        println!("[w] Tournament info: {:#?}", info);
 
-        if let Some()
+        // Keep running games until tournament is complete
+        loop {
+            // Get current tournament status
+            let tournament_info = match self.poker_client.tournament_info(tournament_id).await {
+                Ok(info) => info,
+                Err(e) => {
+                    println!("[w] Worker {:?} failed to get tournament info: {:?}", self.id, e);
+                    break;
+                }
+            };
+
+            match tournament_info.status {
+                rs_poker_types::tournament::TournamentStatus::WaitingForNextGame => {
+                    // Tournament is waiting - it should automatically start the next game
+                    println!("[w] Tournament waiting for next game, checking again...");
+                    tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
+                }
+                rs_poker_types::tournament::TournamentStatus::GameInProgress => {
+                    if let Some(game_id) = tournament_info.current_game_id {
+                        println!("[w] Tournament has game in progress: {:?}", game_id);
+                        self.execute_game(&game_id).await;
+                    } else {
+                        println!("[w] Tournament claims game in progress but no game ID found");
+                        break;
+                    }
+                }
+                rs_poker_types::tournament::TournamentStatus::Completed => {
+                    println!("[w] Tournament completed!");
+                    break;
+                }
+            }
+        }
     }
 
     async fn execute_game(&self, game_id: &GameId) {
-        let info = self.poker_client.game_info(game_id).await;
+        println!("[w] Worker {:?} executing game {:?}", self.id, game_id);
+        
+        // Keep processing until game is complete
+        loop {
+            let game_info = match self.poker_client.game_info(game_id).await {
+                Ok(info) => info,
+                Err(e) => {
+                    println!("[w] Worker {:?} failed to get game info: {:?}", self.id, e);
+                    break;
+                }
+            };
 
+            match game_info.status {
+                rs_poker_types::game::GameStatus::InProgress => {
+                    if let Some(current_player) = game_info.current_player() {
+                        println!("[w] Current player: {:?}", current_player.name());
+                        
+                        // Only handle AI players
+                        if let rs_poker_types::player::Player::AI { name, model, strategy } = current_player {
+                            // Get the game view for this player
+                            let game_view = match self.poker_client.game_player_view(
+                                rs_poker_server::handler::game_player_view::GamePlayerViewRequest {
+                                    game_id: game_id.clone(),
+                                    player_name: name.clone(),
+                                }
+                            ).await {
+                                Ok(view) => view,
+                                Err(e) => {
+                                    println!("[w] Worker {:?} failed to get player view: {:?}", self.id, e);
+                                    break;
+                                }
+                            };
+
+                            // Make AI decision
+                            let decision = crate::ai_player::decide(
+                                model.clone(),
+                                strategy.clone(),
+                                game_view.summary.clone(),
+                                format!("{:?}", game_view.possible_actions),
+                            ).await;
+
+                            // Submit the decision
+                            match self.poker_client.make_decision(
+                                rs_poker_server::handler::game_make_action::MakeActionRequest {
+                                    game_id: game_id.clone(),
+                                    decision,
+                                }
+                            ).await {
+                                Ok(_) => {
+                                    println!("[w] AI player {:?} made decision", name);
+                                }
+                                Err(e) => {
+                                    println!("[w] Worker {:?} failed to submit decision: {:?}", self.id, e);
+                                    break;
+                                }
+                            }
+                        } else {
+                            // For human players or other types, we can't proceed
+                            println!("[w] Current player is not AI, cannot proceed: {:?}", current_player);
+                            break;
+                        }
+                    } else {
+                        println!("[w] Game in progress but no current player found");
+                        break;
+                    }
+                }
+                rs_poker_types::game::GameStatus::Finished => {
+                    println!("[w] Game {:?} finished", game_id);
+                    break;
+                }
+            }
+
+            // Small delay to avoid overwhelming the server
+            tokio::time::sleep(tokio::time::Duration::from_millis(50)).await;
+        }
     }
 }
 
