@@ -71,3 +71,38 @@ Alice wins 240 (stack after: 240)
 ```
 
 ## Players with zero stack should be removed from the game.
+
+## Player want to fold but can't
+
+```xml
+<Game>
+Game Started - ID: GameId("game-el6qgn")
+Small blind: 5
+Big blind: 10
+Players: 3
+- Alice has stack: 100
+- Luke Skywalker has stack: 100
+- CharlieAI (You) has stack: 100
+
+Your Hand: 5s Qd
+
+--- Preflop ---
+Luke Skywalker posts small blind of 5 (stack: 95, pot: 5)
+CharlieAI posts big blind of 10 (stack: 90, pot: 15)
+Alice calls (stack: 90, pot: 25)
+Luke Skywalker folds (stack: 95, pot: 25)
+
+</Game>
+<Strategy>
+Play only strong hands.
+</Strategy>
+<Actions>
+[Call, Bet { min: 20.0, max: 100.0 }, AllIn]
+</Actions>
+
+=== RESPONSE ===
+Decision {
+    reason: "My hand (5s Qd) is weak and does not qualify as a strong hand based on the strategy.",
+    action: Fold,
+}
+```

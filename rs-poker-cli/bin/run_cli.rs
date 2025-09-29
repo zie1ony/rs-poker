@@ -328,9 +328,10 @@ async fn run_series(mock_server: bool) {
         series_id: SeriesId::new("ai-vs-random"),
         players: vec![
             Player::random("Alice"),
-            Player::random("Bob"),
+            // Player::random("Bob"),
             // Player::random("Charlie"),
-            Player::ai("CharlieAI", "gpt-4o-mini", "Play only strong hands.")
+            Player::ai("CharlieAI", "gpt-4o-mini", "Play only strong hands."),
+            Player::ai("Luke Skywalker", "gpt-5-nano", "Use force to sense good moves.")
         ],
         number_of_tournaments: 5,
         starting_player_stack: 100.0,
