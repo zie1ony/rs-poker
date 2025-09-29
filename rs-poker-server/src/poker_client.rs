@@ -16,9 +16,11 @@ use crate::{
         game_new::{GameCreatedResponse, NewGameHandler, NewGameRequest},
         game_player_view::{GamePlayerViewHandler, GamePlayerViewRequest},
         health_check::{HealthCheckHandler, HealthCheckRequest, HealthCheckResponse},
+        tournament_full_view::{TournamentFullViewHandler, TournamentFullViewRequest, TournamentFullViewResponse},
         tournament_info::{TournamentInfoHandler, TournamentInfoRequest},
         tournament_list::{ListTournamentsHandler, ListTournamentsRequest, ListTournamentsResponse},
         tournament_new::{NewTournamentHandler, TournamentCreatedResponse},
+        tournament_player_view::{TournamentPlayerViewHandler, TournamentPlayerViewRequest, TournamentPlayerViewResponse},
         Handler,
     },
 };
@@ -135,6 +137,28 @@ impl PokerClient {
             tournament_id: tournament_id.clone(),
         };
         self.query::<TournamentInfoHandler>(request).await
+    }
+
+    pub async fn tournament_full_view(
+        &self,
+        tournament_id: &TournamentId,
+    ) -> ClientResult<TournamentFullViewResponse> {
+        let request = TournamentFullViewRequest {
+            tournament_id: tournament_id.clone(),
+        };
+        self.query::<TournamentFullViewHandler>(request).await
+    }
+
+    pub async fn tournament_player_view(
+        &self,
+        tournament_id: &TournamentId,
+        player_name: rs_poker_types::player::PlayerName,
+    ) -> ClientResult<TournamentPlayerViewResponse> {
+        let request = TournamentPlayerViewRequest {
+            tournament_id: tournament_id.clone(),
+            player_name,
+        };
+        self.query::<TournamentPlayerViewHandler>(request).await
     }
 }
 

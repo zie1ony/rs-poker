@@ -1,7 +1,7 @@
 use clap::{Parser, Subcommand};
-use rs_poker_cli::run_game::{client, run_example_game};
+use rs_poker_cli::{run_game::{client, run_example_game}, series_runner};
 use rs_poker_server::handler::{game_full_view::GameFullViewRequest, game_list::ListGamesRequest};
-use rs_poker_types::{game::GameId, player::Player, tournament::{TournamentId, TournamentSettings}};
+use rs_poker_types::{game::GameId, player::{Player, PlayerName}, series::{SeriesSettings, SeriesId}, tournament::{TournamentEndCondition, TournamentId, TournamentSettings}};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -30,6 +30,11 @@ enum Commands {
     },
 
     Tower,
+
+    Series { 
+        #[command(subcommand)]
+        command: SeriesCommand,
+    },
 }
 
 #[derive(Subcommand)]
@@ -59,16 +64,26 @@ enum TournamentCommands {
         #[command(subcommand)]
         tournament_type: TournamentType,
     },
+    /// List all tournaments
     List {
         /// Show only active tournaments
         #[arg(short, long)]
         active_only: bool,
     },
+    /// Show tournament info
     Info {
         /// Tournament ID to show
         tournament_id: String,
     },
-    View {
+    /// Show full tournament view
+    FullView {
+        /// Tournament ID to view
+        tournament_id: String,
+    },
+    /// Show tournament view for a specific player
+    PlayerView {
+        /// Player name
+        player_name: String,
         /// Tournament ID to view
         tournament_id: String,
     },
@@ -80,6 +95,12 @@ enum TournamentType {
     Random3,
     /// 3 AI players tournament.
     AI3,
+}
+
+#[derive(Subcommand)]
+enum SeriesCommand {
+    /// Run a series of tournaments.
+    Run
 }
 
 #[tokio::main]
@@ -108,14 +129,24 @@ async fn main() {
             TournamentCommands::Info { tournament_id } => {
                 tournament_info(cli.mock_server, tournament_id).await;
             }
-            TournamentCommands::View { tournament_id } => {
-                // tournament_view(cli.mock_server, tournament_id).await;
-                eprintln!("Tournament view not implemented yet.");
-                std::process::exit(1);
+            TournamentCommands::FullView { tournament_id } => {
+                tournament_full_view(cli.mock_server, tournament_id).await;
+            }
+            TournamentCommands::PlayerView { player_name, tournament_id } => {
+                tournament_player_view(cli.mock_server, player_name, tournament_id).await;
             }
         },
         Commands::Tower => {
             rs_poker_tower::run().await;
+        },
+        Commands::Series { command } =>  {
+            match command {
+                SeriesCommand::Run => {
+                    // Placeholder: Define a series and run it
+                    println!("Running a series of tournaments...");
+                    // Here you would create a PokerClient and a Series, then call run_series
+                }
+            }
         }
     }
 }
@@ -179,6 +210,9 @@ async fn create_tournament(mock_server: bool, tournament_type: TournamentType) {
             starting_player_stack: 100.0,
             starting_small_blind: 10.0,
             double_blinds_every_n_games: Some(2),
+            end_condition: TournamentEndCondition::SingleWinner,
+            see_historical_thoughts: true,
+            public_chat: false,
         },
         TournamentType::AI3 => TournamentSettings {
             tournament_id: TournamentId::random(),
@@ -190,6 +224,9 @@ async fn create_tournament(mock_server: bool, tournament_type: TournamentType) {
             starting_player_stack: 100.0,
             starting_small_blind: 10.0,
             double_blinds_every_n_games: Some(2),
+            end_condition: TournamentEndCondition::SingleWinner,
+            see_historical_thoughts: true,
+            public_chat: true,
         },
     };
     let client = client(mock_server);
@@ -244,4 +281,56 @@ async fn tournament_info(mock_server: bool, tournament_id: String) {
             std::process::exit(1);
         }
     }
+}
+
+async fn tournament_full_view(mock_server: bool, tournament_id: String) {
+    let client = client(mock_server);
+    let tournament_id = TournamentId(tournament_id);
+    
+    match client.tournament_full_view(&tournament_id).await {
+        Ok(response) => {
+            println!("{}", response.summary);
+        }
+        Err(e) => {
+            eprintln!("Error fetching tournament full view: {:?}", e);
+            std::process::exit(1);
+        }
+    }
+}
+
+async fn tournament_player_view(mock_server: bool, player_name: String, tournament_id: String) {
+    let client = client(mock_server);
+    let tournament_id = TournamentId(tournament_id);
+    let player_name = PlayerName::new(&player_name);
+    
+    match client.tournament_player_view(&tournament_id, player_name).await {
+        Ok(response) => {
+            println!("{}", response.summary);
+        }
+        Err(e) => {
+            eprintln!("Error fetching tournament player view: {:?}", e);
+            std::process::exit(1);
+        }
+    }
+}
+
+async fn run_series(mock_server: bool) {
+    let client = client(mock_server);
+    let series = SeriesSettings {
+        series_id: SeriesId::new("random-3p"),
+        players: vec![
+            Player::random("Alice"),
+            Player::random("Bob"),
+            Player::random("Charlie"),
+        ],
+        number_of_tournaments: 3,
+        starting_player_stack: 100.0,
+        starting_small_blind: 5.0,
+        double_blinds_every_n_games: Some(3),
+        end_condition: TournamentEndCondition::SingleWinner,
+        see_historical_thoughts: true,
+        public_chat: false,
+        random_seed: 42,
+    };
+    series_runner::run_series(&client, series).await;
 }

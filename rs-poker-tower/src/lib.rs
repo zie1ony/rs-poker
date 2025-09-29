@@ -16,8 +16,8 @@ pub fn client() -> PokerClient {
 
 pub async fn run() {
     // Configuration.
-    let number_of_workers = 1;
-    let max_tasks = 1;
+    let number_of_workers = 2;
+    let max_tasks = 4;
 
     // Create communication channels for workers to send messages to the tower.
     // mpsc works great here as there are multiple workers sending messages to a

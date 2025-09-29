@@ -10,9 +10,11 @@ pub mod game_make_action;
 pub mod game_new;
 pub mod game_player_view;
 pub mod health_check;
+pub mod tournament_full_view;
 pub mod tournament_info;
 pub mod tournament_list;
 pub mod tournament_new;
+pub mod tournament_player_view;
 
 pub type HandlerResponse<T> = Json<Result<T, ServerError>>;
 

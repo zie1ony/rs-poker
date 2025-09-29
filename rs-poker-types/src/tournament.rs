@@ -28,6 +28,9 @@ pub struct TournamentSettings {
     pub starting_player_stack: f32,
     pub starting_small_blind: f32,
     pub double_blinds_every_n_games: Option<usize>,
+    pub end_condition: TournamentEndCondition,
+    pub see_historical_thoughts: bool,
+    pub public_chat: bool,
 }
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
@@ -43,4 +46,10 @@ pub struct TournamentInfo {
     pub status: TournamentStatus,
     pub games_played: usize,
     pub current_game_id: Option<GameId>,
+}
+
+#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
+pub enum TournamentEndCondition {
+    SingleWinner,
+    MaxGames(usize),
 }

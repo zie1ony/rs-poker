@@ -7,7 +7,10 @@ use crate::handler::{
     game_full_view::GameFullViewHandler, game_info::GameInfoHandler, game_list::ListGamesHandler,
     game_make_action::MakeActionHandler, game_new::NewGameHandler,
     game_player_view::GamePlayerViewHandler, health_check::HealthCheckHandler,
-    tournament_info::TournamentInfoHandler, tournament_list::ListTournamentsHandler, tournament_new::NewTournamentHandler, Handler,
+    tournament_full_view::TournamentFullViewHandler,
+    tournament_info::TournamentInfoHandler, tournament_list::ListTournamentsHandler, tournament_new::NewTournamentHandler,
+    tournament_player_view::TournamentPlayerViewHandler,
+    Handler,
 };
 use axum::Router;
 use rs_poker_engine::{game_instance::GameInstance, tournament_instance::{TournamentAction, TournamentInstance}};
@@ -39,6 +42,9 @@ impl PokerServer {
                         // Create and store a new game instance.
                         let mut game = GameInstance::new_from_config_with_random_cards(&game_settings);
                         game.run();
+
+                        // Map the game to the tournament
+                        self.game_tournament_map.insert(game.game_id(), tournament_id.clone());
 
                         if !game.is_complete() {
                             // Store the game.
@@ -125,6 +131,8 @@ pub fn app() -> Router {
         NewTournamentHandler,
         ListTournamentsHandler,
         TournamentInfoHandler,
+        TournamentFullViewHandler,
+        TournamentPlayerViewHandler,
     }
 }
 

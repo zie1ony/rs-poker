@@ -228,7 +228,7 @@ pub enum TournamentError {
 
 #[cfg(test)]
 mod tests {
-    use rs_poker_types::player::{Player, PlayerName};
+    use rs_poker_types::{player::{Player, PlayerName}, tournament::TournamentEndCondition};
 
     use super::*;
 
@@ -244,6 +244,9 @@ mod tests {
             starting_player_stack: 100.0,
             starting_small_blind: 5.0,
             double_blinds_every_n_games: Some(3),
+            end_condition: TournamentEndCondition::SingleWinner,
+            see_historical_thoughts: false,
+            public_chat: false,
         };
 
         let mut tournament = TournamentInstance::new(&settings);
@@ -452,6 +455,10 @@ mod tests {
             starting_player_stack: 100.0,
             starting_small_blind: 5.0,
             double_blinds_every_n_games: None,
+            end_condition: TournamentEndCondition::SingleWinner,
+            see_historical_thoughts: false,
+            public_chat: false,
+
         };
 
         let mut tournament = TournamentInstance::new(&settings);

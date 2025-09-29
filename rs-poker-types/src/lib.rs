@@ -5,6 +5,7 @@ pub mod game_event;
 pub mod player;
 pub mod tournament;
 pub mod tournament_event;
+pub mod series;
 
 pub fn random_id(prefix: &str) -> String {
     format!("{}-{}", prefix, random_string(6))

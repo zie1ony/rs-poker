@@ -8,7 +8,7 @@ use rs_poker_llm_client::count_tokens;
 use rs_poker_types::{
     game::GameId,
     player::{Player, PlayerName},
-    tournament::{TournamentId, TournamentSettings},
+    tournament::{TournamentEndCondition, TournamentId, TournamentSettings},
 };
 
 fn main() {
@@ -23,6 +23,9 @@ fn main() {
         starting_player_stack: 100.0,
         starting_small_blind: 5.0,
         double_blinds_every_n_games: Some(3),
+        end_condition: TournamentEndCondition::SingleWinner,
+        see_historical_thoughts: false,
+        public_chat: false,
     };
 
     let mut tournament = TournamentInstance::new(&settings);
