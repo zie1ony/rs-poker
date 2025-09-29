@@ -1,0 +1,178 @@
+Timestamp: 1759146344
+Tournament ID: ai-vs-random-tournament-1
+Game ID: game-cars7o
+Status: GAME FINISHED
+
+=== GAME SUMMARY ===
+Game Started - ID: GameId("game-cars7o")
+Small blind: 10
+Big blind: 20
+Players: 3
+- Bob has stack: 170.7941
+- Alice has stack: 19.150879
+- CharlieAI has stack: 110.05502
+
+Hole Cards:
+- Bob: Tc 3d
+- Alice: 8c 6s
+- CharlieAI: 8d 3c
+
+Community Cards: Jh Qc 4c 6h 2c
+
+--- Preflop ---
+Alice posts small blind of 10 (stack: 9.150879, pot: 10)
+CharlieAI posts big blind of 20 (stack: 90.05502, pot: 30)
+Bob thinks: "RandomAgent decision"
+Bob folds (stack: 170.7941, pot: 30)
+Alice thinks: "RandomAgent decision"
+Alice calls (stack: 0, pot: 39.15088)
+CharlieAI thinks: "I have a weak hand (8d 3c) and the strategy indicates to play only strong hands."
+CharlieAI tries to folds, but it's invalid action.
+CharlieAI increases to 20 [FORCED] (stack: 90.05502, pot: 39.15088)
+
+--- Flop ---
+Flop cards: Jh Qc 4c
+
+
+Timestamp: 1759146345
+Tournament ID: ai-vs-random-tournament-1
+Game ID: game-cars7o
+Status: GAME FINISHED
+
+=== GAME SUMMARY ===
+Game Started - ID: GameId("game-cars7o")
+Small blind: 10
+Big blind: 20
+Players: 3
+- Bob has stack: 170.7941
+- Alice has stack: 19.150879
+- CharlieAI has stack: 110.05502
+
+Hole Cards:
+- Bob: Tc 3d
+- Alice: 8c 6s
+- CharlieAI: 8d 3c
+
+Community Cards: Jh Qc 4c 6h 2c
+
+--- Preflop ---
+Alice posts small blind of 10 (stack: 9.150879, pot: 10)
+CharlieAI posts big blind of 20 (stack: 90.05502, pot: 30)
+Bob thinks: "RandomAgent decision"
+Bob folds (stack: 170.7941, pot: 30)
+Alice thinks: "RandomAgent decision"
+Alice calls (stack: 0, pot: 39.15088)
+CharlieAI thinks: "I have a weak hand (8d 3c) and the strategy indicates to play only strong hands."
+CharlieAI tries to folds, but it's invalid action.
+CharlieAI increases to 20 [FORCED] (stack: 90.05502, pot: 39.15088)
+
+--- Flop ---
+Flop cards: Jh Qc 4c
+CharlieAI thinks: "I have a weak hand (8d 3c) with no potential to improve significantly on the flop (Jh Qc 4c). Playing only strong hands means I should not continue in this hand."
+CharlieAI tries to folds, but it's invalid action.
+CharlieAI increases to 0 [FORCED] (stack: 90.05502, pot: 39.15088)
+
+--- Turn ---
+Turn card: 6h
+
+
+Timestamp: 1759146348
+Tournament ID: ai-vs-random-tournament-1
+Game ID: game-cars7o
+Status: GAME FINISHED
+
+=== GAME SUMMARY ===
+Game Started - ID: GameId("game-cars7o")
+Small blind: 10
+Big blind: 20
+Players: 3
+- Bob has stack: 170.7941
+- Alice has stack: 19.150879
+- CharlieAI has stack: 110.05502
+
+Hole Cards:
+- Bob: Tc 3d
+- Alice: 8c 6s
+- CharlieAI: 8d 3c
+
+Community Cards: Jh Qc 4c 6h 2c
+
+--- Preflop ---
+Alice posts small blind of 10 (stack: 9.150879, pot: 10)
+CharlieAI posts big blind of 20 (stack: 90.05502, pot: 30)
+Bob thinks: "RandomAgent decision"
+Bob folds (stack: 170.7941, pot: 30)
+Alice thinks: "RandomAgent decision"
+Alice calls (stack: 0, pot: 39.15088)
+CharlieAI thinks: "I have a weak hand (8d 3c) and the strategy indicates to play only strong hands."
+CharlieAI tries to folds, but it's invalid action.
+CharlieAI increases to 20 [FORCED] (stack: 90.05502, pot: 39.15088)
+
+--- Flop ---
+Flop cards: Jh Qc 4c
+CharlieAI thinks: "I have a weak hand (8d 3c) with no potential to improve significantly on the flop (Jh Qc 4c). Playing only strong hands means I should not continue in this hand."
+CharlieAI tries to folds, but it's invalid action.
+CharlieAI increases to 0 [FORCED] (stack: 90.05502, pot: 39.15088)
+
+--- Turn ---
+Turn card: 6h
+CharlieAI thinks: "The current action is to call Alice's 20, which is the minimum requirement. I don't have a strong hand with my current cards (8d 3c), but since it's a marginal situation and the pot is already relatively large, calling allows me to see the river without committing more chips."
+CharlieAI calls (stack: 90.05502, pot: 39.15088)
+
+--- River ---
+River card: 2c
+
+
+Timestamp: 1759146349
+Tournament ID: ai-vs-random-tournament-1
+Game ID: game-cars7o
+Status: GAME FINISHED
+
+=== GAME SUMMARY ===
+Game Started - ID: GameId("game-cars7o")
+Small blind: 10
+Big blind: 20
+Players: 3
+- Bob has stack: 170.7941
+- Alice has stack: 19.150879
+- CharlieAI has stack: 110.05502
+
+Hole Cards:
+- Bob: Tc 3d
+- Alice: 8c 6s
+- CharlieAI: 8d 3c
+
+Community Cards: Jh Qc 4c 6h 2c
+
+--- Preflop ---
+Alice posts small blind of 10 (stack: 9.150879, pot: 10)
+CharlieAI posts big blind of 20 (stack: 90.05502, pot: 30)
+Bob thinks: "RandomAgent decision"
+Bob folds (stack: 170.7941, pot: 30)
+Alice thinks: "RandomAgent decision"
+Alice calls (stack: 0, pot: 39.15088)
+CharlieAI thinks: "I have a weak hand (8d 3c) and the strategy indicates to play only strong hands."
+CharlieAI tries to folds, but it's invalid action.
+CharlieAI increases to 20 [FORCED] (stack: 90.05502, pot: 39.15088)
+
+--- Flop ---
+Flop cards: Jh Qc 4c
+CharlieAI thinks: "I have a weak hand (8d 3c) with no potential to improve significantly on the flop (Jh Qc 4c). Playing only strong hands means I should not continue in this hand."
+CharlieAI tries to folds, but it's invalid action.
+CharlieAI increases to 0 [FORCED] (stack: 90.05502, pot: 39.15088)
+
+--- Turn ---
+Turn card: 6h
+CharlieAI thinks: "The current action is to call Alice's 20, which is the minimum requirement. I don't have a strong hand with my current cards (8d 3c), but since it's a marginal situation and the pot is already relatively large, calling allows me to see the river without committing more chips."
+CharlieAI calls (stack: 90.05502, pot: 39.15088)
+
+--- River ---
+River card: 2c
+CharlieAI thinks: "My hand is weak (8d 3c). I need to follow the strategy of playing only strong hands, and calling at this stage maintains participation without committing more chips with a weak hand."
+CharlieAI calls (stack: 90.05502, pot: 39.15088)
+
+--- Game Ended ---
+Alice wins 38.301758 (stack after: 38.301758)
+CharlieAI wins 0.8491211 (stack after: 90.904144)
+
+

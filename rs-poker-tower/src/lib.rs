@@ -9,6 +9,8 @@ use crate::{
 pub mod ai_player;
 pub mod tower;
 pub mod worker;
+pub mod logger;
+
 
 pub fn client() -> PokerClient {
     PokerClient::new_http("http://localhost:3001")

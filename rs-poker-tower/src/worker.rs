@@ -1,9 +1,28 @@
-use rs_poker_server::poker_client::PokerClient;
+use rs_poker_server::{handler::{game_full_view::GameFullViewRequest, game_make_action::MakeActionRequest}, poker_client::PokerClient};
 use tokio::sync::mpsc;
 
 use rs_poker_types::{game::GameId, tournament::TournamentId};
 
-use crate::tower::TowerMessage;
+use crate::{logger::TournamentLogger, tower::TowerMessage};
+
+const SYSTEM_PROMPT: &str = r#"
+You are an expert Texas Hold'em poker player.
+You take part in the Texas Hold'em poker tournament with max 10 games.
+If the tournament reaches 10 games, the player with the highest total chips wins.
+Winner takes it all.
+You will be given the full tournament log so far, including all previous games and the current game state.
+For your convenience, you will be given possible actions you can take.
+Before you decide, think.
+At the end make a decision what to do next, and only respond with one of the available actions.
+Follow given strategy.
+
+BETTING RULES:
+- Use Bet(amount) to specify the TOTAL amount you want to bet in the current round.
+- Minimum raise must equal the previous bet/raise amount (e.g., if big blind is X, minimum raise is X more, so Bet(2*X) total)
+- If you're in small blind (Y) and want to raise, Bet(Z) means you're adding Z-Y more chips (Z total - Y already posted)
+- Invalid bet amounts will result in an automatic fold, so always ensure your bet meets minimum requirements
+- Use Call to match the current bet, AllIn to bet all remaining chips, or Fold to quit the hand
+"#;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct WorkerId(pub usize);
@@ -100,6 +119,7 @@ impl Worker {
     }
 
     async fn execute_tournament(&self, tournament_id: &TournamentId) {
+        let logger = TournamentLogger::new(&tournament_id);
         println!("[w] Worker {:?} executing tournament {:?}", self.id, tournament_id);
         
         // Fetch tournament info.
@@ -131,7 +151,7 @@ impl Worker {
                 rs_poker_types::tournament::TournamentStatus::GameInProgress => {
                     if let Some(game_id) = tournament_info.current_game_id {
                         println!("[w] Tournament has game in progress: {:?}", game_id);
-                        self.execute_game(&game_id).await;
+                        self.execute_game(&game_id, &logger).await;
                     } else {
                         println!("[w] Tournament claims game in progress but no game ID found");
                         break;
@@ -143,9 +163,13 @@ impl Worker {
                 }
             }
         }
+
+        // Log tournament finished
+        let info = self.poker_client.tournament_full_view(&tournament_id).await.unwrap();
+        logger.log_tournament_finished(&info.summary);
     }
 
-    async fn execute_game(&self, game_id: &GameId) {
+    async fn execute_game(&self, game_id: &GameId, logger: &TournamentLogger) {
         println!("[w] Worker {:?} executing game {:?}", self.id, game_id);
         
         // Keep processing until game is complete
@@ -179,17 +203,24 @@ impl Worker {
                                 }
                             };
 
+                            let system_prompt = SYSTEM_PROMPT.to_string();
+
                             // Make AI decision
-                            let decision = crate::ai_player::decide(
+                            let (user_prompt, decision) = crate::ai_player::decide(
                                 model.clone(),
+                                system_prompt.clone(),
                                 strategy.clone(),
                                 game_view.summary.clone(),
                                 format!("{:?}", game_view.possible_actions),
                             ).await;
 
+                            let decision_str = format!("{:#?}", decision);
+
+                            logger.log_game_action(game_id, &system_prompt, &user_prompt, &decision_str);
+
                             // Submit the decision
                             match self.poker_client.make_decision(
-                                rs_poker_server::handler::game_make_action::MakeActionRequest {
+                                MakeActionRequest {
                                     game_id: game_id.clone(),
                                     decision,
                                 }
@@ -218,8 +249,13 @@ impl Worker {
                 }
             }
 
+            let full_view = self.poker_client.game_full_view(GameFullViewRequest {
+                game_id: game_id.clone(),
+                debug: false,
+            }).await.unwrap();
+            logger.log_game_finished(game_id, &full_view.summary);
             // Small delay to avoid overwhelming the server
-            tokio::time::sleep(tokio::time::Duration::from_millis(50)).await;
+            // tokio::time::sleep(tokio::time::Duration::from_millis(50)).await;
         }
     }
 }

@@ -1,0 +1,58 @@
+Timestamp: 1759146341
+Tournament ID: ai-vs-random-tournament-1
+Game ID: game-owtan7
+Action Number: 1
+
+=== SYSTEM PROMPT ===
+
+You are an expert Texas Hold'em poker player.
+You take part in the Texas Hold'em poker tournament with max 10 games.
+If the tournament reaches 10 games, the player with the highest total chips wins.
+Winner takes it all.
+You will be given the full tournament log so far, including all previous games and the current game state.
+For your convenience, you will be given possible actions you can take.
+Before you decide, think.
+At the end make a decision what to do next, and only respond with one of the available actions.
+Follow given strategy.
+
+BETTING RULES:
+- Use Bet(amount) to specify the TOTAL amount you want to bet in the current round.
+- Minimum raise must equal the previous bet/raise amount (e.g., if big blind is X, minimum raise is X more, so Bet(2*X) total)
+- If you're in small blind (Y) and want to raise, Bet(Z) means you're adding Z-Y more chips (Z total - Y already posted)
+- Invalid bet amounts will result in an automatic fold, so always ensure your bet meets minimum requirements
+- Use Call to match the current bet, AllIn to bet all remaining chips, or Fold to quit the hand
+
+
+=== USER PROMPT ===
+
+<Game>
+Game Started - ID: GameId("game-owtan7")
+Small blind: 5
+Big blind: 10
+Players: 3
+- Bob has stack: 100
+- Alice has stack: 64.94498
+- CharlieAI (You) has stack: 135.05502
+
+Your Hand: Td 8h
+
+--- Preflop ---
+Alice posts small blind of 5 (stack: 59.944977, pot: 5)
+CharlieAI posts big blind of 10 (stack: 125.05502, pot: 15)
+Bob increases to 24.602951 (stack: 75.39705, pot: 39.60295)
+Alice calls (stack: 40.342026, pot: 59.205902)
+
+</Game>
+<Strategy>
+Play only strong hands.
+</Strategy>
+<Actions>
+[Fold, Call, Bet { min: 39.205902, max: 135.05502 }, AllIn]
+</Actions>
+
+=== RESPONSE ===
+Decision {
+    reason: "The hand (Td 8h) is not strong enough to continue after a raise from Bob, especially with two players in the pot already. Following the strategy of playing only strong hands, I will fold.",
+    action: Fold,
+}
+

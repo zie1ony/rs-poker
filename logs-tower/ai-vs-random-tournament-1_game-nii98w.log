@@ -1,0 +1,55 @@
+Timestamp: 1759146343
+Tournament ID: ai-vs-random-tournament-1
+Game ID: game-nii98w
+Status: GAME FINISHED
+
+=== GAME SUMMARY ===
+Game Started - ID: GameId("game-nii98w")
+Small blind: 10
+Big blind: 20
+Players: 3
+- Bob has stack: 75.39705
+- Alice has stack: 94.54793
+- CharlieAI has stack: 130.05502
+
+Hole Cards:
+- Bob: 2d Ks
+- Alice: 2s Qs
+- CharlieAI: 5c 8h
+
+Community Cards: 4s 5d As Tc Kc
+
+--- Preflop ---
+Alice posts small blind of 10 (stack: 84.54793, pot: 10)
+CharlieAI posts big blind of 20 (stack: 110.05502, pot: 30)
+Bob thinks: "RandomAgent decision"
+Bob increases to 55.75019 (stack: 19.646858, pot: 85.75019)
+Alice thinks: "RandomAgent decision"
+Alice calls (stack: 38.797737, pot: 131.50038)
+CharlieAI thinks: "I have a weak hand (5c 8h) and the action has raised with a substantial bet. Following the strategy to play only strong hands, I will fold."
+CharlieAI folds (stack: 110.05502, pot: 131.50038)
+
+--- Flop ---
+Flop cards: 4s 5d As
+Alice thinks: "RandomAgent decision"
+Alice calls (stack: 38.797737, pot: 131.50038)
+Bob thinks: "RandomAgent decision"
+Bob increases to 19.646858 (stack: 0, pot: 151.14725)
+Alice thinks: "RandomAgent decision"
+Alice calls (stack: 19.150879, pot: 170.7941)
+
+--- Turn ---
+Turn card: Tc
+Alice thinks: "RandomAgent decision"
+Alice calls (stack: 19.150879, pot: 170.7941)
+
+--- River ---
+River card: Kc
+Alice thinks: "RandomAgent decision"
+Alice increases to 19.150879 (stack: 0, pot: 189.94498)
+
+--- Game Ended ---
+Bob wins 170.7941 (stack after: 170.7941)
+Alice wins 19.150879 (stack after: 19.150879)
+
+

@@ -70,6 +70,4 @@ Charlie wins 60 (stack after: 60)
 Alice wins 240 (stack after: 240)
 ```
 
-## Logs
-
-- 
+## Players with zero stack should be removed from the game.

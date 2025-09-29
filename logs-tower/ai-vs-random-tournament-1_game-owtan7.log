@@ -1,0 +1,49 @@
+Timestamp: 1759146341
+Tournament ID: ai-vs-random-tournament-1
+Game ID: game-owtan7
+Status: GAME FINISHED
+
+=== GAME SUMMARY ===
+Game Started - ID: GameId("game-owtan7")
+Small blind: 5
+Big blind: 10
+Players: 3
+- Bob has stack: 100
+- Alice has stack: 64.94498
+- CharlieAI has stack: 135.05502
+
+Hole Cards:
+- Bob: 8d 9h
+- Alice: 3s 2s
+- CharlieAI: Td 8h
+
+Community Cards: 7s 4s 7d Qd Js
+
+--- Preflop ---
+Alice posts small blind of 5 (stack: 59.944977, pot: 5)
+CharlieAI posts big blind of 10 (stack: 125.05502, pot: 15)
+Bob thinks: "RandomAgent decision"
+Bob increases to 24.602951 (stack: 75.39705, pot: 39.60295)
+Alice thinks: "RandomAgent decision"
+Alice calls (stack: 40.342026, pot: 59.205902)
+CharlieAI thinks: "The hand (Td 8h) is not strong enough to continue after a raise from Bob, especially with two players in the pot already. Following the strategy of playing only strong hands, I will fold."
+CharlieAI folds (stack: 125.05502, pot: 59.205902)
+
+--- Flop ---
+Flop cards: 7s 4s 7d
+Alice thinks: "RandomAgent decision"
+Alice calls (stack: 40.342026, pot: 59.205902)
+Bob thinks: "RandomAgent decision"
+Bob calls (stack: 75.39705, pot: 59.205902)
+
+--- Turn ---
+Turn card: Qd
+Alice thinks: "RandomAgent decision"
+Alice increases to 14.807499 (stack: 25.534527, pot: 74.0134)
+Bob thinks: "RandomAgent decision"
+Bob folds (stack: 75.39705, pot: 74.0134)
+
+--- Game Ended ---
+Alice wins 74.0134 (stack after: 99.54793)
+
+

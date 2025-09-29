@@ -123,41 +123,27 @@ impl GameSummary {
                 GameEvent::FailedPlayerAction(e) => {
                     let player_name = &e.player_name;
 
-                    // If this summary is for a specific player, skip showing all thoughts.
                     if self.for_player.is_none() {
                         summary.push_str(&format!(
                             "{} thinks: \"{}\"\n",
                             player_name, e.player_decision.reason
                         ));
+
+                        let decision_action_str = action_to_str(&e.player_decision.action);
+                        summary.push_str(&format!(
+                            "{} tries to {}, but it's invalid action.\n",
+                            player_name, decision_action_str
+                        ));
                     }
 
-                    let decision_action_str = match e.player_decision.action {
-                        AgentAction::Fold => String::from("folds"),
-                        AgentAction::Call => String::from("calls"),
-                        AgentAction::Bet(amount) => {
-                            String::from(format!("increases to {}", amount))
-                        }
-                        AgentAction::AllIn => String::from("goes all-in"),
-                    };
+                    let forced_action_str = action_to_str(&e.action);
                     summary.push_str(&format!(
-                        "{} tries to {}, but it's invalid action.",
-                        player_name, decision_action_str
-                    ));
-
-                    let forced_action_str = match e.action {
-                        AgentAction::Fold => String::from("folds"),
-                        AgentAction::Call => String::from("calls"),
-                        AgentAction::Bet(amount) => {
-                            String::from(format!("increases to {}", amount))
-                        }
-                        AgentAction::AllIn => String::from("goes all-in"),
-                    };
-                    summary.push_str(&format!(
-                        "{} {} [FORCED] {}\n",
+                        "{} {} {}\n",
                         player_name,
                         forced_action_str,
                         after_action_info(e.stack_after, e.pot_after)
                     ));
+
                 }
                 GameEvent::PlayerAction(e) => {
                     let player_name = &e.player_name;
@@ -170,14 +156,7 @@ impl GameSummary {
                         ));
                     }
 
-                    let action_str = match e.player_decision.action {
-                        AgentAction::Fold => String::from("folds"),
-                        AgentAction::Call => String::from("calls"),
-                        AgentAction::Bet(amount) => {
-                            String::from(format!("increases to {}", amount))
-                        }
-                        AgentAction::AllIn => String::from("goes all-in"),
-                    };
+                    let action_str = action_to_str(&e.player_decision.action);
                     summary.push_str(&format!(
                         "{} {} {}\n",
                         player_name,
@@ -220,4 +199,13 @@ impl GameSummary {
 
 pub fn after_action_info(stack: f32, pot: f32) -> String {
     format!("(stack: {}, pot: {})", stack, pot)
+}
+
+pub fn action_to_str(action: &AgentAction) -> String {
+    match action {
+        action::AgentAction::Fold => "folds".to_string(),
+        action::AgentAction::Call => "calls".to_string(),
+        action::AgentAction::Bet(amount) => format!("bets {}", amount),
+        action::AgentAction::AllIn => "goes all-in".to_string(),
+    }
 }
