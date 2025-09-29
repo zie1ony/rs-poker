@@ -2,6 +2,7 @@ use rand::{seq::SliceRandom, SeedableRng};
 
 use crate::{player::Player, tournament::{TournamentEndCondition, TournamentId, TournamentSettings}};
 
+#[derive(Debug, Clone, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
 pub struct SeriesId(String);
 
 impl SeriesId {

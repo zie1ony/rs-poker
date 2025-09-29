@@ -1,4 +1,4 @@
-use rs_poker::arena::{action::AgentAction, game_state::Round};
+use rs_poker::arena::{action::{self, AgentAction}, game_state::Round};
 use rs_poker_types::{
     game_event::{ForcedBetKind, GameEvent},
     player::PlayerName,
@@ -120,8 +120,44 @@ impl GameSummary {
                         after_action_info(bet_event.stack_after, bet_event.pot_after)
                     ));
                 }
-                GameEvent::FailedPlayerAction(_failed_player_action_event) => {
-                    panic!("Should never happen");
+                GameEvent::FailedPlayerAction(e) => {
+                    let player_name = &e.player_name;
+
+                    // If this summary is for a specific player, skip showing all thoughts.
+                    if self.for_player.is_none() {
+                        summary.push_str(&format!(
+                            "{} thinks: \"{}\"\n",
+                            player_name, e.player_decision.reason
+                        ));
+                    }
+
+                    let decision_action_str = match e.player_decision.action {
+                        AgentAction::Fold => String::from("folds"),
+                        AgentAction::Call => String::from("calls"),
+                        AgentAction::Bet(amount) => {
+                            String::from(format!("increases to {}", amount))
+                        }
+                        AgentAction::AllIn => String::from("goes all-in"),
+                    };
+                    summary.push_str(&format!(
+                        "{} tries to {}, but it's invalid action.",
+                        player_name, decision_action_str
+                    ));
+
+                    let forced_action_str = match e.action {
+                        AgentAction::Fold => String::from("folds"),
+                        AgentAction::Call => String::from("calls"),
+                        AgentAction::Bet(amount) => {
+                            String::from(format!("increases to {}", amount))
+                        }
+                        AgentAction::AllIn => String::from("goes all-in"),
+                    };
+                    summary.push_str(&format!(
+                        "{} {} [FORCED] {}\n",
+                        player_name,
+                        forced_action_str,
+                        after_action_info(e.stack_after, e.pot_after)
+                    ));
                 }
                 GameEvent::PlayerAction(e) => {
                     let player_name = &e.player_name;

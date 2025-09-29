@@ -29,7 +29,16 @@ enum Commands {
         command: TournamentCommands,
     },
 
-    Tower,
+    /// Run AI Players.
+    Tower {
+        /// Number of worker threads to spawn.
+        #[arg(short, long, default_value = "1")]
+        workers: usize,
+
+        /// Maximum number of tasks to process before exiting.
+        #[arg(short, long, default_value = "1")]
+        max_tasks: usize,
+    },
 
     Series { 
         #[command(subcommand)]
@@ -136,15 +145,13 @@ async fn main() {
                 tournament_player_view(cli.mock_server, player_name, tournament_id).await;
             }
         },
-        Commands::Tower => {
-            rs_poker_tower::run().await;
+        Commands::Tower { workers, max_tasks } => {
+            rs_poker_tower::run(workers, max_tasks).await;
         },
         Commands::Series { command } =>  {
             match command {
                 SeriesCommand::Run => {
-                    // Placeholder: Define a series and run it
-                    println!("Running a series of tournaments...");
-                    // Here you would create a PokerClient and a Series, then call run_series
+                    run_series(cli.mock_server).await;
                 }
             }
         }
@@ -317,13 +324,15 @@ async fn tournament_player_view(mock_server: bool, player_name: String, tourname
 async fn run_series(mock_server: bool) {
     let client = client(mock_server);
     let series = SeriesSettings {
-        series_id: SeriesId::new("random-3p"),
+        // series_id: SeriesId::new("random-3p"),
+        series_id: SeriesId::new("ai-vs-random"),
         players: vec![
             Player::random("Alice"),
             Player::random("Bob"),
-            Player::random("Charlie"),
+            // Player::random("Charlie"),
+            Player::ai("CharlieAI", "gpt-4o-mini", "Play only strong hands.")
         ],
-        number_of_tournaments: 3,
+        number_of_tournaments: 5,
         starting_player_stack: 100.0,
         starting_small_blind: 5.0,
         double_blinds_every_n_games: Some(3),

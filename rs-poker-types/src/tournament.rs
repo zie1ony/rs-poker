@@ -1,4 +1,4 @@
-use crate::{game::GameId, player::Player, random_id};
+use crate::{game::GameId, player::{Player, PlayerName}, random_id};
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
 pub struct TournamentId(pub String);
@@ -40,12 +40,25 @@ pub enum TournamentStatus {
     Completed,
 }
 
+impl TournamentStatus {
+    pub fn is_completed(&self) -> bool {
+        matches!(self, TournamentStatus::Completed)
+    }
+}
+
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
 pub struct TournamentInfo {
     pub settings: TournamentSettings,
     pub status: TournamentStatus,
     pub games_played: usize,
     pub current_game_id: Option<GameId>,
+    pub winner: Option<PlayerName>,
+}
+
+impl TournamentInfo {
+    pub fn tournament_id(&self) -> TournamentId {
+        self.settings.tournament_id.clone()
+    }
 }
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]

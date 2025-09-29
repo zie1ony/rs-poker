@@ -208,6 +208,7 @@ impl TournamentInstance {
             status: self.status.clone(),
             games_played: self.next_game_number,
             current_game_id: self.current_game_id.clone(),
+            winner: self.winner().map(|p| p.name()),
         }
     }
 }

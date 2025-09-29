@@ -14,11 +14,7 @@ pub fn client() -> PokerClient {
     PokerClient::new_http("http://localhost:3001")
 }
 
-pub async fn run() {
-    // Configuration.
-    let number_of_workers = 2;
-    let max_tasks = 4;
-
+pub async fn run(number_of_workers: usize, max_tasks: usize) {
     // Create communication channels for workers to send messages to the tower.
     // mpsc works great here as there are multiple workers sending messages to a
     // single tower.

@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
+#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone, Hash, Eq)]
 #[serde(transparent)]
 pub struct PlayerName(String);
 
