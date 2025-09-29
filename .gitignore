@@ -25,3 +25,6 @@ perf.data*
 # mutation testing with cargo mutants
 /mutants.out*/
 .env
+
+# Logs
+logs-tower/
