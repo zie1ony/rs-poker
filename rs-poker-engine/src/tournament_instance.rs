@@ -222,7 +222,65 @@ impl TournamentInstance {
 
 impl From<Vec<TournamentEvent>> for TournamentInstance {
     fn from(events: Vec<TournamentEvent>) -> Self {
-        todo!()
+        if events.is_empty() {
+            panic!("Cannot reconstruct tournament from empty events");
+        }
+
+        // First event must be TournamentCreated
+        let settings = match &events[0] {
+            TournamentEvent::TournamentCreated(event) => event.settings.clone(),
+            _ => panic!("First event must be TournamentCreated"),
+        };
+
+        let mut instance = Self {
+            tournament_id: settings.tournament_id.clone(),
+            events: Vec::new(),
+            settings: settings.clone(),
+            status: TournamentStatus::WaitingForNextGame,
+            next_game_number: 0,
+            next_small_blind: settings.starting_small_blind,
+            current_game_id: None,
+            player_stacks: vec![settings.starting_player_stack; settings.players.len()],
+            game_ids: vec![],
+        };
+
+        // Process each event to rebuild state
+        for event in events {
+            match &event {
+                TournamentEvent::TournamentCreated(_) => {
+                    // Already handled above, just add to events
+                }
+                TournamentEvent::GameStarted(game_started) => {
+                    instance.status = TournamentStatus::GameInProgress;
+                    instance.current_game_id = Some(game_started.game_id.clone());
+                    instance.game_ids.push(game_started.game_id.clone());
+                    instance.next_game_number += 1;
+                    
+                    // Update blinds if needed (recalculate based on game number)
+                    let game_number = instance.next_game_number - 1; // 0-indexed
+                    if let Some(n) = instance.settings.double_blinds_every_n_games {
+                        let mut small_blind = instance.settings.starting_small_blind;
+                        let blind_doublings = game_number / n;
+                        for _ in 0..blind_doublings {
+                            small_blind *= 2.0;
+                        }
+                        instance.next_small_blind = small_blind;
+                    }
+                }
+                TournamentEvent::GameEnded(game_ended) => {
+                    instance.status = TournamentStatus::WaitingForNextGame;
+                    instance.current_game_id = None;
+                    instance.player_stacks = game_ended.player_stacks.clone();
+                }
+                TournamentEvent::TournamentFinished(_) => {
+                    instance.status = TournamentStatus::Completed;
+                    instance.current_game_id = None;
+                }
+            }
+            instance.events.push(event);
+        }
+
+        instance
     }
 }
 
