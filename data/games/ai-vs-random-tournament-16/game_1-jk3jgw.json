@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-jk3jgw",
+      "tournament_id": "ai-vs-random-tournament-16",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        200.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "8d",
+          "Ts"
+        ],
+        [
+          "3c",
+          "8s"
+        ]
+      ],
+      "community_cards": [
+        "Ks",
+        "9d",
+        "Tc",
+        "5d",
+        "4d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 195.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "8dTs is weak in a heads-up preflop versus a 10-big-blind; folding preserves stack and avoids risking chips with a marginal hand.",
+        "action": "Fold"
+      },
+      "stack_after": 195.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 15.0,
+          "stack_after": 105.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

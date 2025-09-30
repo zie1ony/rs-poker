@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_7-f880wc",
+      "tournament_id": "ai-vs-random-tournament-5",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        80.0,
+        220.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "6s",
+          "9c"
+        ],
+        [
+          "Qs",
+          "8d"
+        ]
+      ],
+      "community_cards": [
+        "4s",
+        "Kd",
+        "Ah",
+        "2s",
+        "Td"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 60.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 40.0,
+      "stack_after": 180.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "6s9c is a marginal hand in the 20/40 early pot, and facing a 40BB raise from a much bigger stack leaves you with poor postflop leverage. Folding preserves your remaining 60 chips for better spots and avoids a marginal spot in this tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 60.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 60.0,
+          "stack_after": 240.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

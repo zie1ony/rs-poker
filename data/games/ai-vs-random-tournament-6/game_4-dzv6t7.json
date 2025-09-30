@@ -1,0 +1,185 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-dzv6t7",
+      "tournament_id": "ai-vs-random-tournament-6",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        210.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Ad",
+          "Kc"
+        ],
+        [
+          "3s",
+          "2h"
+        ]
+      ],
+      "community_cards": [
+        "Js",
+        "2d",
+        "Th",
+        "Qs",
+        "7h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 75.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 190.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With Ad Kc on the SB vs BB 20, raising to 40 is a standard, pressure-building play. AK dominates many hands BB would call with and you still have fold equity. If called, you still have strong postflop potential and deep stacks remain.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 45.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Hand is very weak (3-2 offsuit) but pot odds are favorable: call 20 to contest a 60 pot. No need to risk a large raise or shove given position and opponent is short-stacked — call to see the flop and retain flexibility.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Js",
+        "2d",
+        "Th"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a weak pair (pair of 2s) on a J‑T‑2 board and the opponent is short-stacked. With a large chip lead, avoid unnecessary risk — check/control the pot and see how the short stack reacts rather than committing chips now.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With Ad Kc on Js 2d Th (AK on a coordinated flop), a small probe bet (~20) protects my overcards, deny equity to worse hands, and keeps the pot manageable given my short stack and SPR.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 25.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a medium pair (pair of 2s) and a large chip advantage. Raising to 45 (total) exerts maximum pressure on the short-stacked opponent, forcing them all-in or folding and picking up the pot. This uses fold equity to try to eliminate them while keeping risk moderate compared with an outright shove.",
+        "action": {
+          "Bet": 45.0
+        }
+      },
+      "stack_after": 125.0,
+      "pot_after": 145.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a 45-bet on the turn with Ad Kc on Js 2d Th, Th. You have only 6 outs (~13% equity) to the river, below the break-even ~14.7% (pot ~170 after call). Fold to preserve stack.",
+        "action": "Fold"
+      },
+      "stack_after": 25.0,
+      "pot_after": 145.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 145.0,
+          "stack_after": 270.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

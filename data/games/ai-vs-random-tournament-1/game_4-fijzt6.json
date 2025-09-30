@@ -1,0 +1,248 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-fijzt6",
+      "tournament_id": "ai-vs-random-tournament-1",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        220.0,
+        80.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Jc",
+          "7h"
+        ],
+        [
+          "3s",
+          "5c"
+        ]
+      ],
+      "community_cards": [
+        "5d",
+        "Jh",
+        "2s",
+        "8h",
+        "9d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 210.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 60.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Jc7h is a marginal hand. I have a big chip advantage (220 vs 80), so avoid unnecessary risk. Calling only costs 10 more to see the flop, allows pot control and the chance to improve without committing many chips.",
+        "action": "Call"
+      },
+      "stack_after": 200.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With a weak hand (3s5c) in the big blind, a small raise to 40 is the lowest-risk way to pressure the pot, potentially take it down now or at least see a cheap flop while preserving your remaining chips for the rest of the tournament.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 40.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Small, low-risk call for good pot odds (pot 60, call 40). I’m the chip leader and should avoid unnecessary variance with J7o — calling is the least risky way to potentially pick up the pot while preserving my tournament lead.",
+        "action": "Call"
+      },
+      "stack_after": 180.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "5d",
+        "Jh",
+        "2s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "We have a middle pair on a dry flop (5d Jh 2s). With 60 behind, a small bet of 20 protects our hand, denies overcards, and keeps the pot manageable while we see how the opponent reacts.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 20.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have top pair (J) with a weak kicker vs a short-stacked opponent who bet 20 (has 20 left). Calling keeps the pot controlled, gets him all-in so I can extract value at showdown without risking unnecessary extra chips and preserves my chip lead in the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 160.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "8h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "You have only 20 chips left on the turn with a marginal pair (pair of fives) and opponent has a large stack. Pushing all-in maximizes your chance to double up and stay competitive in the tournament.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Small call (20) for a large pot — I have top pair (J) and good showdown value. Pot odds (~8:1) justify calling; no need to raise or shove into an all-in from a short stack.",
+        "action": "Call"
+      },
+      "stack_after": 140.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "9d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Charlie is already all-in and I have top pair (Jacks). No need to risk extra chips — take showdown and preserve stack to maximize tournament win chances.",
+        "action": "Call"
+      },
+      "stack_after": 140.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 160.0,
+          "stack_after": 300.0,
+          "rank": {
+            "OnePair": 4194528
+          },
+          "hand": [
+            "2s",
+            "Jc",
+            "7h",
+            "8h",
+            "Jh",
+            "5d",
+            "9d"
+          ]
+        }
+      ]
+    }
+  }
+]

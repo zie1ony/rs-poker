@@ -1,10 +1,8 @@
 use rs_poker_types::{
-    game::{GameFinalResults, GameId, GameSettings},
-    tournament::{TournamentId, TournamentInfo, TournamentSettings, TournamentStatus},
-    tournament_event::{
+    game::{GameFinalResults, GameId, GameSettings}, player::Player, tournament::{TournamentId, TournamentInfo, TournamentSettings, TournamentStatus}, tournament_event::{
         GameEndedEvent, GameStartedEvent, TournamentCreatedEvent, TournamentEvent,
         TournamentFinishedEvent,
-    },
+    }
 };
 
 #[derive(Clone, Debug, PartialEq)]
@@ -144,19 +142,23 @@ impl TournamentInstance {
         let game_id = GameId::for_tournament(game_number);
 
         // Only include players with positive stacks (more than small blind).
-        let positive_stacks_ids: Vec<usize> = self
+        let mut positive_stacks_ids: Vec<usize> = self
             .player_stacks
             .iter()
             .enumerate()
             .filter_map(|(idx, &stack)| if stack > small_blind { Some(idx) } else { None })
             .collect();
 
+        // Shift players to ensure dealer position rotates fairly
+        let rotate_by = game_number % positive_stacks_ids.len();
+        positive_stacks_ids.rotate_left(rotate_by);
+
         let positive_stacks: Vec<f32> = positive_stacks_ids
             .iter()
             .map(|&idx| self.player_stacks[idx])
             .collect();
 
-        let positive_players: Vec<rs_poker_types::player::Player> = positive_stacks_ids
+        let positive_players: Vec<Player> = positive_stacks_ids
             .iter()
             .map(|&idx| self.settings.players[idx].clone())
             .collect();
@@ -226,9 +228,7 @@ impl TournamentInstance {
                 .iter()
                 .position(|name| name == player_name)
             {
-                if i < game_final_results.final_stacks.len() {
-                    self.player_stacks[tournament_index] = game_final_results.final_stacks[i];
-                }
+                self.player_stacks[tournament_index] = game_final_results.final_stacks[i];
             }
         }
 

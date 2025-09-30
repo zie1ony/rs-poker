@@ -1,0 +1,186 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-2mq45w",
+      "tournament_id": "ai-vs-random-tournament-4",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        215.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Jd",
+          "7c"
+        ],
+        [
+          "Th",
+          "Kd"
+        ]
+      ],
+      "community_cards": [
+        "4h",
+        "4d",
+        "Kh",
+        "6c",
+        "6d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 75.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 195.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up I should be aggressive with a playable hand (Jd7c). Raise to 2x BB (40 total) to attempt a blind steal and take initiative while risking a small portion of my stack.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 45.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Pocket Kings in a heads-up preflop/early postflop spot against a single opponent is a strong value shove. You have top-tier hand equity and Maximize fold equity while leveraging your stack; going all-in puts pressure and simplifies decisions given the opponent's shallow stack.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 255.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Pot is 255 and I can call by committing my remaining 45 (final pot ~300). I only need ~13% equity to break even. Heads-up vs a likely wide shove range, J7o has sufficient equity and I must take a shot with my short stack to try to win the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 300.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "4h",
+        "4d",
+        "Kh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "6c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "6d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 300.0,
+          "stack_after": 300.0,
+          "rank": {
+            "TwoPair": 16908544
+          },
+          "hand": [
+            "6c",
+            "4h",
+            "Th",
+            "Kh",
+            "4d",
+            "6d",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]

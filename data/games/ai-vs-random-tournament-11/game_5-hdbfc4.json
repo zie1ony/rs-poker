@@ -1,0 +1,172 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-hdbfc4",
+      "tournament_id": "ai-vs-random-tournament-11",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        250.0,
+        50.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Js",
+          "4d"
+        ],
+        [
+          "8s",
+          "Qc"
+        ]
+      ],
+      "community_cards": [
+        "9d",
+        "2d",
+        "4c",
+        "4h",
+        "3h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 240.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 30.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up vs a 2.5BB stack; with J4o we’re ahead of a random hand. Jamming maximizes fold equity and puts the short stack to a decision for all chips, leveraging our big chip lead to close out the tournament.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 270.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a preflop all-in from Alice with 30 chips left in the big blind. Your Qc8s has roughly 25-30% equity versus a wide shoving range, and the pot is 270. Calling (going all-in for your remaining 30) has positive expected value (roughly +40 to +50 chips) versus folding which would lock in a -30 loss. Therefore, call to maximize EV and tournament equity.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 300.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "9d",
+        "2d",
+        "4c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "3h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 300.0,
+          "stack_after": 300.0,
+          "rank": {
+            "ThreeOfAKind": 33408
+          },
+          "hand": [
+            "Js",
+            "4c",
+            "3h",
+            "4h",
+            "2d",
+            "4d",
+            "9d"
+          ]
+        }
+      ]
+    }
+  }
+]

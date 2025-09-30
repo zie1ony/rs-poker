@@ -1,0 +1,196 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-7n0mp7",
+      "tournament_id": "ai-vs-random-tournament-5",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        260.0,
+        40.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "7d",
+          "6d"
+        ],
+        [
+          "Ks",
+          "6h"
+        ]
+      ],
+      "community_cards": [
+        "3s",
+        "Jh",
+        "6c",
+        "8c",
+        "Jc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 240.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 0.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in for 40; calling 20 into 60 gives excellent odds with 7d6d and a chance to eliminate them.",
+        "action": "Call"
+      },
+      "stack_after": 220.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "3s",
+        "Jh",
+        "6c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; no further betting is possible. Check to run out the board.",
+        "action": "Call"
+      },
+      "stack_after": 220.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "8c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in from the big blind; no further betting possible. We have middle pair and want to see the river.",
+        "action": "Call"
+      },
+      "stack_after": 220.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Jc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent was all-in preflop; no further betting allowed. Proceed to showdown with pair of sixes.",
+        "action": "Call"
+      },
+      "stack_after": 220.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 80.0,
+          "stack_after": 80.0,
+          "rank": {
+            "TwoPair": 4327424
+          },
+          "hand": [
+            "3s",
+            "Ks",
+            "6c",
+            "8c",
+            "Jc",
+            "6h",
+            "Jh"
+          ]
+        }
+      ]
+    }
+  }
+]

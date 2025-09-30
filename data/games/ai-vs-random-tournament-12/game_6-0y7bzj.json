@@ -1,0 +1,220 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-0y7bzj",
+      "tournament_id": "ai-vs-random-tournament-12",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        240.0,
+        60.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "2s",
+          "7c"
+        ],
+        [
+          "5h",
+          "9c"
+        ]
+      ],
+      "community_cards": [
+        "5s",
+        "Ac",
+        "3s",
+        "4h",
+        "8d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 220.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 20.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent has effectively 20 behind (big blind). Calling costs only 20 more to see the showdown — good pot odds — and there’s no reason to commit more with a 2-7 offsuit.",
+        "action": "Call"
+      },
+      "stack_after": 200.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "No raise after you posted the big blind; with 5h9c in the big blind and only 60 chips left, check/call is the prudent play to see a flop and avoid risking your stack with a weak hand in position shift.",
+        "action": "Call"
+      },
+      "stack_after": 20.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "5s",
+        "Ac",
+        "3s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With 20 left on the flop (board: Ac 5s 3s) and 80 in the pot, this is a must-push spot. You have a marginal hand (pair of fives with a weak kicker) and are out of position with a large stack behind. All-in maximizes fold equity and gives you a chance to double up to stay in the tournament; calling would leave you with minimal outs and this tiny stack-on-board still faces a big pot.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Pot odds are excellent — calling 20 to win 120 needs only ~14% equity. Cheap to call against a short-stack shove; no need to risk more (or fold) when calling maximizes my chance to win the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 180.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "The turn gives me a made straight (A-2-3-4-5) — very strong vs a random all-in. Only rare two-card combos (e.g. 2+6 or 6+7) can beat me (~2–3% combos). Charlie is already all-in, so betting only creates an uncontested side pot. Call to see the river and lock up the main pot.",
+        "action": "Call"
+      },
+      "stack_after": 180.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "8d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "My 2s with board A-3-4-5 makes the wheel (A-2-3-4-5) — likely the best hand. Opponent is all-in already, so I should not risk extra chips; call (check) to see showdown and secure the win without inflating the pot.",
+        "action": "Call"
+      },
+      "stack_after": 180.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 120.0,
+          "stack_after": 300.0,
+          "rank": {
+            "Straight": 0
+          },
+          "hand": [
+            "2s",
+            "3s",
+            "5s",
+            "7c",
+            "Ac",
+            "4h",
+            "8d"
+          ]
+        }
+      ]
+    }
+  }
+]

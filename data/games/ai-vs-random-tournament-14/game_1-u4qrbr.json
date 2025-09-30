@@ -1,0 +1,141 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-u4qrbr",
+      "tournament_id": "ai-vs-random-tournament-14",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        90.0,
+        110.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "3d",
+          "9s"
+        ],
+        [
+          "4h",
+          "4c"
+        ],
+        [
+          "3s",
+          "3c"
+        ]
+      ],
+      "community_cards": [
+        "Jh",
+        "2s",
+        "Qc",
+        "7h",
+        "Tc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 5.0,
+      "stack_after": 105.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "3-handed on the button with ~9BB and 9-3 offsuit is bottom of range. Open-raising or limping is -EV and invites shoves from blinds. Fold and wait for a better spot.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Pocket pair (4♣4♥) heads-up versus BB — raise to isolate and get fold equity. Minimum raise to 20 is standard to build pot and avoid letting BB see a cheap flop.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 90.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "3s3c is an underpair on the preflop facing a 20 bet after you’re in the BB. The hand has low equity against a typical bet range and folding preserves your stack for better spots to come.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 30.0,
+          "stack_after": 120.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

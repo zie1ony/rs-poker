@@ -1,0 +1,129 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-ali7pt",
+      "tournament_id": "ai-vs-random-tournament-8",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        155.0,
+        145.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "Ad",
+          "8s"
+        ],
+        [
+          "Kh",
+          "5d"
+        ]
+      ],
+      "community_cards": [
+        "5c",
+        "Ah",
+        "4s",
+        "8h",
+        "2s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 135.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 40.0,
+      "stack_after": 105.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "A8 offsuit from the small blind versus a 40 big blind is marginal but playable in heads‑up. Calling 20 to see a flop keeps pot manageable and preserves stack while you may hit an Ace, 8, or backdoor draws.",
+        "action": "Call"
+      },
+      "stack_after": 115.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up aggression: K5o is a playable hand and raising to 80 (minimum raise) takes the initiative, applies pressure to the small blind's wide defend range, and preserves a healthy stack depth for postflop play. All-in is unnecessary; checking cedes initiative.",
+        "action": {
+          "Bet": 80.0
+        }
+      },
+      "stack_after": 65.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Ad♦8♠ is weak heads-up facing a sizable preflop raise (80). In this spot, folding preserves my stack and I can look for better spots with a weaker hand.",
+        "action": "Fold"
+      },
+      "stack_after": 115.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 120.0,
+          "stack_after": 185.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

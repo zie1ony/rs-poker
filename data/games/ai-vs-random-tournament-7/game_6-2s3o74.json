@@ -1,0 +1,127 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-2s3o74",
+      "tournament_id": "ai-vs-random-tournament-7",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        165.0,
+        135.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "Ad",
+          "9d"
+        ],
+        [
+          "5d",
+          "Js"
+        ]
+      ],
+      "community_cards": [
+        "6d",
+        "Th",
+        "5c",
+        "3c",
+        "3d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 145.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 40.0,
+      "stack_after": 95.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Ad9d suited in the small blind versus a 40 big blind raise is decent enough to call here. It keeps pot manageable and maintains postflop playability without committing too many chips with a marginal hand.",
+        "action": "Call"
+      },
+      "stack_after": 125.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "With only ~2.4 big blinds remaining this is a push-or-fold spot. J5s is strong enough heads-up to shove for fold equity and to pick up chips; calling or a small raise leaves no room postflop. All-in is the correct short-stack play to maximize chance to double up and win the tournament.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 175.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a preflop all-in from the big blind with Ad9d, your equity is well below breakeven against a plausible shoving range. Fold to conserve chips for a better Spot.",
+        "action": "Fold"
+      },
+      "stack_after": 125.0,
+      "pot_after": 175.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 175.0,
+          "stack_after": 175.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-up9fop",
+      "tournament_id": "ai-vs-random-tournament-5",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        95.0,
+        205.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Qc",
+          "2c"
+        ],
+        [
+          "Js",
+          "6h"
+        ]
+      ],
+      "community_cards": [
+        "9h",
+        "5d",
+        "Kc",
+        "4h",
+        "Ah"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 90.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 195.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Qc2c is weak in the SB preflop against a likely stronger BB range. Folding preserves 95 chips and positions us to apply pressure in later hands to win the tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 15.0,
+          "stack_after": 210.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

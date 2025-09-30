@@ -1,0 +1,233 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-uveqb3",
+      "tournament_id": "ai-vs-random-tournament-17",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        115.0,
+        90.0,
+        95.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "2h",
+          "Kc"
+        ],
+        [
+          "Ah",
+          "3d"
+        ],
+        [
+          "8s",
+          "Ac"
+        ]
+      ],
+      "community_cards": [
+        "4h",
+        "Qc",
+        "5h",
+        "Kd",
+        "Kh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 85.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 85.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "On the button 3-handed, K2o is a profitable open. Raise to 2.5x to pressure blinds and steal often while keeping pot manageable in position.",
+        "action": {
+          "Bet": 25.0
+        }
+      },
+      "stack_after": 90.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a 25 bet on the preflop in a three-way pot, with Ah3d (top pair outs unlikely) and 85 behind, the pot odds are poor to continue. Folding preserves stack for later, where we’ll have better spots to accumulate chips.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "A8o has decent equity vs an open and calling 15 into a 40 pot is cheap. With ~8.5BB effective stacks I avoid committing more preflop and prefer to see a flop and evaluate.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 55.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "4h",
+        "Qc",
+        "5h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have only Ace-high (A♣8♠) with no pair and no strong draw on Qc 4h 5h. Pot is 55 and my stack is 70 — betting commits chips without equity. I prefer to check and see the turn (call) to control the pot and try to hit an Ace or a safe card before committing more.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 55.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Check back. We have little immediate equity on Qh5h4c with K2, SPR is low vs a shorter stack who can check-jam many Qx/draws. Pot control and take a free card; we can barrel good turns (A, K, heart, 3).",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 55.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Kd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have only Ace-high with no pair and the K on the turn likely improved many opponent hands. Pot control and see the river cheaply rather than bloating the pot with a marginal hand.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 55.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Flop checked through and we turned top pair. Bet for value and protection versus hearts and draws; 35 into 55 charges draws without overcommitting.",
+        "action": {
+          "Bet": 35.0
+        }
+      },
+      "stack_after": 55.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have only Ace-high (A8) on K-Q-5-4 and the preflop aggressor is betting the turn. My equity is low vs a value range (Kx/Qx/pairs). Calling is a marginal call and shoving is too risky. Fold to conserve chips and wait for a better spot.",
+        "action": "Fold"
+      },
+      "stack_after": 70.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Turn",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 90.0,
+          "stack_after": 145.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

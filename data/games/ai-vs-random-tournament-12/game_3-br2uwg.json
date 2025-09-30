@@ -1,0 +1,232 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-br2uwg",
+      "tournament_id": "ai-vs-random-tournament-12",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        55.0,
+        135.0,
+        110.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Qs",
+          "4c"
+        ],
+        [
+          "8c",
+          "Kd"
+        ],
+        [
+          "9d",
+          "4h"
+        ]
+      ],
+      "community_cards": [
+        "3s",
+        "Ts",
+        "5h",
+        "Th",
+        "6d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 125.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 90.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We have only 2.75 BB on the button; with this short stack we should shove very wide. Q4o is a profitable jam and maximizes fold equity versus the blinds.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 85.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "K8o is marginal but calling costs only 45 more to contest the 55 all-in (good pot odds — need ~35% equity). Don’t overcommit preflop with a marginal hand; calling keeps pressure on Alice while preserving chips and avoids risking entire stack with a marginal raise or shove.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With 9d4h against two opponents who already have or are committing a large portion of their stacks (Alice all-in, Bob calling), this is a clear fold preflop to preserve your stack in a tournament. The hand is too weak to justify a call/raise given the pot and ranges.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "3s",
+        "Ts",
+        "5h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Alice is already all-in and cannot be further pressured. Betting only creates a side pot I can’t win more of; with K8 on 3s Ts 5h I should check (Call) to see turn/river without risking more chips.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Th"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Alice is already all-in and cannot call further; betting would only create an uncallable side pot. My hand (K8) is marginal with paired Tens on board, so just check (Call) and proceed to the river without risking chips.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "6d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Alice is already all-in and cannot be pressured. Betting only risks chips for no fold equity; calling (checking) proceeds to showdown without risking my remaining 80 and is the optimal, lowest-risk play with K8 on this board.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 130.0,
+          "stack_after": 210.0,
+          "rank": {
+            "OnePair": 2099280
+          },
+          "hand": [
+            "3s",
+            "Ts",
+            "8c",
+            "5h",
+            "Th",
+            "6d",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]

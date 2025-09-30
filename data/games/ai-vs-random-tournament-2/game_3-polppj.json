@@ -1,0 +1,117 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-polppj",
+      "tournament_id": "ai-vs-random-tournament-2",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        195.0,
+        105.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "6c",
+          "3h"
+        ],
+        [
+          "4h",
+          "4c"
+        ]
+      ],
+      "community_cards": [
+        "Ad",
+        "4s",
+        "Ts",
+        "3c",
+        "Kd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 185.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 85.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up I open-raise the minimum to 40 to steal the blinds and exert pressure. 6-3 is weak but in heads-up open-raising is standard; this wins small pots without overcommitting my large stack.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 155.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With 4h4c facing a 40 preflop bet in heads-up, you have only ~8-9% equity to hit a set by river. The pot odds are unfavorable, so folding preserves stack for the remaining tournament games.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 60.0,
+          "stack_after": 215.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

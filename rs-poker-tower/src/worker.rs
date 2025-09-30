@@ -10,9 +10,7 @@ use crate::{logger::TournamentLogger, tower::TowerMessage};
 
 const SYSTEM_PROMPT: &str = r#"
 You are an expert Texas Hold'em poker player.
-You take part in the Texas Hold'em poker tournament with max 10 games.
-If the tournament reaches 10 games, the player with the highest total chips wins.
-Winner takes it all.
+You take part in the Texas Hold'em poker tournament.
 You will be given the full tournament log so far, including all previous games and the current game state.
 For your convenience, you will be given possible actions you can take.
 Before you decide, think.

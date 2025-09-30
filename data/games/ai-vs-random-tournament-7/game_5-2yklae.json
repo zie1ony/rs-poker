@@ -1,0 +1,129 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-2yklae",
+      "tournament_id": "ai-vs-random-tournament-7",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        155.0,
+        145.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "3h",
+          "7s"
+        ],
+        [
+          "Js",
+          "Jc"
+        ]
+      ],
+      "community_cards": [
+        "8h",
+        "2c",
+        "9h",
+        "Ac",
+        "2d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 145.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 125.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up I can defend the small blind cheaply and see a flop. 3-7 offsuit is weak to shove or raise aggressively with, so call to control risk and play postflop rather than folding the pot or risking a large shove.",
+        "action": "Call"
+      },
+      "stack_after": 135.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Preflop with JJ in the big blind against a 10 SB we already called to 20. Raising to 40 (a 20-chip raise) puts pressure on a wide calling range, builds the pot for value, and gives us initiative without risking too much. A call would cede control to the SB, and an all-in is excessive in this spot.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 105.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "3-7 offsuit is one of the weakest hands, out of position and facing a preflop raise. Preserve my sizable stack and wait for a better spot to apply pressure.",
+        "action": "Fold"
+      },
+      "stack_after": 135.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 60.0,
+          "stack_after": 165.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

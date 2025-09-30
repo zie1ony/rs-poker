@@ -1,0 +1,260 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-i2alg9",
+      "tournament_id": "ai-vs-random-tournament-13",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        100.0,
+        115.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "3d",
+          "Kc"
+        ],
+        [
+          "2s",
+          "2d"
+        ],
+        [
+          "Qc",
+          "Qh"
+        ]
+      ],
+      "community_cards": [
+        "8c",
+        "7s",
+        "Kd",
+        "6d",
+        "Th"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 95.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Kc3d is a weak, high-variance hand in a 3-handed preflop against two bigger stacks. Folding preserves your 85-chip stack and avoids escalating with marginal equity before seeing the flop.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Open-raise from SB with a pocket pair to take initiative and apply pressure heads-up; min-raise keeps the pot manageable while maximizing fold equity.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 60.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Holding premium pocket queens in the big blind vs a small-blind open. 3-bet for value and fold equity; a raise to 60 (min 3-bet) isolates the raiser and builds the pot without committing my entire stack.",
+        "action": {
+          "Bet": 60.0
+        }
+      },
+      "stack_after": 55.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "5BB effective heads-up. Calling leaves 40 into 120 and commits us OOP; pocket 2s is strong enough to jam now.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Holding QQ heads-up against an all-in; very strong preflop with high equity. Calling maximizes chance to win the pot and advance in the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 15.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "8c",
+        "7s",
+        "Kd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have pocket Queens. On a K-8-7 flop I'm only behind hands containing a King or rare straights/sets. With only 15 chips left and most of the pot already committed, calling to go to showdown gives the best chance to win the hand and the tournament without making an unnecessary additional raise.",
+        "action": "Call"
+      },
+      "stack_after": 15.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "6d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "With QQ on K-8-7-6 I'm behind to any K and only have ~2 outs (≈4.3%) to make a set on the river. Putting my last 15 chips in for a ~200 pot requires ≈7% equity to be +EV, so I should not risk the stack — check/call to go to the river rather than shoving.",
+        "action": "Call"
+      },
+      "stack_after": 15.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Th"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Cheap call (≈15 to win ~200). Pocket Queens likely ahead vs typical shove range; only beaten by Kx or a 9 for the straight. Pot odds make a call correct to try to win the big pot.",
+        "action": "Call"
+      },
+      "stack_after": 15.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 200.0,
+          "stack_after": 215.0,
+          "rank": {
+            "OnePair": 8390976
+          },
+          "hand": [
+            "7s",
+            "8c",
+            "Qc",
+            "Th",
+            "Qh",
+            "6d",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]

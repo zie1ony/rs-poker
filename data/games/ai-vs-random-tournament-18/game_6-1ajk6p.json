@@ -1,0 +1,252 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-1ajk6p",
+      "tournament_id": "ai-vs-random-tournament-18",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        30.0,
+        195.0,
+        75.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "Js",
+          "3d"
+        ],
+        [
+          "7s",
+          "7d"
+        ],
+        [
+          "Ks",
+          "Jh"
+        ]
+      ],
+      "community_cards": [
+        "Kd",
+        "5d",
+        "9d",
+        "Th",
+        "Qs"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 175.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 40.0,
+      "stack_after": 35.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Cannot call 40 with only 30 chips remaining; folding preserves stack for future hands.",
+        "action": "Fold"
+      },
+      "stack_after": 30.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We’re heads-up versus an almost all-in big blind with only 35 behind. Raising to 80 effectively puts him in with 77, a strong favorite versus his range, denying a free flop without overcommitting with an unnecessary shove.",
+        "action": {
+          "Bet": 80.0
+        }
+      },
+      "stack_after": 115.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Short stack (35) — must gamble to survive and win tournament. Pot odds and fold equity are low; KJo has decent equity vs a raising range. Calling (effectively all‑in) to try to double up is correct.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 155.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Kd",
+        "5d",
+        "9d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in from preflop; no further betting required—proceed to showdown.",
+        "action": "Call"
+      },
+      "stack_after": 115.0,
+      "pot_after": 155.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Th"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; check it down to maximize equity with a marginal pair and avoid creating a pointless side pot.",
+        "action": "Call"
+      },
+      "stack_after": 115.0,
+      "pot_after": 155.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Qs"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; no side pot. Checking it down to showdown is optimal and avoids risking an invalid bet/fold.",
+        "action": "Call"
+      },
+      "stack_after": 115.0,
+      "pot_after": 155.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 150.0,
+          "stack_after": 150.0,
+          "rank": {
+            "Straight": 8
+          },
+          "hand": [
+            "Qs",
+            "Ks",
+            "Th",
+            "Jh",
+            "5d",
+            "9d",
+            "Kd"
+          ]
+        },
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 5.0,
+          "stack_after": 120.0,
+          "rank": {
+            "OnePair": 265472
+          },
+          "hand": [
+            "7s",
+            "Qs",
+            "Th",
+            "5d",
+            "7d",
+            "9d",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,196 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-aj4ga8",
+      "tournament_id": "ai-vs-random-tournament-16",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Th",
+          "3c"
+        ],
+        [
+          "Qc",
+          "Ts"
+        ],
+        [
+          "Kd",
+          "Jd"
+        ]
+      ],
+      "community_cards": [
+        "Kh",
+        "5d",
+        "Qh",
+        "Js",
+        "4d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Ten-Three offsuit is a very weak starting hand, out of position against the blinds. No justification to invest chips preflop — preserve stack for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 100.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "10 BB effective in SB vs BB; QTo is well within a profitable shove range. Jamming maximizes fold equity and avoids playing OOP postflop with a short stack.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 110.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Pot odds justify calling: you must put in 85 to win 195 if you call. Your KdJd has ~30-45% equity vs a typical short-stack shove range (Ax, broadways, suited connectors, etc.), and you also have backdoor diamond outs. Folding would trap 10 chips with uncertain future equity.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Kh",
+        "5d",
+        "Qh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Js"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "4d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "CharlieAI",
+          "won_pot": 200.0,
+          "stack_after": 200.0,
+          "rank": {
+            "TwoPair": 20972544
+          },
+          "hand": [
+            "Js",
+            "Qh",
+            "Kh",
+            "4d",
+            "5d",
+            "Jd",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]

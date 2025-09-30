@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-uavvns",
+      "tournament_id": "ai-vs-random-tournament-11",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        60.0,
+        240.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "3c",
+          "Kh"
+        ],
+        [
+          "3s",
+          "7s"
+        ]
+      ],
+      "community_cards": [
+        "Jh",
+        "Ts",
+        "5c",
+        "Ks",
+        "3d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 50.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 220.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Kh3c from the small blind facing a 20 big blind in a 10/20 heads-up pot is weak with little postflop potential. Folding preserves your remaining 50 chips for tougher spots later in the tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 50.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 30.0,
+          "stack_after": 250.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

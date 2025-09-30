@@ -1,0 +1,141 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-te2qiq",
+      "tournament_id": "ai-vs-random-tournament-2",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        150.0,
+        90.0,
+        60.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Qh",
+          "9h"
+        ],
+        [
+          "6s",
+          "Ts"
+        ],
+        [
+          "2s",
+          "6d"
+        ]
+      ],
+      "community_cards": [
+        "9s",
+        "7d",
+        "5h",
+        "Jh",
+        "8h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 5.0,
+      "stack_after": 85.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 50.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Open-raise to 20 to steal the blinds in a short-handed 3-handed game. Qh9h is a suited hand with backdoor heart potential; opening to 20 keeps pot control and puts pressure on both opponents without committing too many chips.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 130.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Facing a raise to 20 from an early player with a marginal hand (Ts6s) out of position. Preserve chips and wait for a better spot rather than calling or raising from the small blind.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We’re ~5BB deep and 62o plays very poorly OOP versus a button min-raise. Shoving is likely negative against a wide-but-sticky calling range, and calling risks another blind with poor realization. Preserve chips for a better shove spot soon.",
+        "action": "Fold"
+      },
+      "stack_after": 50.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "CharlieAI",
+          "won_pot": 35.0,
+          "stack_after": 165.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

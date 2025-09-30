@@ -1,0 +1,117 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_7-t0yshq",
+      "tournament_id": "ai-vs-random-tournament-7",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        175.0,
+        125.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "9c",
+          "9h"
+        ],
+        [
+          "8h",
+          "7s"
+        ]
+      ],
+      "community_cards": [
+        "9s",
+        "3s",
+        "2h",
+        "7h",
+        "8d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 155.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 85.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up with pocket 9s — a strong hand. Raise to 120 (an aggressive 3x-type raise) to apply pressure on the shorter-stacked big blind, isolate, and build the pot while still preserving some chips for later streets.",
+        "action": {
+          "Bet": 120.0
+        }
+      },
+      "stack_after": 55.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "8h7s is a weak two-gapper; facing a 120 bet with 85 chips left, folding preserves your tournament life and is the prudent move vs a likely better hand.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 160.0,
+          "stack_after": 215.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,232 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-dj0mxx",
+      "tournament_id": "ai-vs-random-tournament-7",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        105.0,
+        70.0,
+        125.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Js",
+          "7s"
+        ],
+        [
+          "Tc",
+          "7c"
+        ],
+        [
+          "Qh",
+          "9s"
+        ]
+      ],
+      "community_cards": [
+        "Jh",
+        "9c",
+        "9h",
+        "7h",
+        "9d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 60.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 105.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Js7s is a weak, marginal hand for a 3-way preflop pot with blinds 10/20. Folding preserves 105 chips and avoids a risky postflop spot.",
+        "action": "Fold"
+      },
+      "stack_after": 105.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "3BB effective heads-up in SB; T7s is a standard shove to maximize fold equity and avoid playing postflop out of position with a shallow stack.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Q9o has sufficient equity and calling only costs the amount to match Alice’s all-in. Raising gives no fold equity (she’s already all-in) and overcommits chips unnecessarily. Calling isolates and tries to eliminate her for a reasonable price.",
+        "action": "Call"
+      },
+      "stack_after": 55.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Jh",
+        "9c",
+        "9h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have trip 9s (9s on hand + two 9s on flop) — a very strong made hand. Opponent is already all-in, so betting only creates an uncallable side pot or wastes chips. Call (check) to proceed and preserve stack equity for later streets.",
+        "action": "Call"
+      },
+      "stack_after": 55.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "7h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Alice is all-in so any bet would only create an uncontested side pot and needlessly reduce my stack. I have trips (9s) — strong but vulnerable to flushes/full houses/quads on the river — so I’ll take the free card (check/call) and preserve chips for later in the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 55.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "9d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Final board Jh 9c 9h 7h 9d and I hold Qh 9s — I have four of a kind (nines), effectively the nuts. Push all-in to maximize chips and lock up the pot.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 195.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 195.0,
+          "stack_after": 195.0,
+          "rank": {
+            "FourOfAKind": 1049600
+          },
+          "hand": [
+            "9s",
+            "9c",
+            "7h",
+            "9h",
+            "Jh",
+            "Qh",
+            "9d"
+          ]
+        }
+      ]
+    }
+  }
+]

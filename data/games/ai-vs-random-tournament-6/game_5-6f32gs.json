@@ -1,0 +1,117 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-6f32gs",
+      "tournament_id": "ai-vs-random-tournament-6",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        270.0,
+        25.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "2c",
+          "Ac"
+        ],
+        [
+          "8s",
+          "Js"
+        ]
+      ],
+      "community_cards": [
+        "Kd",
+        "2s",
+        "Th",
+        "9c",
+        "7d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 260.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 5.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up vs tiny effective stack (5). Min-raise to 40 applies maximum pressure — often wins the pot immediately. Hand (A♣2♣) is playable; raising is best to win tournament chips without risking unnecessary all-in.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 230.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "You only have 5 chips left and Bob has bet to 40. Calling would require 20 more and you can't, so folding is the prudent option to preserve chips for future hands.",
+        "action": "Fold"
+      },
+      "stack_after": 5.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 60.0,
+          "stack_after": 290.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

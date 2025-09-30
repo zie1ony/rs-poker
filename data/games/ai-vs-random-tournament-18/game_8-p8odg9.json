@@ -1,0 +1,196 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_8-p8odg9",
+      "tournament_id": "ai-vs-random-tournament-18",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        270.0,
+        30.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "Jh",
+          "Js"
+        ],
+        [
+          "9d",
+          "7c"
+        ]
+      ],
+      "community_cards": [
+        "6h",
+        "Td",
+        "2s",
+        "6c",
+        "As"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 250.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 40.0,
+      "stack_after": 0.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up vs an all-in big blind with only 30; JhJs is far ahead—just call and go to showdown.",
+        "action": "Call"
+      },
+      "stack_after": 240.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "6h",
+        "Td",
+        "2s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Bob is already all-in; no further betting is possible. Continue to run out the board with our overpair.",
+        "action": "Call"
+      },
+      "stack_after": 240.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "6c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; we have an overpair on a paired board—proceed to showdown without risking an invalid bet.",
+        "action": "Call"
+      },
+      "stack_after": 240.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "As"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; no further betting is needed. Proceed to showdown with an overpair.",
+        "action": "Call"
+      },
+      "stack_after": 240.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 60.0,
+          "stack_after": 300.0,
+          "rank": {
+            "TwoPair": 4329472
+          },
+          "hand": [
+            "2s",
+            "Js",
+            "As",
+            "6c",
+            "6h",
+            "Jh",
+            "Td"
+          ]
+        }
+      ]
+    }
+  }
+]

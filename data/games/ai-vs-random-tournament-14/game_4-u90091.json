@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-u90091",
+      "tournament_id": "ai-vs-random-tournament-14",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        215.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "3s",
+          "2s"
+        ],
+        [
+          "4h",
+          "Qc"
+        ]
+      ],
+      "community_cards": [
+        "6c",
+        "Jc",
+        "7d",
+        "9h",
+        "6d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 75.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 195.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "3♠2♠ is a weak hand in the small blind facing a large preflop bet from the big blind. Folding preserves your stack and waits for a better spot or favorable position in this tournament scenario.",
+        "action": "Fold"
+      },
+      "stack_after": 75.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 30.0,
+          "stack_after": 225.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

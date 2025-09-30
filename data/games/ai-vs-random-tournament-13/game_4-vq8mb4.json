@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-vq8mb4",
+      "tournament_id": "ai-vs-random-tournament-13",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        215.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "3d",
+          "Qh"
+        ],
+        [
+          "7s",
+          "9h"
+        ]
+      ],
+      "community_cards": [
+        "Qd",
+        "4c",
+        "3s",
+        "5s",
+        "Kh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 75.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 195.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Qh3d is a weak hand in the SB facing a live BB in a heads-up preflop. No current raise to react to and folding preserves chips for better spots. Not +EV to call/raise with this hand.",
+        "action": "Fold"
+      },
+      "stack_after": 75.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 30.0,
+          "stack_after": 225.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

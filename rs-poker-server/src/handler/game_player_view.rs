@@ -2,7 +2,7 @@ use axum::{
     extract::{Query, State},
     Json,
 };
-use rs_poker_engine::{game_summary::GameSummary, tournament_summary::TournamentSummary};
+use rs_poker_engine::tournament_summary::TournamentSummary;
 use rs_poker_types::{
     game::{GameId, GamePlayerView},
     player::PlayerName,
