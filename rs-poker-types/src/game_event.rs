@@ -8,7 +8,7 @@ use crate::{
     player::{Player, PlayerName},
 };
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub enum GameEvent {
     GameStarted(GameStartedEvent),
     RoundAdvance(Round),
@@ -19,7 +19,7 @@ pub enum GameEvent {
     GameEnded(GameEndedEvent),
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct GameStartedEvent {
     pub game_id: GameId,
     pub players: Vec<Player>,
@@ -30,7 +30,7 @@ pub struct GameStartedEvent {
     pub community_cards: [Card; 5],
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct ForcedBetEvent {
     pub bet_kind: ForcedBetKind,
     pub player_idx: usize,
@@ -40,13 +40,13 @@ pub struct ForcedBetEvent {
     pub pot_after: f32,
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub enum ForcedBetKind {
     SmallBlind,
     BigBlind,
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct FailedPlayerActionEvent {
     pub player_idx: usize,
     pub player_name: PlayerName,
@@ -56,7 +56,7 @@ pub struct FailedPlayerActionEvent {
     pub pot_after: f32,
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct PlayerActionEvent {
     pub player_idx: usize,
     pub player_name: PlayerName,
@@ -65,19 +65,19 @@ pub struct PlayerActionEvent {
     pub pot_after: f32,
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct ShowCommunityCardsEvent {
     pub round: Round,
     pub cards: Vec<Card>,
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct GameEndedEvent {
     pub final_round: Round,
     pub awards: Vec<Award>,
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct Award {
     pub player_idx: usize,
     pub player_name: PlayerName,

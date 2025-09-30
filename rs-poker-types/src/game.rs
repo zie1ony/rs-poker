@@ -47,7 +47,7 @@ pub enum PossibleAction {
     AllIn,
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, schemars::JsonSchema)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq, schemars::JsonSchema)]
 pub struct Decision {
     pub reason: String,
     pub action: AgentAction,

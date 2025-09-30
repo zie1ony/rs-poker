@@ -34,7 +34,7 @@ impl GameActionRequired {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct GameSimulation {
     pub game_id: GameId,
     pub game_state: GameState,
@@ -988,14 +988,6 @@ impl GameSimulation {
     pub fn execute_player_action(&mut self, decision: Decision) {
         event!(Level::TRACE, ?decision, "execute_player_action");
         self.run_agent_action(decision);
-    }
-}
-
-impl fmt::Debug for GameSimulation {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_struct("Game")
-            .field("game_state", &self.game_state)
-            .finish()
     }
 }
 

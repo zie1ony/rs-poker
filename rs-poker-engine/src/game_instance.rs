@@ -6,8 +6,7 @@ use rs_poker::{
 use rs_poker_types::{
     game::{
         Decision, GameFinalResults, GameFullView, GameId, GamePlayerView, GameSettings, GameStatus,
-    },
-    player::{AutomatType, Player, PlayerName}, tournament::{TournamentId},
+    }, game_event::GameEvent, player::{AutomatType, Player, PlayerName}, tournament::TournamentId
 };
 
 use crate::{
@@ -15,7 +14,7 @@ use crate::{
     game_summary::GameSummary,
 };
 
-#[derive(Clone)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct GameInstance {
     pub game_id: GameId,
     pub tournament_id: Option<TournamentId>,
@@ -105,6 +104,10 @@ impl GameInstance {
 
     pub fn game_id(&self) -> GameId {
         self.game_id.clone()
+    }
+
+    pub fn events(&self) -> Vec<GameEvent> {
+        self.simulation.events.clone()
     }
 
     pub fn run(&mut self) {
@@ -230,6 +233,12 @@ impl GameInstance {
     }
 }
 
+impl From<Vec<GameEvent>> for GameInstance {
+    fn from(events: Vec<GameEvent>) -> Self {
+        todo!()
+    }
+}
+
 fn n_cards(deck: &mut Deck, n: usize, rng: &mut ThreadRng) -> Vec<Card> {
     let mut cards = Vec::with_capacity(n);
     for _ in 0..n {
@@ -240,4 +249,44 @@ fn n_cards(deck: &mut Deck, n: usize, rng: &mut ThreadRng) -> Vec<Card> {
         }
     }
     cards
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn random_game() -> GameInstance {
+        let num_of_players = 5;
+        let initial_stack = 100.0;
+        let small_blind = 5.0;
+        let big_blind = 10.0;
+        let game_id = GameId::random();
+
+        let players: Vec<Player> = (1..=num_of_players)
+            .map(|i| Player::Automat {
+                name: PlayerName::new(&format!("Player{}", i)),
+                automat_type: AutomatType::Random,
+            })
+            .collect();
+
+        let mut game_instance = GameInstance::new_with_random_cards(
+            game_id.clone(),
+            None,
+            players,
+            vec![initial_stack; num_of_players],
+            big_blind,
+            small_blind,
+        );
+
+        game_instance.run();
+        game_instance
+    }
+
+    #[test]
+    fn test_game_instance_serialization() {
+        let random_game = random_game();
+        let events = random_game.events();
+        let reconstructed_game = GameInstance::from(events);
+        assert_eq!(random_game, reconstructed_game);
+    }
 }
