@@ -6,7 +6,10 @@ use rs_poker::{
 use rs_poker_types::{
     game::{
         Decision, GameFinalResults, GameFullView, GameId, GamePlayerView, GameSettings, GameStatus,
-    }, game_event::GameEvent, player::{AutomatType, Player, PlayerName}, tournament::TournamentId
+    },
+    game_event::GameEvent,
+    player::{AutomatType, Player, PlayerName},
+    tournament::TournamentId,
 };
 
 use crate::{
@@ -245,7 +248,7 @@ impl From<Vec<GameEvent>> for GameInstance {
             })
             .expect("GameStarted event must be present");
 
-        // Create a new GameInstance with initial state  
+        // Create a new GameInstance with initial state
         let mut game_instance = GameInstance::new(
             game_started_event.game_id.clone(),
             game_started_event.tournament_id.clone(),
@@ -267,32 +270,43 @@ impl From<Vec<GameEvent>> for GameInstance {
             game_started_event.players.clone(),
             game_started_event.hands.clone(),
             game_started_event.community_cards,
-            game_started_event.players.iter().map(|p| p.name()).collect(),
+            game_started_event
+                .players
+                .iter()
+                .map(|p| p.name())
+                .collect(),
         );
 
         // Extract player actions in order and replay them
         let player_actions: Vec<_> = events
             .iter()
             .filter_map(|event| match event {
-                GameEvent::PlayerAction(action) => Some((action.player_idx, action.player_decision.clone())),
-                GameEvent::FailedPlayerAction(action) => Some((action.player_idx, action.player_decision.clone())),
+                GameEvent::PlayerAction(action) => {
+                    Some((action.player_idx, action.player_decision.clone()))
+                }
+                GameEvent::FailedPlayerAction(action) => {
+                    Some((action.player_idx, action.player_decision.clone()))
+                }
                 _ => None,
             })
             .collect();
 
-        // Run the simulation until completion, injecting the exact decisions from the events
+        // Run the simulation until completion, injecting the exact decisions from the
+        // events
         let mut action_index = 0;
         loop {
             let result = simulation.run();
             match result {
                 GameActionRequired::PlayerToAct { idx, .. } => {
-                    if action_index < player_actions.len() && player_actions[action_index].0 == idx {
+                    if action_index < player_actions.len() && player_actions[action_index].0 == idx
+                    {
                         // Use the decision from the events
                         let decision = player_actions[action_index].1.clone();
                         simulation.execute_player_action(decision);
                         action_index += 1;
                     } else {
-                        // No more actions to replay or player index mismatch - this shouldn't happen
+                        // No more actions to replay or player index mismatch - this shouldn't
+                        // happen
                         break;
                     }
                 }
@@ -304,7 +318,7 @@ impl From<Vec<GameEvent>> for GameInstance {
         }
 
         // Set the events to exactly match the original events
-        simulation.events = events.clone();
+        // simulation.events = events.clone();
 
         // Update the game instance with the replayed simulation
         game_instance.simulation = simulation;

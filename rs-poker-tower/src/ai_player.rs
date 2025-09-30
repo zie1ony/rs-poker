@@ -1,8 +1,6 @@
 use rs_poker_llm_client::LLMClient;
 use rs_poker_types::game::Decision;
 
-
-
 pub async fn decide(
     model: String,
     system_promot: String,

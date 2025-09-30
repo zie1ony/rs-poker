@@ -1,4 +1,7 @@
-use axum::{extract::{Query, State}, Json};
+use axum::{
+    extract::{Query, State},
+    Json,
+};
 use rs_poker_engine::tournament_summary::TournamentSummary;
 use rs_poker_types::tournament::TournamentId;
 
@@ -26,7 +29,7 @@ async fn tournament_full_view_handler(
         Some(tournament) => {
             // Get the tournament events
             let tournament_events = tournament.events.clone();
-            
+
             // Collect game events from all games associated with this tournament
             let mut game_events = std::collections::HashMap::new();
             for game_id in tournament.game_ids() {
@@ -35,11 +38,10 @@ async fn tournament_full_view_handler(
                 }
             }
 
-            
             // Create full tournament summary
             let tournament_summary = TournamentSummary::full(tournament_events, game_events);
             let summary = tournament_summary.summary();
-            
+
             Json(Ok(TournamentFullViewResponse { summary }))
         }
         None => Json(Err(ServerError::TournamentNotFound(tournament_id))),

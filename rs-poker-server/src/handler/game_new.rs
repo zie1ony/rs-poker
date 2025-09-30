@@ -44,7 +44,7 @@ async fn new_game_handler(
     );
     game.run();
 
-    server.games.insert(payload.game_id.clone(), game);
+    server.update_game(&game);
 
     Json(Ok(GameCreatedResponse {
         game_id: payload.game_id.clone(),

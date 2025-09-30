@@ -7,10 +7,9 @@ use crate::{
 };
 
 pub mod ai_player;
+pub mod logger;
 pub mod tower;
 pub mod worker;
-pub mod logger;
-
 
 pub fn client() -> PokerClient {
     PokerClient::new_http("http://localhost:3001")
@@ -48,8 +47,12 @@ pub async fn run(number_of_workers: usize, max_tasks: usize) {
         let worker_msg_sender = worker_msg_producer.clone();
         let tower_msg_receiver = tower_msg_consumers.remove(0);
         let handle = tokio::spawn(async move {
-            let mut worker =
-                Worker::new(WorkerId(worker_id), worker_msg_sender, tower_msg_receiver, client());
+            let mut worker = Worker::new(
+                WorkerId(worker_id),
+                worker_msg_sender,
+                tower_msg_receiver,
+                client(),
+            );
             worker.run().await;
         });
         worker_handles.push(handle);

@@ -35,8 +35,16 @@ impl TournamentInstance {
         }
     }
 
+    pub fn tournament_id(&self) -> TournamentId {
+        self.tournament_id.clone()
+    }
+
     pub fn game_ids(&self) -> &Vec<GameId> {
         &self.game_ids
+    }
+
+    pub fn events(&self) -> Vec<TournamentEvent> {
+        self.events.clone()
     }
 
     pub fn status(&self) -> &TournamentStatus {
@@ -255,7 +263,7 @@ impl From<Vec<TournamentEvent>> for TournamentInstance {
                     instance.current_game_id = Some(game_started.game_id.clone());
                     instance.game_ids.push(game_started.game_id.clone());
                     instance.next_game_number += 1;
-                    
+
                     // Update blinds if needed (recalculate based on game number)
                     let game_number = instance.next_game_number - 1; // 0-indexed
                     if let Some(n) = instance.settings.double_blinds_every_n_games {
@@ -300,7 +308,10 @@ pub enum TournamentError {
 
 #[cfg(test)]
 mod tests {
-    use rs_poker_types::{player::{Player, PlayerName}, tournament::TournamentEndCondition};
+    use rs_poker_types::{
+        player::{Player, PlayerName},
+        tournament::TournamentEndCondition,
+    };
 
     use super::*;
 
@@ -522,7 +533,6 @@ mod tests {
         let events = tournament.events.clone();
         let rebuilt_tournament = TournamentInstance::from(events);
         assert_eq!(rebuilt_tournament, tournament);
-
     }
 
     #[test]
@@ -536,7 +546,6 @@ mod tests {
             end_condition: TournamentEndCondition::SingleWinner,
             see_historical_thoughts: false,
             public_chat: false,
-
         };
 
         let mut tournament = TournamentInstance::new(&settings);

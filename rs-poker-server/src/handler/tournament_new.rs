@@ -1,5 +1,5 @@
 use axum::{extract::State, Json};
-use rs_poker_engine::tournament_instance::{TournamentInstance};
+use rs_poker_engine::tournament_instance::TournamentInstance;
 use rs_poker_types::tournament::{TournamentId, TournamentSettings};
 
 use crate::{
@@ -20,19 +20,16 @@ async fn new_tournament_handler(
 
     // Fail if the tournament ID already exists.
     if server.tournaments.contains_key(&tournament_id) {
-        return Json(Err(ServerError::TournamentAlreadyExists(
-            tournament_id,
-        )));
+        return Json(Err(ServerError::TournamentAlreadyExists(tournament_id)));
     }
 
     // Create a new tournament instance.
     let tournament = TournamentInstance::new(&settings);
 
     // Store it.
-    server
-        .tournaments
-        .insert(tournament_id.clone(), tournament);
+    server.update_tournament(&tournament);
 
+    // Start playing.
     server.progress_tournament(&tournament_id);
 
     Json(Ok(TournamentCreatedResponse {

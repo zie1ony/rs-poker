@@ -1,4 +1,7 @@
-use rs_poker::arena::{action::{self, AgentAction}, game_state::Round};
+use rs_poker::arena::{
+    action::{self, AgentAction},
+    game_state::Round,
+};
 use rs_poker_types::{
     game_event::{ForcedBetKind, GameEvent},
     player::PlayerName,
@@ -143,7 +146,6 @@ impl GameSummary {
                         forced_action_str,
                         after_action_info(e.stack_after, e.pot_after)
                     ));
-
                 }
                 GameEvent::PlayerAction(e) => {
                     let player_name = &e.player_name;

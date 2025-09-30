@@ -1,7 +1,15 @@
 use clap::{Parser, Subcommand};
-use rs_poker_cli::{run_game::{client, run_example_game}, series_runner};
+use rs_poker_cli::{
+    run_game::{client, run_example_game},
+    series_runner,
+};
 use rs_poker_server::handler::{game_full_view::GameFullViewRequest, game_list::ListGamesRequest};
-use rs_poker_types::{game::GameId, player::{Player, PlayerName}, series::{SeriesSettings, SeriesId}, tournament::{TournamentEndCondition, TournamentId, TournamentSettings}};
+use rs_poker_types::{
+    game::GameId,
+    player::{Player, PlayerName},
+    series::{SeriesId, SeriesSettings},
+    tournament::{TournamentEndCondition, TournamentId, TournamentSettings},
+};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -40,7 +48,7 @@ enum Commands {
         max_tasks: usize,
     },
 
-    Series { 
+    Series {
         #[command(subcommand)]
         command: SeriesCommand,
     },
@@ -109,7 +117,7 @@ enum TournamentType {
 #[derive(Subcommand)]
 enum SeriesCommand {
     /// Run a series of tournaments.
-    Run
+    Run,
 }
 
 #[tokio::main]
@@ -141,20 +149,21 @@ async fn main() {
             TournamentCommands::FullView { tournament_id } => {
                 tournament_full_view(cli.mock_server, tournament_id).await;
             }
-            TournamentCommands::PlayerView { player_name, tournament_id } => {
+            TournamentCommands::PlayerView {
+                player_name,
+                tournament_id,
+            } => {
                 tournament_player_view(cli.mock_server, player_name, tournament_id).await;
             }
         },
         Commands::Tower { workers, max_tasks } => {
             rs_poker_tower::run(workers, max_tasks).await;
-        },
-        Commands::Series { command } =>  {
-            match command {
-                SeriesCommand::Run => {
-                    run_series(cli.mock_server).await;
-                }
-            }
         }
+        Commands::Series { command } => match command {
+            SeriesCommand::Run => {
+                run_series(cli.mock_server).await;
+            }
+        },
     }
 }
 
@@ -250,8 +259,13 @@ async fn create_tournament(mock_server: bool, tournament_type: TournamentType) {
 
 async fn list_tournaments(mock_server: bool, active_only: bool) {
     let client = client(mock_server);
-    
-    match client.list_tournaments(rs_poker_server::handler::tournament_list::ListTournamentsRequest { active_only }).await {
+
+    match client
+        .list_tournaments(
+            rs_poker_server::handler::tournament_list::ListTournamentsRequest { active_only },
+        )
+        .await
+    {
         Ok(response) => {
             if response.tournament_ids.is_empty() {
                 if active_only {
@@ -293,7 +307,7 @@ async fn tournament_info(mock_server: bool, tournament_id: String) {
 async fn tournament_full_view(mock_server: bool, tournament_id: String) {
     let client = client(mock_server);
     let tournament_id = TournamentId(tournament_id);
-    
+
     match client.tournament_full_view(&tournament_id).await {
         Ok(response) => {
             println!("{}", response.summary);
@@ -309,8 +323,11 @@ async fn tournament_player_view(mock_server: bool, player_name: String, tourname
     let client = client(mock_server);
     let tournament_id = TournamentId(tournament_id);
     let player_name = PlayerName::new(&player_name);
-    
-    match client.tournament_player_view(&tournament_id, player_name).await {
+
+    match client
+        .tournament_player_view(&tournament_id, player_name)
+        .await
+    {
         Ok(response) => {
             println!("{}", response.summary);
         }

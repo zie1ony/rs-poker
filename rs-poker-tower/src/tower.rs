@@ -1,6 +1,8 @@
 use std::collections::{HashMap, HashSet};
 
-use rs_poker_server::{handler::tournament_list::ListTournamentsRequest, poker_client::PokerClient};
+use rs_poker_server::{
+    handler::tournament_list::ListTournamentsRequest, poker_client::PokerClient,
+};
 use rs_poker_types::tournament::TournamentId;
 use tokio::sync::mpsc;
 
@@ -142,7 +144,8 @@ impl Tower {
             }
         }
 
-        self.shutdown(&format!("Max {} number of tasks reached.", self.max_tasks)).await;
+        self.shutdown(&format!("Max {} number of tasks reached.", self.max_tasks))
+            .await;
     }
 
     fn print_startup_message(&self) {
@@ -201,10 +204,10 @@ impl Tower {
             "[t] Worker {:?} finished tournament {:?}",
             worker_id, tournament_id
         );
-        
+
         // Remove tournament from in-progress tracking
         self.tournaments_in_progress.remove(&tournament_id);
-        
+
         self.workers_info.increment_task_count(worker_id);
         self.workers_info
             .set_worker_status(worker_id, WorkerStatus::Idle);
@@ -226,7 +229,10 @@ impl Tower {
                 tournament_id, worker_id
             );
 
-            if let Err(e) = self.send_tournament_to_worker(worker_id, &tournament_id).await {
+            if let Err(e) = self
+                .send_tournament_to_worker(worker_id, &tournament_id)
+                .await
+            {
                 eprintln!(
                     "[!] Failed to send tournament to worker {:?}: {:?}",
                     worker_id, e
@@ -234,10 +240,8 @@ impl Tower {
                 // Remove from in-progress set if sending failed
                 self.tournaments_in_progress.remove(&tournament_id);
             } else {
-                self.workers_info.set_worker_status(
-                    worker_id,
-                    WorkerStatus::Working(tournament_id),
-                );
+                self.workers_info
+                    .set_worker_status(worker_id, WorkerStatus::Working(tournament_id));
             }
         } else {
             println!("[t] No available tournaments for worker {:?}", worker_id);
@@ -247,20 +251,24 @@ impl Tower {
     async fn load_active_tournaments(&self) -> Vec<TournamentId> {
         let request = ListTournamentsRequest { active_only: true };
         let results = self.poker_client.list_tournaments(request).await.unwrap();
-        let ids = results.tournament_ids.into_iter().map(|(id, _)| id).collect();
+        let ids = results
+            .tournament_ids
+            .into_iter()
+            .map(|(id, _)| id)
+            .collect();
         ids
     }
 
     async fn get_next_tournament_id(&self) -> Option<TournamentId> {
         let active_tournaments = self.load_active_tournaments().await;
-        
+
         // Find a tournament that is not currently being processed by any worker
         for tournament_id in active_tournaments {
             if !self.tournaments_in_progress.contains(&tournament_id) {
                 return Some(tournament_id);
             }
         }
-        
+
         // No available tournaments found
         None
     }

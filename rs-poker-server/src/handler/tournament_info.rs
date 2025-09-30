@@ -1,4 +1,7 @@
-use axum::{extract::{Query, State}, Json};
+use axum::{
+    extract::{Query, State},
+    Json,
+};
 use rs_poker_types::tournament::{TournamentId, TournamentInfo};
 
 use crate::{

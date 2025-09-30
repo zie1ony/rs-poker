@@ -1,7 +1,14 @@
 use std::collections::HashMap;
 
-use rs_poker_server::{error::ServerError, poker_client::{PokerClient, PokerClientError}};
-use rs_poker_types::{player::PlayerName, series::SeriesSettings, tournament::{TournamentId, TournamentSettings}};
+use rs_poker_server::{
+    error::ServerError,
+    poker_client::{PokerClient, PokerClientError},
+};
+use rs_poker_types::{
+    player::PlayerName,
+    series::SeriesSettings,
+    tournament::{TournamentId, TournamentSettings},
+};
 
 pub async fn run_series(client: &PokerClient, series: SeriesSettings) {
     println!("Running series: {:?}", &series.series_id);
@@ -61,7 +68,6 @@ pub async fn run_series(client: &PokerClient, series: SeriesSettings) {
             println!(" - Tournament {:?} is still in progress.", id);
         }
     }
-
 }
 
 pub async fn run_tournament(client: &PokerClient, tournament: &TournamentSettings) {

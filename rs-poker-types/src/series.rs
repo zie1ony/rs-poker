@@ -1,6 +1,9 @@
-use rand::{seq::SliceRandom, SeedableRng};
+use rand::{SeedableRng, seq::SliceRandom};
 
-use crate::{player::Player, tournament::{TournamentEndCondition, TournamentId, TournamentSettings}};
+use crate::{
+    player::Player,
+    tournament::{TournamentEndCondition, TournamentId, TournamentSettings},
+};
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
 pub struct SeriesId(String);
@@ -43,11 +46,15 @@ impl SeriesSettings {
                 players
             })
             .collect();
-        
+
         let mut tournaments = Vec::new();
         for i in 0..n {
             tournaments.push(TournamentSettings {
-                tournament_id: TournamentId::new(&format!("{}-tournament-{}", self.series_id.as_str(), i + 1)),
+                tournament_id: TournamentId::new(&format!(
+                    "{}-tournament-{}",
+                    self.series_id.as_str(),
+                    i + 1
+                )),
                 players: players_permutations[i].clone(),
                 starting_player_stack: self.starting_player_stack,
                 starting_small_blind: self.starting_small_blind,

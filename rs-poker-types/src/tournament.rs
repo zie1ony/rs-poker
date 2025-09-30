@@ -1,4 +1,8 @@
-use crate::{game::GameId, player::{Player, PlayerName}, random_id};
+use crate::{
+    game::GameId,
+    player::{Player, PlayerName},
+    random_id,
+};
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
 pub struct TournamentId(pub String);

@@ -18,8 +18,8 @@ async fn make_action_handler(
     let mut server = state.server.lock().unwrap();
 
     // Find the game instance.
-    match server.games.get_mut(&payload.game_id) {
-        Some(game) => {
+    match server.game(&payload.game_id) {
+        Some(mut game) => {
             // Apply the action.
             game.excute_player_action(payload.decision);
             // Advance the game state.
@@ -32,6 +32,8 @@ async fn make_action_handler(
                 status: game.game_status(),
                 current_player_name: game.current_player_name(),
             };
+
+            server.update_game(&game);
 
             // If the game is complete and is part of a tournament, progress the tournament.
             if is_complete {

@@ -16,11 +16,17 @@ use crate::{
         game_new::{GameCreatedResponse, NewGameHandler, NewGameRequest},
         game_player_view::{GamePlayerViewHandler, GamePlayerViewRequest},
         health_check::{HealthCheckHandler, HealthCheckRequest, HealthCheckResponse},
-        tournament_full_view::{TournamentFullViewHandler, TournamentFullViewRequest, TournamentFullViewResponse},
+        tournament_full_view::{
+            TournamentFullViewHandler, TournamentFullViewRequest, TournamentFullViewResponse,
+        },
         tournament_info::{TournamentInfoHandler, TournamentInfoRequest},
-        tournament_list::{ListTournamentsHandler, ListTournamentsRequest, ListTournamentsResponse},
+        tournament_list::{
+            ListTournamentsHandler, ListTournamentsRequest, ListTournamentsResponse,
+        },
         tournament_new::{NewTournamentHandler, TournamentCreatedResponse},
-        tournament_player_view::{TournamentPlayerViewHandler, TournamentPlayerViewRequest, TournamentPlayerViewResponse},
+        tournament_player_view::{
+            TournamentPlayerViewHandler, TournamentPlayerViewRequest, TournamentPlayerViewResponse,
+        },
         Handler,
     },
 };
@@ -125,7 +131,10 @@ impl PokerClient {
         self.query::<NewTournamentHandler>(settings).await
     }
 
-    pub async fn list_tournaments(&self, params: ListTournamentsRequest) -> ClientResult<ListTournamentsResponse> {
+    pub async fn list_tournaments(
+        &self,
+        params: ListTournamentsRequest,
+    ) -> ClientResult<ListTournamentsResponse> {
         self.query::<ListTournamentsHandler>(params).await
     }
 

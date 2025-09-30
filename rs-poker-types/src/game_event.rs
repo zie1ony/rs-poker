@@ -5,7 +5,8 @@ use rs_poker::{
 
 use crate::{
     game::{Decision, GameId},
-    player::{Player, PlayerName}, tournament::TournamentId,
+    player::{Player, PlayerName},
+    tournament::TournamentId,
 };
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]

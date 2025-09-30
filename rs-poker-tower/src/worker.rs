@@ -1,4 +1,7 @@
-use rs_poker_server::{handler::{game_full_view::GameFullViewRequest, game_make_action::MakeActionRequest}, poker_client::PokerClient};
+use rs_poker_server::{
+    handler::{game_full_view::GameFullViewRequest, game_make_action::MakeActionRequest},
+    poker_client::PokerClient,
+};
 use tokio::sync::mpsc;
 
 use rs_poker_types::{game::GameId, tournament::TournamentId};
@@ -31,7 +34,7 @@ pub struct Worker {
     id: WorkerId,
     worker_msg_sender: mpsc::Sender<WorkerMessage>,
     tower_msg_receiver: mpsc::Receiver<TowerMessage>,
-    poker_client: PokerClient
+    poker_client: PokerClient,
 }
 
 impl Worker {
@@ -39,19 +42,19 @@ impl Worker {
         id: WorkerId,
         worker_msg_sender: mpsc::Sender<WorkerMessage>,
         tower_msg_receiver: mpsc::Receiver<TowerMessage>,
-        poker_client: PokerClient
+        poker_client: PokerClient,
     ) -> Self {
         Self {
             id,
             worker_msg_sender,
             tower_msg_receiver,
-            poker_client
+            poker_client,
         }
     }
 
     pub async fn run(&mut self) {
         println!("[w] Worker {:?} started.", self.id);
-        
+
         // Notify tower that worker is waiting for work
         if !self.send_ready_message().await {
             return;
@@ -120,12 +123,18 @@ impl Worker {
 
     async fn execute_tournament(&self, tournament_id: &TournamentId) {
         let logger = TournamentLogger::new(&tournament_id);
-        println!("[w] Worker {:?} executing tournament {:?}", self.id, tournament_id);
-        
+        println!(
+            "[w] Worker {:?} executing tournament {:?}",
+            self.id, tournament_id
+        );
+
         // Fetch tournament info.
         let info = self.poker_client.tournament_info(tournament_id).await;
         if let Err(e) = info {
-            println!("[w] Worker {:?} failed to get tournament info: {:?}", self.id, e);
+            println!(
+                "[w] Worker {:?} failed to get tournament info: {:?}",
+                self.id, e
+            );
             return;
         }
         let info = info.unwrap();
@@ -137,7 +146,10 @@ impl Worker {
             let tournament_info = match self.poker_client.tournament_info(tournament_id).await {
                 Ok(info) => info,
                 Err(e) => {
-                    println!("[w] Worker {:?} failed to get tournament info: {:?}", self.id, e);
+                    println!(
+                        "[w] Worker {:?} failed to get tournament info: {:?}",
+                        self.id, e
+                    );
                     break;
                 }
             };
@@ -165,13 +177,17 @@ impl Worker {
         }
 
         // Log tournament finished
-        let info = self.poker_client.tournament_full_view(&tournament_id).await.unwrap();
+        let info = self
+            .poker_client
+            .tournament_full_view(&tournament_id)
+            .await
+            .unwrap();
         logger.log_tournament_finished(&info.summary);
     }
 
     async fn execute_game(&self, game_id: &GameId, logger: &TournamentLogger) {
         println!("[w] Worker {:?} executing game {:?}", self.id, game_id);
-        
+
         // Keep processing until game is complete
         loop {
             let game_info = match self.poker_client.game_info(game_id).await {
@@ -186,9 +202,14 @@ impl Worker {
                 rs_poker_types::game::GameStatus::InProgress => {
                     if let Some(current_player) = game_info.current_player() {
                         println!("[w] Current player: {:?}", current_player.name());
-                        
+
                         // Only handle AI players
-                        if let rs_poker_types::player::Player::AI { name, model, strategy } = current_player {
+                        if let rs_poker_types::player::Player::AI {
+                            name,
+                            model,
+                            strategy,
+                        } = current_player
+                        {
                             // Get the game view for this player
                             let game_view = match self.poker_client.game_player_view(
                                 rs_poker_server::handler::game_player_view::GamePlayerViewRequest {
@@ -212,30 +233,44 @@ impl Worker {
                                 strategy.clone(),
                                 game_view.summary.clone(),
                                 format!("{:?}", game_view.possible_actions),
-                            ).await;
+                            )
+                            .await;
 
                             let decision_str = format!("{:#?}", decision);
 
-                            logger.log_game_action(game_id, &system_prompt, &user_prompt, &decision_str);
+                            logger.log_game_action(
+                                game_id,
+                                &system_prompt,
+                                &user_prompt,
+                                &decision_str,
+                            );
 
                             // Submit the decision
-                            match self.poker_client.make_decision(
-                                MakeActionRequest {
+                            match self
+                                .poker_client
+                                .make_decision(MakeActionRequest {
                                     game_id: game_id.clone(),
                                     decision,
-                                }
-                            ).await {
+                                })
+                                .await
+                            {
                                 Ok(_) => {
                                     println!("[w] AI player {:?} made decision", name);
                                 }
                                 Err(e) => {
-                                    println!("[w] Worker {:?} failed to submit decision: {:?}", self.id, e);
+                                    println!(
+                                        "[w] Worker {:?} failed to submit decision: {:?}",
+                                        self.id, e
+                                    );
                                     break;
                                 }
                             }
                         } else {
                             // For human players or other types, we can't proceed
-                            println!("[w] Current player is not AI, cannot proceed: {:?}", current_player);
+                            println!(
+                                "[w] Current player is not AI, cannot proceed: {:?}",
+                                current_player
+                            );
                             break;
                         }
                     } else {
@@ -244,16 +279,20 @@ impl Worker {
                     }
                 }
                 rs_poker_types::game::GameStatus::Finished => {
-                    let full_view = self.poker_client.game_full_view(GameFullViewRequest {
-                        game_id: game_id.clone(),
-                        debug: false,
-                    }).await.unwrap();
+                    let full_view = self
+                        .poker_client
+                        .game_full_view(GameFullViewRequest {
+                            game_id: game_id.clone(),
+                            debug: false,
+                        })
+                        .await
+                        .unwrap();
                     logger.log_game_finished(game_id, &full_view.summary);
                     println!("[w] Game {:?} finished", game_id);
                     break;
                 }
             }
-            
+
             // Small delay to avoid overwhelming the server
             // tokio::time::sleep(tokio::time::Duration::from_millis(50)).await;
         }

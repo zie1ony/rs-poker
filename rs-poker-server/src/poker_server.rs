@@ -3,17 +3,22 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-use crate::handler::{
-    game_full_view::GameFullViewHandler, game_info::GameInfoHandler, game_list::ListGamesHandler,
-    game_make_action::MakeActionHandler, game_new::NewGameHandler,
-    game_player_view::GamePlayerViewHandler, health_check::HealthCheckHandler,
-    tournament_full_view::TournamentFullViewHandler,
-    tournament_info::TournamentInfoHandler, tournament_list::ListTournamentsHandler, tournament_new::NewTournamentHandler,
-    tournament_player_view::TournamentPlayerViewHandler,
-    Handler,
+use crate::{
+    handler::{
+        game_full_view::GameFullViewHandler, game_info::GameInfoHandler,
+        game_list::ListGamesHandler, game_make_action::MakeActionHandler, game_new::NewGameHandler,
+        game_player_view::GamePlayerViewHandler, health_check::HealthCheckHandler,
+        tournament_full_view::TournamentFullViewHandler, tournament_info::TournamentInfoHandler,
+        tournament_list::ListTournamentsHandler, tournament_new::NewTournamentHandler,
+        tournament_player_view::TournamentPlayerViewHandler, Handler,
+    },
+    persistence,
 };
 use axum::Router;
-use rs_poker_engine::{game_instance::GameInstance, tournament_instance::{TournamentAction, TournamentInstance}};
+use rs_poker_engine::{
+    game_instance::GameInstance,
+    tournament_instance::{TournamentAction, TournamentInstance},
+};
 use rs_poker_types::{game::GameId, tournament::TournamentId};
 
 macro_rules! router {
@@ -33,21 +38,64 @@ pub struct PokerServer {
 }
 
 impl PokerServer {
+    pub fn new() -> Self {
+        let games: HashMap<GameId, GameInstance> = persistence::load_games()
+            .unwrap()
+            .into_iter()
+            .map(|g| (g.game_id(), g))
+            .collect();
+        let tournaments: HashMap<TournamentId, TournamentInstance> =
+            persistence::load_tournaments()
+                .unwrap()
+                .into_iter()
+                .map(|t| (t.tournament_id(), t))
+                .collect();
+
+        println!(
+            "Loaded {} games and {} tournaments from storage.",
+            games.len(),
+            tournaments.len()
+        );
+
+        Self { games, tournaments }
+    }
+
+    pub fn game(&self, game_id: &GameId) -> Option<GameInstance> {
+        self.games.get(game_id).cloned()
+    }
+
+    pub fn update_game(&mut self, game: &GameInstance) {
+        self.games.insert(game.game_id(), game.clone());
+        persistence::store_game(game).unwrap();
+    }
+
+    pub fn tournament(&self, tournament_id: &TournamentId) -> Option<TournamentInstance> {
+        self.tournaments.get(tournament_id).cloned()
+    }
+
+    pub fn update_tournament(&mut self, tournament: &TournamentInstance) {
+        self.tournaments
+            .insert(tournament.tournament_id(), tournament.clone());
+        persistence::store_tournament(tournament).unwrap();
+    }
+
     pub fn progress_tournament(&mut self, tournament_id: &TournamentId) {
-        if let Some(tournament) = self.tournaments.get_mut(tournament_id) {
+        if let Some(mut tournament) = self.tournament(tournament_id) {
             while let Some(action) = tournament.next_action() {
                 match action {
                     TournamentAction::StartNextGame { game_settings } => {
                         // Create and store a new game instance.
-                        let mut game = GameInstance::new_from_config_with_random_cards(&game_settings);
+                        let mut game =
+                            GameInstance::new_from_config_with_random_cards(&game_settings);
                         game.run();
 
                         if !game.is_complete() {
                             // Store the game.
-                            self.games.insert(game.game_id(), game);
+                            self.update_game(&game);
 
-                            // Break if the game could not be completed.
+                            // Update tournament and break if the game could not be completed.
                             // This means it is waiting for player input.
+                            self.update_tournament(&tournament);
                             break;
                         }
 
@@ -55,23 +103,25 @@ impl PokerServer {
                         let game_result = game.game_final_results().unwrap();
 
                         // Also store the game.
-                        self.games.insert(game.game_id(), game);
+                        self.update_game(&game);
 
                         // Finish the game in the tournament.
                         tournament.finish_game(&game_result).unwrap();
-
                         // Continue to the next action.
                     }
                     TournamentAction::FinishGame { game_id } => {
                         // This state means the game has already been started,
                         // and needs to be pushed to completion.
-                        if let Some(game) = self.games.get_mut(&game_id) {
+                        if let Some(mut game) = self.game(&game_id) {
                             if !game.is_complete() {
                                 game.run();
                                 if game.is_complete() {
                                     let game_result = game.game_final_results().unwrap();
                                     tournament.finish_game(&game_result).unwrap();
+                                    self.update_game(&game);
                                 } else {
+                                    self.update_game(&game);
+                                    self.update_tournament(&tournament);
                                     // Game is still not complete, break to wait for player input.
                                     break;
                                 }
@@ -82,11 +132,14 @@ impl PokerServer {
                             }
                         } else {
                             // Game not found, this is an error in the tournament state.
+                            self.update_tournament(&tournament);
                             break;
                         }
                     }
                 }
             }
+            // Update tournament after all actions are processed
+            self.update_tournament(&tournament);
         }
     }
 }
@@ -99,7 +152,7 @@ pub struct ServerState {
 impl ServerState {
     pub fn new() -> Self {
         Self {
-            server: Arc::new(Mutex::new(PokerServer::default())),
+            server: Arc::new(Mutex::new(PokerServer::new())),
         }
     }
 }
