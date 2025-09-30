@@ -1,4 +1,7 @@
-use std::{fs, path::PathBuf};
+use std::{
+    fs,
+    path::{Path, PathBuf},
+};
 
 use rs_poker_engine::{game_instance::GameInstance, tournament_instance::TournamentInstance};
 use rs_poker_types::{game_event::GameEvent, tournament_event::TournamentEvent};
@@ -30,7 +33,12 @@ pub type PersistenceResult<T> = Result<T, PersistenceError>;
 /// Store a game instance to persistent storage
 pub fn store_game(game: &GameInstance) -> PersistenceResult<()> {
     let events = game.events();
-    store_to_json(&events, STORAGE_GAMES_DIR, game.game_id.as_str())
+    let games_dir = match &game.tournament_id {
+        Some(tournament_id) => tournament_id.as_str(),
+        None => "singles",
+    };
+    let path = PathBuf::from(STORAGE_GAMES_DIR).join(games_dir);
+    store_to_json(&events, &path, game.game_id.as_str())
 }
 
 /// Store a tournament instance to persistent storage
@@ -38,7 +46,7 @@ pub fn store_tournament(tournament: &TournamentInstance) -> PersistenceResult<()
     let events = tournament.events();
     store_to_json(
         &events,
-        STORAGE_TOURNAMENTS_DIR,
+        &PathBuf::from(STORAGE_TOURNAMENTS_DIR),
         tournament.tournament_id.as_str(),
     )
 }
@@ -51,11 +59,19 @@ pub fn load_games() -> PersistenceResult<Vec<GameInstance>> {
         for entry in fs::read_dir(dir)? {
             let entry = entry?;
             let path = entry.path();
-            if path.extension().and_then(|s| s.to_str()) == Some("json") {
-                let data = fs::read_to_string(&path)?;
-                let events: Vec<GameEvent> = serde_json::from_str(&data)?;
-                let game = GameInstance::from(events);
-                games.push(game);
+
+            if path.is_dir() {
+                // Look one level deeper in subdirectories
+                for sub_entry in fs::read_dir(&path)? {
+                    let sub_entry = sub_entry?;
+                    let sub_path = sub_entry.path();
+                    if sub_path.extension().and_then(|s| s.to_str()) == Some("json") {
+                        let data = fs::read_to_string(&sub_path)?;
+                        let events: Vec<GameEvent> = serde_json::from_str(&data)?;
+                        let game = GameInstance::from(events);
+                        games.push(game);
+                    }
+                }
             }
         }
     }
@@ -84,7 +100,11 @@ pub fn load_tournaments() -> PersistenceResult<Vec<TournamentInstance>> {
 }
 
 /// Generic function to store serializable data to a JSON file
-fn store_to_json<T: Serialize>(data: &T, directory: &str, filename: &str) -> PersistenceResult<()> {
+fn store_to_json<T: Serialize>(
+    data: &T,
+    directory: &Path,
+    filename: &str,
+) -> PersistenceResult<()> {
     // Ensure the storage directory exists
     fs::create_dir_all(directory)?;
 
