@@ -97,6 +97,7 @@ async fn handle_game_in_progress(
         .game_player_view(GamePlayerViewRequest {
             game_id: game_id.clone(),
             player_name: current_player.name().clone(),
+            include_tournament_history: false,
         })
         .await
         .unwrap();

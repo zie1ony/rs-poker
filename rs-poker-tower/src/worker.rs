@@ -215,6 +215,7 @@ impl Worker {
                                 rs_poker_server::handler::game_player_view::GamePlayerViewRequest {
                                     game_id: game_id.clone(),
                                     player_name: name.clone(),
+                                    include_tournament_history: true,
                                 }
                             ).await {
                                 Ok(view) => view,

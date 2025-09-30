@@ -65,8 +65,6 @@ Charlie wins 60 (stack after: 60)
 Alice wins 240 (stack after: 240)
 ```
 
-## Players with zero stack should be removed from the game.
-
 ## Player want to fold but can't
 
 ```xml
