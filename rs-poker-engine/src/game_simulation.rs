@@ -438,6 +438,8 @@ impl GameSimulation {
                         player_name: self.player_name(*idx),
                         won_pot: split as f32,
                         stack_after: self.game_state.stacks[*idx],
+                        rank: Some(rank),
+                        hand: Some(self.game_state.hands[*idx]),
                     });
                 }
 
@@ -938,6 +940,8 @@ impl GameSimulation {
                         player_name: self.player_name(winning_idx),
                         won_pot: total_pot,
                         stack_after: self.game_state.stacks[winning_idx],
+                        rank: None,
+                        hand: None,
                     }],
                 }));
             }

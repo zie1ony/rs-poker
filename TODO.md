@@ -18,11 +18,6 @@ Charlie posts small blind of 40 (stack: 217.7088, pot: 40)
 Alice posts big blind of 80 (stack: 0, pot: 82.291214)
 ```
 
-## Showdown with cards.
-
-Showdown doesn't include players' cards.
-Show only cards that actally participated in the showdown.
-
 ## Unify views
 Both the game and the tournament views has `_full_view` and `_player_view`. Those could be unified.
 
@@ -106,3 +101,5 @@ Decision {
     action: Fold,
 }
 ```
+
+### Support openrouter.

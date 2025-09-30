@@ -8,7 +8,7 @@ use rs_poker_types::{game_event::GameEvent, tournament_event::TournamentEvent};
 use serde::Serialize;
 use thiserror::Error;
 
-pub const STORAGE_DIR: &str = "data";
+pub const SINGLES_DIR_NAME: &str = "singles";
 pub const STORAGE_GAMES_DIR: &str = "data/games";
 pub const STORAGE_TOURNAMENTS_DIR: &str = "data/tournaments";
 
@@ -35,7 +35,7 @@ pub fn store_game(game: &GameInstance) -> PersistenceResult<()> {
     let events = game.events();
     let games_dir = match &game.tournament_id {
         Some(tournament_id) => tournament_id.as_str(),
-        None => "singles",
+        None => SINGLES_DIR_NAME,
     };
     let path = PathBuf::from(STORAGE_GAMES_DIR).join(games_dir);
     store_to_json(&events, &path, game.game_id.as_str())

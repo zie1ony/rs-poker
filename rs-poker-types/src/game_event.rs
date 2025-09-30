@@ -1,6 +1,6 @@
 use rs_poker::{
     arena::{action::AgentAction, game_state::Round},
-    core::Card,
+    core::{Card, Hand, Rank},
 };
 
 use crate::{
@@ -85,4 +85,6 @@ pub struct Award {
     pub player_name: PlayerName,
     pub won_pot: f32,
     pub stack_after: f32,
+    pub rank: Option<Rank>,
+    pub hand: Option<Hand>,
 }

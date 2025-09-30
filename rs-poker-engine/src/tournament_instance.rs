@@ -76,14 +76,28 @@ impl TournamentInstance {
     pub fn next_action(&mut self) -> Option<TournamentAction> {
         match self.status {
             TournamentStatus::WaitingForNextGame => {
-                // Check if tournament should be completed
-                let players_with_money = self
+                // Check if tournament should be completed by counting players who can afford
+                // the next small blind
+                let small_blind = self.next_small_blind;
+                let players_with_sufficient_chips = self
                     .player_stacks
                     .iter()
-                    .filter(|&&stack| stack > 0.0)
+                    .filter(|&&stack| stack > small_blind)
                     .count();
-                if players_with_money <= 1 {
+                if players_with_sufficient_chips <= 1 {
                     self.status = TournamentStatus::Completed;
+
+                    // Record tournament finished event if there's a winner
+                    if let Some(winner) = self.winner() {
+                        let tournament_finished_event =
+                            TournamentEvent::TournamentFinished(TournamentFinishedEvent {
+                                timestamp: std::time::SystemTime::now(),
+                                tournament_id: self.tournament_id.clone(),
+                                winner: winner.name(),
+                            });
+                        self.events.push(tournament_finished_event);
+                    }
+
                     None
                 } else {
                     // Start next game
@@ -128,13 +142,38 @@ impl TournamentInstance {
         }
 
         let game_id = GameId::for_tournament(game_number);
+
+        // Only include players with positive stacks (more than small blind).
+        let positive_stacks_ids: Vec<usize> = self
+            .player_stacks
+            .iter()
+            .enumerate()
+            .filter_map(|(idx, &stack)| if stack > small_blind { Some(idx) } else { None })
+            .collect();
+
+        let positive_stacks: Vec<f32> = positive_stacks_ids
+            .iter()
+            .map(|&idx| self.player_stacks[idx])
+            .collect();
+
+        let positive_players: Vec<rs_poker_types::player::Player> = positive_stacks_ids
+            .iter()
+            .map(|&idx| self.settings.players[idx].clone())
+            .collect();
+
+        assert_eq!(
+            positive_players.len(),
+            positive_stacks.len(),
+            "Player and stack counts must match"
+        );
+
         let new_game = GameSettings {
             tournament_id: Some(self.tournament_id.clone()),
             torunament_game_number: Some(game_number),
             game_id: game_id.clone(),
             small_blind,
-            players: self.settings.players.clone(),
-            stacks: self.player_stacks.clone(),
+            players: positive_players,
+            stacks: positive_stacks,
         };
 
         // Record game started event
@@ -170,32 +209,46 @@ impl TournamentInstance {
             return Err(TournamentError::CannotFinishGame);
         }
 
-        // Validate that the players match
-        let expected_player_names: Vec<_> =
+        // Validate that the game results contain valid players from the tournament
+        let tournament_player_names: Vec<_> =
             self.settings.players.iter().map(|p| p.name()).collect();
-        if game_final_results.player_names != expected_player_names {
-            return Err(TournamentError::PlayersMismatch);
+
+        for player_name in &game_final_results.player_names {
+            if !tournament_player_names.contains(player_name) {
+                return Err(TournamentError::PlayersMismatch);
+            }
         }
 
         // Update player stacks based on final results
-        self.player_stacks = game_final_results.final_stacks.clone();
+        // Only update stacks for players who participated in the game
+        for (i, player_name) in game_final_results.player_names.iter().enumerate() {
+            if let Some(tournament_index) = tournament_player_names
+                .iter()
+                .position(|name| name == player_name)
+            {
+                if i < game_final_results.final_stacks.len() {
+                    self.player_stacks[tournament_index] = game_final_results.final_stacks[i];
+                }
+            }
+        }
 
-        // Record game ended event
+        // Record game ended event with full tournament state
         let game_ended_event = TournamentEvent::GameEnded(GameEndedEvent {
             timestamp: std::time::SystemTime::now(),
             game_id: game_final_results.game_id.clone(),
-            player_names: game_final_results.player_names.clone(),
-            player_stacks: game_final_results.final_stacks.clone(),
+            player_names: self.settings.players.iter().map(|p| p.name()).collect(),
+            player_stacks: self.player_stacks.clone(),
         });
         self.events.push(game_ended_event);
 
-        // Check if tournament should be completed (only one player has money left)
-        let players_with_money = self
+        // Check if tournament should be completed (only one player can afford the next
+        // small blind)
+        let players_with_sufficient_chips = self
             .player_stacks
             .iter()
-            .filter(|&&stack| stack > 0.0)
+            .filter(|&&stack| stack > self.next_small_blind)
             .count();
-        if players_with_money <= 1 {
+        if players_with_sufficient_chips <= 1 {
             self.status = TournamentStatus::Completed;
 
             // Record tournament finished event
@@ -387,37 +440,26 @@ mod tests {
             TournamentError::PlayersMismatch
         );
 
-        // Should fail if we try to finish a game with mismatched number of players
+        // Should now succeed with fewer players (simulating eliminated players)
+        // This behavior changed - we now allow partial results
         let fewer_players_results = GameFinalResults {
             game_id: game0.game_id.clone(),
             player_names: vec![PlayerName::new("Alice"), PlayerName::new("Bob")],
             final_stacks: vec![150.0, 50.0],
         };
-        assert_eq!(
-            tournament.finish_game(&fewer_players_results).unwrap_err(),
-            TournamentError::PlayersMismatch
-        );
+        // This should now succeed instead of failing
+        tournament.finish_game(&fewer_players_results).unwrap();
 
-        // Successfully finish game 0
-        let game0_results = GameFinalResults {
-            game_id: game0.game_id.clone(),
-            player_names: vec![
-                PlayerName::new("Alice"),
-                PlayerName::new("Bob"),
-                PlayerName::new("Charlie"),
-            ],
-            final_stacks: vec![180.0, 60.0, 60.0], // Alice gains 80, others lose 40 each
-        };
-        tournament.finish_game(&game0_results).unwrap();
+        // Check that player stacks were updated correctly
+        assert_eq!(tournament.player_stacks, vec![150.0, 50.0, 100.0]); // Charlie's stack unchanged
         assert_eq!(tournament.status(), &TournamentStatus::WaitingForNextGame);
-        assert_eq!(tournament.player_stacks, vec![180.0, 60.0, 60.0]);
         assert_eq!(tournament.events.len(), 3); // TournamentCreated + GameStarted + GameEnded
 
-        // GAME 1: Alice continues winning
+        // GAME 1: Alice continues winning, but now starting from different stacks
         let game1 = tournament.start_next_game().unwrap();
         assert_eq!(game1.torunament_game_number, Some(1));
         assert_eq!(game1.small_blind, 5.0); // Blinds don't double until game 3
-        assert_eq!(game1.stacks, vec![180.0, 60.0, 60.0]); // Uses updated stacks
+        assert_eq!(game1.stacks, vec![150.0, 50.0, 100.0]); // Uses updated stacks from game 0
 
         let game1_results = GameFinalResults {
             game_id: game1.game_id.clone(),
@@ -426,10 +468,10 @@ mod tests {
                 PlayerName::new("Bob"),
                 PlayerName::new("Charlie"),
             ],
-            final_stacks: vec![220.0, 40.0, 40.0], // Alice gains 40, others lose 20 each
+            final_stacks: vec![180.0, 60.0, 60.0], // Redistributed chips
         };
         tournament.finish_game(&game1_results).unwrap();
-        assert_eq!(tournament.player_stacks, vec![220.0, 40.0, 40.0]);
+        assert_eq!(tournament.player_stacks, vec![180.0, 60.0, 60.0]);
         assert_eq!(tournament.events.len(), 5); // +GameStarted +GameEnded
 
         // GAME 2: Alice dominates more
@@ -470,19 +512,18 @@ mod tests {
         assert_eq!(tournament.events.len(), 9); // +GameStarted +GameEnded
 
         // GAME 4: Alice eliminates Charlie and wins the tournament
+        // Bob is excluded from this game because he has 0.0 chips (less than small
+        // blind of 10.0)
         let game4 = tournament.start_next_game().unwrap();
         assert_eq!(game4.torunament_game_number, Some(4));
         assert_eq!(game4.small_blind, 10.0); // Blinds stay doubled
-        assert_eq!(game4.stacks, vec![275.0, 0.0, 25.0]);
+        assert_eq!(game4.stacks, vec![275.0, 25.0]); // Only Alice and Charlie have enough chips
+        assert_eq!(game4.players.len(), 2); // Only Alice and Charlie
 
         let game4_results = GameFinalResults {
             game_id: game4.game_id.clone(),
-            player_names: vec![
-                PlayerName::new("Alice"),
-                PlayerName::new("Bob"),
-                PlayerName::new("Charlie"),
-            ],
-            final_stacks: vec![300.0, 0.0, 0.0], // Alice wins everything
+            player_names: vec![PlayerName::new("Alice"), PlayerName::new("Charlie")],
+            final_stacks: vec![300.0, 0.0], // Alice wins everything from Charlie
         };
         tournament.finish_game(&game4_results).unwrap();
 

@@ -1,6 +1,10 @@
-use rs_poker::arena::{
-    action::{self, AgentAction},
-    game_state::Round,
+use rs_poker::core::Rank;
+use rs_poker::{
+    arena::{
+        action::{self, AgentAction},
+        game_state::Round,
+    },
+    core::Card,
 };
 use rs_poker_types::{
     game_event::{ForcedBetKind, GameEvent},
@@ -66,7 +70,10 @@ impl GameSummary {
                                 summary
                                     .push_str(&format!("\nYour Hand: {} {}\n", hand[0], hand[1]));
                             } else {
-                                panic!("Player {:?} not found in game players", name);
+                                // Player wasn't in this game (e.g., eliminated/insufficient chips)
+                                summary.push_str(&format!(
+                                    "\nYou did not participate in this game.\n"
+                                ));
                             }
                         }
                         None => {
@@ -187,9 +194,27 @@ impl GameSummary {
                 GameEvent::GameEnded(game_ended_event) => {
                     summary.push_str("\n--- Game Ended ---\n");
                     for award in &game_ended_event.awards {
+                        let hand_info = match (&award.hand, &award.rank) {
+                            (Some(hand), Some(rank)) => {
+                                let mut cards: Vec<Card> = hand.iter().collect();
+                                cards.sort();
+                                let cards: Vec<String> =
+                                    cards.iter().map(|c| c.to_string()).collect();
+                                format!(" with {} ({})", cards.join(" "), rank_to_str(rank))
+                            }
+                            (Some(hand), None) => {
+                                let mut cards: Vec<Card> = hand.iter().collect();
+                                cards.sort();
+                                let cards: Vec<String> =
+                                    cards.iter().map(|c| c.to_string()).collect();
+                                format!(" with {}", cards.join(" "))
+                            }
+                            _ => String::new(),
+                        };
+
                         summary.push_str(&format!(
-                            "{} wins {} (stack after: {})\n",
-                            award.player_name, award.won_pot, award.stack_after
+                            "{} wins {}{} (stack after: {})\n",
+                            award.player_name, award.won_pot, hand_info, award.stack_after
                         ));
                     }
                 }
@@ -209,5 +234,19 @@ pub fn action_to_str(action: &AgentAction) -> String {
         action::AgentAction::Call => "calls".to_string(),
         action::AgentAction::Bet(amount) => format!("bets {}", amount),
         action::AgentAction::AllIn => "goes all-in".to_string(),
+    }
+}
+
+pub fn rank_to_str(rank: &Rank) -> String {
+    match rank {
+        Rank::HighCard(_) => "High Card".to_string(),
+        Rank::OnePair(_) => "One Pair".to_string(),
+        Rank::TwoPair(_) => "Two Pair".to_string(),
+        Rank::ThreeOfAKind(_) => "Three of a Kind".to_string(),
+        Rank::Straight(_) => "Straight".to_string(),
+        Rank::Flush(_) => "Flush".to_string(),
+        Rank::FullHouse(_) => "Full House".to_string(),
+        Rank::FourOfAKind(_) => "Four of a Kind".to_string(),
+        Rank::StraightFlush(_) => "Straight Flush".to_string(),
     }
 }
