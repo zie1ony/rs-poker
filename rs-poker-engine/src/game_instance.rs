@@ -7,7 +7,7 @@ use rs_poker_types::{
     game::{
         Decision, GameFinalResults, GameFullView, GameId, GamePlayerView, GameSettings, GameStatus,
     },
-    player::{AutomatType, Player, PlayerName}, tournament::{self, TournamentId},
+    player::{AutomatType, Player, PlayerName}, tournament::{TournamentId},
 };
 
 use crate::{
@@ -189,7 +189,7 @@ impl GameInstance {
     }
 
     pub fn game_status(&self) -> GameStatus {
-        if self.simulation.game_state.is_complete() {
+        if self.is_complete() {
             GameStatus::Finished
         } else {
             GameStatus::InProgress

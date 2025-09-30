@@ -6,7 +6,7 @@ use crate::{
     tournament::{TournamentId, TournamentSettings},
 };
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub enum TournamentEvent {
     TournamentCreated(TournamentCreatedEvent),
     GameStarted(GameStartedEvent),
@@ -14,7 +14,7 @@ pub enum TournamentEvent {
     TournamentFinished(TournamentFinishedEvent),
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct TournamentCreatedEvent {
     pub timestamp: SystemTime,
     pub tournament_id: TournamentId,
@@ -31,7 +31,7 @@ impl TournamentCreatedEvent {
     }
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct GameStartedEvent {
     pub timestamp: SystemTime,
     pub game_id: GameId,
@@ -39,7 +39,7 @@ pub struct GameStartedEvent {
     pub player_stacks: Vec<f32>,
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct GameEndedEvent {
     pub timestamp: SystemTime,
     pub game_id: GameId,
@@ -47,7 +47,7 @@ pub struct GameEndedEvent {
     pub player_stacks: Vec<f32>,
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct TournamentFinishedEvent {
     pub timestamp: SystemTime,
     pub tournament_id: TournamentId,

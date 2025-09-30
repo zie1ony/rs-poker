@@ -1,5 +1,5 @@
 use rs_poker_types::{
-    game::{self, GameFinalResults, GameId, GameSettings},
+    game::{GameFinalResults, GameId, GameSettings},
     tournament::{TournamentId, TournamentInfo, TournamentSettings, TournamentStatus},
     tournament_event::{
         GameEndedEvent, GameStartedEvent, TournamentCreatedEvent, TournamentEvent,
@@ -7,7 +7,7 @@ use rs_poker_types::{
     },
 };
 
-#[derive(Clone)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct TournamentInstance {
     pub tournament_id: TournamentId,
     pub events: Vec<TournamentEvent>,
@@ -217,6 +217,12 @@ impl TournamentInstance {
             current_game_id: self.current_game_id.clone(),
             winner: self.winner().map(|p| p.name()),
         }
+    }
+}
+
+impl From<Vec<TournamentEvent>> for TournamentInstance {
+    fn from(events: Vec<TournamentEvent>) -> Self {
+        todo!()
     }
 }
 
@@ -453,6 +459,12 @@ mod tests {
             }
             _ => panic!("Expected TournamentFinished event"),
         }
+
+        // Build new tournament instance from events.
+        let events = tournament.events.clone();
+        let rebuilt_tournament = TournamentInstance::from(events);
+        assert_eq!(rebuilt_tournament, tournament);
+
     }
 
     #[test]

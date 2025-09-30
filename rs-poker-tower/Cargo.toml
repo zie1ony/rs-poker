@@ -3,9 +3,6 @@ name = "rs-poker-tower"
 version = "0.1.0"
 edition = "2024"
 
-[[bin]]
-name = "run-tower"
-path = "src/main.rs"
 
 [dependencies]
 rs-poker-server = { path = "../rs-poker-server" }
