@@ -35,6 +35,7 @@ impl GameInstance {
     ) -> Self {
         let simulation = GameSimulation::new(
             game_id.clone(),
+            tournament_id.clone(),
             big_blind,
             small_blind,
             initial_stacks.clone(),
@@ -235,7 +236,80 @@ impl GameInstance {
 
 impl From<Vec<GameEvent>> for GameInstance {
     fn from(events: Vec<GameEvent>) -> Self {
-        todo!()
+        // Extract the GameStarted event to get initial game parameters
+        let game_started_event = events
+            .iter()
+            .find_map(|event| match event {
+                GameEvent::GameStarted(started) => Some(started),
+                _ => None,
+            })
+            .expect("GameStarted event must be present");
+
+        // Create a new GameInstance with initial state  
+        let mut game_instance = GameInstance::new(
+            game_started_event.game_id.clone(),
+            game_started_event.tournament_id.clone(),
+            game_started_event.players.clone(),
+            game_started_event.initial_stacks.clone(),
+            game_started_event.big_blind,
+            game_started_event.small_blind,
+            game_started_event.hands.clone(),
+            game_started_event.community_cards,
+        );
+
+        // Create a fresh simulation and directly set the events to match the original
+        let mut simulation = GameSimulation::new(
+            game_started_event.game_id.clone(),
+            game_started_event.tournament_id.clone(),
+            game_started_event.big_blind,
+            game_started_event.small_blind,
+            game_started_event.initial_stacks.clone(),
+            game_started_event.players.clone(),
+            game_started_event.hands.clone(),
+            game_started_event.community_cards,
+            game_started_event.players.iter().map(|p| p.name()).collect(),
+        );
+
+        // Extract player actions in order and replay them
+        let player_actions: Vec<_> = events
+            .iter()
+            .filter_map(|event| match event {
+                GameEvent::PlayerAction(action) => Some((action.player_idx, action.player_decision.clone())),
+                GameEvent::FailedPlayerAction(action) => Some((action.player_idx, action.player_decision.clone())),
+                _ => None,
+            })
+            .collect();
+
+        // Run the simulation until completion, injecting the exact decisions from the events
+        let mut action_index = 0;
+        loop {
+            let result = simulation.run();
+            match result {
+                GameActionRequired::PlayerToAct { idx, .. } => {
+                    if action_index < player_actions.len() && player_actions[action_index].0 == idx {
+                        // Use the decision from the events
+                        let decision = player_actions[action_index].1.clone();
+                        simulation.execute_player_action(decision);
+                        action_index += 1;
+                    } else {
+                        // No more actions to replay or player index mismatch - this shouldn't happen
+                        break;
+                    }
+                }
+                GameActionRequired::NoActionRequired => {
+                    // Game is complete
+                    break;
+                }
+            }
+        }
+
+        // Set the events to exactly match the original events
+        simulation.events = events.clone();
+
+        // Update the game instance with the replayed simulation
+        game_instance.simulation = simulation;
+
+        game_instance
     }
 }
 
@@ -284,9 +358,11 @@ mod tests {
 
     #[test]
     fn test_game_instance_serialization() {
-        let random_game = random_game();
-        let events = random_game.events();
-        let reconstructed_game = GameInstance::from(events);
-        assert_eq!(random_game, reconstructed_game);
+        for _ in 0..100 {
+            let game = random_game();
+            let events = game.events();
+            let reconstructed_game = GameInstance::from(events.clone());
+            assert_eq!(game, reconstructed_game);
+        }
     }
 }

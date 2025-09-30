@@ -1,5 +1,4 @@
 use std::collections::BTreeMap;
-use std::fmt;
 
 use rs_poker::arena::GameState;
 use rs_poker_types::game::{Decision, GameId, PossibleAction};
@@ -8,6 +7,7 @@ use rs_poker_types::game_event::{
     PlayerActionEvent, ShowCommunityCardsEvent,
 };
 use rs_poker_types::player::{Player, PlayerName};
+use rs_poker_types::tournament;
 use tracing::{Level, debug_span, event, instrument, trace_span};
 
 use rs_poker::arena::action::{FailedActionPayload, PlayedActionPayload};
@@ -46,14 +46,9 @@ pub struct GameSimulation {
 }
 
 impl GameSimulation {
-    #[allow(unused_variables)]
-    pub fn from_actions(id: GameId, actions: Vec<Action>) -> Self {
-        // TODO: Implement reconstruction from actions
-        unimplemented!("from_actions not yet implemented")
-    }
-
     pub fn new(
         game_id: GameId,
+        tournament_id: Option<tournament::TournamentId>,
         big_blind: f32,
         small_blind: f32,
         stacks: Vec<f32>,
@@ -67,6 +62,7 @@ impl GameSimulation {
         // Emit a game started event
         let game_start_event = GameEvent::GameStarted(GameStartedEvent {
             game_id: game_id.clone(),
+            tournament_id,
             players,
             initial_stacks: stacks.clone(),
             big_blind,
