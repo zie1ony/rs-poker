@@ -328,14 +328,14 @@ async fn run_series(mock_server: bool) {
         series_id: SeriesId::new("ai-vs-random"),
         players: vec![
             Player::random("Alice"),
-            // Player::random("Bob"),
+            Player::random("Bob"),
             // Player::random("Charlie"),
             Player::ai("CharlieAI", "gpt-4o-mini", "Play only strong hands."),
-            Player::ai("Luke Skywalker", "gpt-5-nano", "Use force to sense good moves.")
+            // Player::ai("Luke Skywalker", "gpt-5-nano", "Use force to sense good moves.")
         ],
         number_of_tournaments: 5,
         starting_player_stack: 100.0,
-        starting_small_blind: 5.0,
+        starting_small_blind: 20.0,
         double_blinds_every_n_games: Some(3),
         end_condition: TournamentEndCondition::SingleWinner,
         see_historical_thoughts: true,

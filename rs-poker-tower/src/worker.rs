@@ -244,16 +244,16 @@ impl Worker {
                     }
                 }
                 rs_poker_types::game::GameStatus::Finished => {
+                    let full_view = self.poker_client.game_full_view(GameFullViewRequest {
+                        game_id: game_id.clone(),
+                        debug: false,
+                    }).await.unwrap();
+                    logger.log_game_finished(game_id, &full_view.summary);
                     println!("[w] Game {:?} finished", game_id);
                     break;
                 }
             }
-
-            let full_view = self.poker_client.game_full_view(GameFullViewRequest {
-                game_id: game_id.clone(),
-                debug: false,
-            }).await.unwrap();
-            logger.log_game_finished(game_id, &full_view.summary);
+            
             // Small delay to avoid overwhelming the server
             // tokio::time::sleep(tokio::time::Duration::from_millis(50)).await;
         }

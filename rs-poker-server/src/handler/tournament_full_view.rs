@@ -29,13 +29,12 @@ async fn tournament_full_view_handler(
             
             // Collect game events from all games associated with this tournament
             let mut game_events = std::collections::HashMap::new();
-            for (game_id, tournament_id_for_game) in &server.game_tournament_map {
-                if tournament_id_for_game == &tournament_id {
-                    if let Some(game) = server.games.get(game_id) {
-                        game_events.insert(game_id.clone(), game.simulation.events.clone());
-                    }
+            for game_id in tournament.game_ids() {
+                if let Some(game) = server.games.get(game_id) {
+                    game_events.insert(game_id.clone(), game.simulation.events.clone());
                 }
             }
+
             
             // Create full tournament summary
             let tournament_summary = TournamentSummary::full(tournament_events, game_events);

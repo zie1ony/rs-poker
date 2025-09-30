@@ -7,7 +7,7 @@ use rs_poker_types::{
     game::{
         Decision, GameFinalResults, GameFullView, GameId, GamePlayerView, GameSettings, GameStatus,
     },
-    player::{AutomatType, Player, PlayerName},
+    player::{AutomatType, Player, PlayerName}, tournament::{self, TournamentId},
 };
 
 use crate::{
@@ -18,6 +18,7 @@ use crate::{
 #[derive(Clone)]
 pub struct GameInstance {
     pub game_id: GameId,
+    pub tournament_id: Option<TournamentId>,
     pub simulation: GameSimulation,
     pub players: Vec<Player>,
 }
@@ -25,6 +26,7 @@ pub struct GameInstance {
 impl GameInstance {
     pub fn new(
         game_id: GameId,
+        tournament_id: Option<TournamentId>,
         players: Vec<Player>,
         initial_stacks: Vec<f32>,
         big_blind: f32,
@@ -44,6 +46,7 @@ impl GameInstance {
         );
         Self {
             game_id,
+            tournament_id,
             simulation,
             players,
         }
@@ -52,6 +55,7 @@ impl GameInstance {
     pub fn new_from_config_with_random_cards(config: &GameSettings) -> Self {
         Self::new_with_random_cards(
             config.game_id.clone(),
+            config.tournament_id.clone(),
             config.players.clone(),
             config.stacks.clone(),
             config.small_blind * 2.0,
@@ -61,6 +65,7 @@ impl GameInstance {
 
     pub fn new_with_random_cards(
         game_id: GameId,
+        tournament_id: Option<TournamentId>,
         players: Vec<Player>,
         initial_stacks: Vec<f32>,
         big_blind: f32,
@@ -88,6 +93,7 @@ impl GameInstance {
 
         Self::new(
             game_id,
+            tournament_id,
             players,
             initial_stacks,
             big_blind,

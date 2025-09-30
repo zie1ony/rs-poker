@@ -33,8 +33,11 @@ async fn make_action_handler(
                 current_player_name: game.current_player_name(),
             };
 
+            // If the game is complete and is part of a tournament, progress the tournament.
             if is_complete {
-                server.on_game_completed(&payload.game_id);
+                if let Some(tournament_id) = game.tournament_id.clone() {
+                    server.progress_tournament(&tournament_id);
+                }
             }
 
             Json(Ok(game_info))

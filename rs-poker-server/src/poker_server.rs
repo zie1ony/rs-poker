@@ -30,7 +30,6 @@ macro_rules! router {
 pub struct PokerServer {
     pub games: HashMap<GameId, GameInstance>,
     pub tournaments: HashMap<TournamentId, TournamentInstance>,
-    pub game_tournament_map: HashMap<GameId, TournamentId>,
 }
 
 impl PokerServer {
@@ -42,9 +41,6 @@ impl PokerServer {
                         // Create and store a new game instance.
                         let mut game = GameInstance::new_from_config_with_random_cards(&game_settings);
                         game.run();
-
-                        // Map the game to the tournament
-                        self.game_tournament_map.insert(game.game_id(), tournament_id.clone());
 
                         if !game.is_complete() {
                             // Store the game.
@@ -91,14 +87,6 @@ impl PokerServer {
                     }
                 }
             }
-        }
-    }
-
-    // Method used to notify the server that a game has completed,
-    // so that it can progress the associated tournament if needed.
-    pub fn on_game_completed(&mut self, game_id: &GameId) {
-        if let Some(tournament_id) = self.game_tournament_map.get(game_id).cloned() {
-            self.progress_tournament(&tournament_id);
         }
     }
 }

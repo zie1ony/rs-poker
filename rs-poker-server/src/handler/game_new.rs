@@ -36,6 +36,7 @@ async fn new_game_handler(
     // Create a new game instance.
     let mut game = GameInstance::new_with_random_cards(
         payload.game_id.clone(),
+        None,
         payload.players.clone(),
         payload.initial_stacks.clone(),
         payload.small_blind * 2.0,

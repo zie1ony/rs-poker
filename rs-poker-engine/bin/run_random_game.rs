@@ -20,6 +20,7 @@ fn main() {
 
     let mut game_instance = GameInstance::new_with_random_cards(
         game_id.clone(),
+        None,
         players,
         vec![initial_stack; num_of_players],
         big_blind,

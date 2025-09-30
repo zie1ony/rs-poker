@@ -1,5 +1,5 @@
 use rs_poker_types::{
-    game::{GameFinalResults, GameId, GameSettings},
+    game::{self, GameFinalResults, GameId, GameSettings},
     tournament::{TournamentId, TournamentInfo, TournamentSettings, TournamentStatus},
     tournament_event::{
         GameEndedEvent, GameStartedEvent, TournamentCreatedEvent, TournamentEvent,
@@ -17,6 +17,7 @@ pub struct TournamentInstance {
     pub next_small_blind: f32,
     pub current_game_id: Option<GameId>,
     pub player_stacks: Vec<f32>,
+    pub game_ids: Vec<GameId>,
 }
 
 impl TournamentInstance {
@@ -30,7 +31,12 @@ impl TournamentInstance {
             next_small_blind: settings.starting_small_blind,
             current_game_id: None,
             player_stacks: vec![settings.starting_player_stack; settings.players.len()],
+            game_ids: vec![],
         }
+    }
+
+    pub fn game_ids(&self) -> &Vec<GameId> {
+        &self.game_ids
     }
 
     pub fn status(&self) -> &TournamentStatus {
@@ -113,7 +119,7 @@ impl TournamentInstance {
             }
         }
 
-        let game_id = GameId::random();
+        let game_id = GameId::for_tournament(game_number);
         let new_game = GameSettings {
             tournament_id: Some(self.tournament_id.clone()),
             torunament_game_number: Some(game_number),
@@ -134,6 +140,7 @@ impl TournamentInstance {
 
         self.status = TournamentStatus::GameInProgress;
         self.current_game_id = Some(game_id);
+        self.game_ids.push(new_game.game_id.clone());
         Ok(new_game)
     }
 

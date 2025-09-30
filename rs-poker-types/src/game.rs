@@ -19,6 +19,11 @@ impl GameId {
         Self(random_id("game"))
     }
 
+    pub fn for_tournament(game_number: usize) -> Self {
+        let prefix = format!("game_{}", game_number);
+        Self(random_id(&prefix))
+    }
+
     pub fn as_str(&self) -> &str {
         &self.0
     }
