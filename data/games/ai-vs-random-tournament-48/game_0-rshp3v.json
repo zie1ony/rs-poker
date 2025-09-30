@@ -1,0 +1,139 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-rshp3v",
+      "tournament_id": "ai-vs-random-tournament-48",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "7h",
+          "4c"
+        ],
+        [
+          "Qd",
+          "9d"
+        ],
+        [
+          "2d",
+          "3s"
+        ]
+      ],
+      "community_cards": [
+        "9h",
+        "As",
+        "Qs",
+        "4d",
+        "6c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "7♣4 off is a very weak hand preflop in a 3-handed game; folding is the +EV play rather than risking chips with a poor hand.",
+        "action": "Fold"
+      },
+      "stack_after": 100.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up in the small blind with ~9–10 BB effective; Q9 suited is a clear profitable shove, leveraging fold equity and retaining good equity when called.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 110.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With 2d3s on an all-in by Alice for 95 after I’m already in for 10, this is an unfavourable spot. Fold to minimize loss and preserve chips for future hands.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 110.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 110.0,
+          "stack_after": 110.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

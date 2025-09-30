@@ -1,0 +1,216 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_8-b588d5",
+      "tournament_id": "ai-vs-random-tournament-45",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        265.0,
+        30.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "9c",
+          "5c"
+        ],
+        [
+          "Qh",
+          "6s"
+        ]
+      ],
+      "community_cards": [
+        "7d",
+        "2s",
+        "6c",
+        "Ts",
+        "Jh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 245.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 0.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is all-in for 40; calling costs only 20 more. 9♣5♣ has decent heads-up equity against a wide shove and calling is the correct, low-cost way to try to double up and continue pushing to win the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 235.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "7d",
+        "2s",
+        "6c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is all-in — no bet to face. Betting would only build a side pot I can't win. I have weak draws (only three clubs and a single straight outs), so check to see turn/river and avoid committing chips unnecessarily.",
+        "action": "Call"
+      },
+      "stack_after": 235.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Ts"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a weak hand with only a few outs on the river. With a big stack advantage I make a small bet to try to steal the pot as a bluff — applying pressure on the short stack while risking little.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 195.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Jh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "My hand (9♣5♣) is very weak on J-T-7-6-2 — unlikely to improve and often behind any pair or J/T. Don’t risk a large bluff or shove; call to avoid overcommitting with a marginal hand.",
+        "action": "Call"
+      },
+      "stack_after": 195.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 60.0,
+          "stack_after": 60.0,
+          "rank": {
+            "OnePair": 132864
+          },
+          "hand": [
+            "2s",
+            "6s",
+            "Ts",
+            "6c",
+            "Jh",
+            "Qh",
+            "7d"
+          ]
+        },
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 40.0,
+          "stack_after": 235.0,
+          "rank": {
+            "HighCard": 944
+          },
+          "hand": [
+            "2s",
+            "Ts",
+            "5c",
+            "6c",
+            "9c",
+            "Jh",
+            "7d"
+          ]
+        }
+      ]
+    }
+  }
+]

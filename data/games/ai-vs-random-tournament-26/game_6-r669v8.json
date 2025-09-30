@@ -1,0 +1,129 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-r669v8",
+      "tournament_id": "ai-vs-random-tournament-26",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        120.0,
+        180.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "3c",
+          "Ac"
+        ],
+        [
+          "2c",
+          "Qs"
+        ]
+      ],
+      "community_cards": [
+        "Kc",
+        "Jh",
+        "5d",
+        "9c",
+        "Qd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 100.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 40.0,
+      "stack_after": 140.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "We’re in the small blind with A♣3♣ against a single BB who has 140 left. Calling 40 keeps us in with decent equity (backdoor clubs possible, Ace-high showdown value) and avoids risking more chips with a marginal hand. Folding costs us the 20 already invested and we’re not ready to jam without a stronger read.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up vs a limp, Q2o plays well as a raise. Apply pressure with chip lead and take initiative at minimum raise without committing villain all-in.",
+        "action": {
+          "Bet": 80.0
+        }
+      },
+      "stack_after": 100.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a large preflop raise (to 80) with Ace-3 clubs heads-up and limited equity; folding preserves stack for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 80.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 120.0,
+          "stack_after": 220.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

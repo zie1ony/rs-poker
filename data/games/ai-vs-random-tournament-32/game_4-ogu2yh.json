@@ -1,0 +1,117 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-ogu2yh",
+      "tournament_id": "ai-vs-random-tournament-32",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        195.0,
+        105.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "3h",
+          "9c"
+        ],
+        [
+          "5s",
+          "Td"
+        ]
+      ],
+      "community_cards": [
+        "7c",
+        "8d",
+        "3d",
+        "6c",
+        "4s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 185.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 85.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up I should open with a small raise to apply pressure and steal the blind. Min-raise to 40 is low risk and maintains aggression with my larger stack despite a weak 3-9 offsuit hand.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 155.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a 40 bet from Bob with a marginal hand (5s Td) on the BB in a heads-up pot. No showdown value or favorable odds to continue. Fold to preserve stack and look for a better spot.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 60.0,
+          "stack_after": 215.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

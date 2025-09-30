@@ -1,0 +1,286 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-h1mjp0",
+      "tournament_id": "ai-vs-random-tournament-23",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        110.0,
+        90.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "6s",
+          "9d"
+        ],
+        [
+          "5h",
+          "Jh"
+        ],
+        [
+          "7h",
+          "Kd"
+        ]
+      ],
+      "community_cards": [
+        "7s",
+        "Ts",
+        "As",
+        "Qs",
+        "Kc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 85.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Three-handed on the button with 9-6 offsuit is a standard open. Min-raise to steal cheaply versus likely-foldy blinds and keep flexibility postflop.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 90.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Two hearts and a marginal J-high hand on a heads-up preflop facing a 20 bet. Folding preserves stack for the tournament; equity vs her continuing range is too weak to justify calling/raising.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Kd7h is a marginal hand heads-up; calling 10 to see the flop is cheaper than committing more with a weak offsuit K. Preserve stack and realize equity postflop rather than over-raising preflop.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 45.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "7s",
+        "Ts",
+        "As"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have middle pair (7s) with a K kicker on A‑T‑7. I’m behind to Ax and many stronger hands; calling controls the pot, keeps weaker draws and worse pairs in, and lets me reevaluate on the turn. Raising or shoving is unnecessarily risky here.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 45.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Monotone A-high board strongly favors a small c-bet as the preflop raiser; our spade blocker reduces flush combos and can fold out many worse hands cheaply.",
+        "action": {
+          "Bet": 10.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 55.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have top pair (7s) with a K kicker on As Ts 7s. Alice's small bet (10 into 55) looks like a c-bet or weak value; calling extracts value from worse hands, keeps the pot controlled, and avoids committing when I could be behind to an Ace.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 65.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Qs"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a marginal pair (7s) on a highly coordinated board (four spades, A/Q/T present). Too many hands beat me (any spade, A, Q, T). Calling keeps the pot manageable and avoids committing my stack with a vulnerable hand.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 65.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We have a weak 6-high flush on a 4-spade board with low SPR. Betting risks a check-shove from higher spades; checking back controls pot and realizes equity, keeping dominated scenarios in check.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 65.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Kc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have two pair (Kings and Sevens) on a five-card board — a strong, but vulnerable, value hand. Betting a medium amount extracts value from worse hands (Kx, Qx, missed Ax bluffs) while avoiding committing my entire stack if I’m up against an Ace or a better two-pair. This sizes for value and to charge potential bluffs.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 30.0,
+      "pot_after": 105.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We have a low flush (6s) on a four-spade board. Pot odds (~28%) are favorable and villain can be betting straights or worse spades; raising only isolates higher spades and risks more with little value. Call to realize equity.",
+        "action": "Call"
+      },
+      "stack_after": 40.0,
+      "pot_after": 145.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 145.0,
+          "stack_after": 185.0,
+          "rank": {
+            "Flush": 5424
+          },
+          "hand": [
+            "6s",
+            "7s",
+            "Ts",
+            "Qs",
+            "As",
+            "Kc",
+            "9d"
+          ]
+        }
+      ]
+    }
+  }
+]

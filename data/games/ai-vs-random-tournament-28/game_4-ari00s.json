@@ -1,0 +1,115 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-ari00s",
+      "tournament_id": "ai-vs-random-tournament-28",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        210.0,
+        90.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Kc",
+          "8d"
+        ],
+        [
+          "9h",
+          "Kh"
+        ]
+      ],
+      "community_cards": [
+        "Kd",
+        "Jd",
+        "8h",
+        "3s",
+        "Qs"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 200.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 70.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up with effective ~3.5BB, K8o is a clear shove. Jamming maximizes fold equity and avoids giving the BB a cheap realization or profitable reshove over a small raise.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 230.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a large preflop all-in (Alice with 200) against a short stack (you have 70). Kh9h is a marginal hand in this spot, and folding preserves your remaining 70 chips for future hands, which is better for the tournament odds.",
+        "action": "Fold"
+      },
+      "stack_after": 70.0,
+      "pot_after": 230.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 230.0,
+          "stack_after": 230.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

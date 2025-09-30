@@ -1,0 +1,232 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-nrayys",
+      "tournament_id": "ai-vs-random-tournament-36",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        65.0,
+        85.0,
+        150.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "9d",
+          "6s"
+        ],
+        [
+          "9c",
+          "3d"
+        ],
+        [
+          "Qh",
+          "9h"
+        ]
+      ],
+      "community_cards": [
+        "4d",
+        "8h",
+        "3c",
+        "Qd",
+        "7d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 75.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 130.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "3.25 BB on the button; push/fold spot. 96o is a profitable shove 3-handed—maximize fold equity and avoid awkward postflop with a crippled stack.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 95.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "9c3d is weak and faces an all-in from a player with a likely strong range in a 3-handed preflop. Folding preserves chip stack for the tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 75.0,
+      "pot_after": 95.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Pot odds are good (need ~32% equity to call 45 into ~140). Q9s has reasonable equity vs a short-stack shove and calling can eliminate Alice or grow my stack without overcommitting by raising.",
+        "action": "Call"
+      },
+      "stack_after": 85.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "4d",
+        "8h",
+        "3c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in for their stack; further betting only risks chips with no fold equity. I have marginal Q9 with only backdoor draws and a few outs to pair. Check through to see turn/river and go to showdown without creating unnecessary side action.",
+        "action": "Call"
+      },
+      "stack_after": 85.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Qd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have top pair (Qh) after the turn and the opponent is already all-in — betting would only create a side pot they can’t contest. Check/call to see the river and showdown, preserving my stack.",
+        "action": "Call"
+      },
+      "stack_after": 85.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "7d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have top pair (Qh) after the turn; Alice is already all-in and cannot call further, so betting is unnecessary. Call (check) to go to showdown and collect the pot if my pair holds.",
+        "action": "Call"
+      },
+      "stack_after": 85.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 140.0,
+          "stack_after": 225.0,
+          "rank": {
+            "OnePair": 8388832
+          },
+          "hand": [
+            "3c",
+            "8h",
+            "9h",
+            "Qh",
+            "4d",
+            "7d",
+            "Qd"
+          ]
+        }
+      ]
+    }
+  }
+]

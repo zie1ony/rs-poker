@@ -1,0 +1,214 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-ctu58k",
+      "tournament_id": "ai-vs-random-tournament-23",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        265.0,
+        35.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "8h",
+          "6d"
+        ],
+        [
+          "5h",
+          "9d"
+        ]
+      ],
+      "community_cards": [
+        "Qh",
+        "As",
+        "Td",
+        "Kc",
+        "Ts"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 245.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 0.0,
+      "pot_after": 55.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Charlie is already all-in for the 40 big blind; I’ve posted 20, so calling costs only 20 to contest the pot. 8♠6♦ is marginal but the call is cheap with good pot odds. No need to risk more or create a side pot — call to see the board and maximize equity.",
+        "action": "Call"
+      },
+      "stack_after": 230.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Qh",
+        "As",
+        "Td"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in (no fold equity). Betting would only create an unnecessary side pot and risk chips for no extra gain. Check/call to see the turn and river and avoid committing more.",
+        "action": "Call"
+      },
+      "stack_after": 230.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Kc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is effectively all-in for a very small amount. My 8-6 is a weak hand with only 6 outs to improve. Betting would only create an unnecessary side pot I can’t win; check/call to the river to see if I improve while conserving chips to fight for the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 230.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Ts"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in (no fold equity). Betting would only create a side pot or risk chips unnecessarily on a marginal 8-6 on a paired board. Preserve stack to continue tournament.",
+        "action": "Call"
+      },
+      "stack_after": 230.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 35.0,
+          "stack_after": 265.0,
+          "rank": {
+            "OnePair": 2104320
+          },
+          "hand": [
+            "Ts",
+            "As",
+            "Kc",
+            "8h",
+            "Qh",
+            "6d",
+            "Td"
+          ]
+        },
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 35.0,
+          "stack_after": 35.0,
+          "rank": {
+            "OnePair": 2104320
+          },
+          "hand": [
+            "Ts",
+            "As",
+            "Kc",
+            "5h",
+            "Qh",
+            "9d",
+            "Td"
+          ]
+        }
+      ]
+    }
+  }
+]

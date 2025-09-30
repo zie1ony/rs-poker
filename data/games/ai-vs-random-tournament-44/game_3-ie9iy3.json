@@ -1,0 +1,208 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-ie9iy3",
+      "tournament_id": "ai-vs-random-tournament-44",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        105.0,
+        110.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Jc",
+          "3h"
+        ],
+        [
+          "8d",
+          "7s"
+        ],
+        [
+          "2h",
+          "5s"
+        ]
+      ],
+      "community_cards": [
+        "Ks",
+        "5c",
+        "4s",
+        "Js",
+        "Ad"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 95.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 90.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Jc3h is weak in a three-way pot; folding preserves stack and avoids dominated situations preflop.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Effective stacks are ~5BB blind-vs-blind; 87o is a clear shove from SB to maximize fold equity and realize full equity when called.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 125.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Pot is 125; calling 85 to win ~210 gives ~29.5% break-even equity. SB’s short-stack shove is likely wide, and with 2h5s I have reasonable equity and need to take spots to double up. No reason to overcommit with AllIn (only 5 chips more).",
+        "action": "Call"
+      },
+      "stack_after": 5.0,
+      "pot_after": 210.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ks",
+        "5c",
+        "4s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a made pair (5s) on the Ks-5c-4s flop and am effectively crippled (only 5 chips left). The remaining stake is tiny versus the pot and my tournament life — shoving maximizes my chance to double up and win the pot. Calling/checking preserves nothing significant; AllIn is the correct short-stack, high-variance play to try to win.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 215.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Js"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Ad"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 215.0,
+          "stack_after": 215.0,
+          "rank": {
+            "OnePair": 72192
+          },
+          "hand": [
+            "4s",
+            "5s",
+            "Js",
+            "Ks",
+            "5c",
+            "2h",
+            "Ad"
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,190 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-mwu16w",
+      "tournament_id": "ai-vs-random-tournament-31",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        225.0,
+        75.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Kd",
+          "5d"
+        ],
+        [
+          "9d",
+          "Td"
+        ]
+      ],
+      "community_cards": [
+        "Ts",
+        "9h",
+        "8d",
+        "9c",
+        "5h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 215.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 55.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up with ~3.75BB effective; K5s is a profitable shove to maximize fold equity and realize equity if called.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 245.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": " facing an all-in shove for 215 with 55 behind, pot is 245; calling adds 55 to make a 300-pot. Break-even equity is 55/300 ≈ 11.7%. Your 9dTd has roughly 20–25% equity vs a typical all-in range, so calling has positive EV and preserves chances to win the tournament; folding yields a sure loss of 20 and leaves you with 35.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 300.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ts",
+        "9h",
+        "8d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "9c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "5h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 150.0,
+          "stack_after": 150.0,
+          "rank": {
+            "FullHouse": 1048832
+          },
+          "hand": [
+            "Ts",
+            "9c",
+            "5h",
+            "9h",
+            "8d",
+            "9d",
+            "Td"
+          ]
+        },
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 150.0,
+          "stack_after": 150.0,
+          "rank": {
+            "TwoPair": 1116160
+          },
+          "hand": [
+            "Ts",
+            "9c",
+            "5h",
+            "9h",
+            "5d",
+            "8d",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]

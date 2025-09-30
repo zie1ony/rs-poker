@@ -1,0 +1,127 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-w1smk7",
+      "tournament_id": "ai-vs-random-tournament-21",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "2c",
+          "8d"
+        ],
+        [
+          "6d",
+          "3s"
+        ],
+        [
+          "3c",
+          "Th"
+        ]
+      ],
+      "community_cards": [
+        "Js",
+        "Kd",
+        "2d",
+        "Kh",
+        "3d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Extremely weak offsuit hand on the button with deep stacks and no antes; avoid opening marginal spots early versus two opponents.",
+        "action": "Fold"
+      },
+      "stack_after": 100.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "6d3s offsuit from the small blind facing a 10 BB in a heads-up pot is too weak to continue. Fold to conserve chips for a better spot.",
+        "action": "Fold"
+      },
+      "stack_after": 95.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 15.0,
+          "stack_after": 105.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

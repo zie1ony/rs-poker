@@ -1,0 +1,260 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-hor9oa",
+      "tournament_id": "ai-vs-random-tournament-30",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        95.0,
+        205.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "8c",
+          "Tc"
+        ],
+        [
+          "Qd",
+          "9d"
+        ]
+      ],
+      "community_cards": [
+        "7s",
+        "6s",
+        "7h",
+        "5d",
+        "9h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 90.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 195.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Call to see a flop with 8c Tc in the small blind vs a single opponent. It has decent backdoor potential and a low investment (call 5 to compete for a 20 pot). Folding would give up the pot and raising would be too aggressive given the opponent's wide BB range and large stack advantage.",
+        "action": "Call"
+      },
+      "stack_after": 85.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up vs a small blind limp, Q9 suited is strong; raise to isolate and take initiative. 3.5x puts pressure while keeping stacks playable.",
+        "action": {
+          "Bet": 35.0
+        }
+      },
+      "stack_after": 170.0,
+      "pot_after": 45.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "We have a suited connector (Tc8c) on a heads-up pot with a 35 bet preflop. Calling 25 to see the flop gives us pot odds (~31%) and backdoor flush/straight potential without committing a huge portion of our stack.",
+        "action": "Call"
+      },
+      "stack_after": 60.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "7s",
+        "6s",
+        "7h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "SPR is <1 versus villain (60 into 70). On a paired, draw-heavy flop our Q9d has little equity and poor playability versus a likely shove. Checking keeps the pot small and lets us realize backdoor equity without committing into a range that calls/jams often.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "You have a four-out straight draw (8-10 with 6-7 on board). Calling preserves your Equity and gives you a chance to hit on turn or river, while raising would likely commit you with a marginal hand on a paired board.",
+        "action": "Call"
+      },
+      "stack_after": 60.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "5d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Pot is 70 with opponent at 60 behind; our Q9 has a gutshot and some showdown value. Checking keeps the pot controlled and realizes equity without risking committing versus a short stack on a paired, draw-heavy board.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With 8cTc on a 7s-6s-7h-5d board and only a backdoor straight draw, there isn’t enough equity to justify a raise or all-in. Calling to see the river keeps pot manageable and lets me realize any runner-runner outs if they appear.",
+        "action": "Call"
+      },
+      "stack_after": 60.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "9h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Value bet for calls from worse pairs on a missed flush board; avoid overbet that may fold out second-best hands.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 130.0,
+      "pot_after": 110.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "You have two pair (Queens and Sevens) on the river (Qd on board, Qs in hand). Pot is 110; you must call 40 to continue, which gives pot odds of 40 to win 150 ≈ 26.7% break-even. With plausible villain ranges (and two clean outs to trips: Qh, Qc; plus runouts that can give you a full house or better), your equity is at or above break-even. Folding is too weak given the situation; shoving all-in is overly risky with 60 chips left.",
+        "action": "Call"
+      },
+      "stack_after": 20.0,
+      "pot_after": 150.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "CharlieAI",
+          "won_pot": 150.0,
+          "stack_after": 170.0,
+          "rank": {
+            "Straight": 5
+          },
+          "hand": [
+            "6s",
+            "7s",
+            "8c",
+            "Tc",
+            "7h",
+            "9h",
+            "5d"
+          ]
+        }
+      ]
+    }
+  }
+]

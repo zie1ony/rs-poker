@@ -1,0 +1,127 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-qt7eqg",
+      "tournament_id": "ai-vs-random-tournament-29",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        75.0,
+        225.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "3c",
+          "3h"
+        ],
+        [
+          "Ks",
+          "7h"
+        ]
+      ],
+      "community_cards": [
+        "Ad",
+        "Qd",
+        "8h",
+        "Jc",
+        "8c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 65.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 205.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Defend a small pocket pair heads-up: you need to call 10 to continue with a pot of 30 (you’d be in for 10 to reach 20). The pot odds are favorable (approx 20% break-even), and you have postflop potential to improve to a set or win with running cards. Folding or a big raise here is worse with 3s.",
+        "action": "Call"
+      },
+      "stack_after": 55.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up vs SB limp with only 55 behind and pot 40; K7o is well ahead of limp range. Shoving maximizes fold equity and realizes our equity with minimal postflop complexity.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 245.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "You have 55 left facing a 205 all-in from the opponent preflop. To call you'd need 185 more, which you can't. 3c3h is a weak hand here; folding preserves your remaining stack in this tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 55.0,
+      "pot_after": 245.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 245.0,
+          "stack_after": 245.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

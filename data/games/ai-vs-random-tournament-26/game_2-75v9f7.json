@@ -1,0 +1,141 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-75v9f7",
+      "tournament_id": "ai-vs-random-tournament-26",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        115.0,
+        90.0,
+        95.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "3c",
+          "8d"
+        ],
+        [
+          "4d",
+          "7h"
+        ],
+        [
+          "Qs",
+          "3s"
+        ]
+      ],
+      "community_cards": [
+        "8c",
+        "Qd",
+        "6d",
+        "5h",
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 5.0,
+      "stack_after": 85.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 85.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "On the button 3-handed, open-minraising is profitable as a steal even with 8-3 offsuit; take initiative and fold to significant resistance.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 95.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "4♣7♦ offsuit is a very weak hand to play out of the small blind facing a bet to 20. Avoid investing more chips out of position against an opener and conserve stack for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "You have Qs3s on the preflop pot after Alice bets 20. In position, your hand has weak equity vs likely ranges and you’ve already posted 10 as the big blind. Folding preserves your 85-chip stack rather than investing more to chase a marginal backdoor flush draw.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 35.0,
+          "stack_after": 130.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

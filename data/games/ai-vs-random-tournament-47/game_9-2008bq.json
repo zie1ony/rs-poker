@@ -1,0 +1,196 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_9-2008bq",
+      "tournament_id": "ai-vs-random-tournament-47",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        250.0,
+        50.0
+      ],
+      "small_blind": 40.0,
+      "big_blind": 80.0,
+      "hands": [
+        [
+          "3c",
+          "Qs"
+        ],
+        [
+          "2c",
+          "9h"
+        ]
+      ],
+      "community_cards": [
+        "4c",
+        "3h",
+        "7d",
+        "4h",
+        "As"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 40.0,
+      "stack_after": 210.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 80.0,
+      "stack_after": 0.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Charlie is already all-in (big blind). Calling costs only 40 more to see the board. Q3o is playable heads-up and a cheap call preserves stack while contesting the pot; no need to commit more chips with marginal hand.",
+        "action": "Call"
+      },
+      "stack_after": 200.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "4c",
+        "3h",
+        "7d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all‑in preflop. I have a made pair (3s) on the flop with strong equity versus a wide all‑in range. No need to risk more chips in an uncontested side pot — call to reach showdown and preserve stack to maximize tournament win chances.",
+        "action": "Call"
+      },
+      "stack_after": 200.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is all-in or committed; betting or shoving gains nothing. I currently have two pair (4s and 3s) with a strong Q kicker — best play is to call/go to showdown and see the river rather than risk more chips unnecessarily.",
+        "action": "Call"
+      },
+      "stack_after": 200.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "As"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is all-in so betting only creates a side pot I can’t win; calling (checking to showdown) preserves my stack and lets my two pair (4s & 3s) showdown without risking extra chips.",
+        "action": "Call"
+      },
+      "stack_after": 200.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 100.0,
+          "stack_after": 300.0,
+          "rank": {
+            "TwoPair": 53248
+          },
+          "hand": [
+            "Qs",
+            "As",
+            "3c",
+            "4c",
+            "3h",
+            "4h",
+            "7d"
+          ]
+        }
+      ]
+    }
+  }
+]

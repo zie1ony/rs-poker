@@ -1,0 +1,219 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-d12ixx",
+      "tournament_id": "ai-vs-random-tournament-44",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "3s",
+          "9c"
+        ],
+        [
+          "Qh",
+          "4d"
+        ],
+        [
+          "7c",
+          "8s"
+        ]
+      ],
+      "community_cards": [
+        "Ac",
+        "Kc",
+        "As",
+        "5h",
+        "8h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Weak 3s9c in a 3-handed preflop scenario; folding preserves stack and avoids marginal spots against two opponents.",
+        "action": "Fold"
+      },
+      "stack_after": 100.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "~10 BB effective heads-up; Q4o plays fine as a limp. Keep pot small and use position, folding to an iso-shove if necessary.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "7♣8♠ is a speculative, marginal hand. No raise needed preflop — check/call to see a cheap flop, avoid bloating the pot with a weak offsuit connector, and preserve chips for better spots.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ac",
+        "Kc",
+        "As"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Check. On A A K with Q4o and no clubs, we have almost no equity and poor bluff potential; keep the pot small and evaluate turn.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have no pair (7c8s) and only a weak backdoor club draw on a dangerous Ac Kc As board. Opponent likely has an Ace or better. Don’t bluff into a heavy range — check (call) and see the turn.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "5h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up on A A K 5 after both checked flop; we can credibly represent an Ace. A half-pot stab should fold a lot of random holdings and small pairs; if called, we can reevaluate river.",
+        "action": {
+          "Bet": 10.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "No pair and no meaningful draw on Ac Kc As 5h with 7c8s. Opponent’s turn bet likely represents an Ace/King or strength. Only ~4 outs to pair on the river (~8–9% equity), so calling 10 into a 30 pot is not justified — fold to preserve chips.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Turn",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 30.0,
+          "stack_after": 110.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

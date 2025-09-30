@@ -1,0 +1,195 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-1fzoq3",
+      "tournament_id": "ai-vs-random-tournament-31",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "7s",
+          "6s"
+        ],
+        [
+          "9c",
+          "Kd"
+        ],
+        [
+          "6c",
+          "8h"
+        ]
+      ],
+      "community_cards": [
+        "5s",
+        "Js",
+        "9s",
+        "Qc",
+        "6h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Button with a playable suited connector 3-handed; open for the minimum to steal while risking least with 10BB stacks and retaining flexibility versus shoves.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Kd9c is marginal in a 3-handed pot facing a 20 bet. Calling offers ~36% pot odds but likely ~25-30% equity against two ranges, so folding preserves stack and avoids a marginal spot.",
+        "action": "Fold"
+      },
+      "stack_after": 95.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Calling costs 10 into a 35 pot (good pot odds). 6-8 offsuit is speculative with straight/paired potential; raising is unnecessary and folding is too tight. Call to see a flop.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 45.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "5s",
+        "Js",
+        "9s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Flop gives only a 4-out gutshot (7s/7c/7d/7h) and no flush backdoors; equity is low. Pot is small and opponent is likely ahead (J or pair). Check/call to see the turn rather than committing chips with a weak draw.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 45.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We flopped a J-high flush; bet big for value and protection on this monotone board, targeting pairs and single-spade hands while avoiding an overbet shove that mostly gets called by higher flushes. 35 also sets up an easy turn shove if called.",
+        "action": {
+          "Bet": 35.0
+        }
+      },
+      "stack_after": 45.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Flop is Js 9s 5s (three spades). I hold 6c8h with no spade and only a gutshot to 7s (4 outs) — ~16% to hit by river. Calling 35 for a 115 pot requires ~30% equity. Opponent’s line (preflop raise + flop bet) strongly indicates a made flush or strong hand. Folding preserves stack; calling or raising is unjustified.",
+        "action": "Fold"
+      },
+      "stack_after": 80.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 80.0,
+          "stack_after": 125.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

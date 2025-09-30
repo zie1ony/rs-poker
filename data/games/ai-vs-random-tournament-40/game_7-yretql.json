@@ -1,0 +1,167 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_7-yretql",
+      "tournament_id": "ai-vs-random-tournament-40",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        210.0,
+        90.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "4s",
+          "8d"
+        ],
+        [
+          "Kh",
+          "Th"
+        ]
+      ],
+      "community_cards": [
+        "8c",
+        "9s",
+        "Jc",
+        "2d",
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 190.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 50.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up with a big lead and BB very short (50 behind), a min-raise would effectively commit him with a wide range while 84o is weak. Limp to realize equity and keep pot manageable, leveraging position postflop.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "KhTh suited in heads-up preflop is marginal but has reasonable equity and keeps pot manageable to see a flop, especially with a bigger stack opponent. Raising would commit more with a marginal hand.",
+        "action": "Call"
+      },
+      "stack_after": 50.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "8c",
+        "9s",
+        "Jc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a 40 bet on the flop with KT on J-9-8, we have a live straight draw (4 outs to a Q on the turn) and a backdoor heart draw, plus backdoor backdoor possibilities. Calling preserves 50 chips for river and keeps the pot manageable while our equity improves on later streets. AllIn is too polarizing here and a fold isn’t an option in this spot.",
+        "action": "Call"
+      },
+      "stack_after": 50.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up, pot is 80 and villain has only 50 behind after checking. With a pair of 8s on a draw-heavy board, shoving maximizes fold equity, denies draws, and puts their tournament life at risk with many worse hands calling.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 250.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "On the flop 8c 9s Jc, your KT has only backdoor straight potential (4 outs to Q on turn) and no flush draw. Facing a sizable all-in on the flop, your equity is around 16% at best, while the pot odds require roughly 40%+. Folding is the correct decision to minimize loss and preserve stack.",
+        "action": "Fold"
+      },
+      "stack_after": 50.0,
+      "pot_after": 250.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 250.0,
+          "stack_after": 250.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

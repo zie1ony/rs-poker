@@ -1,0 +1,190 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-5eif88",
+      "tournament_id": "ai-vs-random-tournament-40",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        235.0,
+        65.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Qc",
+          "4s"
+        ],
+        [
+          "Kd",
+          "4c"
+        ]
+      ],
+      "community_cards": [
+        "6c",
+        "5h",
+        "2d",
+        "2s",
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 225.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 45.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up vs 2.25BB effective, Q4o is well ahead of a random hand. Shoving maximizes fold equity and can end the tournament now.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 255.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a shove from AliceAI with 45 chips behind. Folding would concede 45 chips and exit the hand, while calling (all-in for 45) has decent equity with Kd4c against a wide shoving range in heads-up. This keeps us alive and gives a chance to triple up or more to compete for the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 300.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "6c",
+        "5h",
+        "2d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "2s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 130.0,
+          "stack_after": 130.0,
+          "rank": {
+            "OnePair": 14352
+          },
+          "hand": [
+            "2s",
+            "4c",
+            "6c",
+            "Ac",
+            "5h",
+            "2d",
+            "Kd"
+          ]
+        },
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 170.0,
+          "stack_after": 170.0,
+          "rank": {
+            "OnePair": 13328
+          },
+          "hand": [
+            "2s",
+            "4s",
+            "6c",
+            "Qc",
+            "Ac",
+            "5h",
+            "2d"
+          ]
+        }
+      ]
+    }
+  }
+]

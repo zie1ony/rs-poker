@@ -1,0 +1,117 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-tkmyr2",
+      "tournament_id": "ai-vs-random-tournament-46",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        225.0,
+        75.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "9c",
+          "7s"
+        ],
+        [
+          "2h",
+          "Ks"
+        ]
+      ],
+      "community_cards": [
+        "Kc",
+        "8d",
+        "3h",
+        "Td",
+        "5h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 215.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 55.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up vs a short, tight BB with only 55 behind; a min-raise applies maximum pressure and keeps SPR low, giving us fold equity preflop and easy postflop shove spots.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 185.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Ks2h is a marginal hand and facing a 40 bet heads-up; folding preserves stack with 75 behind against a likely strong or bluffing range.",
+        "action": "Fold"
+      },
+      "stack_after": 55.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 60.0,
+          "stack_after": 245.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,232 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-tmc5pe",
+      "tournament_id": "ai-vs-random-tournament-26",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        180.0,
+        45.0,
+        75.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "2d",
+          "7c"
+        ],
+        [
+          "Kd",
+          "Ah"
+        ],
+        [
+          "3s",
+          "Qc"
+        ]
+      ],
+      "community_cards": [
+        "7d",
+        "2h",
+        "3c",
+        "Js",
+        "Ts"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 35.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 55.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "7-2 offsuit is the weakest hand; with a short-stacked SB likely to defend/shove, stealing is low EV. Preserve chip lead and wait for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 180.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Short-stacked with premium A K (offsuit) in the small blind. Shoving maximizes fold equity and chances to double up against the big blind rather than letting the hand go multi-street. Win-tournament push.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 65.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Pot odds: calling 35 to win 100 (65 existing pot + your call). Your Qc3s has enough equity against a wide shove range in a heads-up pot, and folding would lock in a -20 chip loss. Calling offers positive expected value on this spot.",
+        "action": "Call"
+      },
+      "stack_after": 30.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "7d",
+        "2h",
+        "3c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "No bet on the flop; with Qc3s on 7d 2h 3c you have a marginal middle pair. You have 30 left; calling (i.e., checking to see the turn) preserves your stack and gives you two outs to improve (two 3s) or three Queens to make two pair, while avoiding investing more on a weak hand.",
+        "action": "Call"
+      },
+      "stack_after": 30.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Js"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "No bet to call; this is effectively a check. You have 3 clean outs (Queens) on the river (3/47 ≈ 6.4%), with a pot of 90. Betting now has negative expected value given your stack and outs, so check to realize equity and preserve your 30 remaining chips.",
+        "action": "Call"
+      },
+      "stack_after": 30.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Ts"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With 30 chips left and a marginal pair on a messy river, I’m short-stacked and need to maximize tournament equity. Going all-in puts maximum pressure and could win the pot if the opponent doesn’t improve.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "CharlieAI",
+          "won_pot": 120.0,
+          "stack_after": 120.0,
+          "rank": {
+            "OnePair": 18176
+          },
+          "hand": [
+            "3s",
+            "Ts",
+            "Js",
+            "3c",
+            "Qc",
+            "2h",
+            "7d"
+          ]
+        }
+      ]
+    }
+  }
+]

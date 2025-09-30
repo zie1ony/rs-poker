@@ -351,7 +351,7 @@ async fn run_series(mock_server: bool) {
             Player::ai("BobAI", "gpt-5-mini", "Win the tournament."),
             Player::ai("CharlieAI", "gpt-5-nano", "Win the tournament."),
         ],
-        number_of_tournaments: 20,
+        number_of_tournaments: 50,
         starting_player_stack: 100.0,
         starting_small_blind: 5.0,
         double_blinds_every_n_games: Some(3),

@@ -1,0 +1,196 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_7-fze9aq",
+      "tournament_id": "ai-vs-random-tournament-46",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        265.0,
+        35.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "4s",
+          "4c"
+        ],
+        [
+          "Kc",
+          "8h"
+        ]
+      ],
+      "community_cards": [
+        "Js",
+        "4d",
+        "9d",
+        "5h",
+        "8c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 245.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 0.0,
+      "pot_after": 55.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "BB is effectively all-in for 35; calling 15 more with pocket 4s heads-up is highly +EV versus a random hand and can eliminate the short stack.",
+        "action": "Call"
+      },
+      "stack_after": 230.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Js",
+        "4d",
+        "9d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in from the big blind and we’ve matched preflop; with a flopped set we simply proceed to showdown.",
+        "action": "Call"
+      },
+      "stack_after": 230.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "5h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; no side pot to build. Check it down with our strong hand.",
+        "action": "Call"
+      },
+      "stack_after": 230.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "8c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; check to showdown with our set.",
+        "action": "Call"
+      },
+      "stack_after": 230.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 70.0,
+          "stack_after": 300.0,
+          "rank": {
+            "ThreeOfAKind": 33408
+          },
+          "hand": [
+            "4s",
+            "Js",
+            "4c",
+            "8c",
+            "5h",
+            "4d",
+            "9d"
+          ]
+        }
+      ]
+    }
+  }
+]

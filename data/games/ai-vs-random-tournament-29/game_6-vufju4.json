@@ -1,0 +1,115 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-vufju4",
+      "tournament_id": "ai-vs-random-tournament-29",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        245.0,
+        55.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "6d",
+          "8c"
+        ],
+        [
+          "3s",
+          "3c"
+        ]
+      ],
+      "community_cards": [
+        "As",
+        "2c",
+        "2s",
+        "2d",
+        "6h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 225.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 15.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent has only 15 chips behind after posting the 40 BB. Shoving forces him all-in with any two and maximizes our chance to bust him now; 86o has adequate equity versus his extremely wide calling range given the pot odds.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 285.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "You’re short (15 behind after posting the BB) and facing an all-in shove from the opponent with 3s. Folding preserves the remaining 15 and avoids a high-variance coinflip against a likely wide shoving range preflop.",
+        "action": "Fold"
+      },
+      "stack_after": 15.0,
+      "pot_after": 285.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 285.0,
+          "stack_after": 285.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

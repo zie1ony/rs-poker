@@ -1,0 +1,196 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-u2dsz9",
+      "tournament_id": "ai-vs-random-tournament-24",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "4h",
+          "Ac"
+        ],
+        [
+          "Kd",
+          "9h"
+        ],
+        [
+          "Ad",
+          "5c"
+        ]
+      ],
+      "community_cards": [
+        "9s",
+        "8h",
+        "5h",
+        "Kc",
+        "Qd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "10BB effective on the button with A4 offsuit; open-shoving maximizes fold equity and is profitable 3-handed.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 115.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Kd9h is too weak to call a 100-chip all-in in a 3-way pot. Folding preserves your 95 remaining chips for later hands; calling would require ~95 more with marginal equity against Alice's shove and Bob's potential hand.",
+        "action": "Fold"
+      },
+      "stack_after": 95.0,
+      "pot_after": 115.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Calling 90 more (effectively all-in) gives me pot odds of 90/(115+90)=~44%. A5o has decent equity against a wide 10BB shove and with short stacks I should take this flip to try to double up and maximize my chance to win the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 205.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "9s",
+        "8h",
+        "5h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Kc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Qd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 205.0,
+          "stack_after": 205.0,
+          "rank": {
+            "OnePair": 72704
+          },
+          "hand": [
+            "9s",
+            "5c",
+            "Kc",
+            "5h",
+            "8h",
+            "Qd",
+            "Ad"
+          ]
+        }
+      ]
+    }
+  }
+]

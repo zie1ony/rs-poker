@@ -1,0 +1,214 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-2eaeq4",
+      "tournament_id": "ai-vs-random-tournament-45",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        95.0,
+        105.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Ad",
+          "3s"
+        ],
+        [
+          "Td",
+          "Js"
+        ],
+        [
+          "9s",
+          "Kd"
+        ]
+      ],
+      "community_cards": [
+        "5h",
+        "7h",
+        "Ks",
+        "Jh",
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 100.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "A3 offsuit in 3-handed preflop is too weak to justify risking chips from early position; folding preserves stack for tournament play.",
+        "action": "Fold"
+      },
+      "stack_after": 95.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Button folded; we’re SB vs BB with ~9–10 BB effective. JTs is a strong shove here—maximizes fold equity and avoids playing OOP with a shallow SPR.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 115.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "As big blind facing a small-blind shove, K9o has reasonable equity vs a wide shove range and pot odds are favorable to risk my stack (win the tournament requires accumulating chips). Calling (which effectively puts me all-in) is the correct, aggressive play.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 205.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "5h",
+        "7h",
+        "Ks"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Jh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 200.0,
+          "stack_after": 200.0,
+          "rank": {
+            "OnePair": 16781952
+          },
+          "hand": [
+            "9s",
+            "Ks",
+            "Ac",
+            "5h",
+            "7h",
+            "Jh",
+            "Kd"
+          ]
+        },
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 5.0,
+          "stack_after": 5.0,
+          "rank": {
+            "OnePair": 4200704
+          },
+          "hand": [
+            "Js",
+            "Ks",
+            "Ac",
+            "5h",
+            "7h",
+            "Jh",
+            "Td"
+          ]
+        }
+      ]
+    }
+  }
+]

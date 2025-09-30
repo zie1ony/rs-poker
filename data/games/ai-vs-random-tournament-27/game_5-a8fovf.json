@@ -1,0 +1,157 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-a8fovf",
+      "tournament_id": "ai-vs-random-tournament-27",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        130.0,
+        170.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "9s",
+          "7s"
+        ],
+        [
+          "4h",
+          "Qs"
+        ]
+      ],
+      "community_cards": [
+        "Jh",
+        "7c",
+        "Ks",
+        "6h",
+        "6s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 120.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 150.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Defend the blind with a suited connector in a heads-up situation; calling the 10 to see a flop keeps the pot manageable and allows postflop play with potential backdoor draws.",
+        "action": "Call"
+      },
+      "stack_after": 110.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Q4o is a marginal hand. Opponent simply limped, so I’ll check (call) to keep the pot small and see a flop rather than bloating the pot or risking a re-shove with a weak holding.",
+        "action": "Call"
+      },
+      "stack_after": 150.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Jh",
+        "7c",
+        "Ks"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up on K-J-7 flop with Q4 (no pair). I have position and decent fold equity against a wide calling range. A pot-sized continuation bet (40) applies pressure to take the pot now while preserving most of my stack if called.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 110.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "On the flop with 9s7s vs a 40 bet into an 80 pot on Jh 7c Ks, you have a weak middle pair with backdoor possibilities at best. Your equity is well below the needed ~33% to call, so folding preserves chips for better spots later.",
+        "action": "Fold"
+      },
+      "stack_after": 110.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 80.0,
+          "stack_after": 190.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,290 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-kvki9n",
+      "tournament_id": "ai-vs-random-tournament-25",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        120.0,
+        95.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Qh",
+          "2d"
+        ],
+        [
+          "6h",
+          "Th"
+        ],
+        [
+          "7h",
+          "Jc"
+        ]
+      ],
+      "community_cards": [
+        "Kd",
+        "9c",
+        "3h",
+        "Js",
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 115.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 85.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Qh2d offsuit is weak in a multiway preflop scenario (three players) and facing a standard preflop posting. Folding preserves your 85-chip stack for better spots rather than playing a marginal hand.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "UTG folded; as SB/button heads-up, T6s is a profitable open. Raise 2.5x to pressure the BB and steal often.",
+        "action": {
+          "Bet": 25.0
+        }
+      },
+      "stack_after": 95.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "J7o is a marginal but playable hand in the big blind against a single steal. Calling only costs 15 chips to see a flop (good pot odds), preserves stack and avoids overcommitting with a weak 3-bet out of position. I'll see the flop and re-evaluate.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Kd",
+        "9c",
+        "3h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "As preflop aggressor on a K-high board with range advantage, a small c-bet can fold out a lot of random hands. Our T-high has minimal equity, so 30% pot keeps risk low; we can give up if called and turn doesn’t help.",
+        "action": {
+          "Bet": 15.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 65.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have J7 with ~6 outs (≈24% to hit by river). Pot is 65 and the bet is 15, so calling 15 to win ~80 gives ~18.8% pot odds — calling is +EV. No strong draws to justify a bluff-raise, so call and see the turn.",
+        "action": "Call"
+      },
+      "stack_after": 55.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Js"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Turn only gives us a gutshot (Q outs) with no flush draw on a board that improves villain often; checking controls pot and lets us realize equity without committing into a likely call/jam.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a pair of Jacks (Jc + Js on board) but the flop contained a King — opponent’s line suggests they may have top pair. Pot is large (80) and my stack is 55; I don’t want to commit more without seeing the river. Check/call to control the pot and reevaluate on the river.",
+        "action": "Call"
+      },
+      "stack_after": 55.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We have no showdown value on A K J 9 3. The river Ace is a strong scare card for BB’s Kx/Jx/9x and small pairs, and we block QT with our T. Shoving maximizes fold equity to win the 80 pot versus his 55 stack.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Pot odds are ~25.6% (call 55 to win ~215). My pair of Jacks has decent equity against her shoving range (includes bluffs, Kx, some missed draws). Equity > break-even, so call to try to double up despite elimination risk.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 215.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 190.0,
+          "stack_after": 190.0,
+          "rank": {
+            "OnePair": 4200576
+          },
+          "hand": [
+            "Js",
+            "9c",
+            "Jc",
+            "Ac",
+            "3h",
+            "7h",
+            "Kd"
+          ]
+        },
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 25.0,
+          "stack_after": 25.0,
+          "rank": {
+            "HighCard": 7040
+          },
+          "hand": [
+            "Js",
+            "9c",
+            "Ac",
+            "3h",
+            "6h",
+            "Th",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]
