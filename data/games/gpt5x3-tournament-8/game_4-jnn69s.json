@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-jnn69s",
+      "tournament_id": "gpt5x3-tournament-8",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        185.0,
+        115.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "5d",
+          "5s"
+        ],
+        [
+          "4s",
+          "Td"
+        ]
+      ],
+      "community_cards": [
+        "Tc",
+        "Kh",
+        "9c",
+        "Ad",
+        "Ah"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 175.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 95.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Pocket fives from the small blind vs a big blind at 10/20 has poor value here. No fold equity, only 2 outs to a set, and you’re out of position in a growing pot. Fold to preserve stack and EV in the tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 175.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 30.0,
+          "stack_after": 125.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

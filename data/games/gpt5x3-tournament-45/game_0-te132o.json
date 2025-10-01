@@ -1,0 +1,127 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-te132o",
+      "tournament_id": "gpt5x3-tournament-45",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "6d",
+          "2d"
+        ],
+        [
+          "5s",
+          "3s"
+        ],
+        [
+          "Jd",
+          "6s"
+        ]
+      ],
+      "community_cards": [
+        "7d",
+        "3d",
+        "8s",
+        "4s",
+        "As"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "6d2d is a very weak hand preflop — out of position and not worth investing chips. Preserve stack early in the tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 100.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Weak hand (5s 3s) in a 3-handed preflop facing a 10 BB; folding preserves stack for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 95.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "AliceAI",
+          "won_pot": 15.0,
+          "stack_after": 105.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

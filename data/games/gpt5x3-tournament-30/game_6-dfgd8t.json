@@ -1,0 +1,115 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-dfgd8t",
+      "tournament_id": "gpt5x3-tournament-30",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        160.0,
+        140.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "2s",
+          "6h"
+        ],
+        [
+          "5c",
+          "Js"
+        ]
+      ],
+      "community_cards": [
+        "4c",
+        "Kh",
+        "7d",
+        "6s",
+        "3d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 140.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 100.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Effective stacks are ~2.5 BB; this is a push/fold spot where SB should shove very wide. All-in maximizes fold equity and 62o is too weak to limp or min-raise.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a shove from AliceAI for 140 into a 60-pot with 5c Js, your hand has very little equity and you can't call effectively (you only have 100 chips). Folding is the low-risk play to preserve your remaining stack for future hands and maximize tournament odds.",
+        "action": "Fold"
+      },
+      "stack_after": 100.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 200.0,
+          "stack_after": 200.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

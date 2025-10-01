@@ -1,0 +1,257 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-nygi81",
+      "tournament_id": "gpt5x3-tournament-26",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        85.0,
+        130.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "5s",
+          "6d"
+        ],
+        [
+          "Jh",
+          "6h"
+        ],
+        [
+          "3h",
+          "5d"
+        ]
+      ],
+      "community_cards": [
+        "Ac",
+        "2d",
+        "5h",
+        "Jc",
+        "4d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 75.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 110.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "5♠6♦ is a marginal, speculative hand but I'm in position in a 3-handed game. Calling the 20 (small investment) lets me see a flop and keep chips intact rather than committing 40+ with an offsuit connector.",
+        "action": "Call"
+      },
+      "stack_after": 65.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Marginal hand (J♥6♥) in a three-handed pot, out of position preflop. Folding preserves 75 chips for better spots and reduces risk with two opponents about to see the flop.",
+        "action": "Fold"
+      },
+      "stack_after": 75.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Check option in the big blind. 3-5 offsuit plays poorly in a bloated pot OOP; keep the pot small and realize equity against the limper.",
+        "action": "Call"
+      },
+      "stack_after": 110.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ac",
+        "2d",
+        "5h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Out of position with second pair and a gutshot on A-2-5; keep pot small and realize equity. Check to evaluate Bob’s action before committing more chips in a low SPR spot.",
+        "action": "Call"
+      },
+      "stack_after": 110.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have second pair (5s) on an Ace-high board. Opponent likely has many Ax or overcards; avoid bloating the pot with a marginal hand. Call to control the pot, see the turn, and re-evaluate.",
+        "action": "Call"
+      },
+      "stack_after": 65.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Jc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Check to keep the pot small with second pair and a gutshot at low SPR. Opponent checked the ace-high flop, so we have decent showdown value and can reevaluate river without risking a shove from better hands.",
+        "action": "Call"
+      },
+      "stack_after": 110.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a weak pair (5s) on A-2-5-J and am likely behind to Ax or Jx. Don’t want to commit my remaining stack with a marginal hand — call to see the river and reevaluate rather than raise or shove.",
+        "action": "Call"
+      },
+      "stack_after": 65.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "4d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We rivered the wheel (A-2-3-4-5). Only 6-3 beats us, which is unlikely. Bet for value targeting Ax, two pair, and stubborn pairs; 40 into 50 aims to get paid while not overbetting and scaring off calls.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 70.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Board (A 2 5 J 4) and opponent’s line (check/calls then a river bet) indicate strong value (A, J, or 3 for a straight) more often than a bluff. My pair of 5s is likely behind; required equity (~30.8%) is unlikely. Preserve chips to continue in the tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 65.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "River",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "AliceAI",
+          "won_pot": 90.0,
+          "stack_after": 160.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

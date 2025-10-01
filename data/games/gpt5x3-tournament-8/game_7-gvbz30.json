@@ -1,0 +1,222 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_7-gvbz30",
+      "tournament_id": "gpt5x3-tournament-8",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        185.0,
+        115.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "5h",
+          "3h"
+        ],
+        [
+          "As",
+          "Th"
+        ]
+      ],
+      "community_cards": [
+        "6d",
+        "9d",
+        "Tc",
+        "4c",
+        "Qs"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 165.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 75.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up open-raise with suited connectors (5h3h) to apply pressure and attempt a steal. Minimum raise to 80 preserves most of my stack, wins pot often preflop, and keeps initiative if called — no need to overcommit with this marginal hand.",
+        "action": {
+          "Bet": 80.0
+        }
+      },
+      "stack_after": 105.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Heads-up, facing a raise to 80 with Ace-Ten offsuit. Calling 40 to see a flop preserves option to realize equity (Board develops may help A/T). Folding is too tight here; All-in is too risky given stacks.",
+        "action": "Call"
+      },
+      "stack_after": 35.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "6d",
+        "9d",
+        "Tc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With only 35 left on a dry flop (6d 9d Tc) and AsTh, you have 6 outs by river but are often behind. This spot benefits from maximum fold equity and pressure in a short-stack, heads-up pot.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 195.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Chipping in to call the small all-in is the correct +EV play. I only need ~15% equity to justify a call given the pot odds, and folding would surrender a large pot. My hand is weak so raising/doing an all-in would be unnecessary risk.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 230.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "4c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have 3-4-5-6 (with 3h5h on 6d9dTc4c) — 2s or 7s (8 outs) to complete a straight (~17% to hit the river). Calling a reasonable sized bet (rather than shoving) gives acceptable pot odds for a small call and preserves chips for later hands. All-in would be too thin with only ~17% equity, so call.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 230.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Qs"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "My hand (5h3h) missed the board (Q T 9 6 4) and the opponent showed major aggression by shoving earlier. This is a weak holding vs their range, so I will call to reach showdown rather than commit more chips with a bluff or a marginal bet.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 230.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 230.0,
+          "stack_after": 230.0,
+          "rank": {
+            "OnePair": 2102400
+          },
+          "hand": [
+            "Qs",
+            "As",
+            "4c",
+            "Tc",
+            "Th",
+            "6d",
+            "9d"
+          ]
+        }
+      ]
+    }
+  }
+]

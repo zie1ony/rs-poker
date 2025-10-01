@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-rick5r",
+      "tournament_id": "gpt5x3-tournament-44",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        25.0,
+        275.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "As",
+          "3d"
+        ],
+        [
+          "Kh",
+          "Qd"
+        ]
+      ],
+      "community_cards": [
+        "Ad",
+        "8s",
+        "7d",
+        "Ts",
+        "6h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 5.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 40.0,
+      "stack_after": 235.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Short stack (5 chips) against a 40 big blind and Ax3x in hand. You’d need to call 20 more to stay in, which you can’t. Folding preserves your remaining chips for a better spot.",
+        "action": "Fold"
+      },
+      "stack_after": 5.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 60.0,
+          "stack_after": 295.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

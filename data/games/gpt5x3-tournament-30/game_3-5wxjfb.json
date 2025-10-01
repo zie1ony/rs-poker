@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-5wxjfb",
+      "tournament_id": "gpt5x3-tournament-30",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        180.0,
+        120.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Kh",
+          "4d"
+        ],
+        [
+          "3c",
+          "Ac"
+        ]
+      ],
+      "community_cards": [
+        "2d",
+        "2c",
+        "3d",
+        "8c",
+        "6h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 170.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 100.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Kh4d is weak and out of position in the small blind against a big blind (20). Folding preserves stack for later spots and avoids a marginal postflop dilemma.",
+        "action": "Fold"
+      },
+      "stack_after": 170.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 30.0,
+          "stack_after": 130.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

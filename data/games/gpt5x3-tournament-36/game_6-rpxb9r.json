@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-rpxb9r",
+      "tournament_id": "gpt5x3-tournament-36",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        45.0,
+        255.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "Kc",
+          "4d"
+        ],
+        [
+          "5c",
+          "Tc"
+        ]
+      ],
+      "community_cards": [
+        "Ac",
+        "8s",
+        "8h",
+        "Qc",
+        "Td"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 25.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 40.0,
+      "stack_after": 215.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Preflop, in the SB with Kc4d and only 25 chips left against a 40BB stack, folding preserves the 25 and avoids a high-risk confrontation with a wide BB range. Hand has low equity here and calling/all-in would risk busting down to 0.",
+        "action": "Fold"
+      },
+      "stack_after": 25.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 60.0,
+          "stack_after": 275.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

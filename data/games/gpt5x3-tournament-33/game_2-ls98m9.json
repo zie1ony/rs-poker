@@ -1,0 +1,141 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-ls98m9",
+      "tournament_id": "gpt5x3-tournament-33",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        145.0,
+        60.0,
+        95.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "7d",
+          "9s"
+        ],
+        [
+          "Qc",
+          "2s"
+        ],
+        [
+          "8d",
+          "Jc"
+        ]
+      ],
+      "community_cards": [
+        "Ts",
+        "Jh",
+        "As",
+        "Kh",
+        "5d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 55.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 85.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Open-raise to 20 to apply pressure in 3-max. 9-7o is marginal but raising from first to act is standard to steal blinds and leverage our big stack; small min-raise controls pot and keeps ranges wide.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 125.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Q2o plays poorly out of position and we’re only 6BB facing a raise from the big stack. Preserve chips and wait for a better shove spot.",
+        "action": "Fold"
+      },
+      "stack_after": 55.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": " facing a 20 bet in the big blind with J8 offsuit heads-up against a 2x raise. The hand has poor equity and I’m out of position, so folding preserves stack for later opportunities.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 35.0,
+          "stack_after": 160.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

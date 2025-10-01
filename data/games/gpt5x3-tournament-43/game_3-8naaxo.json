@@ -1,0 +1,210 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-8naaxo",
+      "tournament_id": "gpt5x3-tournament-43",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        55.0,
+        160.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "4s",
+          "3d"
+        ],
+        [
+          "Js",
+          "Kd"
+        ],
+        [
+          "Ac",
+          "Ks"
+        ]
+      ],
+      "community_cards": [
+        "2s",
+        "Ts",
+        "Qd",
+        "6c",
+        "8d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 45.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 140.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Weak hand (4s 3d) preflop in a 3-handed pot with blinds 10/20; folding preserves stack for the long tournament and avoids costly confrontation with two players.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up with K♦J♠ is a strong raising hand. Raise to 40 total (minimum legal raise) to seize the initiative and apply pressure while preserving a small remaining stack for postflop play.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 15.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "AK offsuit in big blind versus small blind min-raise where opponent has only 15 behind; jamming maximizes value and effectively gets it in now versus a very wide, pot-committed range.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Pot is 200, I only need to put in 15 to call → break-even equity ~7.5%. KJ offsuit has far more than 7.5% equity vs any realistic shove range, so this is a correct +EV, low-cost call toward winning the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 215.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "2s",
+        "Ts",
+        "Qd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "6c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "8d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "AliceAI",
+          "won_pot": 215.0,
+          "stack_after": 215.0,
+          "rank": {
+            "HighCard": 7488
+          },
+          "hand": [
+            "2s",
+            "Ts",
+            "Ks",
+            "6c",
+            "Ac",
+            "8d",
+            "Qd"
+          ]
+        }
+      ]
+    }
+  }
+]

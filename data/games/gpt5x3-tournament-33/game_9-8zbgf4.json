@@ -1,0 +1,196 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_9-8zbgf4",
+      "tournament_id": "gpt5x3-tournament-33",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        250.0,
+        50.0
+      ],
+      "small_blind": 40.0,
+      "big_blind": 80.0,
+      "hands": [
+        [
+          "Jh",
+          "Js"
+        ],
+        [
+          "2c",
+          "7d"
+        ]
+      ],
+      "community_cards": [
+        "Qd",
+        "Ah",
+        "Ts",
+        "8h",
+        "Kc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 40.0,
+      "stack_after": 210.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 80.0,
+      "stack_after": 0.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up vs an all-in big blind with pocket Jacks is a clear +EV call. Opponent is all-in for a small amount; raising only creates irrelevant side pots or overcommits. Calling 40 more to contest the 90 pot is the correct, chip-preserving play to maximize tournament win chances.",
+        "action": "Call"
+      },
+      "stack_after": 200.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Qd",
+        "Ah",
+        "Ts"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in preflop. With Jh Js on A Q T flop I have showdown value vs many shoves but am behind A/Q combos. No value in raising (creates side pot opponent can’t call) and no need to risk more chips — proceed to showdown.",
+        "action": "Call"
+      },
+      "stack_after": 200.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "8h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is all-in for a short stack and I hold pocket Jacks on a Q A T 8 board — strong favorite vs a random blind shove. No need to risk more chips; calling takes the main pot and preserves my tournament stack.",
+        "action": "Call"
+      },
+      "stack_after": 200.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Kc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in (no chips left). Betting or going all-in would only create a side pot I can’t win; checking/calling takes us to showdown to win the main pot with JJ or minimize loss.",
+        "action": "Call"
+      },
+      "stack_after": 200.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 100.0,
+          "stack_after": 300.0,
+          "rank": {
+            "Straight": 9
+          },
+          "hand": [
+            "Ts",
+            "Js",
+            "Kc",
+            "8h",
+            "Jh",
+            "Ah",
+            "Qd"
+          ]
+        }
+      ]
+    }
+  }
+]

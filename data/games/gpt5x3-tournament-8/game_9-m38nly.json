@@ -1,0 +1,222 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_9-m38nly",
+      "tournament_id": "gpt5x3-tournament-8",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        90.0,
+        210.0
+      ],
+      "small_blind": 40.0,
+      "big_blind": 80.0,
+      "hands": [
+        [
+          "Th",
+          "4d"
+        ],
+        [
+          "As",
+          "7d"
+        ]
+      ],
+      "community_cards": [
+        "Kh",
+        "3s",
+        "8h",
+        "6s",
+        "7s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 40.0,
+      "stack_after": 50.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 80.0,
+      "stack_after": 130.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Good pot odds: calling 40 into a 120 pot (~4:1) requires ~20–25% equity. T4o has reasonable equity vs a wide heads-up BB range. Calling keeps me in the hand with minimal risk compared with folding my blind.",
+        "action": "Call"
+      },
+      "stack_after": 10.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Heads-up vs a single short stack after posting BB. A min-raise to 160 applies pressure and preserves chip efficiency; gives fold equity while keeping you ahead with Ace-high and decent kickers. If he shoves for 10, you still have favorable equity and can adapt on the flop.",
+        "action": {
+          "Bet": 160.0
+        }
+      },
+      "stack_after": 50.0,
+      "pot_after": 240.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I am short-stacked (10) and must try to double up. Calling my remaining chips is a small risk with a chance to stay in the tournament; folding preserves a hopeless stack given the large blinds.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 250.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Kh",
+        "3s",
+        "8h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Pot is 250 and you have 50 to call on the flop. You have about 6 outs (3 aces and 3 sevens) to improve by the river, roughly a 25% chance. Break-even against a 50-call to win a 300 pot is 50/300 ≈ 16.7%, so calling is +EV and keeps you in the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 50.0,
+      "pot_after": 250.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "6s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Pot odds are about 50 to call into a 300 pot (~16.7%), while equity on the turn/river with 6 outs (3 Aces + 3 Sevens) is roughly 12–13%. Call is the better option among the two, since AllIn has essentially the same negative EV but commits you further with no fold equity.",
+        "action": "Call"
+      },
+      "stack_after": 50.0,
+      "pot_after": 250.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "7s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Pot odds: you’re facing an all-in on the river with 50 to call into ~300 total. Break-even ~14%; your Ace-high pair of Sevens (As7d on Kh-3s-8h-6s-7s) has enough equity against a wide river-shove range to call and realize your equity in showdown. Folding or shoving all-in here is less favorable for tournament life with only 50 left and a sizable pot.",
+        "action": "Call"
+      },
+      "stack_after": 50.0,
+      "pot_after": 250.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 250.0,
+          "stack_after": 300.0,
+          "rank": {
+            "OnePair": 268352
+          },
+          "hand": [
+            "3s",
+            "6s",
+            "7s",
+            "As",
+            "8h",
+            "Kh",
+            "7d"
+          ]
+        }
+      ]
+    }
+  }
+]

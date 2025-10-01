@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-18unwz",
+      "tournament_id": "gpt5x3-tournament-24",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        215.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Jc",
+          "2s"
+        ],
+        [
+          "2h",
+          "Jh"
+        ]
+      ],
+      "community_cards": [
+        "4s",
+        "9d",
+        "6c",
+        "7d",
+        "9s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 80.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 205.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Jc2s is a weak hand to continue from the small blind versus a big blind with about 8-9 BBs left. Folding preserves ~80 chips for better spots and avoids getting crushed by a likely stronger range. ",
+        "action": "Fold"
+      },
+      "stack_after": 80.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 15.0,
+          "stack_after": 220.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,141 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-qiikeh",
+      "tournament_id": "gpt5x3-tournament-43",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        90.0,
+        110.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Ac",
+          "Ad"
+        ],
+        [
+          "8h",
+          "Jh"
+        ],
+        [
+          "Kc",
+          "Qh"
+        ]
+      ],
+      "community_cards": [
+        "6h",
+        "Jd",
+        "7s",
+        "8s",
+        "Jc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 105.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Pocket aces — best possible starting hand. Make a sizable open to build the pot and isolate; 60 total is a strong preflop raise in this 3-handed game.",
+        "action": {
+          "Bet": 60.0
+        }
+      },
+      "stack_after": 30.0,
+      "pot_after": 75.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Facing a 6x open that effectively commits the raiser, J8s is dominated and we’re out of position. Preserve chip lead and avoid a high-variance spot.",
+        "action": "Fold"
+      },
+      "stack_after": 105.0,
+      "pot_after": 75.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "KQ offsuit in the big blind facing a 60 raise (need to call 50) in a 3-handed pot is marginal. Your equity vs a typical wide range is insufficient to justify the call or a shove, and folding preserves your 100-chip stack for future hands in the tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 75.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 75.0,
+          "stack_after": 105.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

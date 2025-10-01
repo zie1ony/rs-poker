@@ -1,0 +1,127 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-k0g38g",
+      "tournament_id": "gpt5x3-tournament-23",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        55.0,
+        245.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Ah",
+          "Jh"
+        ],
+        [
+          "2h",
+          "Qs"
+        ]
+      ],
+      "community_cards": [
+        "Jd",
+        "7d",
+        "2d",
+        "8s",
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 45.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 225.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With Ah Jh in a heads-up pot facing a 20 big blind preflop, calling 10 to see the flop is the standard play. You have two overcards and a heart, giving you backdoor flush potential and decent equity against a wide BB range. Raising adds risk with a marginal edge and a deep stack opponent; folding is too weak.",
+        "action": "Call"
+      },
+      "stack_after": 35.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up vs a very short stack (35). Shoving maximizes fold equity and either wins the pot now or doubles us up; with Q♠2♥ it's safer to be aggressive to secure the tournament lead.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 265.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": " facing a 245 shove from Bob with only 35 chips left, calling 225 to match is impossible; folding is the only valid option given stack and pot dynamics.",
+        "action": "Fold"
+      },
+      "stack_after": 35.0,
+      "pot_after": 265.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 265.0,
+          "stack_after": 265.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

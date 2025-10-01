@@ -1,0 +1,117 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-iuv3a5",
+      "tournament_id": "gpt5x3-tournament-41",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        265.0,
+        35.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Js",
+          "5h"
+        ],
+        [
+          "Ah",
+          "5c"
+        ]
+      ],
+      "community_cards": [
+        "8h",
+        "6d",
+        "2d",
+        "Ts",
+        "Ks"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 255.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 15.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Apply pressure to the very short-stacked big blind and attempt to steal the blinds with a minimal raise. Heads-up the range is wide; Js5h is playable postflop if called, but raising maximizes fold equity against the 15-chip stack.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 225.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "A5 offsuit vs a 40 raise preflop on the button with only 35 chips left is a poor spot. Folding preserves chips for better spots and reduces risk in a tournament where you need to outlast the field.",
+        "action": "Fold"
+      },
+      "stack_after": 15.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 60.0,
+          "stack_after": 285.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

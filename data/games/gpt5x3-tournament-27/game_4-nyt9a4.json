@@ -1,0 +1,222 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-nyt9a4",
+      "tournament_id": "gpt5x3-tournament-27",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        235.0,
+        65.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Ad",
+          "9d"
+        ],
+        [
+          "Ts",
+          "7c"
+        ]
+      ],
+      "community_cards": [
+        "Td",
+        "7s",
+        "Ks",
+        "4d",
+        "Jh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 225.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 45.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up with A9s is strong; apply pressure to the short-stacked big blind (45) with a minimum raise to gain fold equity and good postflop equity if called.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 195.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "You’re in the big blind with Ts7c and face a 40 bet from the opener. Calling 20 to see the flop gives roughly 80 total in the pot, so break-even is about 25% equity. With a weak hand but reasonable equity and a large opponent stack, folding is costly and shoving/raising is too risky. Call to realize any potential on the flop.",
+        "action": "Call"
+      },
+      "stack_after": 25.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Td",
+        "7s",
+        "Ks"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With Ts7c on a Td 7s Ks flop you have middle two-pair and only 25 chips left. Shoving maximizes fold equity and protects your stack in a tournament setting, risking the minimum with a marginal hand but potentially doubling up hard if called.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 105.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Pot is 105 and I only need to call 25 (break-even ≈19%). With Ad9d on Td7sKs I have ace-high plus backdoor diamond/runner-runner outs and likely >19% equity vs Charlie’s wide calling range. Calling is a cheap, +EV play; no need to overcommit with AllIn.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "4d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Charlie is already all-in and I have already matched his bet. Betting now cannot make him fold and would only risk extra chips unnecessarily. I have Ace-high plus a strong nut-flush draw (Ad9d with Td and 4d on board), so calling (checking through) preserves my stack and sees the river to decide the winner.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Jh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Charlie is already all-in for a small amount. I have only Ace-high (Ad9d) and no strong draw; calling contests the main pot while preserving my stack. Betting or shoving would only create an uncallable side pot and needlessly risk chips — preserve stack to continue aiming to win the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 130.0,
+          "stack_after": 130.0,
+          "rank": {
+            "TwoPair": 2361344
+          },
+          "hand": [
+            "7s",
+            "Ts",
+            "Ks",
+            "7c",
+            "Jh",
+            "4d",
+            "Td"
+          ]
+        }
+      ]
+    }
+  }
+]

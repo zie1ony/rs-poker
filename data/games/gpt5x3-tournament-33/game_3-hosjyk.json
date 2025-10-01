@@ -1,0 +1,232 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-hosjyk",
+      "tournament_id": "gpt5x3-tournament-33",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        55.0,
+        85.0,
+        160.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "9h",
+          "7h"
+        ],
+        [
+          "8c",
+          "Qd"
+        ],
+        [
+          "Qs",
+          "Js"
+        ]
+      ],
+      "community_cards": [
+        "4d",
+        "6d",
+        "Kd",
+        "3d",
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 75.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 140.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "With only 2.75 BB on the button, push/fold strategy applies. 9h7h is plenty strong to shove 3-handed; limping or small raise wastes fold equity.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 85.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Qd8c is a weak hand in a three-way preflop all-in situation; folding preserves your stack and avoids risk with poor equity against likely ranges.",
+        "action": "Fold"
+      },
+      "stack_after": 75.0,
+      "pot_after": 85.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "QsJs has strong equity vs an unknown all‑in for 55. Only 35 more to call (already posted 20) to try to eliminate Alice and increase my chip lead — no need to raise into a single all‑in.",
+        "action": "Call"
+      },
+      "stack_after": 105.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "4d",
+        "6d",
+        "Kd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Alice is already all-in so betting only creates a side pot I can't win; my QJ has no made hand and the flop is dangerous (three diamonds). Check through to see turn/river without risking extra chips.",
+        "action": "Call"
+      },
+      "stack_after": 105.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "3d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in / the board has four diamonds — betting or raising only creates a side pot I can’t win. No profitable reason to risk chips now; check (Call) to see the river.",
+        "action": "Call"
+      },
+      "stack_after": 105.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Board shows four diamonds; my QsJs has no diamond and only a pair of 4s (board pair) with weak kickers. With an all-in preflop by Alice and the uncertain showdown, calling preserves my remaining stack while seeing showdown — the lowest-risk way to try to win the pot and continue toward the tournament goal.",
+        "action": "Call"
+      },
+      "stack_after": 105.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 120.0,
+          "stack_after": 225.0,
+          "rank": {
+            "OnePair": 36352
+          },
+          "hand": [
+            "Js",
+            "Qs",
+            "4h",
+            "3d",
+            "4d",
+            "6d",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]

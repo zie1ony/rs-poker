@@ -1,0 +1,232 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-4iid2t",
+      "tournament_id": "gpt5x3-tournament-23",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        95.0,
+        65.0,
+        140.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "7h",
+          "5s"
+        ],
+        [
+          "Ah",
+          "Js"
+        ],
+        [
+          "7d",
+          "Ts"
+        ]
+      ],
+      "community_cards": [
+        "2c",
+        "Ac",
+        "3c",
+        "Jh",
+        "9d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 55.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 120.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "4.75 BB on the button with 75o: push-fold spot. Open-shoving maximizes fold equity and avoids raise/limp committing ourselves. Min-raise commits us anyway; shove is best to steal blinds and play with full equity when called.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 125.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "You have 55 chips left but would need to call 85 to match the 95-all-in from Alice. Since you can't call, folding minimizes losses with Ace-High hand against an all-in, given the pot and opponent ranges.",
+        "action": "Fold"
+      },
+      "stack_after": 55.0,
+      "pot_after": 125.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Alice shoved 95; I need to add 75 to win the 125 pot (required equity ~37.5%). T7o has reasonable equity versus a short-stack shove range. Calling preserves fold equity if I lose less than going all-in and gives me a chance to double up (to ~245). All-in would require much more equity (~49%), so Call.",
+        "action": "Call"
+      },
+      "stack_after": 45.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "2c",
+        "Ac",
+        "3c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Alice is already all-in and there is no bet to face — check (Call) to see the turn and river and preserve my remaining 45 chips to try to win the pot and continue in the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 45.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Jh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have no pair or meaningful draw (7d Ts on 2c Ac 3c Jh). Alice was all-in preflop and likely has an Ace or better. Don’t risk more chips with very little equity — call to go to showdown without committing the rest.",
+        "action": "Call"
+      },
+      "stack_after": 45.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "9d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Alice is already all-in and cannot fold; betting now would only build a pointless side pot since there are no other callers. My hand (Ten-high) is weak on an Ace-high board, so conserve chips and go to showdown by checking/calling.",
+        "action": "Call"
+      },
+      "stack_after": 45.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 200.0,
+          "stack_after": 245.0,
+          "rank": {
+            "HighCard": 5024
+          },
+          "hand": [
+            "Ts",
+            "2c",
+            "3c",
+            "Ac",
+            "Jh",
+            "7d",
+            "9d"
+          ]
+        }
+      ]
+    }
+  }
+]

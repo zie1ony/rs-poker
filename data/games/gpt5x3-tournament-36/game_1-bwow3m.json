@@ -1,0 +1,233 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-bwow3m",
+      "tournament_id": "gpt5x3-tournament-36",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        95.0,
+        105.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Js",
+          "6c"
+        ],
+        [
+          "Ad",
+          "3h"
+        ],
+        [
+          "8h",
+          "Tc"
+        ]
+      ],
+      "community_cards": [
+        "4c",
+        "7h",
+        "Jh",
+        "Ac",
+        "9s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 5.0,
+      "stack_after": 100.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Js6c is a weak hand in the first-to-act spot in a 3-handed preflop. Folding preserves our stack for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 95.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Button (small blind) with A3o — use position and fold equity to steal the big blind. Small raise to 20 builds the pot, keeps pressure on Alice, and preserves stack for later streets.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 85.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Defend BB vs SB min-raise with 9 BB effective; getting great price. T8o plays fine to a call, while a small 3-bet is bad and a shove is too loose here.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "4c",
+        "7h",
+        "Jh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I only have Ace-high (Ad3h) with no pair or strong draw on J-7-4. Calling keeps the pot controlled, lets me see the turn for potential improvement or induce bluffs, and avoids committing more of my stack with weak equity.",
+        "action": "Call"
+      },
+      "stack_after": 85.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "SB raised preflop then checked this J-7-4 two-heart flop. We’re in position with T8 and a gutshot plus backdoor hearts. Take a half-pot stab to fold out overcards/weak pairs and realize equity; fold to a big check-raise.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 60.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Cheap call (20 into 60) with Ace-high and showdown value; avoid folding the best high-card and don’t bluff-raise out of position with a weak hand. Call to see the turn and re-evaluate.",
+        "action": "Call"
+      },
+      "stack_after": 65.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Turn paired my Ace (Ad), giving me top pair on A♣ J♥ 7♥ 4♣ board. I need to extract value and deny equity to potential draws; shoving maximizes fold equity and gets value from worse hands (Jx, mid pairs, draws) while applying maximum pressure to win the tournament.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 145.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We have Tc8h on A J 7 4, only a gutshot to a 9 and no flush possibility. Facing a turn shove we’d need ~43% equity but have ~9% at best. The Ace heavily favors villain’s range (Ax, Jx, strong draws). Easy fold to preserve chips.",
+        "action": "Fold"
+      },
+      "stack_after": 60.0,
+      "pot_after": 145.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Turn",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 145.0,
+          "stack_after": 145.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

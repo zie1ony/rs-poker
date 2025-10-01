@@ -1,0 +1,264 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-1e02t7",
+      "tournament_id": "gpt5x3-tournament-36",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        145.0,
+        60.0,
+        95.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Ac",
+          "9c"
+        ],
+        [
+          "9s",
+          "Ah"
+        ],
+        [
+          "Tc",
+          "2h"
+        ]
+      ],
+      "community_cards": [
+        "Jh",
+        "8s",
+        "Kc",
+        "Ts",
+        "Th"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 55.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 85.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Ac9c is a playable suited Ace; as chip leader I want to apply pressure, isolate and reduce multiway pots. A standard open to 40 (total) is a comfortable raise to steal blinds or build the pot with a strong drawing hand while preserving stack depth.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 105.0,
+      "pot_after": 55.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "With only 6 BB in the small blind and A9 offsuit facing a button 4x open, shoving maximizes fold equity and is +EV 3-handed. Calling would commit most of our stack out of position; folding is too tight with this strength.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 110.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Tc 2h is a weak multiway hand preflop, facing a 55 all-in from Alice and a 40 bet from Bob. Equity is extremely low versus their ranges, so folding preserves chips for better spots and aligns with a tournament-win strategy.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 110.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent all‑in for 55 total after my 40; calling costs only 15 to contest a 110 pot. Good pot odds and my A♣9♣ has strong equity vs a short‑stack shove from the small blind — call.",
+        "action": "Call"
+      },
+      "stack_after": 85.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Jh",
+        "8s",
+        "Kc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in and cannot fold; betting would only create a side pot or waste chips. I have only ace-high with weak backdoor draws on K J 8, so check/call to see turn and river and avoid unnecessary risk.",
+        "action": "Call"
+      },
+      "stack_after": 85.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Ts"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in. With A9 on J-8-K-T I have only ace-high and a gutshot to a straight (needs Q). No value in betting more into an uncontested pot — check and see the river.",
+        "action": "Call"
+      },
+      "stack_after": 85.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Th"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Alice is already all-in from preflop and there are no other active opponents. Betting or shoving now only creates a side pot I can't win; call (check to showdown) to contest the main pot without risking extra chips.",
+        "action": "Call"
+      },
+      "stack_after": 85.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 65.0,
+          "stack_after": 150.0,
+          "rank": {
+            "OnePair": 2103808
+          },
+          "hand": [
+            "8s",
+            "Ts",
+            "9c",
+            "Kc",
+            "Ac",
+            "Th",
+            "Jh"
+          ]
+        },
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 65.0,
+          "stack_after": 65.0,
+          "rank": {
+            "OnePair": 2103808
+          },
+          "hand": [
+            "8s",
+            "9s",
+            "Ts",
+            "Kc",
+            "Th",
+            "Jh",
+            "Ah"
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,209 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-54hmnk",
+      "tournament_id": "gpt5x3-tournament-42",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        95.0,
+        90.0,
+        115.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "9d",
+          "8h"
+        ],
+        [
+          "As",
+          "8c"
+        ],
+        [
+          "6s",
+          "Kh"
+        ]
+      ],
+      "community_cards": [
+        "6d",
+        "4d",
+        "Qc",
+        "Ks",
+        "8d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 85.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 105.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "3-handed on the button with 98o: strong open-raise candidate. Raise to 2.5x to pressure blinds and take initiative.",
+        "action": {
+          "Bet": 25.0
+        }
+      },
+      "stack_after": 70.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Ace-8 offsuit in a 3-handed preflop facing a 25 Bet is too weak. With 85 behind and uncertain against a continuing range, fold to preserve stack for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Marginal hand (K6o) but pot odds are good (15 to call into 40). I’ll call to see the flop and avoid unnecessary risk or committing more chips with a dominated holding.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 55.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "6d",
+        "4d",
+        "Qc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a marginal hand (pair of 6s with K-kicker) against a preflop raiser and the flop contains Q and two diamonds (possible stronger pairs or flush draws). Avoid committing chips now — check/call to see the turn and re-evaluate rather than bluffing or overbetting.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 55.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We were the preflop aggressor and this Q-high board favors our range. A small c-bet applies pressure to random holdings and can fold out weaker hands while risking little with our 9-high.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 50.0,
+      "pot_after": 75.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a made pair (6s) with a strong K kicker on a Q-6-4 board with two diamonds. Alice's small c-bet is likely a wide/continuation range; a min-raise to 40 applies pressure, folds out many bluffs/draws, protects my hand against diamond draws, and extracts value from worse pairs/overcards without overcommitting the stack.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 50.0,
+      "pot_after": 115.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We have 9-high with only backdoor equity on Q-6-4 two-tone and are facing a committing min check-raise. Calling leaves 30 behind into a large pot and we’ll face turn shoves on most cards; re-raising/all-in has almost no fold equity versus a strong/check-raising range. Preserve chips and fold.",
+        "action": "Fold"
+      },
+      "stack_after": 50.0,
+      "pot_after": 115.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 115.0,
+          "stack_after": 165.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

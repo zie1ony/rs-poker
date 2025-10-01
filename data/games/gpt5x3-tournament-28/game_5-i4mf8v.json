@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-i4mf8v",
+      "tournament_id": "gpt5x3-tournament-28",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        70.0,
+        230.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "9h",
+          "3h"
+        ],
+        [
+          "Kc",
+          "Qd"
+        ]
+      ],
+      "community_cards": [
+        "Ad",
+        "Kh",
+        "3d",
+        "2s",
+        "2c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 60.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 210.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "9h3h is a weak hand in SB vs a big blind in a 3-handed pot. Folding preserves chips for better spots and avoids postflop trouble with a weak backdoor possibility.",
+        "action": "Fold"
+      },
+      "stack_after": 60.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 30.0,
+          "stack_after": 240.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

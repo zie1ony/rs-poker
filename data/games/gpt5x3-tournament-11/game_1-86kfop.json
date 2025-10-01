@@ -1,0 +1,197 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-86kfop",
+      "tournament_id": "gpt5x3-tournament-11",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        80.0,
+        170.0,
+        50.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "2s",
+          "6d"
+        ],
+        [
+          "2d",
+          "Ts"
+        ],
+        [
+          "9c",
+          "Kc"
+        ]
+      ],
+      "community_cards": [
+        "Ks",
+        "Jh",
+        "3d",
+        "Qh",
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 165.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 40.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With 2s6d in a three-handed preflop and facing potential raises after blinds, this is a poor hand to continue. Folding preserves your 80 stack for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 80.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up versus a 4BB big blind as chip leader, min-raising applies maximum pressure while risking little and keeps initiative. It’s profitable to raise very wide here; if he jams, we’ll have the pot odds to call.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 150.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up pot; K9s is a playable hand and calling costs only 10 into a 30 pot (good pot odds). Preserve stack and see the flop rather than committing extra chips with a marginal hand.",
+        "action": "Call"
+      },
+      "stack_after": 30.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ks",
+        "Jh",
+        "3d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up as preflop raiser on KJ3r we have range advantage; small c-bet pressures his short stack and can fold out misses. If he jams, we can fold T-high easily.",
+        "action": {
+          "Bet": 10.0
+        }
+      },
+      "stack_after": 140.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have top pair (Ks) with a decent kicker (Kc9c). Opponent’s bet is small (10 into 50) — raise to 20 (minimum) to get value from worse kings/jacks and protect against draws while not committing my entire stack.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 10.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We have T-high with minimal backdoor equity versus a min-raise from a short stack who is effectively committed. Pot odds aren’t sufficient given near-zero fold equity. Preserve chips for better spots to win the tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 140.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 70.0,
+          "stack_after": 80.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

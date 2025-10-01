@@ -1,0 +1,433 @@
+[
+  {
+    "TournamentCreated": {
+      "timestamp": {
+        "secs_since_epoch": 1759246261,
+        "nanos_since_epoch": 493565000
+      },
+      "tournament_id": "gpt5x3-tournament-17",
+      "settings": {
+        "tournament_id": "gpt5x3-tournament-17",
+        "players": [
+          {
+            "AI": {
+              "name": "CharlieAI",
+              "model": "gpt-5-nano",
+              "strategy": "Win the tournament."
+            }
+          },
+          {
+            "AI": {
+              "name": "BobAI",
+              "model": "gpt-5-mini",
+              "strategy": "Win the tournament."
+            }
+          },
+          {
+            "AI": {
+              "name": "AliceAI",
+              "model": "gpt-5",
+              "strategy": "Win the tournament."
+            }
+          }
+        ],
+        "starting_player_stack": 100.0,
+        "starting_small_blind": 5.0,
+        "double_blinds_every_n_games": 3,
+        "end_condition": "SingleWinner",
+        "see_historical_thoughts": true,
+        "public_chat": false
+      }
+    }
+  },
+  {
+    "GameStarted": {
+      "timestamp": {
+        "secs_since_epoch": 1759246261,
+        "nanos_since_epoch": 493670000
+      },
+      "game_id": "game_0-kmoatt",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ]
+    }
+  },
+  {
+    "GameEnded": {
+      "timestamp": {
+        "secs_since_epoch": 1759246356,
+        "nanos_since_epoch": 246126000
+      },
+      "game_id": "game_0-kmoatt",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        100.0,
+        80.0,
+        120.0
+      ]
+    }
+  },
+  {
+    "GameStarted": {
+      "timestamp": {
+        "secs_since_epoch": 1759246356,
+        "nanos_since_epoch": 246154000
+      },
+      "game_id": "game_1-a64pib",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        100.0,
+        80.0,
+        120.0
+      ]
+    }
+  },
+  {
+    "GameEnded": {
+      "timestamp": {
+        "secs_since_epoch": 1759246408,
+        "nanos_since_epoch": 289177000
+      },
+      "game_id": "game_1-a64pib",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        90.0,
+        95.0,
+        115.0
+      ]
+    }
+  },
+  {
+    "GameStarted": {
+      "timestamp": {
+        "secs_since_epoch": 1759246408,
+        "nanos_since_epoch": 289226000
+      },
+      "game_id": "game_2-uveqb3",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        90.0,
+        95.0,
+        115.0
+      ]
+    }
+  },
+  {
+    "GameEnded": {
+      "timestamp": {
+        "secs_since_epoch": 1759246675,
+        "nanos_since_epoch": 196606000
+      },
+      "game_id": "game_2-uveqb3",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        85.0,
+        70.0,
+        145.0
+      ]
+    }
+  },
+  {
+    "GameStarted": {
+      "timestamp": {
+        "secs_since_epoch": 1759246675,
+        "nanos_since_epoch": 196641000
+      },
+      "game_id": "game_3-4y3lg5",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        85.0,
+        70.0,
+        145.0
+      ]
+    }
+  },
+  {
+    "GameEnded": {
+      "timestamp": {
+        "secs_since_epoch": 1759246708,
+        "nanos_since_epoch": 591743000
+      },
+      "game_id": "game_3-4y3lg5",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        85.0,
+        60.0,
+        155.0
+      ]
+    }
+  },
+  {
+    "GameStarted": {
+      "timestamp": {
+        "secs_since_epoch": 1759246708,
+        "nanos_since_epoch": 591794000
+      },
+      "game_id": "game_4-x2g1el",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        85.0,
+        60.0,
+        155.0
+      ]
+    }
+  },
+  {
+    "GameEnded": {
+      "timestamp": {
+        "secs_since_epoch": 1759246805,
+        "nanos_since_epoch": 655654000
+      },
+      "game_id": "game_4-x2g1el",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        65.0,
+        90.0,
+        145.0
+      ]
+    }
+  },
+  {
+    "GameStarted": {
+      "timestamp": {
+        "secs_since_epoch": 1759246805,
+        "nanos_since_epoch": 655680000
+      },
+      "game_id": "game_5-8gczdf",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        65.0,
+        90.0,
+        145.0
+      ]
+    }
+  },
+  {
+    "GameEnded": {
+      "timestamp": {
+        "secs_since_epoch": 1759247166,
+        "nanos_since_epoch": 166429000
+      },
+      "game_id": "game_5-8gczdf",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        55.0,
+        190.0,
+        55.0
+      ]
+    }
+  },
+  {
+    "GameStarted": {
+      "timestamp": {
+        "secs_since_epoch": 1759247166,
+        "nanos_since_epoch": 166441000
+      },
+      "game_id": "game_6-uiwk77",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        55.0,
+        190.0,
+        55.0
+      ]
+    }
+  },
+  {
+    "GameEnded": {
+      "timestamp": {
+        "secs_since_epoch": 1759247426,
+        "nanos_since_epoch": 626084000
+      },
+      "game_id": "game_6-uiwk77",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        55.0,
+        135.0,
+        110.0
+      ]
+    }
+  },
+  {
+    "GameStarted": {
+      "timestamp": {
+        "secs_since_epoch": 1759247426,
+        "nanos_since_epoch": 626138000
+      },
+      "game_id": "game_7-90pv98",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        55.0,
+        135.0,
+        110.0
+      ]
+    }
+  },
+  {
+    "GameEnded": {
+      "timestamp": {
+        "secs_since_epoch": 1759247519,
+        "nanos_since_epoch": 94081000
+      },
+      "game_id": "game_7-90pv98",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        15.0,
+        25.0,
+        260.0
+      ]
+    }
+  },
+  {
+    "GameStarted": {
+      "timestamp": {
+        "secs_since_epoch": 1759247519,
+        "nanos_since_epoch": 94121000
+      },
+      "game_id": "game_8-g6whdb",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        15.0,
+        25.0,
+        260.0
+      ]
+    }
+  },
+  {
+    "GameEnded": {
+      "timestamp": {
+        "secs_since_epoch": 1759247614,
+        "nanos_since_epoch": 739129000
+      },
+      "game_id": "game_8-g6whdb",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        15.0,
+        50.0,
+        235.0
+      ]
+    }
+  },
+  {
+    "GameStarted": {
+      "timestamp": {
+        "secs_since_epoch": 1759247614,
+        "nanos_since_epoch": 739331000
+      },
+      "game_id": "game_9-y4l5hq",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        15.0,
+        50.0,
+        235.0
+      ]
+    }
+  },
+  {
+    "GameEnded": {
+      "timestamp": {
+        "secs_since_epoch": 1759247752,
+        "nanos_since_epoch": 675425000
+      },
+      "game_id": "game_9-y4l5hq",
+      "player_names": [
+        "CharlieAI",
+        "BobAI",
+        "AliceAI"
+      ],
+      "player_stacks": [
+        15.0,
+        0.0,
+        285.0
+      ]
+    }
+  },
+  {
+    "TournamentFinished": {
+      "timestamp": {
+        "secs_since_epoch": 1759247752,
+        "nanos_since_epoch": 675435000
+      },
+      "tournament_id": "gpt5x3-tournament-17",
+      "winner": "AliceAI"
+    }
+  }
+]

@@ -1,0 +1,115 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-ryxsu5",
+      "tournament_id": "gpt5x3-tournament-8",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        125.0,
+        175.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Qs",
+          "4c"
+        ],
+        [
+          "8c",
+          "7s"
+        ]
+      ],
+      "community_cards": [
+        "2c",
+        "4s",
+        "6d",
+        "5d",
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 115.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 155.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Short-stacked (~5.75 BB) in heads-up. With Q4s and limited postflop maneuvering, push-fold is correct to maximize fold equity and chip pickup — commit now to take the blinds or get a good all-in equity spot.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 145.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "8c7s is a weak hand to call an all-in preflop, especially heads-up with 8-7 offsuit against an opponent shoving a large portion of their stack. Folding preserves your stack and improves tournament odds.",
+        "action": "Fold"
+      },
+      "stack_after": 155.0,
+      "pot_after": 145.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 145.0,
+          "stack_after": 145.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

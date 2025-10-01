@@ -1,0 +1,193 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-4fubh1",
+      "tournament_id": "gpt5x3-tournament-14",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "5h",
+          "Jh"
+        ],
+        [
+          "8s",
+          "4d"
+        ],
+        [
+          "5c",
+          "8c"
+        ]
+      ],
+      "community_cards": [
+        "2c",
+        "6c",
+        "Ad",
+        "Td",
+        "Qs"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "5h Jh is a weak hand in a multiway pot. Folding preserves chip stack; calling 10 has poor equity (roughly ~20% to improve) and we have little postflop potential against two players.",
+        "action": "Fold"
+      },
+      "stack_after": 100.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Completing from the small blind heads-up with 8-4 offsuit is profitable versus the big blind; folding is too tight and raising with this weak hand out of position is unnecessary.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Already posted the big blind (10). 5c8c is a speculative suited hand — prefer to see a flop cheaply rather than inflate the pot preflop. Calling keeps the pot manageable and preserves chips.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "2c",
+        "6c",
+        "Ad"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Out of position in a limped pot on A-6-2 two-tone with 8-high and no useful backdoors; this is a standard check with no value and poor bluff candidates.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a strong flush draw (4 clubs, ~35% to hit by the river). Bet a small half-pot (10) as a semi-bluff to build the pot and gain fold equity while risking little; if called I still have good equity to improve.",
+        "action": {
+          "Bet": 10.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "8-high with no draw on A-6-2 two clubs facing a bet; poor equity and bad bluff candidate. Conserve chips early.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 30.0,
+          "stack_after": 110.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

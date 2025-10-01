@@ -1,0 +1,234 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-y2gzeu",
+      "tournament_id": "gpt5x3-tournament-8",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        115.0,
+        90.0,
+        95.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "3s",
+          "8s"
+        ],
+        [
+          "8h",
+          "Jd"
+        ],
+        [
+          "Js",
+          "Ks"
+        ]
+      ],
+      "community_cards": [
+        "Ah",
+        "9c",
+        "2c",
+        "Qs",
+        "9d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 85.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 85.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Button open-raise to steal the blinds with suited 8-3. Good position and a small, standard raise to apply pressure and maintain my chip lead while keeping variance reasonable.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 95.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "9BB effective in SB vs BTN min-raise; J8o plays poorly calling OOP. Shoving leverages fold equity against a wide open and is superior to small 3-bets at this stack depth.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "KsJs on a multiway preflop shove. Alice moved all-in for 85 into 120 pot and you have 85 left, needing to call 75 to see the flop. Your equity vs her wide range is decent (~40%), giving a positive expected value to call vs folding. All-in would be slightly worse EV, Fold is clearly worse here.",
+        "action": "Call"
+      },
+      "stack_after": 5.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Facing two all-ins, I must call 70 to win 270 (need ≈25.9% equity). 3♠8♠ suited has well under that vs two opponents’ all-in ranges (roughly ~18–22%), so the call is +EV negative. Preserve stack and tournament life.",
+        "action": "Fold"
+      },
+      "stack_after": 95.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ah",
+        "9c",
+        "2c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "On the flop there is no bet to call. With 5 chips left into a 200-pot and your KJ offsuit on an A-9-2 board, checking (Call) is the higher EV option; an all-in (bluff) would have negative expected value given the opponent’s likely range and pot size.",
+        "action": "Call"
+      },
+      "stack_after": 5.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Qs"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "I have 5 chips left with JsKs on an Ace-high board after turn. There are no solid outs to improve significantly, so shoving all-in maximizes fold equity and offers a realistic chance to double up if I’m ahead or hit a runner-runner bad beat.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 205.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "9d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "CharlieAI",
+          "won_pot": 205.0,
+          "stack_after": 205.0,
+          "rank": {
+            "OnePair": 1055744
+          },
+          "hand": [
+            "Js",
+            "Qs",
+            "Ks",
+            "2c",
+            "9c",
+            "Ah",
+            "9d"
+          ]
+        }
+      ]
+    }
+  }
+]

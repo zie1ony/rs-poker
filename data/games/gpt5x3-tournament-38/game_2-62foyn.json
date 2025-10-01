@@ -1,0 +1,115 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-62foyn",
+      "tournament_id": "gpt5x3-tournament-38",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        220.0,
+        80.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Ts",
+          "9h"
+        ],
+        [
+          "Qs",
+          "7h"
+        ]
+      ],
+      "community_cards": [
+        "9d",
+        "2d",
+        "5c",
+        "5s",
+        "8h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 215.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 70.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up with ~8BB effective from the small blind, T9o is a profitable shove per push/fold strategy—maximizes fold equity and pressures the short stack.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 230.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Opponent shoves all-in for 215 preflop while you have only 70 left. Call is impossible; Qs7h is weak against a wide all-in range. Fold to preserve stack for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 70.0,
+      "pot_after": 230.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 230.0,
+          "stack_after": 230.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

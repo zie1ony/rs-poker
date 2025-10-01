@@ -1,0 +1,314 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-xbssh5",
+      "tournament_id": "gpt5x3-tournament-9",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "4c",
+          "8c"
+        ],
+        [
+          "Ac",
+          "3h"
+        ],
+        [
+          "8h",
+          "Ad"
+        ]
+      ],
+      "community_cards": [
+        "7d",
+        "2d",
+        "Ts",
+        "7s",
+        "7c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Open-raise to 20 with 4c8c suited in a 3-handed game to take the initiative, apply pressure to the blinds, and play the hand actively rather than limping.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Defend the button (SB) versus a 2x open with Ac3o; calling keeps position and pot small. 3-bet here is marginal with BB behind who can squeeze.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Ad-8h in a 3‑hand pot vs a 20 bet: calling 10 to see the flop keeps your equity with Ace-high and a decent backdoor; folding is weak here, and a raise is too thin against two opponents. All-in is too aggressive in this spot.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "7d",
+        "2d",
+        "Ts"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Out of position multiway on T♦7♦2♠ with A3o and no diamond/backdoors. Checking keeps pot small; leading is low EV here.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Ace-high with a backdoor diamond flush draw on a Ts 7d 2d flop. A small bet of 10 into 60 protects against overcards, folds out worse hands, and keeps your backdoor outs alive while controlling the pot.",
+        "action": {
+          "Bet": 10.0
+        }
+      },
+      "stack_after": 70.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have 4c8c with no pair and no meaningful draw on 7d 2d Ts. Facing a bet with two opponents, equity is negligible — fold to preserve chips.",
+        "action": "Fold"
+      },
+      "stack_after": 80.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Facing a very small bet heads-up with Ace-high; pot odds are excellent to continue (10 into 70). Call to realize equity and re-evaluate on the turn; raising without backdoors is unnecessary and folding is too tight.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "7s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Check to control pot with Ace-high on a paired board; no draw equity and our hand plays best as a bluff-catcher on safe rivers.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Ace-high with Ad on a two-diamond flop gives you 3 clean outs (Aces) to make top pair by the river. Pot odds and stack-to-pot imply calling to see turn/river is reasonable heads-up against Alice.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "7c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Checking river: trips with A-kicker but board is extremely paired, and many of Villain’s likely holdings (any pocket pair, T, 2, or 7) beat us. Little value in betting; prefer pot control and bluff-catching if needed.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Ad8h on a board that already shows a strong made hand for Alice (likely 7x/boats/quads). Folding isn’t listed as an option here, so calling preserves chips for future hands and gives me a slim chance on runouts.",
+        "action": "Call"
+      },
+      "stack_after": 70.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 40.0,
+          "stack_after": 110.0,
+          "rank": {
+            "ThreeOfAKind": 266496
+          },
+          "hand": [
+            "7s",
+            "Ts",
+            "7c",
+            "Ac",
+            "3h",
+            "2d",
+            "7d"
+          ]
+        },
+        {
+          "player_idx": 2,
+          "player_name": "CharlieAI",
+          "won_pot": 40.0,
+          "stack_after": 110.0,
+          "rank": {
+            "ThreeOfAKind": 266496
+          },
+          "hand": [
+            "7s",
+            "Ts",
+            "7c",
+            "8h",
+            "2d",
+            "7d",
+            "Ad"
+          ]
+        }
+      ]
+    }
+  }
+]

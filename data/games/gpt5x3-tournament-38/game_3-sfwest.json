@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-sfwest",
+      "tournament_id": "gpt5x3-tournament-38",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        70.0,
+        230.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Kc",
+          "Th"
+        ],
+        [
+          "2c",
+          "9c"
+        ]
+      ],
+      "community_cards": [
+        "2s",
+        "6d",
+        "5c",
+        "9s",
+        "9h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 60.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 210.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "KcTh offsuit is marginal in this heads-up spot with only 60 chips left after blinds. Facing a 20 big blind, calling or raising risks a large portion of your stack for uncertain equity. Folding preserves your remaining chips for better spots and aligns with a tournament-win strategy.",
+        "action": "Fold"
+      },
+      "stack_after": 60.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 30.0,
+          "stack_after": 240.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

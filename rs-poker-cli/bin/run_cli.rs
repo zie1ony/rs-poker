@@ -342,7 +342,7 @@ async fn run_series(mock_server: bool) {
     let client = client(mock_server);
     let series = SeriesSettings {
         // series_id: SeriesId::new("random-3p"),
-        series_id: SeriesId::new("ai-vs-random"),
+        series_id: SeriesId::new("gpt5x3"),
         players: vec![
             // Player::random("Alice"),
             // Player::random("Bob"),

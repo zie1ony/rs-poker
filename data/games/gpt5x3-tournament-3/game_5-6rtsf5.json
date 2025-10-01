@@ -1,0 +1,115 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-6rtsf5",
+      "tournament_id": "gpt5x3-tournament-3",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        245.0,
+        55.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "6c",
+          "Jc"
+        ],
+        [
+          "2s",
+          "3s"
+        ]
+      ],
+      "community_cards": [
+        "8h",
+        "3h",
+        "4d",
+        "4c",
+        "3c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 235.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 35.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up vs a 2.75BB stack; opponent has been overfolding to our shoves. J6s is well ahead of his folding range. Shoving maximizes fold equity and applies maximum pressure with minimal risk to our stack.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 265.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a preflop all-in from Alice with you holding 2s3s and only 35 chips to call, this hand has poor equity against a typical all-in range. Folding preserves your remaining stack for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 35.0,
+      "pot_after": 265.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 265.0,
+          "stack_after": 265.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

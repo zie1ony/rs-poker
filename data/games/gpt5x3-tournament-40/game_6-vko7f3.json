@@ -1,0 +1,155 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-vko7f3",
+      "tournament_id": "gpt5x3-tournament-40",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        130.0,
+        170.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "7s",
+          "Ad"
+        ],
+        [
+          "Tc",
+          "3d"
+        ]
+      ],
+      "community_cards": [
+        "9h",
+        "6d",
+        "Td",
+        "2h",
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 110.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 40.0,
+      "stack_after": 130.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Heads-up with Ad7s. Defend the BB by calling 20 to see the flop. You have an Ace-high with backdoor possibilities and want to realize equity without committing a large portion of your stack.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We can check our option. T3o is too weak to raise out of position; see a flop and realize equity cheaply.",
+        "action": "Call"
+      },
+      "stack_after": 130.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "9h",
+        "6d",
+        "Td"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up with SPR ~1 on a draw-heavy T96 board, top pair is strong enough to get in. Shoving maximizes value from worse pairs and draws while denying equity.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 210.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Fold. Ad7s on a 9h 6d Td flop facing an all-in for 130 into 210 pot gives ~38% breakeven, but you have only ~13% equity (3 Aces) by river. Negative expectation; fold to preserve stack.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 210.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 210.0,
+          "stack_after": 210.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

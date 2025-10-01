@@ -1,0 +1,159 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-02xpxj",
+      "tournament_id": "gpt5x3-tournament-21",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        210.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Js",
+          "Kh"
+        ],
+        [
+          "8s",
+          "7c"
+        ]
+      ],
+      "community_cards": [
+        "Ah",
+        "9s",
+        "7s",
+        "5d",
+        "Ad"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 75.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 190.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Heads-up preflop with JsKh. Raise to 60 (3x BB) to seize initiative and deny the big blind a cheap flop. If called or faced with a shove, we still have decent equity and can continue aggressively.",
+        "action": {
+          "Bet": 60.0
+        }
+      },
+      "stack_after": 25.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "He’s effectively committed after raising to 60 with only 25 behind. We’re getting a great price in the BB heads-up with 87o; calling realizes equity and we can comfortably call his likely shove on the flop.",
+        "action": "Call"
+      },
+      "stack_after": 150.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ah",
+        "9s",
+        "7s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent has only 25 left into a 120 pot. With second pair and backdoor equity, bet 25 to put him all-in and maximize chance to eliminate him now.",
+        "action": {
+          "Bet": 25.0
+        }
+      },
+      "stack_after": 125.0,
+      "pot_after": 145.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "No pair and only a backdoor Broadway straight draw possibility. Facing a bet on a flop with Ace-high on board, fold to preserve stack for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 25.0,
+      "pot_after": 145.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 145.0,
+          "stack_after": 270.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,153 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-kmoatt",
+      "tournament_id": "gpt5x3-tournament-17",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "2d",
+          "9c"
+        ],
+        [
+          "8h",
+          "5c"
+        ],
+        [
+          "Ad",
+          "Qs"
+        ]
+      ],
+      "community_cards": [
+        "Qh",
+        "7c",
+        "9s",
+        "2c",
+        "6s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Weak hand (2d9c) from the small blind in a 3-handed pot; folding preserves stack for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 100.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up I prefer to raise light to steal the blind and take initiative. 8♣5♣ is weak OOP so limp/call is undesirable; a min-raise to 2xBB (20) applies pressure while keeping the pot manageable.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "10BB effective facing SB min-raise; AdQs is a premium and performs best as a shove here to maximize fold equity and value.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a weak hand (8h5c) and am facing an all-in after my raise. Pot odds require ~40% equity to call; 8-5o is well below that versus an all-in range. Preserve my 80 chips for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 80.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "AliceAI",
+          "won_pot": 120.0,
+          "stack_after": 120.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

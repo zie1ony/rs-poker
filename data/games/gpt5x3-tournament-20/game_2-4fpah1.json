@@ -1,0 +1,199 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-4fpah1",
+      "tournament_id": "gpt5x3-tournament-20",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        90.0,
+        210.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Qc",
+          "Ah"
+        ],
+        [
+          "5h",
+          "Ks"
+        ]
+      ],
+      "community_cards": [
+        "3d",
+        "8s",
+        "2s",
+        "Ts",
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 85.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 200.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "AQ offsuit in a heads-up preflop is a strong raising candidate. Raise to 20 (the min raise from a 10 BB) to seize initiative, deny freebies, and define BB's range. If called or 3-bet, you still have the ace with a good kicker and can proceed smartly on the flop.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 70.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Call the additional 10 to see the flop. Cheap price to realize equity with K5s, preserve my large stack vs a short-stacked opponent and avoid overcommitting preflop.",
+        "action": "Call"
+      },
+      "stack_after": 190.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "3d",
+        "8s",
+        "2s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Make a continuation bet to apply pressure and steal the pot heads-up. My K-high has some showdown value and I want to take advantage of fold equity on a dry 3d 8s 2s board without bloating the pot with a marginal hand.",
+        "action": {
+          "Bet": 30.0
+        }
+      },
+      "stack_after": 160.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "On the flop, Bob bets 30 into a 70 pot (now 100). Calling 30 gives you pot odds of about 30/130 ≈ 23%. You have 6 outs (3 aces + 3 queens) to hit by the river, roughly 23–24% equity, which is around break-even or slightly +EV given two cards to come. You also have no flush draw, so calling preserves your stack for future hands. Raise would be too heavy with Ace-high, and All-in is too risky here.",
+        "action": "Call"
+      },
+      "stack_after": 40.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Ts"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Turn (Ts) gives me K♠ and one heart: I have two overcards and 4-to-a-spade flush (9 spades left ≈19.6% to hit) plus extra outs to pair K or 5. Pot is 100 and opponent is short (40). Betting 40 pressures him to commit his stack — I either win the pot now or get heads-up all-in with decent equity. Optimal aggression to maximize tournament EV.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 120.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "On the turn you have Ace-high on a dry 3d-8s-2s-Ts board with no backdoor draws. Facing a 40 bet with only 40 left in your stack, you’re behind a wide portion of Bob’s turn-range (Tx, overpairs, draws). Calling risks your remaining chips for a marginal chance to improve; folding preserves your tournament life for a better spot.",
+        "action": "Fold"
+      },
+      "stack_after": 40.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Turn",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 140.0,
+          "stack_after": 260.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

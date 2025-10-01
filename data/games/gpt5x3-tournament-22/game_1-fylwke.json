@@ -1,0 +1,210 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-fylwke",
+      "tournament_id": "gpt5x3-tournament-22",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        95.0,
+        105.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Jd",
+          "Th"
+        ],
+        [
+          "As",
+          "3c"
+        ],
+        [
+          "5c",
+          "Jc"
+        ]
+      ],
+      "community_cards": [
+        "6s",
+        "4d",
+        "2h",
+        "9d",
+        "4c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 100.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Open to 20 with JdTh in a 3-handed preflop to seize initiative with a marginal but playable hand and aim to reduce multiway odds; keeps pot manageable.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 75.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "10 BB effective in SB vs BTN min-raise; A3o is a profitable shove. Calling OOP is poor and folding too tight. All-in maximizes fold equity and isolates.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 135.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Jc5c is a weak hand and I'm facing an all-in after a raise; calling would commit my remaining 90 chips with poor equity. Fold to preserve stack.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 135.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "You must call 75 to continue with a pot of 135, which would become 210 if you call. Your call requires ~35.7% equity to break even. Kc8c suited typically has around that or better equity vs a wide all-in range from Alice preflop, so calling is +EV in this heads-up pot.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 210.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "6s",
+        "4d",
+        "2h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "9d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "4c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 210.0,
+          "stack_after": 210.0,
+          "rank": {
+            "OnePair": 37008
+          },
+          "hand": [
+            "6s",
+            "As",
+            "3c",
+            "4c",
+            "2h",
+            "4d",
+            "9d"
+          ]
+        }
+      ]
+    }
+  }
+]

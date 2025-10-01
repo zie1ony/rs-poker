@@ -1,0 +1,234 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-tq85dn",
+      "tournament_id": "gpt5x3-tournament-35",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        40.0,
+        175.0,
+        85.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Th",
+          "Kh"
+        ],
+        [
+          "Jd",
+          "7c"
+        ],
+        [
+          "6c",
+          "3h"
+        ]
+      ],
+      "community_cards": [
+        "9h",
+        "As",
+        "5d",
+        "Qd",
+        "8h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 165.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 65.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Short stack (40) with KTh suited in 3-handed. Shoving/raising to 40 (all-in) maximizes fold equity and pressure on the blinds; calling leaves me with a tiny stack and awkward postflop play. Bet(40) is the minimum legal raise and best play to try to double up.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 0.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We’re facing a short-stack shove of only 40 and need 30 more into a 70 pot—great pot odds. J7o has enough equity versus a wide shove range. Calling avoids bloating the pot versus Charlie and still gives us a good chance to bust Bob and move closer to winning the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 135.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Weak 6c3h in the BB facing a 40 bet from Bob with Alice calling, in a three-handed pot. Folding preserves 65 chips and avoids investing further into a likely unfavorable situation.",
+        "action": "Fold"
+      },
+      "stack_after": 65.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "9h",
+        "As",
+        "5d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; there’s no side pot. Betting can’t make them fold and only risks extra chips with a weak hand on A-high board. Check it down to showdown.",
+        "action": "Call"
+      },
+      "stack_after": 135.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Qd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in and there’s no side pot. With J7o on A-9-5-Q, we have no made hand or fold equity; best to check it down.",
+        "action": "Call"
+      },
+      "stack_after": 135.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "8h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in and there’s no side pot; calling proceeds to showdown without risking extra chips with our J-high.",
+        "action": "Call"
+      },
+      "stack_after": 135.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 100.0,
+          "stack_after": 100.0,
+          "rank": {
+            "HighCard": 7552
+          },
+          "hand": [
+            "As",
+            "8h",
+            "9h",
+            "Th",
+            "Kh",
+            "5d",
+            "Qd"
+          ]
+        }
+      ]
+    }
+  }
+]

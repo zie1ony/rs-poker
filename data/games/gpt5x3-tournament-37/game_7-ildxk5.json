@@ -1,0 +1,169 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_7-ildxk5",
+      "tournament_id": "gpt5x3-tournament-37",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        200.0,
+        100.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "Kh",
+          "Ad"
+        ],
+        [
+          "Ks",
+          "Qs"
+        ]
+      ],
+      "community_cards": [
+        "8s",
+        "7h",
+        "Qh",
+        "7d",
+        "3s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 180.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 60.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up with A K offsuit vs a short-stacked big blind. Make the minimum raise to isolate and apply pressure (likely win pot preflop or play postflop with initiative) while avoiding unnecessary extra risk.",
+        "action": {
+          "Bet": 80.0
+        }
+      },
+      "stack_after": 120.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "We have KsQs and 60 behind facing an 80 bet preflop. Call 40 to see the flop gives decent equity (backdoor straight/flush possibilities) and keeps our tournament life alive with a healthy stack behind.",
+        "action": "Call"
+      },
+      "stack_after": 20.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "8s",
+        "7h",
+        "Qh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With Ks Qs on a Qh board, you have top pair with decent kicker. You only have 20 left to call, facing a bet on the flop. Calling keeps you in with second-best yet strong equity and the chance to improve on turn/river. Folding would be too weak here, and AllIn with 20 is a large over-commitment given the opponent’s possible ranges.",
+        "action": "Call"
+      },
+      "stack_after": 20.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have two overcards (A K) on a Q/8/7 board and opponent is short-stacked (only 20). Pushing maximizes fold equity/value and forces the all-in decision now to try to win the tournament.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 280.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "You’re short (20 left) and facing an all-in on the flop after Bob’s shove. KsQs is only top pair with a weak kicker on a board of 8s 7h Qh, and calling risking your remaining chips isn’t +EV. Fold to preserve your stack for future hands.",
+        "action": "Fold"
+      },
+      "stack_after": 20.0,
+      "pot_after": 280.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 280.0,
+          "stack_after": 280.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

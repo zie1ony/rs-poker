@@ -1,0 +1,139 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-aj201a",
+      "tournament_id": "gpt5x3-tournament-3",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "2c",
+          "Kd"
+        ],
+        [
+          "7d",
+          "6d"
+        ],
+        [
+          "Th",
+          "5d"
+        ]
+      ],
+      "community_cards": [
+        "3c",
+        "3h",
+        "Td",
+        "9d",
+        "Jd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Kd2c is a weak two-gapper in a 3-handed pot facing two players preflop. Out of position with marginal equity; fold and wait for a better spot.",
+        "action": "Fold"
+      },
+      "stack_after": 100.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "10BB effective SB vs BB and heads-up; 76s is a profitable open shove with strong fold equity and decent equity when called.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 110.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Facing an SB all-in, my Th5d is weak and often dominated. Pot odds require ~44% equity to justify a call; against a typical shove range my equity is below that. I fold to preserve chips and tournament life.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 110.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 110.0,
+          "stack_after": 110.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

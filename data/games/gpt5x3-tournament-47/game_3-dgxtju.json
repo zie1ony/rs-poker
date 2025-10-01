@@ -1,0 +1,250 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-dgxtju",
+      "tournament_id": "gpt5x3-tournament-47",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        220.0,
+        80.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "6h",
+          "9c"
+        ],
+        [
+          "Kd",
+          "Jd"
+        ]
+      ],
+      "community_cards": [
+        "4d",
+        "6c",
+        "Ah",
+        "As",
+        "Ks"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 210.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 60.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Open-raise to 40 (min raise) to apply pressure heads-up — with a big stack and wide stealing range, 9-6 offsuit is worth a standard raise to pick up the blinds or isolate.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 180.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Defend the BB with KdJd vs a 40 preflop bet. Calling 20 gives favorable pot odds (20 to win 80) and you have a backdoor diamond draw plus potential to improve. A larger raise would commit too much with a marginal hand in this tournament.",
+        "action": "Call"
+      },
+      "stack_after": 40.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "4d",
+        "6c",
+        "Ah"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "On an Ace-high flop with KdJh, you have negligible value and only backdoor draws (runner-runner straight/flush). A small 20-chip bet keeps the pot manageable, offers potential fold equity against a swimmer like Bob, and preserves your remaining 20 chips for future streets if you don't improve.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 20.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have middle pair (6s) with good showdown value and Charlie is effectively all-in for 20. Calling is a cheap, high-EV play to try to win the pot; no need to risk more by raising.",
+        "action": "Call"
+      },
+      "stack_after": 160.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "As"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Turn is As with Ah 4d 6c on board; you have KdJd with no real outs (no backdoor flush/straight). Call 20 to see river and control pot size rather than a risky raise; folding isn’t offered here.",
+        "action": "Call"
+      },
+      "stack_after": 20.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Small value bet to charge worse pairs and force Charlie (short-stacked at 20) to commit chips. Low risk, good pot odds to grab extra chips and increases my tournament equity.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 140.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Pot odds favorable. Facing a 20 bet with 20 left and one card to come, you need ~12.5% equity to break even. You have about 6 outs (K or J on the river) to make a two-pair by river (Aces with K/J). 6/46 ≈ 13% equity, so calling is +EV vs folding. Folding would concede the pot now.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Ks"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is effectively all-in and cannot be raised; I have only a marginal pair of sixes on a board with two Aces and a King, so many hands beat me (any Ace or King). No value to betting — preserve my stack to continue in the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 140.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 160.0,
+          "stack_after": 160.0,
+          "rank": {
+            "TwoPair": 50332160
+          },
+          "hand": [
+            "Ks",
+            "As",
+            "6c",
+            "Ah",
+            "4d",
+            "Jd",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]

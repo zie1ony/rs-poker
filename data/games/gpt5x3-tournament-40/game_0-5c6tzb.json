@@ -1,0 +1,259 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-5c6tzb",
+      "tournament_id": "gpt5x3-tournament-40",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Th",
+          "9h"
+        ],
+        [
+          "4h",
+          "Jc"
+        ],
+        [
+          "Js",
+          "5s"
+        ]
+      ],
+      "community_cards": [
+        "3s",
+        "6d",
+        "5h",
+        "Qc",
+        "7c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Th9h is weak in 3-handed preflop; fold to preserve stack and wait for a better spot.",
+        "action": "Fold"
+      },
+      "stack_after": 100.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "10BB effective heads-up in the small blind with J4o: too weak to raise/call a shove and high variance to jam. Limp to realize equity cheaply and keep variance low versus a random opponent.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Js5s is a marginal hand but cheap to see a flop from the big blind against a single limper. No need to inflate the pot preflop with a weak holding — check/call preserves stack and keeps options postflop.",
+        "action": "Call"
+      },
+      "stack_after": 90.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "3s",
+        "6d",
+        "5h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We have an open-ended straight draw on a low, coordinated board heads-up. Semi-bluffing for about 3/4 pot applies pressure to many random holdings while building the pot for our strong draw.",
+        "action": {
+          "Bet": 15.0
+        }
+      },
+      "stack_after": 75.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have middle pair (5s) with a decent jack kicker and a backdoor spade/straight potential. Alice’s bet is a standard c‑bet from the small blind and her range is wide. Calling (rather than raising) uses my positional advantage, keeps the pot manageable and gives me a chance to improve on the turn with correct pot odds.",
+        "action": "Call"
+      },
+      "stack_after": 75.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Qc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We have an open-ended straight draw and the Q is a good barrel card to pressure 6x/5x. Betting half-pot builds fold equity while keeping room to fold versus a shove, since we can’t check here.",
+        "action": {
+          "Bet": 25.0
+        }
+      },
+      "stack_after": 50.0,
+      "pot_after": 75.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a marginal pair (5s) and decent pot odds to see the river (call 25 into 75). Raising or shoving over this turn bet would risk too many chips with a medium hand against a wide SB range, so call to realize equity and re-evaluate on the river.",
+        "action": "Call"
+      },
+      "stack_after": 50.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "7c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We rivered the straight on 3-6-5-Q-7 with 4hJc. With SPR ~0.5, jamming maximizes value versus pairs/two-pairs/sets and gets called by many 4x for at least a chop; only a few combos (48/98) beat us. All-in is the highest-EV play here.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 150.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "My best hand is only a single pair (5s, Jack kicker). Alice’s line (bet flop, bet turn, shove river) is polarized to stronger made hands (Qx, sets, two pair, rivered 7x) or a rare bluff. Pot odds require ~33% equity to call 50 into 150; my showdown equity is likely below that. Fold to preserve stack.",
+        "action": "Fold"
+      },
+      "stack_after": 50.0,
+      "pot_after": 150.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "River",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 150.0,
+          "stack_after": 150.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

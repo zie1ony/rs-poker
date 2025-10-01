@@ -1,0 +1,214 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-su529w",
+      "tournament_id": "gpt5x3-tournament-6",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        110.0,
+        105.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "As",
+          "5h"
+        ],
+        [
+          "8s",
+          "Td"
+        ],
+        [
+          "4h",
+          "9s"
+        ]
+      ],
+      "community_cards": [
+        "2h",
+        "4c",
+        "Ks",
+        "Th",
+        "9c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 100.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 85.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "A5 offsuit in the big blind facing two players in a 10/20 pot is weak and multiway. Folding preserves 85 and avoids dominated postflop scenarios with poor kickers and uncertain equity.",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Shallow stacks (≈5 BB) and heads-up in the small blind; T8o is a profitable shove to maximize fold equity and pressure the big blind.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Alice shoved all-in for 100 after posting the small blind, pot is 130. I have 85 behind (already posted BB 20), so calling 85 would contest a 215 final pot and requires ~39.5% equity. Folding lets Alice jump to ~210 chips and puts me and Charlie crippled at 85 — a very dangerous tournament position. Given pot odds and the need to prevent Alice from becoming a dominant chip leader, I call to try to double up.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 215.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "2h",
+        "4c",
+        "Ks"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Th"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "9c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "BobAI",
+          "won_pot": 210.0,
+          "stack_after": 210.0,
+          "rank": {
+            "TwoPair": 1083392
+          },
+          "hand": [
+            "9s",
+            "Ks",
+            "4c",
+            "9c",
+            "2h",
+            "4h",
+            "Th"
+          ]
+        },
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 5.0,
+          "stack_after": 5.0,
+          "rank": {
+            "OnePair": 2099392
+          },
+          "hand": [
+            "8s",
+            "Ks",
+            "4c",
+            "9c",
+            "2h",
+            "Th",
+            "Td"
+          ]
+        }
+      ]
+    }
+  }
+]

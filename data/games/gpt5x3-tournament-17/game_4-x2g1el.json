@@ -1,0 +1,139 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-x2g1el",
+      "tournament_id": "gpt5x3-tournament-17",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        60.0,
+        155.0,
+        85.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Qd",
+          "4h"
+        ],
+        [
+          "9s",
+          "3c"
+        ],
+        [
+          "2c",
+          "5s"
+        ]
+      ],
+      "community_cards": [
+        "Kd",
+        "9h",
+        "Jh",
+        "Td",
+        "2d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 145.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 65.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "With 60 chips (3 BB) I'm effectively a short-stack — push/fold territory. Q4o on the button has decent shove equity and this all-in maximizes fold equity to steal the blinds; a min-raise would risk a shove/3-bet and calling leaves me with too few chips postflop.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "9-3 offsuit is very weak. Calling 50 to win 90 is roughly breakeven heads-up and becomes -EV if the big blind overcalls, which is likely given his pot odds. Preserve chip lead and avoid high-variance spot.",
+        "action": "Fold"
+      },
+      "stack_after": 145.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing an all-in shove for 60 with 2c5s in the big blind. Pot odds are ~60 to win 150 (need ~40% equity). 2c5s has far less equity against typical shove ranges, so fold to preserve stack.",
+        "action": "Fold"
+      },
+      "stack_after": 65.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 90.0,
+          "stack_after": 90.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,210 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_8-2y9dlu",
+      "tournament_id": "gpt5x3-tournament-7",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        85.0,
+        215.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "Jh",
+          "Ad"
+        ],
+        [
+          "6s",
+          "Th"
+        ]
+      ],
+      "community_cards": [
+        "6c",
+        "8s",
+        "5s",
+        "Kd",
+        "4c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 65.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 40.0,
+      "stack_after": 175.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Heads-up with AdJh from the big blind. Raise to 85 (max allowed) to apply pressure, maximize fold equity, and define the pot with a strong, top-two potential hand. You have 65 left, so a shove isn’t necessary here.",
+        "action": {
+          "Bet": 85.0
+        }
+      },
+      "stack_after": 0.0,
+      "pot_after": 125.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is all-in for a small amount; pot odds are excellent to call a cheap extra amount. 6T has reasonable showdown value and calling preserves my large stack without unnecessary risk of a huge raise or all-in.",
+        "action": "Call"
+      },
+      "stack_after": 130.0,
+      "pot_after": 170.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "6c",
+        "8s",
+        "5s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have middle pair (6s) on 6c 8s 5s and the opponent is already all-in. Any additional bet only builds a side pot I can’t win from him and needlessly risks my chips. Calling preserves EV without committing extra chips.",
+        "action": "Call"
+      },
+      "stack_after": 130.0,
+      "pot_after": 170.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Kd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in from preflop (no one can call a bet). I have a middle pair (6s) on the turn — no value in creating a side pot. Check to see the river and go to showdown without risking additional chips.",
+        "action": "Call"
+      },
+      "stack_after": 130.0,
+      "pot_after": 170.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "4c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in preflop — betting more only wastes chips since no one can call. My pair of sixes likely fares well against a wide shove range; call to see showdown and preserve stack.",
+        "action": "Call"
+      },
+      "stack_after": 130.0,
+      "pot_after": 170.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 170.0,
+          "stack_after": 300.0,
+          "rank": {
+            "OnePair": 133440
+          },
+          "hand": [
+            "5s",
+            "6s",
+            "8s",
+            "4c",
+            "6c",
+            "Th",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]

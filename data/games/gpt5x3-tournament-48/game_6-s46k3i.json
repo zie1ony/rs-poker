@@ -1,0 +1,246 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-s46k3i",
+      "tournament_id": "gpt5x3-tournament-48",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        145.0,
+        100.0,
+        55.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "9c",
+          "Jh"
+        ],
+        [
+          "2h",
+          "Ah"
+        ],
+        [
+          "8c",
+          "8h"
+        ]
+      ],
+      "community_cards": [
+        "2s",
+        "Td",
+        "8s",
+        "Qc",
+        "8d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 80.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 15.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Three-handed, I'm the chip leader — open-raise to the minimum (80) to apply pressure and attempt to steal/ isolate the blinds with a playable J9o rather than limp or overcommit.",
+        "action": {
+          "Bet": 80.0
+        }
+      },
+      "stack_after": 65.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We’re SB with only 2 BB behind facing a button min-raise and a short BB. A2s is strong enough to jam here; calling leaves 0.5 BB and commits us OOP. Shove to maximize fold equity and capture dead money.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 220.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "I have 15 chips left but would need to call 40 to stay in after Bob's 80 bet (Alice shoves for 80). With 8-8 against two all-ins and insufficient chips to call, folding preserves my stack for future hands.",
+        "action": "Fold"
+      },
+      "stack_after": 15.0,
+      "pot_after": 220.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Calling costs only 20 to win ~240 (≈8% equity needed). J9o has reasonable equity vs a wide shove from a short-stacked small blind. Folding surrenders a large pot; raising/all‑in is unnecessary since opponent is already all‑in.",
+        "action": "Call"
+      },
+      "stack_after": 45.0,
+      "pot_after": 240.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "2s",
+        "Td",
+        "8s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; my J9 has poor equity and no strong draw on 2s Td 8s. Avoid risking my remaining chips in a side pot — see showdown and preserve stack to continue the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 45.0,
+      "pot_after": 240.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Qc"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Alice is already all-in and there's no other opponent to fold — no value in risking more. With only 7 outs (~15%) I prefer to check and see the river without committing additional chips to maximize tournament-winning chances.",
+        "action": "Call"
+      },
+      "stack_after": 45.0,
+      "pot_after": 240.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "8d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "I have a Q-high straight (8-9-10-J-Q) which is very strong and opponent is already all-in — no need to risk more chips. Call to get to showdown; betting/going all-in only risks more when she could have a full house but most of her shoving range is behind the straight.",
+        "action": "Call"
+      },
+      "stack_after": 45.0,
+      "pot_after": 240.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 240.0,
+          "stack_after": 285.0,
+          "rank": {
+            "Straight": 7
+          },
+          "hand": [
+            "2s",
+            "8s",
+            "9c",
+            "Qc",
+            "Jh",
+            "8d",
+            "Td"
+          ]
+        }
+      ]
+    }
+  }
+]

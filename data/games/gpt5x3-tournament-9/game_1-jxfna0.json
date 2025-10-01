@@ -1,0 +1,141 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-jxfna0",
+      "tournament_id": "gpt5x3-tournament-9",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        110.0,
+        110.0,
+        80.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "5d",
+          "Ts"
+        ],
+        [
+          "4c",
+          "Kd"
+        ],
+        [
+          "8d",
+          "2s"
+        ]
+      ],
+      "community_cards": [
+        "Qh",
+        "4s",
+        "8c",
+        "3s",
+        "9s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 105.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 70.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Open-raise on the button 3-handed with T5o; a small raise applies pressure to the blinds while keeping risk low.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 90.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "King-high with weak kicker in a three-handed pot facing a 20 raise from Alice; folding preserves stack and avoids marginal equity.",
+        "action": "Fold"
+      },
+      "stack_after": 105.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "8♦2♠ is a very weak, unsuited hand and Alice has raised preflop. Out of position and with better spots ahead, conserve chips and fold.",
+        "action": "Fold"
+      },
+      "stack_after": 70.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 35.0,
+          "stack_after": 125.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

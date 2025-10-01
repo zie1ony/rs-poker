@@ -1,0 +1,195 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-mbvej0",
+      "tournament_id": "gpt5x3-tournament-11",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        140.0,
+        80.0,
+        80.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "6h",
+          "As"
+        ],
+        [
+          "Ks",
+          "Jc"
+        ],
+        [
+          "4d",
+          "6c"
+        ]
+      ],
+      "community_cards": [
+        "Ac",
+        "2s",
+        "8d",
+        "5h",
+        "Qd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 5.0,
+      "stack_after": 75.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 70.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "On the button 3-handed with A6o, this is a standard open. Raise to 2.5x to pressure the blinds and play in position.",
+        "action": {
+          "Bet": 25.0
+        }
+      },
+      "stack_after": 115.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "KsJc is playable but not strong enough to 3-bet out of the small blind facing an open. Calling keeps the pot controlled, lets me see a flop without overcommitting out of position, and preserves chips for later hands.",
+        "action": "Call"
+      },
+      "stack_after": 55.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Weak hand (4d6c) in a multiway pot against a preflop aggressor and a caller. Folding preserves chips and is standard here.",
+        "action": "Fold"
+      },
+      "stack_after": 70.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ac",
+        "2s",
+        "8d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Missed flop with KJ on A-2-8 rainbow. Avoid bloating the pot out of position; check/call to see the turn and preserve stack for better spots to accumulate chips.",
+        "action": "Call"
+      },
+      "stack_after": 55.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up, SPR < 1 with top pair on a dry board. Betting for value and to deny equity; 40 builds the pot and likely commits villain while getting calls from worse aces and pairs.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 75.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Hand KJ with no pair on A-2-8 board; opponent bet into pot and likely has an Ace or better. Calling 40 for ~28.6% pot odds requires more equity than I have. Preserve chips and fold.",
+        "action": "Fold"
+      },
+      "stack_after": 55.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 100.0,
+          "stack_after": 175.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

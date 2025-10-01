@@ -1,0 +1,129 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-6i6dhx",
+      "tournament_id": "gpt5x3-tournament-39",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        90.0,
+        210.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "2c",
+          "3s"
+        ],
+        [
+          "7c",
+          "7h"
+        ]
+      ],
+      "community_cards": [
+        "2h",
+        "4h",
+        "Jd",
+        "Qh",
+        "5c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 5.0,
+      "stack_after": 85.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 200.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "2c3s is a very weak hand and I’m out of position. Calling (putting in 5 more) is a cheap way to see the flop without overcommitting or folding away equity; preserve stack and evaluate post-flop.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Heads-up with 7c7h out of position, raise to 20 (minimum raise) to take initiative and isolate vs the single opponent. It's a standard play with a pocket pair to deny free cards and set up postflop aggression.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 190.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "2c-3s is a very weak hand facing a raise to 30. Preserving chips early in the tournament is the better long-term play rather than calling or risking a larger raise with poor equity.",
+        "action": "Fold"
+      },
+      "stack_after": 80.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 30.0,
+          "stack_after": 220.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

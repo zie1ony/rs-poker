@@ -1,0 +1,117 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-rvcoou",
+      "tournament_id": "gpt5x3-tournament-41",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        205.0,
+        95.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Qc",
+          "Td"
+        ],
+        [
+          "Kd",
+          "2h"
+        ]
+      ],
+      "community_cards": [
+        "6d",
+        "5h",
+        "Ts",
+        "5s",
+        "7h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "bet": 5.0,
+      "stack_after": 200.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 85.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up open with QTo is a strong raising hand. Make a standard min-raise to 20 to take the initiative, apply pressure on the big blind and build the pot while keeping risk controlled.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 185.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Kd2h is weak heads-up facing a 20 bet into a 15 pot with no postflop equity. Folding preserves 85 chips for later, minimizing likely losses. ",
+        "action": "Fold"
+      },
+      "stack_after": 85.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 30.0,
+          "stack_after": 215.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

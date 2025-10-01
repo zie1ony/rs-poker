@@ -1,0 +1,210 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-89bngu",
+      "tournament_id": "gpt5x3-tournament-10",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        40.0,
+        260.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Jd",
+          "Js"
+        ],
+        [
+          "Kh",
+          "5h"
+        ]
+      ],
+      "community_cards": [
+        "8d",
+        "5s",
+        "4d",
+        "Ac",
+        "5c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 30.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 240.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With Jacks in the small blind facing a big blind of 20 and only 30 chips left, raising to 40 (a 30-chip addition) gives us a solid fold equity and defines the pot without risking our entire stack. Calling is weak value with squashed pot odds, and shoving all-in commits us to a coinflip with poor control.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 0.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Heads-up vs short-stack shove is very wide; K5 suited has ample equity and we’re getting 4:1 (need 25%), so easy call.",
+        "action": "Call"
+      },
+      "stack_after": 220.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "8d",
+        "5s",
+        "4d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in from preflop; no betting needed. Take the free runout with second pair and go to showdown.",
+        "action": "Call"
+      },
+      "stack_after": 220.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in from preflop; no further betting is needed. Call to proceed to showdown.",
+        "action": "Call"
+      },
+      "stack_after": 220.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "5c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Villain is already all-in; we hold trips (5s) and simply proceed to showdown.",
+        "action": "Call"
+      },
+      "stack_after": 220.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 80.0,
+          "stack_after": 300.0,
+          "rank": {
+            "ThreeOfAKind": 71680
+          },
+          "hand": [
+            "5s",
+            "5c",
+            "Ac",
+            "5h",
+            "Kh",
+            "4d",
+            "8d"
+          ]
+        }
+      ]
+    }
+  }
+]

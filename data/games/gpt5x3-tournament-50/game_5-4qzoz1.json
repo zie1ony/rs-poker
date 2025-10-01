@@ -1,0 +1,127 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-4qzoz1",
+      "tournament_id": "gpt5x3-tournament-50",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "gpt-5-nano",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        65.0,
+        90.0,
+        145.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "9s",
+          "4d"
+        ],
+        [
+          "Qd",
+          "7c"
+        ],
+        [
+          "7s",
+          "6d"
+        ]
+      ],
+      "community_cards": [
+        "Qh",
+        "Ad",
+        "5d",
+        "Kc",
+        "6c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 80.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 125.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "9♠4♦ is a very weak offsuit hand. Out of position with a short stack and no reason to invest preflop — preserve chips for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 65.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Qd7c is a marginal hand in the SB facing a 20 BB from a bigger stack. Calling/raising would commit a large portion of your 90-chip stack with poor equity; folding preserves chips for better spots and later stages of the tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 80.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "AliceAI",
+          "won_pot": 30.0,
+          "stack_after": 155.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

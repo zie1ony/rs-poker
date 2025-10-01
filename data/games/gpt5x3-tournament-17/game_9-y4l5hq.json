@@ -1,0 +1,196 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_9-y4l5hq",
+      "tournament_id": "gpt5x3-tournament-17",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5-mini",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        235.0,
+        50.0
+      ],
+      "small_blind": 40.0,
+      "big_blind": 80.0,
+      "hands": [
+        [
+          "6s",
+          "Ks"
+        ],
+        [
+          "6c",
+          "2s"
+        ]
+      ],
+      "community_cards": [
+        "8d",
+        "Kc",
+        "8s",
+        "Kd",
+        "5c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 40.0,
+      "stack_after": 195.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 80.0,
+      "stack_after": 0.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Big blind is already all-in short; with Ks6s heads-up we’re well ahead and only need to call a small amount to contest for the knockout.",
+        "action": "Call"
+      },
+      "stack_after": 185.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "8d",
+        "Kc",
+        "8s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in and we have top pair; no value in betting into a side pot. Check it down.",
+        "action": "Call"
+      },
+      "stack_after": 185.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Kd"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; no side pot to build. We have a full house, so just proceed to showdown safely.",
+        "action": "Call"
+      },
+      "stack_after": 185.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "5c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "We have a full house (Kings full of eights) on Kc 8d 8s Kd 5c with Ks6s; only pocket eights beats us. Shove for maximum value versus any king or 8.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 285.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 285.0,
+          "stack_after": 285.0,
+          "rank": {
+            "FullHouse": 16777280
+          },
+          "hand": [
+            "6s",
+            "8s",
+            "Ks",
+            "5c",
+            "Kc",
+            "8d",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]
