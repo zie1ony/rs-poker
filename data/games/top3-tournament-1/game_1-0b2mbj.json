@@ -1,0 +1,141 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-0b2mbj",
+      "tournament_id": "top3-tournament-1",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        160.0,
+        190.0,
+        250.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "9c",
+          "Ah"
+        ],
+        [
+          "Jc",
+          "7d"
+        ],
+        [
+          "6h",
+          "3h"
+        ]
+      ],
+      "community_cards": [
+        "3d",
+        "Ts",
+        "8d",
+        "8h",
+        "Jh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 185.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 240.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "A9o is a decent hand on the button in a 3-handed game. Raising to 25 (2.5x the big blind) applies pressure to steal the blinds or build a pot if called, aligning with an aggressive strategy to win the tournament.",
+        "action": {
+          "Bet": 25.0
+        }
+      },
+      "stack_after": 135.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "J7o is a weak hand, and AliceAI's raise indicates strength. Calling would commit more chips with a likely worse hand and poor position post-flop. Raising or all-in would be too aggressive with such a marginal hand. Folding early preserves the stack for stronger opportunities.",
+        "action": "Fold"
+      },
+      "stack_after": 185.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "13.5 BB effective vs button 2.5x; 6h3h is too weak to defend or 3-bet jam OOP. Preserve stack edge.",
+        "action": "Fold"
+      },
+      "stack_after": 240.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 40.0,
+          "stack_after": 175.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

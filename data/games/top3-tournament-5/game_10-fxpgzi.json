@@ -1,0 +1,103 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_10-fxpgzi",
+      "tournament_id": "top3-tournament-5",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        170.0,
+        430.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "2h",
+          "7s"
+        ],
+        [
+          "Tc",
+          "Ad"
+        ]
+      ],
+      "community_cards": [
+        "5c",
+        "3d",
+        "Ts",
+        "Jh",
+        "8h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 150.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 390.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "The hand 2h 7s is one of the weakest starting hands, with low equity and poor playability. Given the short stack, preserving chips for a better spot in the next hand, where I'll be in the big blind and can potentially push with a stronger holding, is more strategic than committing with this trash hand.",
+        "action": "Fold"
+      },
+      "stack_after": 150.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "CharlieAI",
+          "won_pot": 60.0,
+          "stack_after": 450.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

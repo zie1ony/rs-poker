@@ -101,3 +101,16 @@ Decision {
 ```
 
 ### Support openrouter.
+
+### Test dealer buttion rotation across games. Improve tests.
+
+### Allow models to define its own strategy for the tournament.
+
+### Refactor Tower. Remove workers.
+
+### Add AI Player view
+- player view as full user prompt.
+
+### Allow to read system prompt for game/tournament.
+
+### Move logic into engine.

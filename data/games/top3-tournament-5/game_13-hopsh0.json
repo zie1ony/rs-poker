@@ -1,0 +1,172 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_13-hopsh0",
+      "tournament_id": "top3-tournament-5",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        450.0,
+        150.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "Kd",
+          "Jc"
+        ],
+        [
+          "4s",
+          "3s"
+        ]
+      ],
+      "community_cards": [
+        "Jh",
+        "7c",
+        "Ac",
+        "Ah",
+        "2s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 430.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 40.0,
+      "stack_after": 110.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With KJo in a heads-up scenario and holding a dominant chip lead, going all-in pressures AliceAI to fold or call with weaker holdings. Given her short stack, she's incentivized to call with a wide range, but KJo has good equity against most hands she might hold, making this an optimal push to either win the pot immediately or enter a favorable showdown. Winning here could eliminate AliceAI and secure the tournament.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 490.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "My hand is 4s3s, a suited connector with potential in heads-up. Facing an all-in shove from the small blind with a wide range, the pot odds and my short stack make calling +EV to try to double up and stay in the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 600.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Jh",
+        "7c",
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Ah"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "2s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "CharlieAI",
+          "won_pot": 600.0,
+          "stack_after": 600.0,
+          "rank": {
+            "TwoPair": 37750784
+          },
+          "hand": [
+            "2s",
+            "7c",
+            "Jc",
+            "Ac",
+            "Jh",
+            "Ah",
+            "Kd"
+          ]
+        }
+      ]
+    }
+  }
+]

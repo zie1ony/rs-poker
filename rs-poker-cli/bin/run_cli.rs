@@ -116,8 +116,11 @@ enum TournamentType {
 
 #[derive(Subcommand)]
 enum SeriesCommand {
-    /// Run a series of tournaments.
-    Run,
+    /// gpt-5 vs gpt-5-mini vs gpt-5-nano.
+    RunGpt5x3,
+
+    /// Top5 models.
+    RunTop3,
 }
 
 #[tokio::main]
@@ -159,11 +162,43 @@ async fn main() {
         Commands::Tower { workers, max_tasks } => {
             rs_poker_tower::run(workers, max_tasks).await;
         }
-        Commands::Series { command } => match command {
-            SeriesCommand::Run => {
-                run_series(cli.mock_server).await;
-            }
-        },
+        Commands::Series { command } => {
+            let config = match command {
+                SeriesCommand::RunGpt5x3 => SeriesSettings {
+                    series_id: SeriesId::new("gpt5x3"),
+                    players: vec![
+                        Player::ai("AliceAI", "gpt-5", "Win the tournament."),
+                        Player::ai("BobAI", "gpt-5-mini", "Win the tournament."),
+                        Player::ai("CharlieAI", "gpt-5-nano", "Win the tournament."),
+                    ],
+                    number_of_tournaments: 51,
+                    starting_player_stack: 100.0,
+                    starting_small_blind: 5.0,
+                    double_blinds_every_n_games: Some(3),
+                    end_condition: TournamentEndCondition::SingleWinner,
+                    see_historical_thoughts: false,
+                    public_chat: false,
+                    random_seed: 42,
+                },
+                SeriesCommand::RunTop3 => SeriesSettings {
+                    series_id: SeriesId::new("top3"),
+                    players: vec![
+                        Player::ai("AliceAI", "x-ai/grok-4", "Win the tournament."),
+                        Player::ai("BobAI", "gpt-5", "Win the tournament."),
+                        Player::ai("CharlieAI", "deepseek/deepseek-r1", "Win the tournament."),
+                    ],
+                    number_of_tournaments: 5,
+                    starting_player_stack: 200.0,
+                    starting_small_blind: 5.0,
+                    double_blinds_every_n_games: Some(5),
+                    end_condition: TournamentEndCondition::SingleWinner,
+                    see_historical_thoughts: false,
+                    public_chat: false,
+                    random_seed: 42,
+                },
+            };
+            run_series(cli.mock_server, config).await;
+        }
     }
 }
 
@@ -338,27 +373,8 @@ async fn tournament_player_view(mock_server: bool, player_name: String, tourname
     }
 }
 
-async fn run_series(mock_server: bool) {
+async fn run_series(mock_server: bool, series: SeriesSettings) {
     let client = client(mock_server);
-    let series = SeriesSettings {
-        // series_id: SeriesId::new("random-3p"),
-        series_id: SeriesId::new("gpt5x3"),
-        players: vec![
-            // Player::random("Alice"),
-            // Player::random("Bob"),
-            // Player::random("Charlie"),
-            Player::ai("AliceAI", "gpt-5", "Win the tournament."),
-            Player::ai("BobAI", "gpt-5-mini", "Win the tournament."),
-            Player::ai("CharlieAI", "gpt-5-nano", "Win the tournament."),
-        ],
-        number_of_tournaments: 50,
-        starting_player_stack: 100.0,
-        starting_small_blind: 5.0,
-        double_blinds_every_n_games: Some(3),
-        end_condition: TournamentEndCondition::SingleWinner,
-        see_historical_thoughts: true,
-        public_chat: false,
-        random_seed: 42,
-    };
+
     series_runner::run_series(&client, series).await;
 }

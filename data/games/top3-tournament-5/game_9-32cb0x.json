@@ -1,0 +1,208 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_9-32cb0x",
+      "tournament_id": "top3-tournament-5",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        215.0,
+        385.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Ks",
+          "3h"
+        ],
+        [
+          "7h",
+          "Jc"
+        ]
+      ],
+      "community_cards": [
+        "5d",
+        "Th",
+        "Qh",
+        "Ad",
+        "8c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 205.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 365.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With K3o in the SB and 10.75 BB stack (215 chips), pushing all-in is a standard short-stack play to pressure the BB. Alice has shown willingness to fold (Game 8) and may surrender the pot given her chip lead, allowing us to gain 30 chips risk-free. While the hand is marginal, folding would bleed chips unnecessarily in heads-up play, and a min-raise leaves us vulnerable post-flop out of position.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 235.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "J7o has good equity against a wide shoving range in heads-up with favorable pot odds, and calling puts pressure to win the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 430.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "5d",
+        "Th",
+        "Qh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "The opponent is all-in preflop, so I check to proceed to the turn and see the next card without committing more chips unnecessarily.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 430.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Ad"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Since the opponent is already all-in, betting additional chips would only increase my potential loss if I'm behind without any upside, as they can't fold or call. I should check to proceed to the river, preserving my remaining stack in case I lose the hand, which keeps me in the tournament with chips to continue playing.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 430.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "8c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Since the opponent is all-in and there is no bet to call on the river, 'Call' acts as a check to proceed to showdown without committing additional chips unnecessarily. Betting or going all-in would risk extra chips with no potential gain, as the opponent cannot call. My hand is ace-high, which may or may not win, but I cannot fold, so I must go to showdown.",
+        "action": "Call"
+      },
+      "stack_after": 170.0,
+      "pot_after": 430.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "CharlieAI",
+          "won_pot": 430.0,
+          "stack_after": 430.0,
+          "rank": {
+            "HighCard": 7488
+          },
+          "hand": [
+            "Ks",
+            "8c",
+            "3h",
+            "Th",
+            "Qh",
+            "5d",
+            "Ad"
+          ]
+        }
+      ]
+    }
+  }
+]

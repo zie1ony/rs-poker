@@ -1,0 +1,260 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_3-jokxx1",
+      "tournament_id": "top3-tournament-1",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        220.0,
+        195.0,
+        185.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "Qc",
+          "4c"
+        ],
+        [
+          "Qs",
+          "Js"
+        ],
+        [
+          "5h",
+          "5d"
+        ]
+      ],
+      "community_cards": [
+        "Ac",
+        "7c",
+        "5c",
+        "2h",
+        "2c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 190.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 175.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Button 3-handed with Q4s and ~20bb effective—standard open. Min-raise to steal; fold to heavy 3-bet pressure if it comes.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 200.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "QJs is a strong suited hand in this position. Raising to 60 (3x the opponent's raise) defends my blind, applies pressure, and potentially isolates or wins the pot preflop.",
+        "action": {
+          "Bet": 60.0
+        }
+      },
+      "stack_after": 135.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Pocket fives (5h 5d) have decent showdown value in a 3-player game. AliceAI's 3-bet suggests strength, but opponents may be playing aggressively wide. Shoving applies maximum pressure - opponents with overcards or weaker pairs might fold. If called, 55 still has 50% equity against two overcards. Winning this pot would significantly boost our stack.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 265.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Q4s is far too weak to continue versus a 3-bet and a 17.5BB shove; our equity is poor and Alice still to act. Preserve stack and fold.",
+        "action": "Fold"
+      },
+      "stack_after": 200.0,
+      "pot_after": 265.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "QJs is a strong hand with good pot odds against Charlie's likely range. Calling gives a chance to eliminate an opponent and gain a significant chip lead in the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 10.0,
+      "pot_after": 390.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ac",
+        "7c",
+        "5c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Check on the flop to proceed to the turn without betting the remaining stack, allowing the hand to continue while evaluating further community cards.",
+        "action": "Call"
+      },
+      "stack_after": 10.0,
+      "pot_after": 390.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "2h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "I'm heads-up against an all-in opponent with a small stack remaining. Checking (calling) allows me to see the river for free without committing more chips unnecessarily, giving me a chance to potentially improve or win at showdown. Betting the remaining chips doesn't change the outcome as it would create a side pot I automatically win back.",
+        "action": "Call"
+      },
+      "stack_after": 10.0,
+      "pot_after": 390.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "2c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "The hand is at the river, opponent is all-in, and there are no further bets possible. Calling (checking) proceeds to showdown without committing additional chips, as betting the remaining stack changes nothing in the outcome.",
+        "action": "Call"
+      },
+      "stack_after": 10.0,
+      "pot_after": 390.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "CharlieAI",
+          "won_pot": 390.0,
+          "stack_after": 390.0,
+          "rank": {
+            "FullHouse": 65537
+          },
+          "hand": [
+            "2c",
+            "5c",
+            "7c",
+            "Ac",
+            "2h",
+            "5h",
+            "5d"
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,172 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_7-40gdgj",
+      "tournament_id": "top3-tournament-1",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        435.0,
+        165.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Tc",
+          "Qs"
+        ],
+        [
+          "5d",
+          "7s"
+        ]
+      ],
+      "community_cards": [
+        "Jd",
+        "Ah",
+        "4h",
+        "2s",
+        "6c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 425.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 145.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "As the big stack, applying maximum pressure on Bob's short stack with Q10o is strategic. The fold equity is high, and if he calls, Q10 has reasonable odds against a wide range. Winning the pot here could secure the tournament.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 455.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up facing SB open-shove for ~8 BB effective; given opponent’s high aggression and wide shoving range, 75o likely has >44% equity which meets pot odds (~44%). Calling maximizes chance to win tournament.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 600.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Jd",
+        "Ah",
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "2s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "6c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "CharlieAI",
+          "won_pot": 600.0,
+          "stack_after": 600.0,
+          "rank": {
+            "HighCard": 5904
+          },
+          "hand": [
+            "2s",
+            "Qs",
+            "6c",
+            "Tc",
+            "4h",
+            "Ah",
+            "Jd"
+          ]
+        }
+      ]
+    }
+  }
+]

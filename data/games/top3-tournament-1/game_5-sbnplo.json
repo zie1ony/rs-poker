@@ -1,0 +1,220 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-sbnplo",
+      "tournament_id": "top3-tournament-1",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        395.0,
+        190.0,
+        15.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "9d",
+          "2h"
+        ],
+        [
+          "Ac",
+          "6d"
+        ],
+        [
+          "Js",
+          "5h"
+        ]
+      ],
+      "community_cards": [
+        "Qc",
+        "Ad",
+        "Qh",
+        "7h",
+        "4c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 180.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 0.0,
+      "pot_after": 25.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "9-2 offsuit is an extremely weak hand. With Alice all-in and Bob yet to act, folding avoids unnecessary risk while maintaining my dominant chip lead. Better to wait for stronger hands.",
+        "action": "Fold"
+      },
+      "stack_after": 395.0,
+      "pot_after": 25.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Short stack is already all-in; we have Ace-high and there’s no opponent left to create a meaningful side pot. Calling is +EV and maximizes chance to bust Alice.",
+        "action": "Call"
+      },
+      "stack_after": 175.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Qc",
+        "Ad",
+        "Qh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Check down against the all-in to maximize elimination chances; betting creates no side pot value here.",
+        "action": "Call"
+      },
+      "stack_after": 175.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "7h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; no side pot. Checking down is optimal with top pair on a paired board.",
+        "action": "Call"
+      },
+      "stack_after": 175.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "4c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Opponent is already all-in; no side pot to build. Check to showdown with two pair (Aces and Queens), which is strong here.",
+        "action": "Call"
+      },
+      "stack_after": 175.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 30.0,
+          "stack_after": 205.0,
+          "rank": {
+            "TwoPair": 41943072
+          },
+          "hand": [
+            "4c",
+            "Qc",
+            "Ac",
+            "7h",
+            "Qh",
+            "6d",
+            "Ad"
+          ]
+        }
+      ]
+    }
+  }
+]

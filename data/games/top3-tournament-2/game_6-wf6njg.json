@@ -1,0 +1,141 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-wf6njg",
+      "tournament_id": "top3-tournament-2",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        225.0,
+        160.0,
+        215.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "7s",
+          "8d"
+        ],
+        [
+          "9h",
+          "Qs"
+        ],
+        [
+          "4c",
+          "3h"
+        ]
+      ],
+      "community_cards": [
+        "As",
+        "3c",
+        "2d",
+        "Td",
+        "Kh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 150.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 195.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "7-8 suited is a playable hand in 3-handed play from UTG. Raising to 60 (3x the big blind) applies pressure, potentially steals the blinds, and builds the pot if called, while my hand has good postflop potential.",
+        "action": {
+          "Bet": 60.0
+        }
+      },
+      "stack_after": 165.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Facing a 3x raise from Alice and holding Q9 offsuit, which is a marginal hand with low potential post-flop, folding preserves the remaining stack. Aggression from Alice in previous rounds suggests potential strength. Avoiding unnecessary risks as the tournament short stack is crucial to wait for better opportunities.",
+        "action": "Fold"
+      },
+      "stack_after": 150.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Defending 4c3h out of position versus a 3x button open is too weak and dominated; fold to preserve stack.",
+        "action": "Fold"
+      },
+      "stack_after": 195.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 90.0,
+          "stack_after": 255.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

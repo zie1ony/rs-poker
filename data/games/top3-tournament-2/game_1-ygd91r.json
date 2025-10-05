@@ -1,0 +1,304 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_1-ygd91r",
+      "tournament_id": "top3-tournament-2",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        195.0,
+        190.0,
+        215.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "2c",
+          "3d"
+        ],
+        [
+          "5c",
+          "8d"
+        ],
+        [
+          "5s",
+          "4c"
+        ]
+      ],
+      "community_cards": [
+        "2d",
+        "Jc",
+        "5d",
+        "5h",
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 5.0,
+      "stack_after": 185.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 205.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Holding 2c 3d (extremely weak offsuit hand) from under-the-gun position. Calling the 10 BB with this hand risks playing a weak holding against potential raises, and raising would be reckless given the hand strength. Best to preserve chips by folding.",
+        "action": "Fold"
+      },
+      "stack_after": 195.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Complete from SB with a marginal hand to keep the pot small OOP; raising risks facing a shove from the big stack.",
+        "action": "Call"
+      },
+      "stack_after": 180.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "With a weak hand like 5-4 offsuit in the big blind facing a limp from the small blind, I can check to see a free flop heads-up. This allows me to potentially hit a strong draw or hand without committing more chips preflop, and I can outplay the opponent postflop if needed.",
+        "action": "Call"
+      },
+      "stack_after": 205.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "2d",
+        "Jc",
+        "5d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Heads-up and out of position with bottom pair on a two-tone board; a small bet gains value and protects against overcards and diamond draws.",
+        "action": {
+          "Bet": 10.0
+        }
+      },
+      "stack_after": 170.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "I have bottom pair on the flop with position in a small pot. Calling to evaluate the turn without committing more chips yet.",
+        "action": "Call"
+      },
+      "stack_after": 195.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "5h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "We improved to trips on the paired turn and are ahead of Jx and draws. Bet for value and to charge diamond draws; 30 into 40 targets calls from Jx while not over-committing.",
+        "action": {
+          "Bet": 30.0
+        }
+      },
+      "stack_after": 140.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "I have trip fives on the turn, which is a strong hand. BobAI is betting, so I should raise to build the pot and extract value while protecting against potential draws like the diamond flush draw.",
+        "action": {
+          "Bet": 90.0
+        }
+      },
+      "stack_after": 105.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "We have trips on a two-diamond board with low SPR. Villain’s turn raise includes many flush draws and worse 5x; jamming maximizes value and denies equity, while boats are fewer combos. Calling leaves tough rivers with little behind.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 300.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "I have trip fives with a weak kicker, but it's a strong hand on this board. Bob's shove could be a bluff with a missed draw or an overplayed hand. Calling gives me a chance to eliminate him and take a commanding lead in the tournament, which aligns with the goal of winning. The chip EV supports calling given the pot odds and my likely equity.",
+        "action": "Call"
+      },
+      "stack_after": 25.0,
+      "pot_after": 380.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "The opponent is all-in from the previous round, so the rational action is to check (represented as Call) and proceed to showdown without unnecessarily betting additional chips into a side pot that I would recover anyway. My hand of three fives is strong, and this maximizes my chances to win the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 25.0,
+      "pot_after": 380.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 190.0,
+          "stack_after": 190.0,
+          "rank": {
+            "ThreeOfAKind": 70144
+          },
+          "hand": [
+            "5c",
+            "Jc",
+            "Ac",
+            "5h",
+            "2d",
+            "5d",
+            "8d"
+          ]
+        },
+        {
+          "player_idx": 2,
+          "player_name": "AliceAI",
+          "won_pot": 190.0,
+          "stack_after": 215.0,
+          "rank": {
+            "ThreeOfAKind": 70144
+          },
+          "hand": [
+            "5s",
+            "4c",
+            "Jc",
+            "Ac",
+            "5h",
+            "2d",
+            "5d"
+          ]
+        }
+      ]
+    }
+  }
+]

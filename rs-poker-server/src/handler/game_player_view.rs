@@ -45,15 +45,18 @@ async fn game_player_view_handler(
                         }
 
                         // Create player-specific tournament summary
-                        let tournament_summary =
-                            TournamentSummary::for_player(tournament_events, game_events, player_name);
+                        let tournament_summary = TournamentSummary::for_player(
+                            tournament_events,
+                            game_events,
+                            player_name,
+                        );
                         game_view.summary = tournament_summary.summary();
                     }
                 }
             }
 
             Json(Ok(game_view))
-        },
+        }
         None => Json(Err(ServerError::GameNotFound(params.game_id.clone()))),
     }
 }

@@ -1,0 +1,208 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-k4nz13",
+      "tournament_id": "top3-tournament-4",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        175.0,
+        425.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "4h",
+          "Kc"
+        ],
+        [
+          "2s",
+          "Ad"
+        ]
+      ],
+      "community_cards": [
+        "7d",
+        "3h",
+        "As",
+        "4s",
+        "7c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 170.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 415.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "In heads-up with 17.5 BB stack and K4o, shoving to pressure the big stack AliceAI. Push/fold strategy suggests shoving K4o here to pick up blinds or race against calling range. Folding wastes SB; calling leads to difficult post-flop. All-in maximizes fold equity and gives chance to double up.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 185.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "In heads-up with a significant chip lead, facing an all-in shove from the small blind with 17.5 big blinds, A2o has sufficient equity against a likely wide shoving range to make calling profitable, given the pot odds.",
+        "action": "Call"
+      },
+      "stack_after": 250.0,
+      "pot_after": 350.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "7d",
+        "3h",
+        "As"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "The opponent is all-in, so there is no bet to respond to on the flop. Calling here means checking to proceed to the next street, as betting serves no purpose in this heads-up situation.",
+        "action": "Call"
+      },
+      "stack_after": 250.0,
+      "pot_after": 350.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "4s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "The opponent is all-in, so I check to proceed to the river. My hand has developed into a pair of Aces, which is strong, and I want to see the showdown to potentially win the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 250.0,
+      "pot_after": 350.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "7c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Proceed to showdown with two pair (Aces and Sevens) as the opponent is all-in and there is no further betting possible.",
+        "action": "Call"
+      },
+      "stack_after": 250.0,
+      "pot_after": 350.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "AliceAI",
+          "won_pot": 350.0,
+          "stack_after": 600.0,
+          "rank": {
+            "TwoPair": 33816580
+          },
+          "hand": [
+            "2s",
+            "4s",
+            "As",
+            "7c",
+            "3h",
+            "7d",
+            "Ad"
+          ]
+        }
+      ]
+    }
+  }
+]

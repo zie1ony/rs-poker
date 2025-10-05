@@ -1,0 +1,127 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-zlpdrp",
+      "tournament_id": "top3-tournament-5",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        170.0,
+        235.0,
+        195.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "8d",
+          "4s"
+        ],
+        [
+          "8c",
+          "2d"
+        ],
+        [
+          "Qd",
+          "9d"
+        ]
+      ],
+      "community_cards": [
+        "3d",
+        "Qc",
+        "Tc",
+        "8s",
+        "5d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 5.0,
+      "stack_after": 230.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 185.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "8-4 offsuit is too weak to open on the button versus aggressive blinds; preserve chips for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 170.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "The hand 8c 2d is very weak and not worth playing out of position against the big blind, especially with deep stacks. Better to conserve chips for stronger opportunities.",
+        "action": "Fold"
+      },
+      "stack_after": 230.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "CharlieAI",
+          "won_pot": 15.0,
+          "stack_after": 200.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

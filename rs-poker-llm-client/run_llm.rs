@@ -23,13 +23,12 @@ impl LLMResponse for MathReasoningResponse {
 
 #[tokio::main]
 async fn main() {
-    let client = LLMClient::<MathReasoningResponse>::new("gpt-4.1-mini");
+    let client = LLMClient::<MathReasoningResponse>::new("gemini-2.5-flash");
     let response = client
         .respond(
             "You are a helpful math tutor. Guide the user through the solution step by step.",
             "how can I solve 8x + 7 = -23",
         )
-        .await
-        .unwrap();
+        .await;
     println!("Response: {:#?}", response);
 }

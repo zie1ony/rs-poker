@@ -14,7 +14,7 @@ You take part in the Texas Hold'em poker tournament.
 You will be given the full tournament log so far, including all previous games and the current game state.
 For your convenience, you will be given possible actions you can take.
 Before you decide, think.
-At the end make a decision what to do next, and only respond with one of the available actions.
+At the end, make a decision what to do next, and only respond with one of the available actions.
 Follow given strategy.
 
 BETTING RULES:
@@ -27,6 +27,12 @@ BETTING RULES:
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct WorkerId(pub usize);
+
+impl WorkerId {
+    pub fn as_str(&self) -> String {
+        format!("worker_{:?}", self.0)
+    }
+}
 
 pub struct Worker {
     id: WorkerId,
@@ -50,8 +56,12 @@ impl Worker {
         }
     }
 
+    pub fn log(&self, msg: &str) {
+        println!("[{}] {}", self.id.as_str(), msg);
+    }
+
     pub async fn run(&mut self) {
-        println!("[w] Worker {:?} started.", self.id);
+        self.log("Started.");
 
         // Notify tower that worker is waiting for work
         if !self.send_ready_message().await {
@@ -67,12 +77,12 @@ impl Worker {
                         }
                     }
                     TowerMessage::Shutdown => {
-                        println!("[w] Worker {:?} received shutdown signal.", self.id);
+                        self.log("Received shutdown signal.");
                         break;
                     }
                 }
             } else {
-                println!("[w] Worker {:?} exiting.", self.id);
+                self.log("Exiting.");
                 break;
             }
         }
@@ -113,7 +123,7 @@ impl Worker {
         match self.worker_msg_sender.send(msg).await {
             Ok(_) => true,
             Err(_) => {
-                println!("[w] Worker {:?} exiting - tower stopped.", self.id);
+                self.log("Exiting - tower stopped.");
                 false
             }
         }
@@ -121,22 +131,19 @@ impl Worker {
 
     async fn execute_tournament(&self, tournament_id: &TournamentId) {
         let logger = TournamentLogger::new(&tournament_id);
-        println!(
-            "[w] Worker {:?} executing tournament {:?}",
-            self.id, tournament_id
-        );
+        self.log(format!("Executing tournament {:?}", tournament_id).as_str());
 
         // Fetch tournament info.
         let info = self.poker_client.tournament_info(tournament_id).await;
         if let Err(e) = info {
-            println!(
+            self.log(&format!(
                 "[w] Worker {:?} failed to get tournament info: {:?}",
                 self.id, e
-            );
+            ));
             return;
         }
         let info = info.unwrap();
-        println!("[w] Tournament info: {:#?}", info);
+        self.log(&format!("[w] Tournament info: {:#?}", info));
 
         // Keep running games until tournament is complete
         loop {
@@ -144,10 +151,7 @@ impl Worker {
             let tournament_info = match self.poker_client.tournament_info(tournament_id).await {
                 Ok(info) => info,
                 Err(e) => {
-                    println!(
-                        "[w] Worker {:?} failed to get tournament info: {:?}",
-                        self.id, e
-                    );
+                    self.log(&format!("failed to get tournament info: {:?}", e));
                     break;
                 }
             };
@@ -155,20 +159,20 @@ impl Worker {
             match tournament_info.status {
                 rs_poker_types::tournament::TournamentStatus::WaitingForNextGame => {
                     // Tournament is waiting - it should automatically start the next game
-                    println!("[w] Tournament waiting for next game, checking again...");
+                    self.log("Tournament waiting for next game, checking again...");
                     tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
                 }
                 rs_poker_types::tournament::TournamentStatus::GameInProgress => {
                     if let Some(game_id) = tournament_info.current_game_id {
-                        println!("[w] Tournament has game in progress: {:?}", game_id);
+                        self.log(&format!("Tournament has game in progress: {:?}", game_id));
                         self.execute_game(&game_id, &logger).await;
                     } else {
-                        println!("[w] Tournament claims game in progress but no game ID found");
+                        self.log("Tournament claims game in progress but no game ID found");
                         break;
                     }
                 }
                 rs_poker_types::tournament::TournamentStatus::Completed => {
-                    println!("[w] Tournament completed!");
+                    self.log("Tournament completed!");
                     break;
                 }
             }
@@ -184,14 +188,14 @@ impl Worker {
     }
 
     async fn execute_game(&self, game_id: &GameId, logger: &TournamentLogger) {
-        println!("[w] Worker {:?} executing game {:?}", self.id, game_id);
+        self.log(&format!("Executing game {:?}", game_id));
 
         // Keep processing until game is complete
         loop {
             let game_info = match self.poker_client.game_info(game_id).await {
                 Ok(info) => info,
                 Err(e) => {
-                    println!("[w] Worker {:?} failed to get game info: {:?}", self.id, e);
+                    self.log(&format!("Failed to get game info: {:?}", e));
                     break;
                 }
             };
@@ -199,7 +203,7 @@ impl Worker {
             match game_info.status {
                 rs_poker_types::game::GameStatus::InProgress => {
                     if let Some(current_player) = game_info.current_player() {
-                        println!("[w] Current player: {:?}", current_player.name());
+                        self.log(&format!("Current player: {:?}", current_player.name()));
 
                         // Only handle AI players
                         if let rs_poker_types::player::Player::AI {
@@ -218,7 +222,7 @@ impl Worker {
                             ).await {
                                 Ok(view) => view,
                                 Err(e) => {
-                                    println!("[w] Worker {:?} failed to get player view: {:?}", self.id, e);
+                                    self.log(&format!("Failed to get player view: {:?}", e));
                                     break;
                                 }
                             };
@@ -254,26 +258,23 @@ impl Worker {
                                 .await
                             {
                                 Ok(_) => {
-                                    println!("[w] AI player {:?} made decision", name);
+                                    self.log(&format!("AI player {:?} made decision", name));
                                 }
                                 Err(e) => {
-                                    println!(
-                                        "[w] Worker {:?} failed to submit decision: {:?}",
-                                        self.id, e
-                                    );
+                                    self.log(&format!("Failed to submit decision: {:?}", e));
                                     break;
                                 }
                             }
                         } else {
                             // For human players or other types, we can't proceed
-                            println!(
-                                "[w] Current player is not AI, cannot proceed: {:?}",
+                            self.log(&format!(
+                                "Current player is not AI, cannot proceed: {:?}",
                                 current_player
-                            );
+                            ));
                             break;
                         }
                     } else {
-                        println!("[w] Game in progress but no current player found");
+                        self.log("Game in progress but no current player found");
                         break;
                     }
                 }
@@ -287,7 +288,7 @@ impl Worker {
                         .await
                         .unwrap();
                     logger.log_game_finished(game_id, &full_view.summary);
-                    println!("[w] Game {:?} finished", game_id);
+                    self.log(&format!("Game {:?} finished", game_id));
                     break;
                 }
             }

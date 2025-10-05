@@ -7,6 +7,7 @@ use std::{
 
 use async_openai::{
     Client,
+    config::OpenAIConfig,
     types::{
         ChatCompletionRequestSystemMessage, ChatCompletionRequestUserMessage,
         CreateChatCompletionRequestArgs, ResponseFormat, ResponseFormatJsonSchema,
@@ -77,6 +78,67 @@ pub fn count_tokens(input: &str) -> usize {
     tokens.len()
 }
 
+// Models
+pub enum LLM {
+    GPT5,
+    GPT5Mini,
+    GPT5Nano,
+    Gemini25FlashLight
+}
+
+pub enum Provider {
+    OpenAI,
+    OpenRouter,
+    Google
+}
+
+pub struct LLMDef {
+    pub name: LLM,
+    pub provider: Provider,
+}
+
+impl LLMDef {
+    pub fn from(llm: LLM) -> Self {
+        match llm {
+            // --- OpenAI ---
+            LLM::GPT5 => Self {
+                name: LLM::GPT5,
+                provider: Provider::OpenAI,
+            },
+            LLM::GPT5Mini => Self {
+                name: LLM::GPT5Mini,
+                provider: Provider::OpenAI,
+            },
+            LLM::GPT5Nano => Self {
+                name: LLM::GPT5Nano,
+                provider: Provider::OpenAI,
+            },
+            // --- Google ---
+
+            LLM::Gemini25FlashLight => Self {
+                name: LLM::Gemini25FlashLight,
+                provider: Provider::Google,
+            },
+        }
+    }
+}
+
+// --- OpenAI Client ---
+const USE_OPENROUTER: bool = true;
+
+fn client() -> Client<OpenAIConfig> {
+    if USE_OPENROUTER {
+        let api_key =
+            std::env::var("OPENROUTER_API_KEY").expect("OPENROUTER_API_KEY env var not set.");
+        let config = OpenAIConfig::new()
+            .with_api_key(api_key)
+            .with_api_base("https://openrouter.ai/api/v1");
+        Client::with_config(config)
+    } else {
+        Client::new()
+    }
+}
+
 pub trait LLMResponse: serde::Serialize + DeserializeOwned + JsonSchema {
     const DESCRIPTION: &'static str;
 
@@ -111,9 +173,11 @@ impl<T: LLMResponse> LLMClient<T> {
             ChatCompletionRequestUserMessage::from(user_prompt).into(),
         ];
 
-        // let schema = schema_for!(T);
+        // let schema = schemars::schema_for!(T);
+        // let schema_value = serde_json::to_value(&schema.schema)?;
         let schema = openai_schemars::Schema::new::<T>().unwrap();
         let schema_value = serde_json::to_value(&schema.value)?;
+        print!("Using schema: {:#}", schema_value);
         let response_format = ResponseFormat::JsonSchema {
             json_schema: ResponseFormatJsonSchema {
                 description: Some(String::from(T::DESCRIPTION)),
@@ -129,10 +193,13 @@ impl<T: LLMResponse> LLMClient<T> {
             .response_format(response_format)
             .build()?;
 
-        let client = Client::new();
+        // println!("LLM {} request: {:#?}", &self.model, &request);
 
+        let client = client();
         let start = std::time::Instant::now();
-        let response = client.chat().create(request).await?;
+        let response = client.chat().create(request).await;
+        // println!("Full response: {:#?}", &response);
+        let response = response?;
         let duration = start.elapsed();
         if PRINT_STATS {
             println!("LLM {} request took: {:?}", &self.model, duration);

@@ -1,0 +1,139 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_0-8iga9p",
+      "tournament_id": "top3-tournament-5",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        200.0,
+        200.0,
+        200.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "9h",
+          "Ah"
+        ],
+        [
+          "2h",
+          "4s"
+        ],
+        [
+          "Qs",
+          "Kd"
+        ]
+      ],
+      "community_cards": [
+        "5d",
+        "7s",
+        "5c",
+        "9s",
+        "2c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 195.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 190.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "As an expert Texas Hold'em player aiming to win the tournament, I have A9 suited on the button in a 3-handed game. This is a strong hand in this spot. Going all-in applies maximum pressure early, potentially winning the blinds uncontested or getting value if called by weaker hands. With stacks at 20BB effective, aggression is key in short-stacked tournament play.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 215.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "2h4s is an extremely weak hand with low probability of winning. Calling an all-in with such a hand early in the tournament would risk 97.5% of my remaining chips on a marginal situation. Better to conserve the stack and wait for better spots.",
+        "action": "Fold"
+      },
+      "stack_after": 195.0,
+      "pot_after": 215.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Facing a 200BB open shove, KQo doesn’t have the ~47% equity needed versus a likely strong range. Preserve stack and fold.",
+        "action": "Fold"
+      },
+      "stack_after": 190.0,
+      "pot_after": 215.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 215.0,
+          "stack_after": 215.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

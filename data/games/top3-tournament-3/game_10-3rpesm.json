@@ -1,0 +1,196 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_10-3rpesm",
+      "tournament_id": "top3-tournament-3",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        560.0,
+        40.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "9d",
+          "Qc"
+        ],
+        [
+          "Tc",
+          "Ah"
+        ]
+      ],
+      "community_cards": [
+        "4d",
+        "6c",
+        "Qs",
+        "Qh",
+        "Ts"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 540.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 40.0,
+      "stack_after": 0.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Q9o has ~36% equity against a random hand, and the pot odds (3:1) justify a call. Eliminating BobAI here secures the tournament win.",
+        "action": "Call"
+      },
+      "stack_after": 520.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "4d",
+        "6c",
+        "Qs"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Bob is all-in with nothing left to bet. Our Q pair is strong given the flop. Checking to proceed to showdown without risking additional chips unnecessarily.",
+        "action": "Call"
+      },
+      "stack_after": 520.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "Qh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "BobAI is all-in with no remaining chips, so there's no further betting possible. The turn card gave me trip Queens (Qs and Qh on the board with Qc in hand). Calling ensures I see the showdown without risking extra chips unnecessarily. Since Bob cannot call any bets, checking via Call is optimal to reach the river and secure the pot with my strong hand.",
+        "action": "Call"
+      },
+      "stack_after": 520.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Ts"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With three queens on the board and holding Qc, my three-of-a-kind is a strong hand. BobAI is all-in (stack 0), so there's no need to risk extra chips. Calling ensures we go to showdown where I'm likely to win the pot.",
+        "action": "Call"
+      },
+      "stack_after": 520.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "CharlieAI",
+          "won_pot": 80.0,
+          "stack_after": 600.0,
+          "rank": {
+            "ThreeOfAKind": 8388992
+          },
+          "hand": [
+            "Ts",
+            "Qs",
+            "6c",
+            "Qc",
+            "Qh",
+            "4d",
+            "9d"
+          ]
+        }
+      ]
+    }
+  }
+]

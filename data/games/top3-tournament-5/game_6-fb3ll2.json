@@ -1,0 +1,246 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_6-fb3ll2",
+      "tournament_id": "top3-tournament-5",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        270.0,
+        175.0,
+        155.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "Qs",
+          "3d"
+        ],
+        [
+          "Tc",
+          "8c"
+        ],
+        [
+          "Ad",
+          "Ac"
+        ]
+      ],
+      "community_cards": [
+        "Ks",
+        "3h",
+        "Qh",
+        "7s",
+        "6h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 10.0,
+      "stack_after": 165.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 135.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "As the button in a 3-handed game, Q3o is within the opening range to steal blinds from shorter-stacked opponents. Raising to 3x the big blind applies pressure and maximizes fold equity.",
+        "action": {
+          "Bet": 60.0
+        }
+      },
+      "stack_after": 210.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With Tc8c in the small blind facing a raise from the aggressive big stack Alice, folding preserves my stack. The hand lacks strength, and calling or raising risks significant chips with a speculative hand while out of position. Better to wait for a stronger spot.",
+        "action": "Fold"
+      },
+      "stack_after": 165.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "AA preflop vs aggressive open with ~7.5 BB behind after calling; shoving maximizes value and avoids tricky flops. Likely to be called by worse.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 225.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "My hand Q3o has sufficient equity against Bob's likely wide shoving range from the big blind facing a button raise. The pot odds require about 30% equity, which I estimate I have or exceed, making the call +EV. Additionally, winning would eliminate a player and give me a massive chip lead heads-up, aligning with the goal of winning the tournament.",
+        "action": "Call"
+      },
+      "stack_after": 115.0,
+      "pot_after": 320.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ks",
+        "3h",
+        "Qh"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Check to proceed to the next street without committing additional chips unnecessarily, as the opponent is all-in and any bet would go into a side pot that I win automatically.",
+        "action": "Call"
+      },
+      "stack_after": 115.0,
+      "pot_after": 320.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "7s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "Since the opponent is all-in and there is no bet to match, 'Call' likely means checking to proceed to the river and showdown with my two pair hand, avoiding unnecessary bets into a side pot.",
+        "action": "Call"
+      },
+      "stack_after": 115.0,
+      "pot_after": 320.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "6h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "I have two pair (queens and threes) on the river, which is a strong hand against an all-in opponent preflop. Checking to showdown to potentially win the pot.",
+        "action": "Call"
+      },
+      "stack_after": 115.0,
+      "pot_after": 320.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 320.0,
+          "stack_after": 435.0,
+          "rank": {
+            "TwoPair": 8407040
+          },
+          "hand": [
+            "7s",
+            "Qs",
+            "Ks",
+            "3h",
+            "6h",
+            "Qh",
+            "3d"
+          ]
+        }
+      ]
+    }
+  }
+]

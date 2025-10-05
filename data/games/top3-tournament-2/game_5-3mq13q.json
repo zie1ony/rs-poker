@@ -1,0 +1,139 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_5-3mq13q",
+      "tournament_id": "top3-tournament-2",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        185.0,
+        235.0,
+        180.0
+      ],
+      "small_blind": 10.0,
+      "big_blind": 20.0,
+      "hands": [
+        [
+          "4s",
+          "Kd"
+        ],
+        [
+          "8c",
+          "5h"
+        ],
+        [
+          "4h",
+          "9c"
+        ]
+      ],
+      "community_cards": [
+        "Kh",
+        "6s",
+        "8h",
+        "Kc",
+        "2h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 225.0,
+      "pot_after": 10.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 20.0,
+      "stack_after": 160.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "9 BB on the button 3-handed: shoving maximizes fold equity versus two short stacks and avoids giving the BB an easy reshove. K4o is a fine open jam here.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 215.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "My hand 8c 5h is very weak and not worth calling BobAI's all-in shove preflop, which likely indicates a strong hand or a desperate push, but the risk outweighs the potential reward given the tournament situation.",
+        "action": "Fold"
+      },
+      "stack_after": 225.0,
+      "pot_after": 215.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "4h 9c is a weak hand with low equity against any reasonable all-in range. Calling with such a hand risks elimination, and with blinds just increased, preserving the stack of 160 is critical for survival in the tournament. Folding avoids unnecessary risk.",
+        "action": "Fold"
+      },
+      "stack_after": 160.0,
+      "pot_after": 215.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 215.0,
+          "stack_after": 215.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

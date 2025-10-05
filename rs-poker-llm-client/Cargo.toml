@@ -12,10 +12,15 @@ async-openai = "0.29.3"
 tokio = { version = "1", default-features = false, features = ["full"] }
 openai-schemars = "0.1.0"
 tiktoken-rs = "0.7"
+gemini-rust = "1.5.0"
 
 [[bin]]
 name = "run-llm"
 path = "run_llm.rs"
+
+[[bin]]
+name = "gemini-client"
+path = "gemini_client.rs"
 
 [lib]
 path = "llm_client.rs"

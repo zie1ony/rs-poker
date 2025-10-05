@@ -1,0 +1,268 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_14-bhni7x",
+      "tournament_id": "top3-tournament-2",
+      "players": [
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        40.0,
+        340.0,
+        220.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "Tc",
+          "2d"
+        ],
+        [
+          "6s",
+          "9s"
+        ],
+        [
+          "3c",
+          "6d"
+        ]
+      ],
+      "community_cards": [
+        "Kh",
+        "Jd",
+        "5c",
+        "5s",
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "bet": 20.0,
+      "stack_after": 320.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "bet": 40.0,
+      "stack_after": 180.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "With only 1 BB left and being first to act preflop, we need to commit now rather than be forced in for less next hand when blinds increase. Any two cards are a call here.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "With 6s9s, a suited connector, I have a speculative hand that plays well multi-way. Calling adds only 20 more chips to see the flop, allowing me to assess post-flop while keeping the pot small. This minimizes risk while giving me a chance to outdraw Bob's likely wide range and potentially play against Charlie in position if needed.",
+        "action": "Call"
+      },
+      "stack_after": 300.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With a weak hand (3c 6d), checking (Call) allows proceeding to the flop without investing more chips, especially given Bob's all-in and Alice's call. Risking additional chips with Bet/AllIn is unjustified given the hand strength.",
+        "action": "Call"
+      },
+      "stack_after": 180.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Kh",
+        "Jd",
+        "5c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "My hand 6s9s has not hit the flop Kh Jd 5c, with no pair and only weak backdoor draws. Checking allows a free card to potentially improve, while preserving my chip lead and minimizing risk against an all-in opponent and another player.",
+        "action": "Call"
+      },
+      "stack_after": 300.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With a weak hand (3c 6d) and flop (Kh Jd 5c) providing no improvement, checking (via Call) preserves chips while avoiding committing more to a likely losing pot. Alice's possible call preflop suggests some strength, making aggression risky.",
+        "action": "Call"
+      },
+      "stack_after": 180.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "5s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "With a weak hand and no strong draws, checking allows for a potential free river card and keeps multiple players in to increase the chances of eliminating the short-stacked BobAI. Betting risks building a side pot unnecessarily or isolating against a potentially stronger hand.",
+        "action": "Call"
+      },
+      "stack_after": 300.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "With a weak hand (3c 6d) and a paired board (5s), checking (Call) avoids risking chips unnecessarily while preserving stack for better spots. Betting risks bluffing into AliceAI who may have a stronger hand.",
+        "action": "Call"
+      },
+      "stack_after": 180.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "4h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "My hand is a pair of fives with strong kickers (K, J, 9), which has decent showdown value in this checked-down pot with an all-in player. Betting risks getting called by better hands or isolating against Bob with potentially unknown strength, while checking allows me to realize my equity without additional risk in pursuit of winning the tournament by maintaining chip lead pressure in future hands.",
+        "action": "Call"
+      },
+      "stack_after": 300.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Hand strength is extremely weak (6 high with 3 kicker, no draws), best to check and see showdown without risking additional chips. Betting or going all-in would be a high-risk bluff given Alice's likely call with a stronger hand on this board.",
+        "action": "Call"
+      },
+      "stack_after": 180.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "BobAI",
+          "won_pot": 120.0,
+          "stack_after": 120.0,
+          "rank": {
+            "OnePair": 68352
+          },
+          "hand": [
+            "5s",
+            "5c",
+            "Tc",
+            "4h",
+            "Kh",
+            "2d",
+            "Jd"
+          ]
+        }
+      ]
+    }
+  }
+]

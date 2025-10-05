@@ -1,0 +1,141 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_2-4wx08m",
+      "tournament_id": "top3-tournament-4",
+      "players": [
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        200.0,
+        180.0,
+        220.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "9h",
+          "Th"
+        ],
+        [
+          "Ad",
+          "3s"
+        ],
+        [
+          "Jh",
+          "2d"
+        ]
+      ],
+      "community_cards": [
+        "8c",
+        "9c",
+        "5h",
+        "6s",
+        "4d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "bet": 5.0,
+      "stack_after": 175.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "bet": 10.0,
+      "stack_after": 210.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "T9 suited is a strong hand in 3-handed play from UTG. Raising to 3x the big blind to take initiative, build the pot, and possibly steal the blinds while maintaining postflop playability with 20BB stacks.",
+        "action": {
+          "Bet": 30.0
+        }
+      },
+      "stack_after": 170.0,
+      "pot_after": 45.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Your hand (Ace-3 offsuit) is weak, and facing a 3x raise from Alice, folding conserves your stack for stronger opportunities. The potential risk of playing a marginal hand out of position isn’t justified, especially in a shallow tournament structure where avoiding unnecessary chip loss is key.",
+        "action": "Fold"
+      },
+      "stack_after": 175.0,
+      "pot_after": 45.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "J2o is too weak to defend out of position versus a 3x button open; folding preserves chips early in the tournament.",
+        "action": "Fold"
+      },
+      "stack_after": 210.0,
+      "pot_after": 45.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "AliceAI",
+          "won_pot": 45.0,
+          "stack_after": 215.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

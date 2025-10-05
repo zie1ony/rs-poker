@@ -1,8 +1,11 @@
 use rs_poker_types::{
-    game::{GameFinalResults, GameId, GameSettings}, player::Player, tournament::{TournamentId, TournamentInfo, TournamentSettings, TournamentStatus}, tournament_event::{
+    game::{GameFinalResults, GameId, GameSettings},
+    player::Player,
+    tournament::{TournamentId, TournamentInfo, TournamentSettings, TournamentStatus},
+    tournament_event::{
         GameEndedEvent, GameStartedEvent, TournamentCreatedEvent, TournamentEvent,
         TournamentFinishedEvent,
-    }
+    },
 };
 
 #[derive(Clone, Debug, PartialEq)]

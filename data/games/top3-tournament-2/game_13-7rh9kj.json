@@ -1,0 +1,214 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_13-7rh9kj",
+      "tournament_id": "top3-tournament-2",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        220.0,
+        210.0,
+        170.0
+      ],
+      "small_blind": 20.0,
+      "big_blind": 40.0,
+      "hands": [
+        [
+          "9h",
+          "3c"
+        ],
+        [
+          "Jh",
+          "6c"
+        ],
+        [
+          "6h",
+          "5d"
+        ]
+      ],
+      "community_cards": [
+        "5s",
+        "7h",
+        "9c",
+        "9s",
+        "Qs"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 20.0,
+      "stack_after": 190.0,
+      "pot_after": 20.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "bet": 40.0,
+      "stack_after": 130.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "Holding 9h 3c is a very weak starting hand. With the small blind and big blind already posted, continuing would likely lead to a loss of chips. Folding preserves the current stack size and avoids unnecessary risks, aligning with tournament survival strategy.",
+        "action": "Fold"
+      },
+      "stack_after": 220.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "Effective stacks are ~4–5 BB heads-up in SB; J6o is a profitable shove here to maximize fold equity against the big blind and avoid playing postflop out of position with a short stack.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 250.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "My hand is 65o, which has reasonable equity against BobAI's likely wide shoving range from the small blind with short stacks. Calling gives me a chance to double up and take a commanding chip lead, which is crucial for winning the tournament. Folding leaves me with a very short stack of about 3BB, making it hard to recover.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 380.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "5s",
+        "7h",
+        "9c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "9s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "Qs"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 2,
+          "player_name": "AliceAI",
+          "won_pot": 340.0,
+          "stack_after": 340.0,
+          "rank": {
+            "TwoPair": 1115136
+          },
+          "hand": [
+            "5s",
+            "9s",
+            "Qs",
+            "9c",
+            "6h",
+            "7h",
+            "5d"
+          ]
+        },
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 40.0,
+          "stack_after": 40.0,
+          "rank": {
+            "OnePair": 1050144
+          },
+          "hand": [
+            "5s",
+            "9s",
+            "Qs",
+            "6c",
+            "9c",
+            "7h",
+            "Jh"
+          ]
+        }
+      ]
+    }
+  }
+]

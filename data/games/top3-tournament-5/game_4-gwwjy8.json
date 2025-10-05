@@ -1,0 +1,139 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game_4-gwwjy8",
+      "tournament_id": "top3-tournament-5",
+      "players": [
+        {
+          "AI": {
+            "name": "CharlieAI",
+            "model": "deepseek/deepseek-r1",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "BobAI",
+            "model": "gpt-5",
+            "strategy": "Win the tournament."
+          }
+        },
+        {
+          "AI": {
+            "name": "AliceAI",
+            "model": "x-ai/grok-4",
+            "strategy": "Win the tournament."
+          }
+        }
+      ],
+      "initial_stacks": [
+        195.0,
+        145.0,
+        260.0
+      ],
+      "small_blind": 5.0,
+      "big_blind": 10.0,
+      "hands": [
+        [
+          "9d",
+          "Ac"
+        ],
+        [
+          "Kh",
+          "6c"
+        ],
+        [
+          "4c",
+          "2h"
+        ]
+      ],
+      "community_cards": [
+        "Ad",
+        "Jc",
+        "5d",
+        "3c",
+        "4s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "bet": 5.0,
+      "stack_after": 140.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "bet": 10.0,
+      "stack_after": 250.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "CharlieAI",
+      "player_decision": {
+        "reason": "A9o is a weak hand in early position; aggressive opponents likely to re-raise, risking chips unnecessarily. Preserve stack.",
+        "action": "Fold"
+      },
+      "stack_after": 195.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "BobAI",
+      "player_decision": {
+        "reason": "We’re heads-up in the small blind with ~14.5 BB and a hand (K6o) that shoves profitably versus a typical big blind calling range. Alice has been aggressive and will pressure limps/raises; jamming maximizes fold equity, avoids tough postflop spots out of position, and picks up 1.5 BB immediately. With blinds increasing next game, taking this +EV shove now is best for accumulating chips to win the tournament.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 155.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "AliceAI",
+      "player_decision": {
+        "reason": "My hand is 4c 2h, which is very weak. Facing an all-in from the small blind, the pot odds require about 46.5% equity to call, but 42o likely has less than 40% against a typical shoving range. As chip leader, it's better to fold and preserve chips rather than risk with a trash hand.",
+        "action": "Fold"
+      },
+      "stack_after": 250.0,
+      "pot_after": 155.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "BobAI",
+          "won_pot": 155.0,
+          "stack_after": 155.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]
