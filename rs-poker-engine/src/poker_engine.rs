@@ -5,8 +5,8 @@ use rs_poker_types::{game::{Decision, GameFullView, GameId, GameInfo, GamePlayer
 
 use crate::{game_instance::GameInstance, tournament_instance::TournamentInstance};
 
-pub trait PokerStorage: Send + Sync + 'static {
-    fn clone_box(&self) -> Box<dyn PokerStorage>;
+pub trait PokerEngineStorage: Send + Sync + 'static {
+    fn clone_box(&self) -> Box<dyn PokerEngineStorage>;
     fn save_game(&mut self, game: &GameInstance);
     fn save_tournament(&mut self, tournament: &TournamentInstance);
     fn load_state(&self) -> (Vec<GameInstance>, Vec<TournamentInstance>);
@@ -45,7 +45,7 @@ pub type PokerEngineResult<T> = Result<T, PokerEngineError>;
 pub struct PokerEngine {
     pub games: HashMap<GameId, GameInstance>,
     pub tournaments: HashMap<TournamentId, TournamentInstance>,
-    pub storage: Option<Box<dyn PokerStorage>>,
+    pub storage: Option<Box<dyn PokerEngineStorage>>,
 }
 
 impl Clone for PokerEngine {
@@ -70,7 +70,7 @@ impl PokerEngine {
         Self::default()
     }
 
-    pub fn new_from_storage(storage: Box<dyn PokerStorage>) -> Self {
+    pub fn new_with_storage(storage: Box<dyn PokerEngineStorage>) -> Self {
         let (games, tournaments) = storage.load_state();
         Self {
             games: games.into_iter().map(|g| (g.game_id(), g)).collect(),

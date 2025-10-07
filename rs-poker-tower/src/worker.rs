@@ -250,7 +250,7 @@ impl Worker {
                             // Submit the decision
                             match self
                                 .poker_client
-                                .make_decision(MakeActionRequest {
+                                .make_action(MakeActionRequest {
                                     game_id: game_id.clone(),
                                     player_name: name.clone(),
                                     decision,

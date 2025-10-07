@@ -124,7 +124,7 @@ impl LLMDef {
 }
 
 // --- OpenAI Client ---
-const USE_OPENROUTER: bool = true;
+const USE_OPENROUTER: bool = false;
 
 fn client() -> Client<OpenAIConfig> {
     if USE_OPENROUTER {
@@ -177,7 +177,7 @@ impl<T: LLMResponse> LLMClient<T> {
         // let schema_value = serde_json::to_value(&schema.schema)?;
         let schema = openai_schemars::Schema::new::<T>().unwrap();
         let schema_value = serde_json::to_value(&schema.value)?;
-        print!("Using schema: {:#}", schema_value);
+        // print!("Using schema: {:#}", schema_value);
         let response_format = ResponseFormat::JsonSchema {
             json_schema: ResponseFormatJsonSchema {
                 description: Some(String::from(T::DESCRIPTION)),

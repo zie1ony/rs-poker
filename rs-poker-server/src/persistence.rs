@@ -3,7 +3,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use rs_poker_engine::{game_instance::GameInstance, tournament_instance::TournamentInstance};
+use rs_poker_engine::{game_instance::GameInstance, poker_engine::PokerEngineStorage, tournament_instance::TournamentInstance};
 use rs_poker_types::{game_event::GameEvent, tournament_event::TournamentEvent};
 use serde::Serialize;
 use thiserror::Error;
@@ -27,6 +27,33 @@ pub enum PersistenceError {
         source: std::io::Error,
     },
 }
+
+pub struct Persistance;
+
+impl Persistance {
+    pub fn new() -> Self { Self }
+}
+
+impl PokerEngineStorage for Persistance {
+    fn clone_box(&self) -> Box<dyn PokerEngineStorage> {
+        Box::new(Self::new())
+    }
+
+    fn save_game(&mut self, game: &GameInstance) {
+        store_game(game).unwrap();
+    }
+
+    fn save_tournament(&mut self, tournament: &TournamentInstance) {
+        store_tournament(tournament).unwrap();
+    }
+
+    fn load_state(&self) -> (Vec<GameInstance>, Vec<TournamentInstance>) {
+        let games = load_games().unwrap();
+        let tournaments = load_tournaments().unwrap();
+        (games, tournaments)
+    }
+}
+
 
 pub type PersistenceResult<T> = Result<T, PersistenceError>;
 

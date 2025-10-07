@@ -1,0 +1,268 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game-tlu64i",
+      "settings": {
+        "tournament_id": null,
+        "tournament_game_number": null,
+        "game_id": "game-tlu64i",
+        "small_blind": 5.0,
+        "players": [
+          {
+            "AI": {
+              "name": "Alice",
+              "model": "gpt-4o-mini",
+              "strategy": "aggressive, but withdraw sometimes"
+            }
+          },
+          {
+            "AI": {
+              "name": "Bob",
+              "model": "gpt-4o-mini",
+              "strategy": "defensive, but bluffy"
+            }
+          },
+          {
+            "Human": {
+              "name": "Diana"
+            }
+          }
+        ],
+        "stacks": [
+          100.0,
+          100.0,
+          100.0
+        ],
+        "hands": [
+          [
+            "8c",
+            "6h"
+          ],
+          [
+            "7c",
+            "Ah"
+          ],
+          [
+            "4s",
+            "Qs"
+          ]
+        ],
+        "community_cards": [
+          "3d",
+          "6s",
+          "Ac",
+          "8h",
+          "As"
+        ],
+        "dealer_index": 0
+      }
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "Bob",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "Diana",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "With a hand like 8c 6h, I have a chance to see the flop and potentially make a decent hand. Betting 20 will keep the pressure on my opponents while also allowing me to see how they respond.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "With a hand like 7c Ah, I have potential for both a high card and a possible straight. Since Alice has made a strong bet of 20 and there are still 3 players in the hand, I will make a minimum bet of 30 to apply pressure and potentially force other players to fold.",
+        "action": {
+          "Bet": 30.0
+        }
+      },
+      "stack_after": 70.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "Diana",
+      "player_decision": {
+        "reason": "Player decision",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a decent hand (8c 6h) and with my aggressive strategy, I will raise the pot by a minimum of 40. This could put pressure on Bob and potentially lead him to fold or commit more chips.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 60.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "With a strong hand of 7c Ah and the pot is getting sizable, I should apply pressure and potentially push Alice out of the hand while increasing my chip stack.",
+        "action": {
+          "Bet": 50.0
+        }
+      },
+      "stack_after": 50.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "With a hand of 8c 6h and the aggressive action from both players, calling to see the next cards is a safer option given my stack. I want to stay in the game without risking all my chips yet.",
+        "action": "Call"
+      },
+      "stack_after": 50.0,
+      "pot_after": 110.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "3d",
+        "6s",
+        "Ac"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "I have top pair (Ace) with a decent kicker (7) on the flop. Betting 50 puts pressure on Alice and could make her fold if she has a weaker hand, given the previous betting action.",
+        "action": {
+          "Bet": 50.0
+        }
+      },
+      "stack_after": 0.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a pair of sixes from the flop and I'm currently ahead since Bob has put all his chips in. Calling is a reasonable action here as I'm getting better than even odds with my current hand.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 210.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "8h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "As"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "Bob",
+          "won_pot": 210.0,
+          "stack_after": 210.0,
+          "rank": {
+            "ThreeOfAKind": 33554528
+          },
+          "hand": [
+            "6s",
+            "As",
+            "7c",
+            "Ac",
+            "8h",
+            "Ah",
+            "3d"
+          ]
+        }
+      ]
+    }
+  }
+]

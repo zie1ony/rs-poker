@@ -7,14 +7,14 @@ use crossterm::{
 use rs_poker::arena::action::AgentAction;
 use rs_poker_server::{
     handler::{
-        game_full_view::GameFullViewRequest, game_make_action::MakeActionRequest,
-        game_new::NewGameRequest, game_player_view::GamePlayerViewRequest,
+        game_make_action::MakeActionRequest,
+        game_player_view::GamePlayerViewRequest,
     },
     poker_client::PokerClient,
     poker_server,
 };
 use rs_poker_types::{
-    game::{Decision, GameId, GamePlayerView, GameStatus, PossibleAction},
+    game::{Decision, GameId, GamePlayerView, GameSettings, GameStatus, PossibleAction},
     player::Player,
 };
 use std::io::{self, Write};
@@ -61,21 +61,23 @@ async fn initialize_game(client: &PokerClient) -> GameId {
     let players = vec![
         Player::ai("Alice", "gpt-4o-mini", "aggressive, but withdraw sometimes"),
         Player::ai("Bob", "gpt-4o-mini", "defensive, but bluffy"),
-        // Player::ai("Dob", "gpt-4o-mini", "focuse on winning small pots"),
         Player::human("Diana"),
-        // Player::random("name1"),
-        // Player::random("name2"),
     ];
+
+    let players_count = players.len();
 
     // Start new game.
     let result = client
-        .new_game(NewGameRequest {
-            game_id: GameId::random(),
-            initial_stacks: vec![100.0; players.len()],
-            players,
+        .new_game(&GameSettings {
+            tournament_id: None,
+            tournament_game_number: None,
+            game_id: None,
             small_blind: 5.0,
-            predefined_hands: None,
-            predefined_board: None,
+            players,
+            stacks: vec![100.0; players_count],
+            hands: None,
+            community_cards: None,
+            dealer_index: 0,
         })
         .await
         .unwrap();
@@ -97,7 +99,6 @@ async fn handle_game_in_progress(
         .game_player_view(GamePlayerViewRequest {
             game_id: game_id.clone(),
             player_name: current_player.name().clone(),
-            include_tournament_history: false,
         })
         .await
         .unwrap();
@@ -155,8 +156,9 @@ async fn handle_human_player_action(
                             reason: "Player decision".to_string(),
                         };
                         let _result = client
-                            .make_decision(MakeActionRequest {
+                            .make_action(MakeActionRequest {
                                 game_id: game_id.clone(),
+                                player_name: game.player.clone(),
                                 decision,
                             })
                             .await
@@ -197,8 +199,9 @@ async fn handle_ai_player_action(
     )
     .await;
     let _result = client
-        .make_decision(MakeActionRequest {
+        .make_action(MakeActionRequest {
             game_id: game_id.clone(),
+            player_name: game.player.clone(),
             decision,
         })
         .await
@@ -304,10 +307,7 @@ async fn handle_bet_input(frame: &mut Frame, min: f32, max: f32) -> Option<Agent
 
 async fn handle_game_finished(client: &PokerClient, game_id: &GameId, frame: &mut Frame) -> bool {
     let game_full_view_resp = client
-        .game_full_view(GameFullViewRequest {
-            game_id: game_id.clone(),
-            debug: false,
-        })
+        .game_full_view(&game_id)
         .await;
     let game = match game_full_view_resp {
         Ok(view) => view,

@@ -58,6 +58,7 @@ enum Commands {
 enum GameCommands {
     /// Start a new poker game
     Play,
+    
     /// List all games
     List {
         /// Show only active games
@@ -203,9 +204,7 @@ async fn game_full_view(mock_server: bool, game_id: String) {
     let client = client(mock_server);
 
     match client
-        .game_full_view(GameFullViewRequest {
-            game_id: GameId::new(&game_id),
-        })
+        .game_full_view(&GameId::new(&game_id))
         .await
     {
         Ok(game_view) => {
@@ -224,17 +223,17 @@ async fn game_full_view(mock_server: bool, game_id: String) {
 async fn list_games(mock_server: bool, active_only: bool) {
     let client = client(mock_server);
 
-    match client.list_games(ListGamesRequest { active_only }).await {
+    match client.list_games(active_only).await {
         Ok(response) => {
-            if response.game_ids.is_empty() {
+            if response.list.is_empty() {
                 if active_only {
                     println!("No active games found.");
                 } else {
                     println!("No games found.");
                 }
             } else {
-                for (game_id, status) in response.game_ids {
-                    println!("{} - {:?}", game_id, status);
+                for game_info in response.list {
+                    println!("{} - {:?}", game_info.game_id, game_info.status);
                 }
             }
         }

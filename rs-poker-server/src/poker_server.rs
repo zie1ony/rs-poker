@@ -13,13 +13,12 @@ use crate::{
         // tournament_player_view::TournamentPlayerViewHandler,
         Handler,
     },
-    persistence,
+    persistence::{self, Persistance},
 };
 use axum::Router;
 use rs_poker_engine::{
-    game_instance::GameInstance, poker_engine::PokerEngine, tournament_instance::{TournamentAction, TournamentInstance}
+    poker_engine::PokerEngine
 };
-use rs_poker_types::{game::GameId, tournament::TournamentId};
 
 macro_rules! router {
     ($($handler:ident),* $(,)?) => {
@@ -151,8 +150,9 @@ pub struct ServerState {
 
 impl ServerState {
     pub fn new() -> Self {
+        let storage = Box::new(Persistance::new());
         Self {
-            engine: Arc::new(Mutex::new(PokerEngine::new())),
+            engine: Arc::new(Mutex::new(PokerEngine::new_with_storage(storage))),
         }
     }
 }

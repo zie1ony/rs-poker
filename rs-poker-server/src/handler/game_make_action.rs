@@ -35,7 +35,7 @@ define_handler!(
 );
 
 impl PokerClient {
-    pub async fn make_decision(&self, decision: MakeActionRequest) -> ClientResult<GameInfo> {
+    pub async fn make_action(&self, decision: MakeActionRequest) -> ClientResult<GameInfo> {
         self.query::<MakeActionHandler>(decision).await
     }
 }
