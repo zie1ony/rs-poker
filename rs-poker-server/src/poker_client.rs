@@ -1,7 +1,7 @@
 use axum::{body::Body, extract::Request, Router};
 use http_body_util::BodyExt;
 use rs_poker_types::{
-    game::{GameFullView, GameId, GameInfo, GamePlayerView},
+    game::{GameFullView, GameId, GameInfo, GamePlayerView, GameSettings},
     tournament::{TournamentId, TournamentInfo, TournamentSettings},
 };
 use tower::ServiceExt;
@@ -13,7 +13,7 @@ use crate::{
         game_info::{GameInfoHandler, GameInfoRequest},
         game_list::{ListGamesHandler, ListGamesRequest, ListGamesResponse},
         game_make_action::{MakeActionHandler, MakeActionRequest},
-        game_new::{GameCreatedResponse, NewGameHandler, NewGameRequest},
+        game_new::{NewGameHandler},
         game_player_view::{GamePlayerViewHandler, GamePlayerViewRequest},
         health_check::{HealthCheckHandler, HealthCheckRequest, HealthCheckResponse},
         tournament_full_view::{
@@ -52,7 +52,7 @@ impl std::fmt::Display for PokerClientError {
 
 impl std::error::Error for PokerClientError {}
 
-type ClientResult<T> = Result<T, PokerClientError>;
+pub type ClientResult<T> = Result<T, PokerClientError>;
 
 pub enum PokerClient {
     /// For testing - uses the axum app directly
@@ -79,47 +79,6 @@ impl PokerClient {
             PokerClient::Test(router) => make_test_query::<T>(&router, request).await,
             PokerClient::Http { base_url } => make_http_query::<T>(base_url, request).await,
         }
-    }
-
-    // Health check.
-
-    pub async fn health_check(
-        &self,
-        request: HealthCheckRequest,
-    ) -> ClientResult<HealthCheckResponse> {
-        self.query::<HealthCheckHandler>(request).await
-    }
-
-    // Game.
-
-    pub async fn new_game(&self, new_game: NewGameRequest) -> ClientResult<GameCreatedResponse> {
-        self.query::<NewGameHandler>(new_game).await
-    }
-
-    pub async fn list_games(&self, params: ListGamesRequest) -> ClientResult<ListGamesResponse> {
-        self.query::<ListGamesHandler>(params).await
-    }
-
-    pub async fn game_full_view(&self, params: GameFullViewRequest) -> ClientResult<GameFullView> {
-        self.query::<GameFullViewHandler>(params).await
-    }
-
-    pub async fn game_player_view(
-        &self,
-        params: GamePlayerViewRequest,
-    ) -> ClientResult<GamePlayerView> {
-        self.query::<GamePlayerViewHandler>(params).await
-    }
-
-    pub async fn game_info(&self, game_id: &GameId) -> ClientResult<GameInfo> {
-        let request = GameInfoRequest {
-            game_id: game_id.clone(),
-        };
-        self.query::<GameInfoHandler>(request).await
-    }
-
-    pub async fn make_decision(&self, decision: MakeActionRequest) -> ClientResult<GameInfo> {
-        self.query::<MakeActionHandler>(decision).await
     }
 
     // Tournament.

@@ -68,9 +68,6 @@ enum GameCommands {
     View {
         /// Game ID to show
         game_id: String,
-        /// Show debug information
-        #[arg(short, long)]
-        debug: bool,
     },
 }
 
@@ -135,8 +132,8 @@ async fn main() {
             GameCommands::List { active_only } => {
                 list_games(cli.mock_server, active_only).await;
             }
-            GameCommands::View { game_id, debug } => {
-                game_full_view(cli.mock_server, game_id, debug).await;
+            GameCommands::View { game_id } => {
+                game_full_view(cli.mock_server, game_id).await;
             }
         },
         Commands::Tournament { command } => match command {
@@ -202,13 +199,12 @@ async fn main() {
     }
 }
 
-async fn game_full_view(mock_server: bool, game_id: String, debug: bool) {
+async fn game_full_view(mock_server: bool, game_id: String) {
     let client = client(mock_server);
 
     match client
         .game_full_view(GameFullViewRequest {
             game_id: GameId::new(&game_id),
-            debug,
         })
         .await
     {

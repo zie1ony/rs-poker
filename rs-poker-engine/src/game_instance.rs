@@ -5,7 +5,7 @@ use rs_poker::{
 };
 use rs_poker_types::{
     game::{
-        Decision, GameFinalResults, GameFullView, GameId, GamePlayerView, GameSettings, GameStatus,
+        Decision, GameFinalResults, GameFullView, GameId, GameInfo, GamePlayerView, GameSettings, GameStatus
     },
     game_event::GameEvent,
     player::{AutomatType, Player, PlayerName},
@@ -26,84 +26,70 @@ pub struct GameInstance {
 }
 
 impl GameInstance {
-    pub fn new(
-        game_id: GameId,
-        tournament_id: Option<TournamentId>,
-        players: Vec<Player>,
-        initial_stacks: Vec<f32>,
-        big_blind: f32,
-        small_blind: f32,
-        player_hands: Vec<[Card; 2]>,
-        community_cards: [Card; 5],
-    ) -> Self {
-        let simulation = GameSimulation::new(
-            game_id.clone(),
-            tournament_id.clone(),
-            big_blind,
-            small_blind,
-            initial_stacks.clone(),
-            players.clone(),
-            player_hands,
-            community_cards,
-            players.iter().map(|p| p.name()).collect(),
-        );
+    pub fn new(mut config: GameSettings) -> Self {
+        let mut rng = rand::rng();
+        let mut deck = Deck::default();
+
+        // Validate settings.
+        if let Err(err) = config.validate() {
+            panic!("Invalid game settings: {}", err);
+        }
+
+        // Determine player hands
+        if config.hands.is_none() {
+            let new_hands = config
+                .players
+                .iter()
+                .map(|_| {
+                    let cards = n_cards(&mut deck, 2, &mut rng);
+                    [cards[0], cards[1]]
+                })
+                .collect();
+            config.hands = Some(new_hands);
+        }
+
+        if config.community_cards.is_none() {
+            let community_cards_vec = n_cards(&mut deck, 5, &mut rng);
+            config.community_cards = Some([
+                community_cards_vec[0],
+                community_cards_vec[1],
+                community_cards_vec[2],
+                community_cards_vec[3],
+                community_cards_vec[4],
+            ]);
+        }
+
+        // Determine game ID.
+        let game_id = config.game_id.clone();
+        let tournament_id = config.tournament_id.clone();
+        let tournament_game_number = config.tournament_game_number.clone();
+
+        // Determine the game ID and validate settings.
+        let game_id = match (game_id, &tournament_id, tournament_game_number) {
+            // If all three are None, then generate a new random game ID.
+            (None, None, None) => GameId::random(),
+
+            // If just tournamnet info is provided, generate a game ID based on it.
+            (None, Some(_), Some(tournament_game_number)) => {
+                GameId::for_tournament(tournament_game_number)
+            },
+
+            // If game ID is provided, use it.
+            (Some(game_id), _, _) => game_id,
+
+            _ => panic!("Invalid game configuration."),
+        };
+        config.game_id = Some(game_id.clone());
+
+        let players = config.players.clone();
+        let simulation = GameSimulation::new(config);
+
         Self {
             game_id,
             tournament_id,
             simulation,
             players,
         }
-    }
-
-    pub fn new_from_config_with_random_cards(config: &GameSettings) -> Self {
-        Self::new_with_random_cards(
-            config.game_id.clone(),
-            config.tournament_id.clone(),
-            config.players.clone(),
-            config.stacks.clone(),
-            config.small_blind * 2.0,
-            config.small_blind,
-        )
-    }
-
-    pub fn new_with_random_cards(
-        game_id: GameId,
-        tournament_id: Option<TournamentId>,
-        players: Vec<Player>,
-        initial_stacks: Vec<f32>,
-        big_blind: f32,
-        small_blind: f32,
-    ) -> Self {
-        let mut rng = rand::rng();
-        let mut deck = Deck::default();
-
-        let player_hands: Vec<[Card; 2]> = players
-            .iter()
-            .map(|_| {
-                let cards = n_cards(&mut deck, 2, &mut rng);
-                [cards[0], cards[1]]
-            })
-            .collect();
-
-        let community_cards_vec = n_cards(&mut deck, 5, &mut rng);
-        let community_cards: [Card; 5] = [
-            community_cards_vec[0],
-            community_cards_vec[1],
-            community_cards_vec[2],
-            community_cards_vec[3],
-            community_cards_vec[4],
-        ];
-
-        Self::new(
-            game_id,
-            tournament_id,
-            players,
-            initial_stacks,
-            big_blind,
-            small_blind,
-            player_hands,
-            community_cards,
-        )
     }
 
     pub fn game_id(&self) -> GameId {
@@ -203,6 +189,15 @@ impl GameInstance {
         }
     }
 
+    pub fn game_info(&self) -> GameInfo {
+        GameInfo {
+            game_id: self.game_id.clone(),
+            players: self.players.clone(),
+            status: self.game_status(),
+            current_player_name: self.current_player_name(),
+        }
+    }
+
     pub fn is_complete(&self) -> bool {
         self.simulation.game_state.is_complete()
     }
@@ -240,7 +235,7 @@ impl GameInstance {
 impl From<Vec<GameEvent>> for GameInstance {
     fn from(events: Vec<GameEvent>) -> Self {
         // Extract the GameStarted event to get initial game parameters
-        let game_started_event = events
+        let e = events
             .iter()
             .find_map(|event| match event {
                 GameEvent::GameStarted(started) => Some(started),
@@ -248,33 +243,13 @@ impl From<Vec<GameEvent>> for GameInstance {
             })
             .expect("GameStarted event must be present");
 
-        // Create a new GameInstance with initial state
         let mut game_instance = GameInstance::new(
-            game_started_event.game_id.clone(),
-            game_started_event.tournament_id.clone(),
-            game_started_event.players.clone(),
-            game_started_event.initial_stacks.clone(),
-            game_started_event.big_blind,
-            game_started_event.small_blind,
-            game_started_event.hands.clone(),
-            game_started_event.community_cards,
+            e.settings.clone()
         );
 
         // Create a fresh simulation and directly set the events to match the original
         let mut simulation = GameSimulation::new(
-            game_started_event.game_id.clone(),
-            game_started_event.tournament_id.clone(),
-            game_started_event.big_blind,
-            game_started_event.small_blind,
-            game_started_event.initial_stacks.clone(),
-            game_started_event.players.clone(),
-            game_started_event.hands.clone(),
-            game_started_event.community_cards,
-            game_started_event
-                .players
-                .iter()
-                .map(|p| p.name())
-                .collect(),
+            e.settings.clone()
         );
 
         // Extract player actions in order and replay them
@@ -347,8 +322,6 @@ mod tests {
         let num_of_players = 5;
         let initial_stack = 100.0;
         let small_blind = 5.0;
-        let big_blind = 10.0;
-        let game_id = GameId::random();
 
         let players: Vec<Player> = (1..=num_of_players)
             .map(|i| Player::Automat {
@@ -357,14 +330,18 @@ mod tests {
             })
             .collect();
 
-        let mut game_instance = GameInstance::new_with_random_cards(
-            game_id.clone(),
-            None,
-            players,
-            vec![initial_stack; num_of_players],
-            big_blind,
+        let settings = GameSettings {
+            tournament_id: None,
+            tournament_game_number: None,
+            game_id: None,
             small_blind,
-        );
+            players,
+            stacks: vec![initial_stack; num_of_players],
+            hands: None,
+            community_cards: None,
+            dealer_index: 0,
+        };
+        let mut game_instance = GameInstance::new(settings);
 
         game_instance.run();
         game_instance

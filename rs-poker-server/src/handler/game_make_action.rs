@@ -1,13 +1,14 @@
 use axum::{extract::State, Json};
-use rs_poker_types::game::{Decision, GameId, GameInfo};
+use rs_poker_types::{game::{Decision, GameId, GameInfo}, player::PlayerName};
 
 use crate::{
-    define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState,
+    define_handler, handler::{response, HandlerResponse}, poker_client::{ClientResult, PokerClient}, poker_server::ServerState
 };
 
 #[derive(serde::Deserialize, serde::Serialize, Debug)]
 pub struct MakeActionRequest {
     pub game_id: GameId,
+    pub player_name: PlayerName,
     pub decision: Decision,
 }
 
@@ -15,37 +16,12 @@ async fn make_action_handler(
     State(state): State<ServerState>,
     Json(payload): Json<MakeActionRequest>,
 ) -> HandlerResponse<GameInfo> {
-    let mut server = state.server.lock().unwrap();
-
-    // Find the game instance.
-    match server.game(&payload.game_id) {
-        Some(mut game) => {
-            // Apply the action.
-            game.excute_player_action(payload.decision);
-            // Advance the game state.
-            game.run();
-
-            let is_complete = game.is_complete();
-            let game_info = GameInfo {
-                game_id: game.game_id.clone(),
-                players: game.players.clone(),
-                status: game.game_status(),
-                current_player_name: game.current_player_name(),
-            };
-
-            server.update_game(&game);
-
-            // If the game is complete and is part of a tournament, progress the tournament.
-            if is_complete {
-                if let Some(tournament_id) = game.tournament_id.clone() {
-                    server.progress_tournament(&tournament_id);
-                }
-            }
-
-            Json(Ok(game_info))
-        }
-        None => Json(Err(ServerError::GameNotFound(payload.game_id.clone()))),
-    }
+    let mut engine = state.engine.lock().unwrap();
+    response(engine.game_make_action(
+        payload.game_id,
+        payload.player_name,
+        payload.decision
+    ))
 }
 
 define_handler!(
@@ -53,7 +29,13 @@ define_handler!(
         Request = MakeActionRequest;
         Response = GameInfo;
         Method = POST;
-        Path = "/make_action";
+        Path = "/game/make_action";
         FN = make_action_handler;
     }
 );
+
+impl PokerClient {
+    pub async fn make_decision(&self, decision: MakeActionRequest) -> ClientResult<GameInfo> {
+        self.query::<MakeActionHandler>(decision).await
+    }
+}

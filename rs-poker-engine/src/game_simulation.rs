@@ -1,13 +1,13 @@
 use std::collections::BTreeMap;
 
 use rs_poker::arena::GameState;
-use rs_poker_types::game::{Decision, GameId, PossibleAction};
+use rs_poker_types::game::{Decision, GameId, GameSettings, PossibleAction};
 use rs_poker_types::game_event::{
     Award, FailedPlayerActionEvent, ForcedBetEvent, GameEndedEvent, GameEvent, GameStartedEvent,
     PlayerActionEvent, ShowCommunityCardsEvent,
 };
 use rs_poker_types::player::{Player, PlayerName};
-use rs_poker_types::tournament;
+use rs_poker_types::tournament::{self, TournamentId};
 use tracing::{Level, debug_span, event, instrument, trace_span};
 
 use rs_poker::arena::action::{FailedActionPayload, PlayedActionPayload};
@@ -46,29 +46,23 @@ pub struct GameSimulation {
 }
 
 impl GameSimulation {
-    pub fn new(
-        game_id: GameId,
-        tournament_id: Option<tournament::TournamentId>,
-        big_blind: f32,
-        small_blind: f32,
-        stacks: Vec<f32>,
-        players: Vec<Player>,
-        hands: Vec<[Card; 2]>,
-        community_cards: [Card; 5],
-        player_names: Vec<PlayerName>,
-    ) -> Self {
-        let game_state = GameState::new_starting(stacks.clone(), big_blind, small_blind, 0.0, 0);
+    pub fn new(config: GameSettings) -> Self {
+        let game_state = GameState::new_starting(
+            config.stacks.clone(),
+            config.big_blind(),
+            config.small_blind,
+            0.0,
+            config.dealer_index,
+        );
+
+        let game_id = config.game_id.clone().expect("game_id must be set at this point");
+        let hands = config.hands.clone().expect("hands must be set at this point");
+        let community_cards = config.community_cards.clone().expect("community_cards must be set at this point");
 
         // Emit a game started event
         let game_start_event = GameEvent::GameStarted(GameStartedEvent {
             game_id: game_id.clone(),
-            tournament_id,
-            players,
-            initial_stacks: stacks.clone(),
-            big_blind,
-            small_blind,
-            hands: hands.clone(),
-            community_cards,
+            settings: config.clone(),
         });
 
         GameSimulation {
@@ -78,7 +72,7 @@ impl GameSimulation {
             events: vec![game_start_event],
             hands,
             community_cards,
-            player_names,
+            player_names: config.player_names(),
         }
     }
 

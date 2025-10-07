@@ -1,5 +1,6 @@
 use axum::{routing::MethodRouter, Json};
 use reqwest::Method;
+use rs_poker_engine::poker_engine::PokerEngineResult;
 
 use crate::{error::ServerError, poker_server::ServerState};
 
@@ -63,4 +64,11 @@ macro_rules! define_handler {
             }
         }
     };
+}
+
+pub fn response<T>(v: PokerEngineResult<T>) -> HandlerResponse<T>
+where
+    T: serde::de::DeserializeOwned + serde::Serialize,
+{
+    Json(v.map_err(ServerError::from))
 }

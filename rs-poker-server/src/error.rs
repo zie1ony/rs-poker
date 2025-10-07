@@ -1,3 +1,4 @@
+use rs_poker_engine::poker_engine::PokerEngineError;
 use rs_poker_types::{game::GameId, tournament::TournamentId};
 use thiserror::Error;
 
@@ -14,4 +15,7 @@ pub enum ServerError {
 
     #[error("Tournament {0:?} already exists")]
     TournamentAlreadyExists(TournamentId),
+
+    #[error("Internal server error: {0}")]
+    PokerEngineError(#[from] PokerEngineError),
 }

@@ -217,7 +217,6 @@ impl Worker {
                                 rs_poker_server::handler::game_player_view::GamePlayerViewRequest {
                                     game_id: game_id.clone(),
                                     player_name: name.clone(),
-                                    include_tournament_history: true,
                                 }
                             ).await {
                                 Ok(view) => view,
@@ -253,6 +252,7 @@ impl Worker {
                                 .poker_client
                                 .make_decision(MakeActionRequest {
                                     game_id: game_id.clone(),
+                                    player_name: name.clone(),
                                     decision,
                                 })
                                 .await
@@ -281,10 +281,7 @@ impl Worker {
                 rs_poker_types::game::GameStatus::Finished => {
                     let full_view = self
                         .poker_client
-                        .game_full_view(GameFullViewRequest {
-                            game_id: game_id.clone(),
-                            debug: false,
-                        })
+                        .game_full_view(game_id)
                         .await
                         .unwrap();
                     logger.log_game_finished(game_id, &full_view.summary);

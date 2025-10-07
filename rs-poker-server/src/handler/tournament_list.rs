@@ -20,7 +20,7 @@ async fn list_tournaments_handler(
     State(state): State<ServerState>,
     Query(params): Query<ListTournamentsRequest>,
 ) -> HandlerResponse<ListTournamentsResponse> {
-    let server = state.server.lock().unwrap();
+    let server = state.engine.lock().unwrap();
 
     let tournament_ids: Vec<(TournamentId, TournamentStatus)> = server
         .tournaments

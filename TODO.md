@@ -114,3 +114,24 @@ Decision {
 ### Allow to read system prompt for game/tournament.
 
 ### Move logic into engine.
+-[x] game_new
+-[x] game_info
+-[x] game_list
+-[x] game_full_view
+-[x] game_make_action
+-[x] game_player_view
+
+- tournament_full_view
+- tournament_info
+- tournament_list
+- tournament_new
+- tournament_player_view
+
+### Summary
+- In player_view, use "You" everywhere.
+- Better cards formatting.
+- Before each action show current user cards.
+
+### More events in tournament
+- PlayerLost
+- PlayerWon

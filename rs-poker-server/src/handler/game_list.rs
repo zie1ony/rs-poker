@@ -1,10 +1,9 @@
 use axum::{
     extract::{Query, State},
-    Json,
 };
-use rs_poker_types::game::GameStatus;
+use rs_poker_types::game::{GameInfo};
 
-use crate::{define_handler, handler::HandlerResponse, poker_server::ServerState};
+use crate::{define_handler, handler::{response, HandlerResponse}, poker_server::ServerState};
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug)]
 pub struct ListGamesRequest {
@@ -13,29 +12,16 @@ pub struct ListGamesRequest {
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug)]
 pub struct ListGamesResponse {
-    pub game_ids: Vec<(String, GameStatus)>,
+    pub list: Vec<GameInfo>
 }
 
 async fn list_games_handler(
     State(state): State<ServerState>,
     Query(params): Query<ListGamesRequest>,
 ) -> HandlerResponse<ListGamesResponse> {
-    let server = state.server.lock().unwrap();
-
-    let game_ids: Vec<(String, rs_poker_types::game::GameStatus)> = server
-        .games
-        .iter()
-        .filter_map(|(game_id, game)| {
-            let status = game.game_status();
-            if params.active_only && status == rs_poker_types::game::GameStatus::Finished {
-                None
-            } else {
-                Some((game_id.to_string(), status))
-            }
-        })
-        .collect();
-
-    Json(Ok(ListGamesResponse { game_ids }))
+    let engine = state.engine.lock().unwrap();
+    let list = engine.game_list(params.active_only);
+    response(Ok(ListGamesResponse { list }))
 }
 
 define_handler!(
@@ -43,7 +29,7 @@ define_handler!(
         Request = ListGamesRequest;
         Response = ListGamesResponse;
         Method = GET;
-        Path = "/list_games";
+        Path = "/game/list";
         FN = list_games_handler;
     }
 );

@@ -36,16 +36,17 @@ impl GameSummary {
         for event in &self.events {
             match event {
                 GameEvent::GameStarted(e) => {
-                    let players_count = e.players.len();
+                    let config = &e.settings;
+                    let players_count = config.players.len();
 
-                    summary.push_str(&format!("Game Started - ID: {:?}\n", e.game_id));
-                    summary.push_str(&format!("Small blind: {}\n", e.small_blind));
-                    summary.push_str(&format!("Big blind: {}\n", e.big_blind));
+                    summary.push_str(&format!("Game Started - ID: {:?}\n", config.game_id));
+                    summary.push_str(&format!("Small blind: {}\n", config.small_blind));
+                    summary.push_str(&format!("Big blind: {}\n", config.big_blind()));
                     summary.push_str(&format!("Players: {}\n", players_count));
 
                     for i in 0..players_count {
-                        let player_name = e.players[i].name();
-                        let stack = e.initial_stacks[i];
+                        let player_name = config.players[i].name();
+                        let stack = config.stacks[i];
                         let player_name = if let Some(name) = &self.for_player {
                             if name == &player_name {
                                 format!("{} (You)", player_name)
@@ -60,13 +61,14 @@ impl GameSummary {
 
                     match &self.for_player {
                         Some(name) => {
-                            if let Some((i, _)) = e
+                            if let Some((i, _)) = config
                                 .players
                                 .iter()
                                 .enumerate()
                                 .find(|(_, p)| p.name() == *name)
                             {
-                                let hand = e.hands[i];
+                                let hand = &config.hands.clone().unwrap();
+                                let hand = &hand[i];
                                 summary
                                     .push_str(&format!("\nYour Hand: {} {}\n", hand[0], hand[1]));
                             } else {
@@ -78,21 +80,22 @@ impl GameSummary {
                         }
                         None => {
                             summary.push_str("\nHole Cards:\n");
-                            for (i, hand) in e.hands.iter().enumerate() {
-                                let player_name = e.players[i].name();
+                            let hands = config.hands.clone().unwrap();
+                            for (i, hand) in hands.iter().enumerate() {
+                                let player_name = config.players[i].name();
                                 summary.push_str(&format!(
-                                    "- {}: {} {}\n",
+                                    "- {}: {:?} {:?}\n",
                                     player_name, hand[0], hand[1]
                                 ));
                             }
-
+                            let community_cards = config.community_cards.unwrap();
                             summary.push_str(&format!(
-                                "\nCommunity Cards: {} {} {} {} {}\n",
-                                e.community_cards[0],
-                                e.community_cards[1],
-                                e.community_cards[2],
-                                e.community_cards[3],
-                                e.community_cards[4]
+                                "\nCommunity Cards: {:?} {:?} {:?} {:?} {:?}\n",
+                                community_cards[0],
+                                community_cards[1],
+                                community_cards[2],
+                                community_cards[3],
+                                community_cards[4]
                             ));
                         }
                     }

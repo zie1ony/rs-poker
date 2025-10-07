@@ -5,7 +5,7 @@ use axum::{
 use rs_poker_types::game::{GameId, GameInfo};
 
 use crate::{
-    define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState,
+    define_handler, handler::{response, HandlerResponse}, poker_client::{ClientResult, PokerClient}, poker_server::ServerState
 };
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
@@ -17,18 +17,8 @@ async fn game_info_handler(
     State(state): State<ServerState>,
     Query(params): Query<GameInfoRequest>,
 ) -> HandlerResponse<GameInfo> {
-    let server = state.server.lock().unwrap();
-
-    // Find the game instance.
-    match server.games.get(&params.game_id) {
-        Some(game) => Json(Ok(GameInfo {
-            game_id: game.game_id.clone(),
-            players: game.players.clone(),
-            status: game.game_status(),
-            current_player_name: game.current_player_name(),
-        })),
-        None => Json(Err(ServerError::GameNotFound(params.game_id.clone()))),
-    }
+    let engine = state.engine.lock().unwrap();
+    response(engine.game_info(&params.game_id))
 }
 
 define_handler!(
@@ -36,7 +26,13 @@ define_handler!(
         Request = GameInfoRequest;
         Response = GameInfo;
         Method = GET;
-        Path = "/game_info";
+        Path = "/game/info";
         FN = game_info_handler;
     }
 );
+
+impl PokerClient {
+    pub async fn game_info(&self, game_id: &GameId) -> ClientResult<GameInfo> {
+        self.query::<GameInfoHandler>(GameInfoRequest { game_id: game_id.clone() }).await
+    }
+}

@@ -33,7 +33,7 @@ fn main() {
 
     while !tournament.is_completed() {
         let game_settings = tournament.start_next_game().unwrap();
-        let mut game_instance = GameInstance::new_from_config_with_random_cards(&game_settings);
+        let mut game_instance = GameInstance::new(game_settings);
         game_instance.run();
         let game_result = game_instance.game_final_results().unwrap();
         games.insert(game_instance.game_id.clone(), game_instance);

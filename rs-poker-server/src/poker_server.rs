@@ -8,16 +8,16 @@ use crate::{
         game_full_view::GameFullViewHandler, game_info::GameInfoHandler,
         game_list::ListGamesHandler, game_make_action::MakeActionHandler, game_new::NewGameHandler,
         game_player_view::GamePlayerViewHandler, health_check::HealthCheckHandler,
-        tournament_full_view::TournamentFullViewHandler, tournament_info::TournamentInfoHandler,
-        tournament_list::ListTournamentsHandler, tournament_new::NewTournamentHandler,
-        tournament_player_view::TournamentPlayerViewHandler, Handler,
+        // tournament_full_view::TournamentFullViewHandler, tournament_info::TournamentInfoHandler,
+        // tournament_list::ListTournamentsHandler, tournament_new::NewTournamentHandler,
+        // tournament_player_view::TournamentPlayerViewHandler,
+        Handler,
     },
     persistence,
 };
 use axum::Router;
 use rs_poker_engine::{
-    game_instance::GameInstance,
-    tournament_instance::{TournamentAction, TournamentInstance},
+    game_instance::GameInstance, poker_engine::PokerEngine, tournament_instance::{TournamentAction, TournamentInstance}
 };
 use rs_poker_types::{game::GameId, tournament::TournamentId};
 
@@ -31,128 +31,128 @@ macro_rules! router {
     };
 }
 
-#[derive(Clone, Default)]
-pub struct PokerServer {
-    pub games: HashMap<GameId, GameInstance>,
-    pub tournaments: HashMap<TournamentId, TournamentInstance>,
-}
+// #[derive(Clone, Default)]
+// pub struct PokerServer {
+//     pub games: HashMap<GameId, GameInstance>,
+//     pub tournaments: HashMap<TournamentId, TournamentInstance>,
+// }
 
-impl PokerServer {
-    pub fn new() -> Self {
-        let games: HashMap<GameId, GameInstance> = persistence::load_games()
-            .unwrap()
-            .into_iter()
-            .map(|g| (g.game_id(), g))
-            .collect();
-        let tournaments: HashMap<TournamentId, TournamentInstance> =
-            persistence::load_tournaments()
-                .unwrap()
-                .into_iter()
-                .map(|t| (t.tournament_id(), t))
-                .collect();
+// impl PokerServer {
+//     pub fn new() -> Self {
+//         let games: HashMap<GameId, GameInstance> = persistence::load_games()
+//             .unwrap()
+//             .into_iter()
+//             .map(|g| (g.game_id(), g))
+//             .collect();
+//         let tournaments: HashMap<TournamentId, TournamentInstance> =
+//             persistence::load_tournaments()
+//                 .unwrap()
+//                 .into_iter()
+//                 .map(|t| (t.tournament_id(), t))
+//                 .collect();
 
-        println!(
-            "Loaded {} games and {} tournaments from storage.",
-            games.len(),
-            tournaments.len()
-        );
+//         println!(
+//             "Loaded {} games and {} tournaments from storage.",
+//             games.len(),
+//             tournaments.len()
+//         );
 
-        Self { games, tournaments }
-    }
+//         Self { games, tournaments }
+//     }
 
-    pub fn game(&self, game_id: &GameId) -> Option<GameInstance> {
-        self.games.get(game_id).cloned()
-    }
+//     pub fn game(&self, game_id: &GameId) -> Option<GameInstance> {
+//         self.games.get(game_id).cloned()
+//     }
 
-    pub fn update_game(&mut self, game: &GameInstance) {
-        self.games.insert(game.game_id(), game.clone());
-        persistence::store_game(game).unwrap();
-    }
+//     pub fn update_game(&mut self, game: &GameInstance) {
+//         self.games.insert(game.game_id(), game.clone());
+//         persistence::store_game(game).unwrap();
+//     }
 
-    pub fn tournament(&self, tournament_id: &TournamentId) -> Option<TournamentInstance> {
-        self.tournaments.get(tournament_id).cloned()
-    }
+//     pub fn tournament(&self, tournament_id: &TournamentId) -> Option<TournamentInstance> {
+//         self.tournaments.get(tournament_id).cloned()
+//     }
 
-    pub fn update_tournament(&mut self, tournament: &TournamentInstance) {
-        self.tournaments
-            .insert(tournament.tournament_id(), tournament.clone());
-        persistence::store_tournament(tournament).unwrap();
-    }
+//     pub fn update_tournament(&mut self, tournament: &TournamentInstance) {
+//         self.tournaments
+//             .insert(tournament.tournament_id(), tournament.clone());
+//         persistence::store_tournament(tournament).unwrap();
+//     }
 
-    pub fn progress_tournament(&mut self, tournament_id: &TournamentId) {
-        if let Some(mut tournament) = self.tournament(tournament_id) {
-            while let Some(action) = tournament.next_action() {
-                match action {
-                    TournamentAction::StartNextGame { game_settings } => {
-                        // Create and store a new game instance.
-                        let mut game =
-                            GameInstance::new_from_config_with_random_cards(&game_settings);
-                        game.run();
+//     pub fn progress_tournament(&mut self, tournament_id: &TournamentId) {
+//         if let Some(mut tournament) = self.tournament(tournament_id) {
+//             while let Some(action) = tournament.next_action() {
+//                 match action {
+//                     TournamentAction::StartNextGame { game_settings } => {
+//                         // Create and store a new game instance.
+//                         let mut game =
+//                             GameInstance::new(game_settings);
+//                         game.run();
 
-                        if !game.is_complete() {
-                            // Store the game.
-                            self.update_game(&game);
+//                         if !game.is_complete() {
+//                             // Store the game.
+//                             self.update_game(&game);
 
-                            // Update tournament and break if the game could not be completed.
-                            // This means it is waiting for player input.
-                            self.update_tournament(&tournament);
-                            break;
-                        }
+//                             // Update tournament and break if the game could not be completed.
+//                             // This means it is waiting for player input.
+//                             self.update_tournament(&tournament);
+//                             break;
+//                         }
 
-                        // If the game is complete, load the final results.
-                        let game_result = game.game_final_results().unwrap();
+//                         // If the game is complete, load the final results.
+//                         let game_result = game.game_final_results().unwrap();
 
-                        // Also store the game.
-                        self.update_game(&game);
+//                         // Also store the game.
+//                         self.update_game(&game);
 
-                        // Finish the game in the tournament.
-                        tournament.finish_game(&game_result).unwrap();
-                        // Continue to the next action.
-                    }
-                    TournamentAction::FinishGame { game_id } => {
-                        // This state means the game has already been started,
-                        // and needs to be pushed to completion.
-                        if let Some(mut game) = self.game(&game_id) {
-                            if !game.is_complete() {
-                                game.run();
-                                if game.is_complete() {
-                                    let game_result = game.game_final_results().unwrap();
-                                    tournament.finish_game(&game_result).unwrap();
-                                    self.update_game(&game);
-                                } else {
-                                    self.update_game(&game);
-                                    self.update_tournament(&tournament);
-                                    // Game is still not complete, break to wait for player input.
-                                    break;
-                                }
-                            } else {
-                                // Game is already complete, just finish it in the tournament.
-                                let game_result = game.game_final_results().unwrap();
-                                tournament.finish_game(&game_result).unwrap();
-                            }
-                        } else {
-                            // Game not found, this is an error in the tournament state.
-                            self.update_tournament(&tournament);
-                            break;
-                        }
-                    }
-                }
-            }
-            // Update tournament after all actions are processed
-            self.update_tournament(&tournament);
-        }
-    }
-}
+//                         // Finish the game in the tournament.
+//                         tournament.finish_game(&game_result).unwrap();
+//                         // Continue to the next action.
+//                     }
+//                     TournamentAction::FinishGame { game_id } => {
+//                         // This state means the game has already been started,
+//                         // and needs to be pushed to completion.
+//                         if let Some(mut game) = self.game(&game_id) {
+//                             if !game.is_complete() {
+//                                 game.run();
+//                                 if game.is_complete() {
+//                                     let game_result = game.game_final_results().unwrap();
+//                                     tournament.finish_game(&game_result).unwrap();
+//                                     self.update_game(&game);
+//                                 } else {
+//                                     self.update_game(&game);
+//                                     self.update_tournament(&tournament);
+//                                     // Game is still not complete, break to wait for player input.
+//                                     break;
+//                                 }
+//                             } else {
+//                                 // Game is already complete, just finish it in the tournament.
+//                                 let game_result = game.game_final_results().unwrap();
+//                                 tournament.finish_game(&game_result).unwrap();
+//                             }
+//                         } else {
+//                             // Game not found, this is an error in the tournament state.
+//                             self.update_tournament(&tournament);
+//                             break;
+//                         }
+//                     }
+//                 }
+//             }
+//             // Update tournament after all actions are processed
+//             self.update_tournament(&tournament);
+//         }
+//     }
+// }
 
 #[derive(Clone)]
 pub struct ServerState {
-    pub server: Arc<Mutex<PokerServer>>,
+    pub engine: Arc<Mutex<PokerEngine>>,
 }
 
 impl ServerState {
     pub fn new() -> Self {
         Self {
-            server: Arc::new(Mutex::new(PokerServer::new())),
+            engine: Arc::new(Mutex::new(PokerEngine::new())),
         }
     }
 }
@@ -169,11 +169,11 @@ pub fn app() -> Router {
         MakeActionHandler,
 
         // Tournament.
-        NewTournamentHandler,
-        ListTournamentsHandler,
-        TournamentInfoHandler,
-        TournamentFullViewHandler,
-        TournamentPlayerViewHandler,
+        // NewTournamentHandler,
+        // ListTournamentsHandler,
+        // TournamentInfoHandler,
+        // TournamentFullViewHandler,
+        // TournamentPlayerViewHandler,
     }
 }
 

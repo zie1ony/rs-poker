@@ -1,37 +1,23 @@
 use axum::{
     extract::{Query, State},
-    Json,
 };
 use rs_poker_types::game::{GameFullView, GameId};
 
 use crate::{
-    define_handler, error::ServerError, handler::HandlerResponse, poker_server::ServerState,
+    define_handler, handler::{response, HandlerResponse}, poker_client::{ClientResult, PokerClient}, poker_server::ServerState
 };
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
 pub struct GameFullViewRequest {
     pub game_id: GameId,
-    pub debug: bool,
 }
 
 async fn game_full_view_handler(
     State(state): State<ServerState>,
     Query(params): Query<GameFullViewRequest>,
 ) -> HandlerResponse<GameFullView> {
-    let server = state.server.lock().unwrap();
-
-    // Find the game instance.
-    match server.games.get(&params.game_id) {
-        Some(game) => {
-            let mut view = game.as_game_full_view();
-            if params.debug {
-                view.summary.push_str("\n\n [Debug Info]\n");
-                view.summary.push_str(game.actions_str().as_str());
-            }
-            Json(Ok(view))
-        }
-        None => Json(Err(ServerError::GameNotFound(params.game_id.clone()))),
-    }
+    let engine = state.engine.lock().unwrap();
+    response(engine.game_full_view(&params.game_id))
 }
 
 define_handler!(
@@ -39,7 +25,13 @@ define_handler!(
         Request = GameFullViewRequest;
         Response = GameFullView;
         Method = GET;
-        Path = "/game_full_view";
+        Path = "/game/full_view";
         FN = game_full_view_handler;
     }
 );
+
+impl PokerClient {
+    pub async fn game_full_view(&self, game_id: &GameId) -> ClientResult<GameFullView> {
+        self.query::<GameFullViewHandler>(GameFullViewRequest { game_id: game_id.clone() }).await
+    }
+}

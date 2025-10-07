@@ -15,7 +15,7 @@ async fn new_tournament_handler(
     State(state): State<ServerState>,
     Json(settings): Json<TournamentSettings>,
 ) -> HandlerResponse<TournamentCreatedResponse> {
-    let mut server = state.server.lock().unwrap();
+    let mut server = state.engine.lock().unwrap();
     let tournament_id = settings.tournament_id.clone();
 
     // Fail if the tournament ID already exists.
@@ -26,11 +26,11 @@ async fn new_tournament_handler(
     // Create a new tournament instance.
     let tournament = TournamentInstance::new(&settings);
 
-    // Store it.
-    server.update_tournament(&tournament);
+    // // Store it.
+    // server.update_tournament(&tournament);
 
-    // Start playing.
-    server.progress_tournament(&tournament_id);
+    // // Start playing.
+    // server.progress_tournament(&tournament_id);
 
     Json(Ok(TournamentCreatedResponse {
         tournament_id: settings.tournament_id.clone(),

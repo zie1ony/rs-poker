@@ -24,7 +24,7 @@ async fn tournament_player_view_handler(
     State(state): State<ServerState>,
     Query(params): Query<TournamentPlayerViewRequest>,
 ) -> HandlerResponse<TournamentPlayerViewResponse> {
-    let server = state.server.lock().unwrap();
+    let server = state.engine.lock().unwrap();
     let tournament_id = params.tournament_id;
     match server.tournaments.get(&tournament_id) {
         Some(tournament) => {
