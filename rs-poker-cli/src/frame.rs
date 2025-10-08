@@ -1,6 +1,12 @@
-use std::time::{SystemTime, UNIX_EPOCH};
-
+use crossterm::{
+    cursor, execute,
+    terminal::{self, ClearType},
+};
 use rs_poker_types::game::{GameId, GameInfo};
+use std::{
+    io::{self, Write},
+    time::{SystemTime, UNIX_EPOCH},
+};
 
 pub struct Frame {
     pub timestamp: u64,
@@ -87,4 +93,25 @@ impl Frame {
     fn render_possible_actions(&self) -> Option<String> {
         self.possible_actions.clone()
     }
+}
+
+pub fn start_session() {
+    terminal::enable_raw_mode().unwrap();
+    execute!(io::stdout(), terminal::EnterAlternateScreen).unwrap();
+}
+
+pub fn end_session() {
+    execute!(io::stdout(), terminal::LeaveAlternateScreen).unwrap();
+    terminal::disable_raw_mode().unwrap();
+}
+
+pub fn clean_frame() {
+    // Clear the entire screen and move cursor to top-left corner
+    execute!(
+        io::stdout(),
+        terminal::Clear(ClearType::All),
+        cursor::MoveTo(0, 0)
+    )
+    .unwrap();
+    io::stdout().flush().unwrap();
 }

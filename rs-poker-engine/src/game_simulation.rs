@@ -55,9 +55,18 @@ impl GameSimulation {
             config.dealer_index,
         );
 
-        let game_id = config.game_id.clone().expect("game_id must be set at this point");
-        let hands = config.hands.clone().expect("hands must be set at this point");
-        let community_cards = config.community_cards.clone().expect("community_cards must be set at this point");
+        let game_id = config
+            .game_id
+            .clone()
+            .expect("game_id must be set at this point");
+        let hands = config
+            .hands
+            .clone()
+            .expect("hands must be set at this point");
+        let community_cards = config
+            .community_cards
+            .clone()
+            .expect("community_cards must be set at this point");
 
         // Emit a game started event
         let game_start_event = GameEvent::GameStarted(GameStartedEvent {

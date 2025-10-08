@@ -5,9 +5,13 @@ use std::{
 
 use crate::{
     handler::{
-        game_full_view::GameFullViewHandler, game_info::GameInfoHandler,
-        game_list::ListGamesHandler, game_make_action::MakeActionHandler, game_new::NewGameHandler,
-        game_player_view::GamePlayerViewHandler, health_check::HealthCheckHandler,
+        game_full_view::GameFullViewHandler,
+        game_info::GameInfoHandler,
+        game_list::ListGamesHandler,
+        game_make_action::MakeActionHandler,
+        game_new::NewGameHandler,
+        game_player_view::GamePlayerViewHandler,
+        health_check::HealthCheckHandler,
         // tournament_full_view::TournamentFullViewHandler, tournament_info::TournamentInfoHandler,
         // tournament_list::ListTournamentsHandler, tournament_new::NewTournamentHandler,
         // tournament_player_view::TournamentPlayerViewHandler,
@@ -16,9 +20,7 @@ use crate::{
     persistence::{self, Persistance},
 };
 use axum::Router;
-use rs_poker_engine::{
-    poker_engine::PokerEngine
-};
+use rs_poker_engine::poker_engine::PokerEngine;
 
 macro_rules! router {
     ($($handler:ident),* $(,)?) => {
@@ -68,9 +70,9 @@ macro_rules! router {
 //         persistence::store_game(game).unwrap();
 //     }
 
-//     pub fn tournament(&self, tournament_id: &TournamentId) -> Option<TournamentInstance> {
-//         self.tournaments.get(tournament_id).cloned()
-//     }
+//     pub fn tournament(&self, tournament_id: &TournamentId) ->
+// Option<TournamentInstance> {         self.tournaments.get(tournament_id).
+// cloned()     }
 
 //     pub fn update_tournament(&mut self, tournament: &TournamentInstance) {
 //         self.tournaments
@@ -92,10 +94,10 @@ macro_rules! router {
 //                             // Store the game.
 //                             self.update_game(&game);
 
-//                             // Update tournament and break if the game could not be completed.
-//                             // This means it is waiting for player input.
-//                             self.update_tournament(&tournament);
-//                             break;
+//                             // Update tournament and break if the game could
+// not be completed.                             // This means it is waiting for
+// player input.                             
+// self.update_tournament(&tournament);                             break;
 //                         }
 
 //                         // If the game is complete, load the final results.
@@ -109,30 +111,30 @@ macro_rules! router {
 //                         // Continue to the next action.
 //                     }
 //                     TournamentAction::FinishGame { game_id } => {
-//                         // This state means the game has already been started,
-//                         // and needs to be pushed to completion.
+//                         // This state means the game has already been
+// started,                         // and needs to be pushed to completion.
 //                         if let Some(mut game) = self.game(&game_id) {
 //                             if !game.is_complete() {
 //                                 game.run();
 //                                 if game.is_complete() {
-//                                     let game_result = game.game_final_results().unwrap();
-//                                     tournament.finish_game(&game_result).unwrap();
-//                                     self.update_game(&game);
-//                                 } else {
+//                                     let game_result =
+// game.game_final_results().unwrap();                                     
+// tournament.finish_game(&game_result).unwrap();                               
+// self.update_game(&game);                                 } else {
 //                                     self.update_game(&game);
 //                                     self.update_tournament(&tournament);
-//                                     // Game is still not complete, break to wait for player input.
-//                                     break;
+//                                     // Game is still not complete, break to
+// wait for player input.                                     break;
 //                                 }
 //                             } else {
-//                                 // Game is already complete, just finish it in the tournament.
-//                                 let game_result = game.game_final_results().unwrap();
-//                                 tournament.finish_game(&game_result).unwrap();
-//                             }
+//                                 // Game is already complete, just finish it
+// in the tournament.                                 let game_result =
+// game.game_final_results().unwrap();                                 
+// tournament.finish_game(&game_result).unwrap();                             }
 //                         } else {
-//                             // Game not found, this is an error in the tournament state.
-//                             self.update_tournament(&tournament);
-//                             break;
+//                             // Game not found, this is an error in the
+// tournament state.                             
+// self.update_tournament(&tournament);                             break;
 //                         }
 //                     }
 //                 }

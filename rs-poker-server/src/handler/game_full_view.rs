@@ -1,10 +1,11 @@
-use axum::{
-    extract::{Query, State},
-};
+use axum::extract::{Query, State};
 use rs_poker_types::game::{GameFullView, GameId};
 
 use crate::{
-    define_handler, handler::{response, HandlerResponse}, poker_client::{ClientResult, PokerClient}, poker_server::ServerState
+    define_handler,
+    handler::{response, HandlerResponse},
+    poker_client::{ClientResult, PokerClient},
+    poker_server::ServerState,
 };
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
@@ -32,6 +33,9 @@ define_handler!(
 
 impl PokerClient {
     pub async fn game_full_view(&self, game_id: &GameId) -> ClientResult<GameFullView> {
-        self.query::<GameFullViewHandler>(GameFullViewRequest { game_id: game_id.clone() }).await
+        self.query::<GameFullViewHandler>(GameFullViewRequest {
+            game_id: game_id.clone(),
+        })
+        .await
     }
 }

@@ -3,7 +3,10 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use rs_poker_engine::{game_instance::GameInstance, poker_engine::PokerEngineStorage, tournament_instance::TournamentInstance};
+use rs_poker_engine::{
+    game_instance::GameInstance, poker_engine::PokerEngineStorage,
+    tournament_instance::TournamentInstance,
+};
 use rs_poker_types::{game_event::GameEvent, tournament_event::TournamentEvent};
 use serde::Serialize;
 use thiserror::Error;
@@ -31,7 +34,9 @@ pub enum PersistenceError {
 pub struct Persistance;
 
 impl Persistance {
-    pub fn new() -> Self { Self }
+    pub fn new() -> Self {
+        Self
+    }
 }
 
 impl PokerEngineStorage for Persistance {
@@ -53,7 +58,6 @@ impl PokerEngineStorage for Persistance {
         (games, tournaments)
     }
 }
-
 
 pub type PersistenceResult<T> = Result<T, PersistenceError>;
 

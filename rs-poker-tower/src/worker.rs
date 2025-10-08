@@ -279,11 +279,7 @@ impl Worker {
                     }
                 }
                 rs_poker_types::game::GameStatus::Finished => {
-                    let full_view = self
-                        .poker_client
-                        .game_full_view(game_id)
-                        .await
-                        .unwrap();
+                    let full_view = self.poker_client.game_full_view(game_id).await.unwrap();
                     logger.log_game_finished(game_id, &full_view.summary);
                     self.log(&format!("Game {:?} finished", game_id));
                     break;

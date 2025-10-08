@@ -25,7 +25,8 @@ pub async fn main() {
     // Create client
     let client = Gemini::new(api_key).expect("unable to create Gemini API client");
 
-    // Define a simple JSON schema that Gemini accepts (without $schema, definitions, $ref)
+    // Define a simple JSON schema that Gemini accepts (without $schema,
+    // definitions, $ref)
     let schema = json!({
         "type": "object",
         "properties": {
@@ -72,5 +73,4 @@ pub async fn main() {
     let parsed: MyResponse = serde_json::from_value(json_response).unwrap();
 
     println!("Parsed response: {:#?}", parsed);
-
 }

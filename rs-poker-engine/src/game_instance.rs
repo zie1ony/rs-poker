@@ -5,7 +5,8 @@ use rs_poker::{
 };
 use rs_poker_types::{
     game::{
-        Decision, GameFinalResults, GameFullView, GameId, GameInfo, GamePlayerView, GameSettings, GameStatus
+        Decision, GameFinalResults, GameFullView, GameId, GameInfo, GamePlayerView, GameSettings,
+        GameStatus,
     },
     game_event::GameEvent,
     player::{AutomatType, Player, PlayerName},
@@ -72,7 +73,7 @@ impl GameInstance {
             // If just tournamnet info is provided, generate a game ID based on it.
             (None, Some(_), Some(tournament_game_number)) => {
                 GameId::for_tournament(tournament_game_number)
-            },
+            }
 
             // If game ID is provided, use it.
             (Some(game_id), _, _) => game_id,
@@ -243,14 +244,10 @@ impl From<Vec<GameEvent>> for GameInstance {
             })
             .expect("GameStarted event must be present");
 
-        let mut game_instance = GameInstance::new(
-            e.settings.clone()
-        );
+        let mut game_instance = GameInstance::new(e.settings.clone());
 
         // Create a fresh simulation and directly set the events to match the original
-        let mut simulation = GameSimulation::new(
-            e.settings.clone()
-        );
+        let mut simulation = GameSimulation::new(e.settings.clone());
 
         // Extract player actions in order and replay them
         let player_actions: Vec<_> = events

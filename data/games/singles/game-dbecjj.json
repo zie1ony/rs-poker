@@ -1,0 +1,121 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game-dbecjj",
+      "settings": {
+        "tournament_id": null,
+        "tournament_game_number": null,
+        "game_id": "game-dbecjj",
+        "small_blind": 5.0,
+        "players": [
+          {
+            "AI": {
+              "name": "Alice",
+              "model": "gpt-4o-mini",
+              "strategy": "You are a poker player. Play to win."
+            }
+          },
+          {
+            "AI": {
+              "name": "Bob",
+              "model": "gpt-4o-mini",
+              "strategy": "You are a poker player. Play to win."
+            }
+          }
+        ],
+        "stacks": [
+          100.0,
+          100.0
+        ],
+        "hands": [
+          [
+            "8d",
+            "Jc"
+          ],
+          [
+            "3d",
+            "2s"
+          ]
+        ],
+        "community_cards": [
+          "8s",
+          "2h",
+          "4h",
+          "4c",
+          "Ad"
+        ],
+        "dealer_index": 0
+      }
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "Alice",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "Bob",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "With a hand like 8d Jc, it's better to see the flop for a minimal investment. Betting the minimum allows me to potentially build the pot while also gauging Bob's interest in the hand.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "The hand 3d 2s is weak, and Alice has made a substantial bet of 20 chips. Given that I only have a small stack and the odds of improving this hand are low, it's best to fold and conserve chips for a better opportunity.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "Alice",
+          "won_pot": 30.0,
+          "stack_after": 110.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

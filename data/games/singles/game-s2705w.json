@@ -1,0 +1,232 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game-s2705w",
+      "settings": {
+        "tournament_id": null,
+        "tournament_game_number": null,
+        "game_id": "game-s2705w",
+        "small_blind": 5.0,
+        "players": [
+          {
+            "AI": {
+              "name": "Alice",
+              "model": "gpt-4o-mini",
+              "strategy": "You are a poker player. Play to win."
+            }
+          },
+          {
+            "AI": {
+              "name": "Bob",
+              "model": "gpt-4o-mini",
+              "strategy": "You are a poker player. Play to win."
+            }
+          }
+        ],
+        "stacks": [
+          100.0,
+          100.0
+        ],
+        "hands": [
+          [
+            "Ks",
+            "Kc"
+          ],
+          [
+            "Jh",
+            "4d"
+          ]
+        ],
+        "community_cards": [
+          "Ac",
+          "7s",
+          "3c",
+          "3h",
+          "9h"
+        ],
+        "dealer_index": 0
+      }
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "Alice",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "Bob",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a strong starting hand with a pair of Kings (Ks Kc). Raising the minimum amount to 20 will allow me to build the pot while putting pressure on Bob.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "I have a weak hand (Jh 4d) but Alice's bet indicates a possible weakness too. By raising to a minimum of 30, I can apply pressure while still preserving my stack.",
+        "action": {
+          "Bet": 30.0
+        }
+      },
+      "stack_after": 70.0,
+      "pot_after": 50.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a strong hand with a pair of Kings, and the pot is already significant. I will raise the bet to apply pressure on Bob and potentially make him fold, while also protecting my hand.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 60.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "I will raise to put more pressure on Alice given my relatively weak hand, but not go all-in to conserve chips in case things don't turn out well.",
+        "action": {
+          "Bet": 50.0
+        }
+      },
+      "stack_after": 50.0,
+      "pot_after": 90.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a strong hand with pocket Kings (Ks Kc) and I want to maximize my potential to win the pot. By going all-in, I put pressure on Bob to commit his remaining chips or fold.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 150.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "Alice has gone all-in, and I have already invested 50 chips in this hand. Calling allows me to compete for the significant pot of 150 chips, despite having a weak hand.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ac",
+        "7s",
+        "3c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "3h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "9h"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "Alice",
+          "won_pot": 200.0,
+          "stack_after": 200.0,
+          "rank": {
+            "TwoPair": 16797696
+          },
+          "hand": [
+            "7s",
+            "Ks",
+            "3c",
+            "Kc",
+            "Ac",
+            "3h",
+            "9h"
+          ]
+        }
+      ]
+    }
+  }
+]

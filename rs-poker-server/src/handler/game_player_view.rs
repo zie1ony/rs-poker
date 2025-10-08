@@ -1,13 +1,14 @@
-use axum::{
-    extract::{Query, State},
-};
+use axum::extract::{Query, State};
 use rs_poker_types::{
     game::{GameId, GamePlayerView},
     player::PlayerName,
 };
 
 use crate::{
-    define_handler, handler::{response, HandlerResponse}, poker_client::{ClientResult, PokerClient}, poker_server::ServerState
+    define_handler,
+    handler::{response, HandlerResponse},
+    poker_client::{ClientResult, PokerClient},
+    poker_server::ServerState,
 };
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]

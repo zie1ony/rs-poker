@@ -1,6 +1,6 @@
 pub mod game_instance;
 pub mod game_simulation;
 pub mod game_summary;
+pub mod poker_engine;
 pub mod tournament_instance;
 pub mod tournament_summary;
-pub mod poker_engine;

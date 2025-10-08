@@ -13,7 +13,7 @@ use crate::{
         game_info::{GameInfoHandler, GameInfoRequest},
         game_list::{ListGamesHandler, ListGamesRequest, ListGamesResponse},
         game_make_action::{MakeActionHandler, MakeActionRequest},
-        game_new::{NewGameHandler},
+        game_new::NewGameHandler,
         game_player_view::{GamePlayerViewHandler, GamePlayerViewRequest},
         health_check::{HealthCheckHandler, HealthCheckRequest, HealthCheckResponse},
         tournament_full_view::{

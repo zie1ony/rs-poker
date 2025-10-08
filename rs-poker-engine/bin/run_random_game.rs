@@ -1,6 +1,6 @@
 use rs_poker_engine::{game_instance::GameInstance, game_summary::GameSummary};
 use rs_poker_types::{
-    game::{GameSettings},
+    game::GameSettings,
     player::{AutomatType, Player, PlayerName},
 };
 
@@ -15,7 +15,7 @@ fn main() {
             automat_type: AutomatType::Random,
         })
         .collect();
-    
+
     let game_settings = GameSettings {
         game_id: None,
         tournament_id: None,

@@ -1,0 +1,230 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game-nzlry0",
+      "settings": {
+        "tournament_id": null,
+        "tournament_game_number": null,
+        "game_id": "game-nzlry0",
+        "small_blind": 5.0,
+        "players": [
+          {
+            "AI": {
+              "name": "Alice",
+              "model": "gpt-4o-mini",
+              "strategy": "You are a poker player. Play to win."
+            }
+          },
+          {
+            "AI": {
+              "name": "Bob",
+              "model": "gpt-4o-mini",
+              "strategy": "You are a poker player. Play to win."
+            }
+          }
+        ],
+        "stacks": [
+          100.0,
+          100.0
+        ],
+        "hands": [
+          [
+            "Ts",
+            "6d"
+          ],
+          [
+            "9d",
+            "6c"
+          ]
+        ],
+        "community_cards": [
+          "Tc",
+          "8s",
+          "Th",
+          "3d",
+          "5c"
+        ],
+        "dealer_index": 0
+      }
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "Alice",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "Bob",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a weak hand (Ts 6d), but since I am in the small blind and there is already some money in the pot, I can make a small bet to see if I can take it down now or build the pot for later",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "Alice has made a reasonable bet of 20. Since I have a decent drawing hand with 9d 6c and there's already 30 in the pot, calling the bet allows me to see the flop and evaluate further without risking all my chips.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Tc",
+        "8s",
+        "Th"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "I have a weak hand with a possible straight draw and a pair of tens on the board. Betting 30 puts pressure on Alice while also potentially signaling strength, considering the board. This can help define her hand better.",
+        "action": {
+          "Bet": 30.0
+        }
+      },
+      "stack_after": 50.0,
+      "pot_after": 70.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "With three of a kind (three tens), I have a strong hand. I will raise Bob's bet to extract value.",
+        "action": {
+          "Bet": 60.0
+        }
+      },
+      "stack_after": 20.0,
+      "pot_after": 130.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "I have a strong hand with a pair of Tens and a decent draw possibility. Alice has only 20 chips left; if I go all-in, I can either win her stack completely or take down the pot. It's a high-risk, high-reward move given the current situation.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 180.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a strong hand with trips (three of a kind with Tens). The pot is significant, and with Bob going all-in, I have to call to continue in this hand.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 200.0
+    }
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "3d"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "5c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "Alice",
+          "won_pot": 200.0,
+          "stack_after": 200.0,
+          "rank": {
+            "ThreeOfAKind": 2097232
+          },
+          "hand": [
+            "8s",
+            "Ts",
+            "5c",
+            "Tc",
+            "Th",
+            "3d",
+            "6d"
+          ]
+        }
+      ]
+    }
+  }
+]

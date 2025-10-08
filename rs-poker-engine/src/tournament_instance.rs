@@ -395,23 +395,25 @@ mod tests {
     //     let mut tournament = TournamentInstance::new(&settings);
 
     //     // Verify initial state
-    //     assert_eq!(tournament.status(), &TournamentStatus::WaitingForNextGame);
-    //     assert_eq!(tournament.player_stacks, vec![100.0, 100.0, 100.0]);
-    //     assert!(tournament.winner().is_none());
-    //     assert_eq!(tournament.events.len(), 1); // TournamentCreated event
+    //     assert_eq!(tournament.status(),
+    // &TournamentStatus::WaitingForNextGame);     assert_eq!(tournament.
+    // player_stacks, vec![100.0, 100.0, 100.0]);     assert!(tournament.
+    // winner().is_none());     assert_eq!(tournament.events.len(), 1); //
+    // TournamentCreated event
 
     //     // GAME 0: Test error cases and successful completion
     //     let game0 = tournament.start_next_game().unwrap();
-    //     assert_eq!(game0.tournament_id, Some(settings.tournament_id.clone()));
-    //     assert_eq!(game0.tournament_game_number, Some(0));
-    //     assert_eq!(game0.small_blind, 5.0);
-    //     assert_eq!(game0.players, settings.players);
+    //     assert_eq!(game0.tournament_id,
+    // Some(settings.tournament_id.clone()));     assert_eq!(game0.
+    // tournament_game_number, Some(0));     assert_eq!(game0.small_blind,
+    // 5.0);     assert_eq!(game0.players, settings.players);
     //     assert_eq!(game0.stacks, vec![100.0, 100.0, 100.0]);
     //     assert_eq!(tournament.status(), &TournamentStatus::GameInProgress);
-    //     assert_eq!(tournament.events.len(), 2); // TournamentCreated + GameStarted
+    //     assert_eq!(tournament.events.len(), 2); // TournamentCreated +
+    // GameStarted
 
-    //     // Should fail if we try to start another game without finishing the first
-    //     assert_eq!(
+    //     // Should fail if we try to start another game without finishing the
+    // first     assert_eq!(
     //         tournament.start_next_game().unwrap_err(),
     //         TournamentError::CannotStartNewGame
     //     );
@@ -447,26 +449,28 @@ mod tests {
     //         TournamentError::PlayersMismatch
     //     );
 
-    //     // Should now succeed with fewer players (simulating eliminated players)
-    //     // This behavior changed - we now allow partial results
+    //     // Should now succeed with fewer players (simulating eliminated
+    // players)     // This behavior changed - we now allow partial results
     //     let fewer_players_results = GameFinalResults {
     //         game_id: game0.game_id.clone(),
-    //         player_names: vec![PlayerName::new("Alice"), PlayerName::new("Bob")],
-    //         final_stacks: vec![150.0, 50.0],
+    //         player_names: vec![PlayerName::new("Alice"),
+    // PlayerName::new("Bob")],         final_stacks: vec![150.0, 50.0],
     //     };
     //     // This should now succeed instead of failing
     //     tournament.finish_game(&fewer_players_results).unwrap();
 
     //     // Check that player stacks were updated correctly
-    //     assert_eq!(tournament.player_stacks, vec![150.0, 50.0, 100.0]); // Charlie's stack unchanged
-    //     assert_eq!(tournament.status(), &TournamentStatus::WaitingForNextGame);
-    //     assert_eq!(tournament.events.len(), 3); // TournamentCreated + GameStarted + GameEnded
+    //     assert_eq!(tournament.player_stacks, vec![150.0, 50.0, 100.0]); //
+    // Charlie's stack unchanged     assert_eq!(tournament.status(),
+    // &TournamentStatus::WaitingForNextGame);     assert_eq!(tournament.
+    // events.len(), 3); // TournamentCreated + GameStarted + GameEnded
 
-    //     // GAME 1: Alice continues winning, but now starting from different stacks
-    //     let game1 = tournament.start_next_game().unwrap();
+    //     // GAME 1: Alice continues winning, but now starting from different
+    // stacks     let game1 = tournament.start_next_game().unwrap();
     //     assert_eq!(game1.tournament_game_number, Some(1));
-    //     assert_eq!(game1.small_blind, 5.0); // Blinds don't double until game 3
-    //     assert_eq!(game1.stacks, vec![150.0, 50.0, 100.0]); // Uses updated stacks from game 0
+    //     assert_eq!(game1.small_blind, 5.0); // Blinds don't double until game
+    // 3     assert_eq!(game1.stacks, vec![150.0, 50.0, 100.0]); // Uses
+    // updated stacks from game 0
 
     //     let game1_results = GameFinalResults {
     //         game_id: game1.game_id.clone(),
@@ -493,8 +497,8 @@ mod tests {
     //             PlayerName::new("Bob"),
     //             PlayerName::new("Charlie"),
     //         ],
-    //         final_stacks: vec![250.0, 25.0, 25.0], // Alice gains 30, others lose 15 each
-    //     };
+    //         final_stacks: vec![250.0, 25.0, 25.0], // Alice gains 30, others
+    // lose 15 each     };
     //     tournament.finish_game(&game2_results).unwrap();
     //     assert_eq!(tournament.player_stacks, vec![250.0, 25.0, 25.0]);
     //     assert_eq!(tournament.events.len(), 7); // +GameStarted +GameEnded
@@ -502,7 +506,8 @@ mod tests {
     //     // GAME 3: Blinds double, Alice eliminates Bob
     //     let game3 = tournament.start_next_game().unwrap();
     //     assert_eq!(game3.tournament_game_number, Some(3));
-    //     assert_eq!(game3.small_blind, 10.0); // Blinds should double on game 3
+    //     assert_eq!(game3.small_blind, 10.0); // Blinds should double on game
+    // 3
 
     //     let game3_results = GameFinalResults {
     //         game_id: game3.game_id.clone(),
@@ -515,23 +520,25 @@ mod tests {
     //     };
     //     tournament.finish_game(&game3_results).unwrap();
     //     assert_eq!(tournament.player_stacks, vec![275.0, 0.0, 25.0]);
-    //     assert_eq!(tournament.status(), &TournamentStatus::WaitingForNextGame); // Still 2 players with money
+    //     assert_eq!(tournament.status(),
+    // &TournamentStatus::WaitingForNextGame); // Still 2 players with money
     //     assert_eq!(tournament.events.len(), 9); // +GameStarted +GameEnded
 
     //     // GAME 4: Alice eliminates Charlie and wins the tournament
-    //     // Bob is excluded from this game because he has 0.0 chips (less than small
-    //     // blind of 10.0)
+    //     // Bob is excluded from this game because he has 0.0 chips (less than
+    // small     // blind of 10.0)
     //     let game4 = tournament.start_next_game().unwrap();
     //     assert_eq!(game4.tournament_game_number, Some(4));
     //     assert_eq!(game4.small_blind, 10.0); // Blinds stay doubled
-    //     assert_eq!(game4.stacks, vec![275.0, 25.0]); // Only Alice and Charlie have enough chips
-    //     assert_eq!(game4.players.len(), 2); // Only Alice and Charlie
+    //     assert_eq!(game4.stacks, vec![275.0, 25.0]); // Only Alice and
+    // Charlie have enough chips     assert_eq!(game4.players.len(), 2); //
+    // Only Alice and Charlie
 
     //     let game4_results = GameFinalResults {
     //         game_id: game4.game_id.clone(),
-    //         player_names: vec![PlayerName::new("Alice"), PlayerName::new("Charlie")],
-    //         final_stacks: vec![300.0, 0.0], // Alice wins everything from Charlie
-    //     };
+    //         player_names: vec![PlayerName::new("Alice"),
+    // PlayerName::new("Charlie")],         final_stacks: vec![300.0, 0.0],
+    // // Alice wins everything from Charlie     };
     //     tournament.finish_game(&game4_results).unwrap();
 
     //     // Tournament should be completed
@@ -546,7 +553,8 @@ mod tests {
     //     assert!(tournament.next_action().is_none());
 
     //     // Verify all expected events were recorded
-    //     assert_eq!(tournament.events.len(), 12); // TournamentCreated + 5*(GameStarted+GameEnded) + TournamentFinished
+    //     assert_eq!(tournament.events.len(), 12); // TournamentCreated +
+    // 5*(GameStarted+GameEnded) + TournamentFinished
 
     //     // Check event types in order
     //     match &tournament.events[0] {
@@ -560,13 +568,13 @@ mod tests {
 
     //         match &tournament.events[game_started_idx] {
     //             TournamentEvent::GameStarted(_) => {}
-    //             _ => panic!("Expected GameStarted event at index {}", game_started_idx),
-    //         }
+    //             _ => panic!("Expected GameStarted event at index {}",
+    // game_started_idx),         }
 
     //         match &tournament.events[game_ended_idx] {
     //             TournamentEvent::GameEnded(_) => {}
-    //             _ => panic!("Expected GameEnded event at index {}", game_ended_idx),
-    //         }
+    //             _ => panic!("Expected GameEnded event at index {}",
+    // game_ended_idx),         }
     //     }
 
     //     match &tournament.events[11] {
@@ -599,16 +607,16 @@ mod tests {
     //     let mut tournament = TournamentInstance::new(&settings);
 
     //     // Should suggest starting the first game
-    //     if let Some(TournamentAction::StartNextGame { game_settings }) = tournament.next_action() {
-    //         assert_eq!(game_settings.tournament_game_number, Some(0));
-    //         assert_eq!(tournament.status(), &TournamentStatus::GameInProgress);
-    //     } else {
+    //     if let Some(TournamentAction::StartNextGame { game_settings }) =
+    // tournament.next_action() {         assert_eq!(game_settings.
+    // tournament_game_number, Some(0));         assert_eq!(tournament.
+    // status(), &TournamentStatus::GameInProgress);     } else {
     //         panic!("Expected StartNextGame action");
     //     }
 
     //     // Should suggest finishing the current game
-    //     if let Some(TournamentAction::FinishGame { game_id }) = tournament.next_action() {
-    //         assert_eq!(
+    //     if let Some(TournamentAction::FinishGame { game_id }) =
+    // tournament.next_action() {         assert_eq!(
     //             game_id,
     //             tournament.current_game_id.as_ref().unwrap().clone()
     //         );
@@ -619,9 +627,9 @@ mod tests {
     //     // Finish the game with Alice winning everything
     //     let finish_results = GameFinalResults {
     //         game_id: tournament.current_game_id.as_ref().unwrap().clone(),
-    //         player_names: vec![PlayerName::new("Alice"), PlayerName::new("Bob")],
-    //         final_stacks: vec![200.0, 0.0], // Alice wins all
-    //     };
+    //         player_names: vec![PlayerName::new("Alice"),
+    // PlayerName::new("Bob")],         final_stacks: vec![200.0, 0.0], //
+    // Alice wins all     };
     //     tournament.finish_game(&finish_results).unwrap();
 
     //     // Tournament should be completed

@@ -1,0 +1,192 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game-denqcu",
+      "settings": {
+        "tournament_id": null,
+        "tournament_game_number": null,
+        "game_id": "game-denqcu",
+        "small_blind": 5.0,
+        "players": [
+          {
+            "AI": {
+              "name": "Alice",
+              "model": "gpt-4o-mini",
+              "strategy": "You are a poker player. Play to win."
+            }
+          },
+          {
+            "AI": {
+              "name": "Bob",
+              "model": "gpt-4o-mini",
+              "strategy": "You are a poker player. Play to win."
+            }
+          }
+        ],
+        "stacks": [
+          100.0,
+          100.0
+        ],
+        "hands": [
+          [
+            "6d",
+            "Jh"
+          ],
+          [
+            "5h",
+            "9c"
+          ]
+        ],
+        "community_cards": [
+          "Ts",
+          "3s",
+          "6c",
+          "9s",
+          "8d"
+        ],
+        "dealer_index": 0
+      }
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "Alice",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "Bob",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a decent hand with a 6 of diamonds and a Jack of hearts. Raising the minimum amount can put pressure on Bob and potentially take the pot without needing to see the flop.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "I have a decent hand with 5h 9c, and I want to see the flop while keeping my stack sufficiently intact. Calling allows me to stay in the game without risking all my chips.",
+        "action": "Call"
+      },
+      "stack_after": 80.0,
+      "pot_after": 40.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Ts",
+        "3s",
+        "6c"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "The flop shows cards that do not improve my current hand (5h 9c), and since Alice has already bet 20, a decent play is to continue the aggression by matching her bet while keeping enough chips for potential plays in further rounds.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 60.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a pair of sixes and want to build the pot while denying equity to Bob if he has a draw.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 40.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "With a pot of 100 and Alice having only 40 left, going all-in is an aggressive move that puts pressure on her. I have a draw and I want to dominate the hand with my remaining chips.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "FailedPlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a pair of sixes with my hand, and Bob's push indicates he may have a strong hand or a draw. Given the pot size and my position, I believe calling is the optimal move to see the turn.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "action": "Fold",
+      "stack_after": 40.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Flop",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "Bob",
+          "won_pot": 160.0,
+          "stack_after": 160.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

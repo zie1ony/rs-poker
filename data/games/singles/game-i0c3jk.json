@@ -1,0 +1,296 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game-i0c3jk",
+      "settings": {
+        "tournament_id": null,
+        "tournament_game_number": null,
+        "game_id": "game-i0c3jk",
+        "small_blind": 5.0,
+        "players": [
+          {
+            "AI": {
+              "name": "Alice",
+              "model": "gpt-4o-mini",
+              "strategy": "aggressive, but withdraw sometimes"
+            }
+          },
+          {
+            "AI": {
+              "name": "Bob",
+              "model": "gpt-4o-mini",
+              "strategy": "defensive, but bluffy"
+            }
+          },
+          {
+            "Human": {
+              "name": "Diana"
+            }
+          }
+        ],
+        "stacks": [
+          100.0,
+          100.0,
+          100.0
+        ],
+        "hands": [
+          [
+            "9h",
+            "7c"
+          ],
+          [
+            "3c",
+            "3d"
+          ],
+          [
+            "Jh",
+            "2d"
+          ]
+        ],
+        "community_cards": [
+          "Qh",
+          "5c",
+          "Ks",
+          "As",
+          "3s"
+        ],
+        "dealer_index": 0
+      }
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 1,
+      "player_name": "Bob",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 2,
+      "player_name": "Diana",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a decent hand with 9h 7c and can afford to take a small risk by betting the minimum amount. This aggressive approach allows me to potentially take control of the hand while also providing the opportunity to fold if necessary.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 35.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "With a pair of threes, I have a decent hand to play against two opponents. I'm making a minimum raise to apply some pressure and demonstrate strength while keeping in line with my defensive but bluffy strategy.",
+        "action": {
+          "Bet": 30.0
+        }
+      },
+      "stack_after": 70.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 2,
+      "player_name": "Diana",
+      "player_decision": {
+        "reason": "Player decision",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 60.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a decent hand (9h 7c) and the pot is building up. Raising allows me to apply pressure on Bob and possibly take down the pot, while also protecting my stack.",
+        "action": {
+          "Bet": 40.0
+        }
+      },
+      "stack_after": 60.0,
+      "pot_after": 80.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "I have a pair of 3s, which is a decent hand, especially if I'm in a defensive strategy and can potentially bluff. I will apply pressure on Alice with a raise to try to take the pot or see the flop with a stronger position.",
+        "action": {
+          "Bet": 50.0
+        }
+      },
+      "stack_after": 50.0,
+      "pot_after": 100.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I'm in a strong position with a decent hand (9h 7c) and Bob has shown aggression. I'll make a hefty bet to apply pressure and potentially take the pot.",
+        "action": {
+          "Bet": 60.0
+        }
+      },
+      "stack_after": 40.0,
+      "pot_after": 120.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "I have a small pair and since I'm in a defensive strategy, I will make a sizable bet to pressure Alice, who appears to be over-committing with her bets. This bluffy approach might give her pause and allow me to take control of the hand.",
+        "action": {
+          "Bet": 70.0
+        }
+      },
+      "stack_after": 30.0,
+      "pot_after": 140.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "With a hand of 9h 7c, the pot has grown significantly and betting 80 puts pressure on Bob with his lower stack. This aggressive action aligns with my strategy while maximizing potential gains.",
+        "action": {
+          "Bet": 80.0
+        }
+      },
+      "stack_after": 20.0,
+      "pot_after": 160.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "Going all-in puts pressure on the opponent, especially since both players are already heavily invested in the pot. With a pair of threes, I can either take this opportunity to bluff or go for the win if they call.",
+        "action": "AllIn"
+      },
+      "stack_after": 0.0,
+      "pot_after": 190.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "By calling, I stay in the hand and potentially increase my chances of winning the pot, given that the action has been aggressive and I have a decent hand. I have sufficient chips to continue participating.",
+        "action": "Call"
+      },
+      "stack_after": 0.0,
+      "pot_after": 210.0
+    }
+  },
+  {
+    "RoundAdvance": "DealFlop"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Flop",
+      "cards": [
+        "Qh",
+        "5c",
+        "Ks"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Flop"
+  },
+  {
+    "RoundAdvance": "DealTurn"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "Turn",
+      "cards": [
+        "As"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "Turn"
+  },
+  {
+    "RoundAdvance": "DealRiver"
+  },
+  {
+    "ShowCommunityCards": {
+      "round": "River",
+      "cards": [
+        "3s"
+      ]
+    }
+  },
+  {
+    "RoundAdvance": "River"
+  },
+  {
+    "RoundAdvance": "Showdown"
+  },
+  {
+    "GameEnded": {
+      "final_round": "Showdown",
+      "awards": [
+        {
+          "player_idx": 1,
+          "player_name": "Bob",
+          "won_pot": 210.0,
+          "stack_after": 210.0,
+          "rank": {
+            "ThreeOfAKind": 22528
+          },
+          "hand": [
+            "3s",
+            "Ks",
+            "As",
+            "3c",
+            "5c",
+            "Qh",
+            "3d"
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -97,6 +97,10 @@ impl GameInfo {
             None
         }
     }
+
+    pub fn is_finished(&self) -> bool {
+        self.status == GameStatus::Finished
+    }
 }
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
@@ -109,7 +113,7 @@ pub struct GameSettings {
     pub stacks: Vec<f32>,
     pub hands: Option<Vec<[Card; 2]>>,
     pub community_cards: Option<[Card; 5]>,
-    pub dealer_index: usize
+    pub dealer_index: usize,
 }
 
 impl GameSettings {
@@ -140,7 +144,10 @@ impl GameSettings {
         // Check both hands and community cards if provided or neither
         match (&self.hands, &self.community_cards) {
             (Some(_), None) | (None, Some(_)) => {
-                return Err("Both predefined hands and community cards must be provided together.".to_string());
+                return Err(
+                    "Both predefined hands and community cards must be provided together."
+                        .to_string(),
+                );
             }
             // Validate all cards are unique if predefined hands are provided
             (Some(hands), Some(community)) => {
@@ -154,7 +161,10 @@ impl GameSettings {
                 }
                 for &card in community {
                     if !used_cards.insert(card) {
-                        return Err(format!("Duplicate card found in community cards: {:?}", card));
+                        return Err(format!(
+                            "Duplicate card found in community cards: {:?}",
+                            card
+                        ));
                     }
                 }
             }

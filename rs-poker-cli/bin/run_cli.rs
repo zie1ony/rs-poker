@@ -1,5 +1,6 @@
 use clap::{Parser, Subcommand};
 use rs_poker_cli::{
+    ai_battle::ai_battle,
     run_game::{client, run_example_game},
     series_runner,
 };
@@ -58,7 +59,10 @@ enum Commands {
 enum GameCommands {
     /// Start a new poker game
     Play,
-    
+
+    /// Run AI vs AI battle.
+    AIBattle,
+
     /// List all games
     List {
         /// Show only active games
@@ -124,11 +128,15 @@ enum SeriesCommand {
 #[tokio::main]
 async fn main() {
     let cli = Cli::parse();
+    let client = client(cli.mock_server);
 
     match cli.command {
         Commands::Game { command } => match command {
             GameCommands::Play => {
                 run_example_game(cli.mock_server).await;
+            }
+            GameCommands::AIBattle => {
+                ai_battle(client).await;
             }
             GameCommands::List { active_only } => {
                 list_games(cli.mock_server, active_only).await;
@@ -203,10 +211,7 @@ async fn main() {
 async fn game_full_view(mock_server: bool, game_id: String) {
     let client = client(mock_server);
 
-    match client
-        .game_full_view(&GameId::new(&game_id))
-        .await
-    {
+    match client.game_full_view(&GameId::new(&game_id)).await {
         Ok(game_view) => {
             println!("Game ID: {}", game_id);
             println!("Status: {:?}", game_view.status);

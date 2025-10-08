@@ -1,8 +1,14 @@
 use axum::{extract::State, Json};
-use rs_poker_types::{game::{Decision, GameId, GameInfo}, player::PlayerName};
+use rs_poker_types::{
+    game::{Decision, GameId, GameInfo},
+    player::PlayerName,
+};
 
 use crate::{
-    define_handler, handler::{response, HandlerResponse}, poker_client::{ClientResult, PokerClient}, poker_server::ServerState
+    define_handler,
+    handler::{response, HandlerResponse},
+    poker_client::{ClientResult, PokerClient},
+    poker_server::ServerState,
 };
 
 #[derive(serde::Deserialize, serde::Serialize, Debug)]
@@ -17,11 +23,7 @@ async fn make_action_handler(
     Json(payload): Json<MakeActionRequest>,
 ) -> HandlerResponse<GameInfo> {
     let mut engine = state.engine.lock().unwrap();
-    response(engine.game_make_action(
-        payload.game_id,
-        payload.player_name,
-        payload.decision
-    ))
+    response(engine.game_make_action(payload.game_id, payload.player_name, payload.decision))
 }
 
 define_handler!(

@@ -1,0 +1,121 @@
+[
+  {
+    "GameStarted": {
+      "game_id": "game-1qi5cm",
+      "settings": {
+        "tournament_id": null,
+        "tournament_game_number": null,
+        "game_id": "game-1qi5cm",
+        "small_blind": 5.0,
+        "players": [
+          {
+            "AI": {
+              "name": "Alice",
+              "model": "gpt-4o-mini",
+              "strategy": "You are a poker player. Play to win."
+            }
+          },
+          {
+            "AI": {
+              "name": "Bob",
+              "model": "gpt-4o-mini",
+              "strategy": "You are a poker player. Play to win."
+            }
+          }
+        ],
+        "stacks": [
+          100.0,
+          100.0
+        ],
+        "hands": [
+          [
+            "8h",
+            "Kc"
+          ],
+          [
+            "2d",
+            "6c"
+          ]
+        ],
+        "community_cards": [
+          "4s",
+          "7c",
+          "Jh",
+          "6h",
+          "Js"
+        ],
+        "dealer_index": 0
+      }
+    }
+  },
+  {
+    "RoundAdvance": "Ante"
+  },
+  {
+    "RoundAdvance": "DealPreflop"
+  },
+  {
+    "RoundAdvance": "Preflop"
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "SmallBlind",
+      "player_idx": 0,
+      "player_name": "Alice",
+      "bet": 5.0,
+      "stack_after": 95.0,
+      "pot_after": 5.0
+    }
+  },
+  {
+    "ForcedBet": {
+      "bet_kind": "BigBlind",
+      "player_idx": 1,
+      "player_name": "Bob",
+      "bet": 10.0,
+      "stack_after": 90.0,
+      "pot_after": 15.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 0,
+      "player_name": "Alice",
+      "player_decision": {
+        "reason": "I have a strong hand with Kc and 8h, so I will raise the minimum to build the pot and put pressure on Bob.",
+        "action": {
+          "Bet": 20.0
+        }
+      },
+      "stack_after": 80.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "PlayerAction": {
+      "player_idx": 1,
+      "player_name": "Bob",
+      "player_decision": {
+        "reason": "With a hand of 2d 6c, which is a weak starting hand, and Alice has made a significant bet of 20, it's best to fold and preserve my stack for better opportunities.",
+        "action": "Fold"
+      },
+      "stack_after": 90.0,
+      "pot_after": 30.0
+    }
+  },
+  {
+    "GameEnded": {
+      "final_round": "Preflop",
+      "awards": [
+        {
+          "player_idx": 0,
+          "player_name": "Alice",
+          "won_pot": 30.0,
+          "stack_after": 110.0,
+          "rank": null,
+          "hand": null
+        }
+      ]
+    }
+  }
+]

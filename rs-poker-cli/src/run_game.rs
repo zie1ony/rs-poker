@@ -6,10 +6,7 @@ use crossterm::{
 };
 use rs_poker::arena::action::AgentAction;
 use rs_poker_server::{
-    handler::{
-        game_make_action::MakeActionRequest,
-        game_player_view::GamePlayerViewRequest,
-    },
+    handler::{game_make_action::MakeActionRequest, game_player_view::GamePlayerViewRequest},
     poker_client::PokerClient,
     poker_server,
 };
@@ -19,7 +16,10 @@ use rs_poker_types::{
 };
 use std::io::{self, Write};
 
-use crate::{ai_player, frame::Frame};
+use crate::{
+    ai_player,
+    frame::{self, Frame},
+};
 
 pub fn client(mock_server: bool) -> PokerClient {
     if mock_server {
@@ -34,7 +34,6 @@ pub async fn run_example_game(mock_server: bool) {
     let game_id = initialize_game(&client).await;
 
     // Enable raw mode for immediate key detection
-    terminal::enable_raw_mode().unwrap();
 
     loop {
         let mut frame = Frame::new(&game_id);
@@ -130,7 +129,7 @@ async fn handle_human_player_action(
     let mut selected_index = 0;
     loop {
         display_action_menu(frame, &game.possible_actions, selected_index);
-        clean_frame();
+        frame::clean_frame();
         println!("{}", frame.render());
 
         // Wait for key input
@@ -186,7 +185,7 @@ async fn handle_ai_player_action(
     model: &str,
     strategy: &str,
 ) {
-    clean_frame();
+    frame::clean_frame();
     println!("{}", frame.render());
 
     let game_view = game.summary.clone();
@@ -206,7 +205,7 @@ async fn handle_ai_player_action(
         })
         .await
         .unwrap();
-    clean_frame();
+    frame::clean_frame();
     println!("{}", frame.render());
 }
 
@@ -261,7 +260,7 @@ async fn handle_bet_input(frame: &mut Frame, min: f32, max: f32) -> Option<Agent
         input_display.push_str("Press Enter to confirm, Backspace to delete, Esc to cancel");
 
         frame.with_possible_actions(input_display);
-        clean_frame();
+        frame::clean_frame();
         println!("{}", frame.render());
 
         if let Ok(Event::Key(key_event)) = event::read() {
@@ -306,9 +305,7 @@ async fn handle_bet_input(frame: &mut Frame, min: f32, max: f32) -> Option<Agent
 }
 
 async fn handle_game_finished(client: &PokerClient, game_id: &GameId, frame: &mut Frame) -> bool {
-    let game_full_view_resp = client
-        .game_full_view(&game_id)
-        .await;
+    let game_full_view_resp = client.game_full_view(&game_id).await;
     let game = match game_full_view_resp {
         Ok(view) => view,
         Err(e) => {
@@ -317,7 +314,7 @@ async fn handle_game_finished(client: &PokerClient, game_id: &GameId, frame: &mu
         }
     };
     frame.with_game_summary(game.summary);
-    clean_frame();
+    frame::clean_frame();
     println!("{}", frame.render());
 
     // Wait for any key to exit when game is finished
@@ -325,15 +322,4 @@ async fn handle_game_finished(client: &PokerClient, game_id: &GameId, frame: &mu
         return true;
     }
     false
-}
-
-pub fn clean_frame() {
-    // Clear the entire screen and move cursor to top-left corner
-    execute!(
-        io::stdout(),
-        terminal::Clear(ClearType::All),
-        cursor::MoveTo(0, 0)
-    )
-    .unwrap();
-    io::stdout().flush().unwrap();
 }

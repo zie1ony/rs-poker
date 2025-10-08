@@ -83,13 +83,13 @@ pub enum LLM {
     GPT5,
     GPT5Mini,
     GPT5Nano,
-    Gemini25FlashLight
+    Gemini25FlashLight,
 }
 
 pub enum Provider {
     OpenAI,
     OpenRouter,
-    Google
+    Google,
 }
 
 pub struct LLMDef {
@@ -114,7 +114,6 @@ impl LLMDef {
                 provider: Provider::OpenAI,
             },
             // --- Google ---
-
             LLM::Gemini25FlashLight => Self {
                 name: LLM::Gemini25FlashLight,
                 provider: Provider::Google,

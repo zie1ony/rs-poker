@@ -1,7 +1,11 @@
 use std::collections::HashMap;
 use thiserror::Error;
 
-use rs_poker_types::{game::{Decision, GameFullView, GameId, GameInfo, GamePlayerView, GameSettings}, player::PlayerName, tournament::TournamentId};
+use rs_poker_types::{
+    game::{Decision, GameFullView, GameId, GameInfo, GamePlayerView, GameSettings},
+    player::PlayerName,
+    tournament::TournamentId,
+};
 
 use crate::{game_instance::GameInstance, tournament_instance::TournamentInstance};
 
@@ -63,9 +67,8 @@ impl Clone for PokerEngine {
 }
 
 impl PokerEngine {
-
     // Constructors
-    
+
     pub fn new() -> Self {
         Self::default()
     }
@@ -83,7 +86,7 @@ impl PokerEngine {
     }
 
     // Game management
-    
+
     pub fn game_new(&mut self, game_settings: GameSettings) -> PokerEngineResult<GameInfo> {
         // Validate if the game or tournament already exists.
         if let Some(game_id) = &game_settings.game_id {
@@ -160,10 +163,10 @@ impl PokerEngine {
                 return Err(PokerEngineError::WrongPlayer(
                     game_id.clone(),
                     player_name.clone(),
-                ))
+                ));
             }
         }
-        
+
         // Apply the action.
         game.excute_player_action(decision);
 

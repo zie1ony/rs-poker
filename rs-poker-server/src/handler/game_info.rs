@@ -5,7 +5,10 @@ use axum::{
 use rs_poker_types::game::{GameId, GameInfo};
 
 use crate::{
-    define_handler, handler::{response, HandlerResponse}, poker_client::{ClientResult, PokerClient}, poker_server::ServerState
+    define_handler,
+    handler::{response, HandlerResponse},
+    poker_client::{ClientResult, PokerClient},
+    poker_server::ServerState,
 };
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
@@ -33,6 +36,9 @@ define_handler!(
 
 impl PokerClient {
     pub async fn game_info(&self, game_id: &GameId) -> ClientResult<GameInfo> {
-        self.query::<GameInfoHandler>(GameInfoRequest { game_id: game_id.clone() }).await
+        self.query::<GameInfoHandler>(GameInfoRequest {
+            game_id: game_id.clone(),
+        })
+        .await
     }
 }

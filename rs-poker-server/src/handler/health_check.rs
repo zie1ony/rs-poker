@@ -1,6 +1,10 @@
 use axum::{extract::Query, Json};
 
-use crate::{define_handler, handler::HandlerResponse, poker_client::{ClientResult, PokerClient}};
+use crate::{
+    define_handler,
+    handler::HandlerResponse,
+    poker_client::{ClientResult, PokerClient},
+};
 
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct HealthCheckRequest {

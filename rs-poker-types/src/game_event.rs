@@ -5,7 +5,7 @@ use rs_poker::{
 
 use crate::{
     game::{Decision, GameId, GameSettings},
-    player::{PlayerName},
+    player::PlayerName,
 };
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
@@ -22,7 +22,7 @@ pub enum GameEvent {
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
 pub struct GameStartedEvent {
     pub game_id: GameId,
-    pub settings: GameSettings
+    pub settings: GameSettings,
 }
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq)]
