@@ -47,7 +47,7 @@ impl Frame {
     // Render functions
 
     pub fn render(&self) -> String {
-        let header = "Icefall v0.0.5\n";
+        let header = "Icefall v0.0.6\n";
         let divider = "==============================\n";
         let mut result = String::new();
 

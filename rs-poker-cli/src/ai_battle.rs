@@ -6,6 +6,7 @@ use rs_poker_types::{
     game::{GameInfo, GamePlayerView, GameSettings},
     player::Player,
 };
+use tokio::signal;
 
 use crate::{
     ai_player,
@@ -25,9 +26,16 @@ pub async fn ai_battle(client: PokerClient) {
         Player::ai("Bob", "gpt-4o-mini", "You are a poker player. Play to win."),
     ];
 
-    let game_info = play_game(&client, players).await;
-    frame::end_session();
-    render_current_frame(&client, &game_info).await;
+    tokio::select! {
+        game_info = play_game(&client, players) => {
+            frame::end_session();
+            render_current_frame(&client, &game_info).await;
+        }
+        _ = signal::ctrl_c() => {
+            println!("\nReceived Ctrl+C, stopping game...");
+            frame::end_session();
+        }
+    }
 }
 
 pub async fn play_game(client: &PokerClient, players: Vec<Player>) -> GameInfo {
@@ -54,47 +62,56 @@ pub async fn play_game(client: &PokerClient, players: Vec<Player>) -> GameInfo {
     println!("Started new game: {:?}", game_id);
 
     while !game_info.is_finished() {
-        // Render frame
-        render_current_frame(client, &game_info).await;
+        // Check for cancellation
+        tokio::select! {
+            _ = signal::ctrl_c() => {
+                println!("\nGame interrupted by user");
+                break;
+            }
+            _ = async {
+                // Render frame
+                render_current_frame(client, &game_info).await;
 
-        let current_player = game_info.current_player().unwrap();
-        let current_player_name = current_player.name().clone();
+                let current_player = game_info.current_player().unwrap();
+                let current_player_name = current_player.name().clone();
 
-        let view: GamePlayerView = client
-            .game_player_view(GamePlayerViewRequest {
-                game_id: game_id.clone(),
-                player_name: current_player.name().clone(),
-            })
-            .await
-            .unwrap();
+                let view: GamePlayerView = client
+                    .game_player_view(GamePlayerViewRequest {
+                        game_id: game_id.clone(),
+                        player_name: current_player.name().clone(),
+                    })
+                    .await
+                    .unwrap();
 
-        // Get player view for the current player.
-        let game_view = view.summary.clone();
-        let possible_actions = view.possible_actions.clone();
+                // Get player view for the current player.
+                let game_view = view.summary.clone();
+                let possible_actions = view.possible_actions.clone();
 
-        let decision = if let Player::AI {
-            model, strategy, ..
-        } = current_player
-        {
-            ai_player::decide(
-                model.to_string(),
-                strategy.to_string(),
-                game_view,
-                format!("{:?}", possible_actions),
-            )
-            .await
-        } else {
-            panic!("Current player is not an AI");
-        };
+                let decision = if let Player::AI {
+                    model, strategy, ..
+                } = current_player
+                {
+                    ai_player::decide(
+                        model.to_string(),
+                        strategy.to_string(),
+                        game_view,
+                        format!("{:?}", possible_actions),
+                    )
+                    .await
+                } else {
+                    panic!("Current player is not an AI");
+                };
 
-        game_info = client
-            .make_action(MakeActionRequest {
-                game_id: game_id.clone(),
-                player_name: current_player_name,
-                decision,
-            })
-            .await
-            .unwrap();
+                game_info = client
+                    .make_action(MakeActionRequest {
+                        game_id: game_id.clone(),
+                        player_name: current_player_name,
+                        decision,
+                    })
+                    .await
+                    .unwrap();
+            } => {}
+        }
     }
     game_info
 }
