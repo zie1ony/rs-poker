@@ -1,9 +1,8 @@
 use axum::{extract::State, Json};
-use rs_poker_types::game::{GameId, GameInfo, GameSettings};
+use rs_poker_types::game::{GameInfo, GameSettings};
 
 use crate::{
     define_handler,
-    error::ServerError,
     handler::{response, HandlerResponse},
     poker_client::{ClientResult, PokerClient},
     poker_server::ServerState,

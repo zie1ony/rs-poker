@@ -1,7 +1,6 @@
 use axum::{body::Body, extract::Request, Router};
 use http_body_util::BodyExt;
 use rs_poker_types::{
-    game::{GameFullView, GameId, GameInfo, GamePlayerView, GameSettings},
     tournament::{TournamentId, TournamentInfo, TournamentSettings},
 };
 use tower::ServiceExt;
@@ -9,13 +8,6 @@ use tower::ServiceExt;
 use crate::{
     error::ServerError,
     handler::{
-        game_full_view::{GameFullViewHandler, GameFullViewRequest},
-        game_info::{GameInfoHandler, GameInfoRequest},
-        game_list::{ListGamesHandler, ListGamesRequest, ListGamesResponse},
-        game_make_action::{MakeActionHandler, MakeActionRequest},
-        game_new::NewGameHandler,
-        game_player_view::{GamePlayerViewHandler, GamePlayerViewRequest},
-        health_check::{HealthCheckHandler, HealthCheckRequest, HealthCheckResponse},
         tournament_full_view::{
             TournamentFullViewHandler, TournamentFullViewRequest, TournamentFullViewResponse,
         },

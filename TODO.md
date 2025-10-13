@@ -136,4 +136,4 @@ Decision {
 - PlayerLost
 - PlayerWon
 
-
+### Game info streaming

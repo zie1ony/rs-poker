@@ -6,8 +6,7 @@ use rs_poker_types::game_event::{
     Award, FailedPlayerActionEvent, ForcedBetEvent, GameEndedEvent, GameEvent, GameStartedEvent,
     PlayerActionEvent, ShowCommunityCardsEvent,
 };
-use rs_poker_types::player::{Player, PlayerName};
-use rs_poker_types::tournament::{self, TournamentId};
+use rs_poker_types::player::PlayerName;
 use tracing::{Level, debug_span, event, instrument, trace_span};
 
 use rs_poker::arena::action::{FailedActionPayload, PlayedActionPayload};

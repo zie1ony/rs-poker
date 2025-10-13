@@ -5,8 +5,8 @@ use serde_json::json;
 
 #[derive(serde::Deserialize, Debug)]
 pub struct MyResponse {
-    reason: String,
-    action: MyAction,
+    pub reason: String,
+    pub action: MyAction,
 }
 
 #[derive(serde::Deserialize, Debug)]

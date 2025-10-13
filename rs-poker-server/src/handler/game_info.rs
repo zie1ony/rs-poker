@@ -1,6 +1,5 @@
 use axum::{
     extract::{Query, State},
-    Json,
 };
 use rs_poker_types::game::{GameId, GameInfo};
 

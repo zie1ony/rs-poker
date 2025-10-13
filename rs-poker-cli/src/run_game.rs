@@ -1,8 +1,6 @@
 use crossterm::{
-    cursor,
     event::{self, Event, KeyCode},
-    execute,
-    terminal::{self, ClearType},
+    terminal,
 };
 use rs_poker::arena::action::AgentAction;
 use rs_poker_server::{
@@ -14,7 +12,6 @@ use rs_poker_types::{
     game::{Decision, GameId, GamePlayerView, GameSettings, GameStatus, PossibleAction},
     player::Player,
 };
-use std::io::{self, Write};
 
 use crate::{
     ai_player,

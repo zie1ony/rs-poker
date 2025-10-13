@@ -4,7 +4,6 @@ use rs_poker_cli::{
     run_game::{client, run_example_game},
     series_runner,
 };
-use rs_poker_server::handler::{game_full_view::GameFullViewRequest, game_list::ListGamesRequest};
 use rs_poker_types::{
     game::GameId,
     player::{Player, PlayerName},
