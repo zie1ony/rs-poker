@@ -1,17 +1,20 @@
-use futures_util::{stream, StreamExt};
 use rs_poker::arena::action::AgentAction;
 use rs_poker_types::{
     game::{Decision, GameId, GameInfo, GameSettings, GameStatus},
     player::{Player, PlayerName},
 };
-use std::{net::SocketAddr, sync::Arc, vec};
+use std::{net::SocketAddr, vec};
 use tokio::{
     task::JoinHandle,
     time::{sleep, Duration},
 };
 
+use rs_poker_engine::poker_engine::PokerEngineError;
 use rs_poker_server::{
-    error::ServerError, handler::{game_info_stream::GameInfoStream, game_make_action::MakeActionRequest}, poker_client::{PokerClient, PokerClientError}, poker_server::app_no_storage
+    error::ServerError,
+    handler::{game_info_stream::GameInfoStream, game_make_action::MakeActionRequest},
+    poker_client::{PokerClient, PokerClientError},
+    poker_server::app_no_storage,
 };
 
 #[tokio::main]
@@ -142,8 +145,13 @@ async fn run_scenario() -> Result<(), Box<dyn std::error::Error>> {
     let stream4 = client.game_info_stream(&non_existing_game_id).await;
     assert!(stream4.is_err());
     if let Err(error) = stream4 {
-        let expected_error = PokerClientError::ServerError(ServerError::GameNotFound(non_existing_game_id));
+        // The error comes from the engine, so it's wrapped in PokerEngineError
+        use rs_poker_engine::poker_engine::PokerEngineError;
+        let expected_error = PokerClientError::ServerError(ServerError::PokerEngineError(
+            PokerEngineError::GameNotFound(non_existing_game_id.clone()),
+        ));
         assert_eq!(error, expected_error);
+        println!("Received expected error for non-existing game: {:?}", error);
     }
 
     Ok(())

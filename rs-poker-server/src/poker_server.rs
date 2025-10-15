@@ -56,7 +56,7 @@ pub fn app_no_storage() -> Router {
     app(false)
 }
 
-pub fn app(use_storage: bool) -> Router {
+fn app(use_storage: bool) -> Router {
     router! {
         use_storage,
 

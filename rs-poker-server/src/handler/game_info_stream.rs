@@ -9,6 +9,7 @@ use tokio::sync::{broadcast, RwLock};
 use tokio_tungstenite::connect_async;
 use tokio_tungstenite::tungstenite::Message;
 
+use crate::error::ServerError;
 use crate::poker_client::{ClientResult, PokerClient, PokerClientError, WsStream};
 use crate::{
     handler::{game_info::GameInfoRequest, Handler},
@@ -44,10 +45,30 @@ async fn game_info_stream_handler(
     // Check if game exists and get its current status
     let game_info = {
         let engine = state.engine.lock().unwrap();
-        engine.game_info(&game_id).ok()
+        engine.game_info(&game_id)
     };
 
-    ws.on_upgrade(move |socket| web_socket_handler(socket, game_id, game_info, state))
+    // Return error response if game doesn't exist (before WebSocket upgrade)
+    let game_info = match game_info {
+        Ok(info) => info,
+        Err(_) => {
+            // Return HTTP 404 response instead of upgrading to WebSocket
+            return axum::response::Response::builder()
+                .status(404)
+                .header("content-type", "application/json")
+                .body(
+                    serde_json::json!({
+                        "error": "GameNotFound",
+                        "game_id": game_id.to_string()
+                    })
+                    .to_string()
+                    .into(),
+                )
+                .unwrap();
+        }
+    };
+
+    ws.on_upgrade(move |socket| web_socket_handler(socket, game_id, Some(game_info), state))
 }
 
 async fn web_socket_handler(
@@ -56,18 +77,8 @@ async fn web_socket_handler(
     game_info: Option<GameInfo>,
     state: ServerState,
 ) {
-    // Check if game exists
-    let Some(initial_info) = game_info else {
-        let _ = socket
-            .send(axum::extract::ws::Message::Close(Some(
-                axum::extract::ws::CloseFrame {
-                    code: axum::extract::ws::close_code::UNSUPPORTED,
-                    reason: "Game not found".into(),
-                },
-            )))
-            .await;
-        return;
-    };
+    // Game info is guaranteed to exist at this point
+    let initial_info = game_info.expect("Game info should exist");
 
     // Send initial game info
     if let Ok(json) = serde_json::to_string(&initial_info) {
@@ -102,7 +113,9 @@ async fn web_socket_handler(
             Ok(game_info_json) => {
                 // Send the update to client
                 if socket
-                    .send(axum::extract::ws::Message::Text(game_info_json.clone().into()))
+                    .send(axum::extract::ws::Message::Text(
+                        game_info_json.clone().into(),
+                    ))
                     .await
                     .is_err()
                 {
@@ -176,20 +189,31 @@ impl PokerClient {
                 "WebSocket connections not supported in test mode".to_string(),
             )),
             PokerClient::Http { base_url } => {
-                let ws_url = format!(
-                    "{}/game/stream?game_id={}",
-                    base_url
-                        .replace("http://", "ws://")
-                        .replace("https://", "wss://"),
-                    game_id
-                );
+                // First check if game exists by trying to get game info
+                match self.game_info(game_id).await {
+                    Ok(_) => {
+                        // Game exists, proceed with WebSocket connection
+                        let ws_url = format!(
+                            "{}/game/stream?game_id={}",
+                            base_url
+                                .replace("http://", "ws://")
+                                .replace("https://", "wss://"),
+                            game_id
+                        );
 
-                let (ws_stream, _) = connect_async(&ws_url)
-                    .await
-                    .map_err(|e| PokerClientError::RequestError(e.to_string()))?;
+                        let (ws_stream, _) = connect_async(&ws_url)
+                            .await
+                            .map_err(|e| PokerClientError::RequestError(e.to_string()))?;
 
-                let (_write, read) = ws_stream.split();
-                Ok(GameInfoStream { stream: read })
+                        let (_write, read) = ws_stream.split();
+                        Ok(GameInfoStream { stream: read })
+                    }
+                    Err(e) => {
+                        // Return the error from game_info (which will be GameNotFound if game
+                        // doesn't exist)
+                        Err(e)
+                    }
+                }
             }
         }
     }

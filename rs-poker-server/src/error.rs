@@ -1,15 +1,9 @@
 use rs_poker_engine::poker_engine::PokerEngineError;
-use rs_poker_types::{game::GameId, tournament::TournamentId};
+use rs_poker_types::tournament::TournamentId;
 use thiserror::Error;
 
 #[derive(Error, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 pub enum ServerError {
-    #[error("Game {0:?} not found")]
-    GameNotFound(GameId),
-
-    #[error("Game {0:?} already exists")]
-    GameAlreadyExists(GameId),
-
     #[error("Tournament {0:?} not found")]
     TournamentNotFound(TournamentId),
 
