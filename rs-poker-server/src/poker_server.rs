@@ -4,14 +4,7 @@ use std::{
 
 use crate::{
     handler::{
-        game_full_view::GameFullViewHandler,
-        game_info::GameInfoHandler,
-        game_list::ListGamesHandler,
-        game_make_action::MakeActionHandler,
-        game_new::NewGameHandler,
-        game_player_view::GamePlayerViewHandler,
-        health_check::HealthCheckHandler,
-        Handler,
+        game_full_view::GameFullViewHandler, game_info::GameInfoHandler, game_info_stream::GameInfoStreamHandler, game_list::ListGamesHandler, game_make_action::MakeActionHandler, game_new::NewGameHandler, game_player_view::GamePlayerViewHandler, health_check::HealthCheckHandler, Handler
     },
     persistence::Persistance,
 };
@@ -19,12 +12,12 @@ use axum::Router;
 use rs_poker_engine::poker_engine::PokerEngine;
 
 macro_rules! router {
-    ($($handler:ident),* $(,)?) => {
+    ($use_storage:expr, $($handler:ident),* $(,)?) => {
         Router::new()
             $(
                 .route($handler::path(), $handler::router())
             )*
-            .with_state(ServerState::new())
+            .with_state(ServerState::new($use_storage))
     };
 }
 
@@ -36,16 +29,31 @@ pub struct ServerState {
 }
 
 impl ServerState {
-    pub fn new() -> Self {
-        let storage = Box::new(Persistance::new());
+    pub fn new(use_storage: bool) -> Self {
+        let engine = if use_storage {
+            let storage = Box::new(Persistance::new());
+            PokerEngine::new_with_storage(storage)
+        } else {
+            PokerEngine::new()
+        };
         Self {
-            engine: Arc::new(Mutex::new(PokerEngine::new_with_storage(storage))),
+            engine: Arc::new(Mutex::new(engine)),
         }
     }
 }
 
-pub fn app() -> Router {
+pub fn app_with_storage() -> Router {
+    app(true)
+}
+
+pub fn app_no_storage() -> Router {
+    app(false)
+}
+
+fn app(use_storage: bool) -> Router {
     router! {
+        use_storage,
+
         // Game.
         HealthCheckHandler,
         NewGameHandler,
@@ -53,6 +61,7 @@ pub fn app() -> Router {
         GameFullViewHandler,
         GamePlayerViewHandler,
         GameInfoHandler,
+        GameInfoStreamHandler,
         MakeActionHandler,
     }
 }

@@ -137,3 +137,10 @@ Decision {
 - PlayerWon
 
 ### Game info streaming
+
+I would like the poker_server to stream game_info to client.
+It should be possible for multiple clients to subscribe.
+Client should be able to open websocket connection.
+Using address `/game/stream/?game_id=...`
+Whenever there is a change in game state, server should send updated game_info to all subscribed clients.
+If game is already finished websocket should be closed with proper info like "Game already finished".

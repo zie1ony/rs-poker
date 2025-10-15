@@ -104,6 +104,11 @@ impl GameInfo {
 }
 
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
+pub enum GameInfoStreamMessage {
+    GameInfo(GameInfo),
+}
+
+#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
 pub struct GameSettings {
     pub tournament_id: Option<TournamentId>,
     pub tournament_game_number: Option<usize>,

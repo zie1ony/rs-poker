@@ -7,7 +7,7 @@ edition = "2021"
 rs_poker = { path = "../rs-poker" }
 rs-poker-engine = { path = "../rs-poker-engine" }
 rs-poker-types = { path = "../rs-poker-types" }
-axum = { version = "0.8.4", features = ["macros"] }
+axum = { version = "0.8.6", features = ["macros", "ws"] }
 tokio = { version = "1.0", features = ["full"] }
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
@@ -16,6 +16,8 @@ tower = { version = "0.5.2", features = ["util"] }
 reqwest = { version = "0.12", features = ["json"] }
 serde_urlencoded = "0.7"
 thiserror = "1.0"
+tokio-tungstenite = "0.24"
+futures-util = "0.3"
 
 [[bin]]
 name = "run-server"

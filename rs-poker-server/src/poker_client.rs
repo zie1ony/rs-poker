@@ -4,6 +4,8 @@ use rs_poker_types::{
     tournament::{TournamentId, TournamentInfo, TournamentSettings},
 };
 use tower::ServiceExt;
+use tokio_tungstenite::{WebSocketStream, MaybeTlsStream};
+use futures_util::stream::SplitStream;
 
 use crate::{
     error::ServerError,
@@ -45,6 +47,8 @@ impl std::fmt::Display for PokerClientError {
 impl std::error::Error for PokerClientError {}
 
 pub type ClientResult<T> = Result<T, PokerClientError>;
+
+pub type WsStream = SplitStream<WebSocketStream<MaybeTlsStream<tokio::net::TcpStream>>>;
 
 pub enum PokerClient {
     /// For testing - uses the axum app directly
@@ -120,6 +124,8 @@ impl PokerClient {
         };
         self.query::<TournamentPlayerViewHandler>(request).await
     }
+
+
 }
 
 async fn make_http_query<T: Handler>(

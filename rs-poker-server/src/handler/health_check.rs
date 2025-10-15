@@ -39,8 +39,9 @@ define_handler!(
 impl PokerClient {
     pub async fn health_check(
         &self,
-        request: HealthCheckRequest,
+        id: &str,
     ) -> ClientResult<HealthCheckResponse> {
+        let request = HealthCheckRequest { id: id.to_string() };
         self.query::<HealthCheckHandler>(request).await
     }
 }
