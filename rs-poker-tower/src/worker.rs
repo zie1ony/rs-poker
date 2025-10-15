@@ -1,7 +1,4 @@
-use rs_poker_server::{
-    handler::game_make_action::MakeActionRequest,
-    poker_client::PokerClient,
-};
+use rs_poker_server::{handler::game_make_action::MakeActionRequest, poker_client::PokerClient};
 use tokio::sync::mpsc;
 
 use rs_poker_types::{game::GameId, tournament::TournamentId};

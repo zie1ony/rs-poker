@@ -46,7 +46,6 @@ define_handler!(
     }
 );
 
-
 //     pub fn progress_tournament(&mut self, tournament_id: &TournamentId) {
 //         if let Some(mut tournament) = self.tournament(tournament_id) {
 //             while let Some(action) = tournament.next_action() {
@@ -63,7 +62,7 @@ define_handler!(
 
 //                             // Update tournament and break if the game could
 // not be completed.                             // This means it is waiting for
-// player input.                             
+// player input.
 // self.update_tournament(&tournament);                             break;
 //                         }
 
@@ -85,8 +84,8 @@ define_handler!(
 //                                 game.run();
 //                                 if game.is_complete() {
 //                                     let game_result =
-// game.game_final_results().unwrap();                                     
-// tournament.finish_game(&game_result).unwrap();                               
+// game.game_final_results().unwrap();
+// tournament.finish_game(&game_result).unwrap();
 // self.update_game(&game);                                 } else {
 //                                     self.update_game(&game);
 //                                     self.update_tournament(&tournament);
@@ -96,11 +95,11 @@ define_handler!(
 //                             } else {
 //                                 // Game is already complete, just finish it
 // in the tournament.                                 let game_result =
-// game.game_final_results().unwrap();                                 
+// game.game_final_results().unwrap();
 // tournament.finish_game(&game_result).unwrap();                             }
 //                         } else {
 //                             // Game not found, this is an error in the
-// tournament state.                             
+// tournament state.
 // self.update_tournament(&tournament);                             break;
 //                         }
 //                     }

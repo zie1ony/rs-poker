@@ -1,6 +1,4 @@
-use axum::{
-    extract::{Query, State},
-};
+use axum::extract::{Query, State};
 use rs_poker_types::game::{GameId, GameInfo};
 
 use crate::{

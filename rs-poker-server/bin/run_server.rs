@@ -1,4 +1,4 @@
-use rs_poker_server::poker_server::app;
+use rs_poker_server::poker_server::app_no_storage;
 use tokio::signal;
 
 #[tokio::main]
@@ -9,7 +9,7 @@ pub async fn main() {
     println!("Listening on http://{}", listener.local_addr().unwrap());
 
     // Create and run the server with graceful shutdown
-    axum::serve(listener, app())
+    axum::serve(listener, app_no_storage())
         .with_graceful_shutdown(async {
             signal::ctrl_c()
                 .await

@@ -22,8 +22,24 @@ async fn make_action_handler(
     State(state): State<ServerState>,
     Json(payload): Json<MakeActionRequest>,
 ) -> HandlerResponse<GameInfo> {
-    let mut engine = state.engine.lock().unwrap();
-    response(engine.game_make_action(payload.game_id, payload.player_name, payload.decision))
+    let game_info = {
+        let mut engine = state.engine.lock().unwrap();
+        engine.game_make_action(
+            payload.game_id.clone(),
+            payload.player_name,
+            payload.decision,
+        )
+    };
+
+    // Broadcast game update to all subscribers if action was successful
+    if let Ok(ref info) = game_info {
+        state
+            .game_subscribers
+            .broadcast_game_info(&payload.game_id, info)
+            .await;
+    }
+
+    response(game_info)
 }
 
 define_handler!(

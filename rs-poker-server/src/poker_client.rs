@@ -1,11 +1,9 @@
 use axum::{body::Body, extract::Request, Router};
-use http_body_util::BodyExt;
-use rs_poker_types::{
-    tournament::{TournamentId, TournamentInfo, TournamentSettings},
-};
-use tower::ServiceExt;
-use tokio_tungstenite::{WebSocketStream, MaybeTlsStream};
 use futures_util::stream::SplitStream;
+use http_body_util::BodyExt;
+use rs_poker_types::tournament::{TournamentId, TournamentInfo, TournamentSettings};
+use tokio_tungstenite::{MaybeTlsStream, WebSocketStream};
+use tower::ServiceExt;
 
 use crate::{
     error::ServerError,
@@ -25,7 +23,7 @@ use crate::{
     },
 };
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum PokerClientError {
     RequestError(String),
     JsonParseError(String),
@@ -124,8 +122,6 @@ impl PokerClient {
         };
         self.query::<TournamentPlayerViewHandler>(request).await
     }
-
-
 }
 
 async fn make_http_query<T: Handler>(

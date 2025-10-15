@@ -20,7 +20,7 @@ use crate::{
 
 pub fn client(mock_server: bool) -> PokerClient {
     if mock_server {
-        PokerClient::new_test(poker_server::app())
+        PokerClient::new_test(poker_server::app_no_storage())
     } else {
         PokerClient::new_http("http://localhost:3001")
     }

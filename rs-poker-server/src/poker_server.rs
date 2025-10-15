@@ -1,10 +1,16 @@
-use std::{
-    sync::{Arc, Mutex},
-};
+use std::sync::{Arc, Mutex};
 
 use crate::{
     handler::{
-        game_full_view::GameFullViewHandler, game_info::GameInfoHandler, game_info_stream::GameInfoStreamHandler, game_list::ListGamesHandler, game_make_action::MakeActionHandler, game_new::NewGameHandler, game_player_view::GamePlayerViewHandler, health_check::HealthCheckHandler, Handler
+        game_full_view::GameFullViewHandler,
+        game_info::GameInfoHandler,
+        game_info_stream::{GameInfoStreamHandler, GameInfoStreamSubscribers},
+        game_list::ListGamesHandler,
+        game_make_action::MakeActionHandler,
+        game_new::NewGameHandler,
+        game_player_view::GamePlayerViewHandler,
+        health_check::HealthCheckHandler,
+        Handler,
     },
     persistence::Persistance,
 };
@@ -21,11 +27,10 @@ macro_rules! router {
     };
 }
 
-
-
 #[derive(Clone)]
 pub struct ServerState {
     pub engine: Arc<Mutex<PokerEngine>>,
+    pub game_subscribers: GameInfoStreamSubscribers,
 }
 
 impl ServerState {
@@ -38,6 +43,7 @@ impl ServerState {
         };
         Self {
             engine: Arc::new(Mutex::new(engine)),
+            game_subscribers: GameInfoStreamSubscribers::new(),
         }
     }
 }
@@ -50,7 +56,7 @@ pub fn app_no_storage() -> Router {
     app(false)
 }
 
-fn app(use_storage: bool) -> Router {
+pub fn app(use_storage: bool) -> Router {
     router! {
         use_storage,
 
